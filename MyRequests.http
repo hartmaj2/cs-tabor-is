@@ -1,0 +1,3 @@
+
+# Test the server side of my app
+GET http://localhost:5247/WeatherForecast
