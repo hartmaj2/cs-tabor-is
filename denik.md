@@ -14,4 +14,5 @@
 - Zprovoznit jednoduche vykreslovani z me databaze na MySQL
 
 ### DONE:
+- Zakladam jednu solution a dva separatni projekty, ktere pak spojim do te jedne solution
 
