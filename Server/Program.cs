@@ -4,8 +4,8 @@ builder.Services.AddControllers(); // This adds all classes marked with [ApiCont
 
 var app = builder.Build();
 
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
+app.UseBlazorFrameworkFiles(); // This is necessary so the server knows it should use the Blazor files in Client
+// app.UseStaticFiles();
 
 app.MapControllers(); // This adds the controller services to our routes
 
