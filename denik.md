@@ -17,4 +17,8 @@
 - Zakladam jednu solution a dva separatni projekty, ktere pak spojim do te jedne solution
   - Spojeni do jedne solution se dela commandem `dotnet sln add Server/Server.csproj` a `dotnet sln add Client/Client.csproj`
 - Vyrobim si shared class library abych mohl sdilet kod svych modelu (napriklad Participant)
+  - Pridam reference na tuto shared library
+- Vyrobit model Participant v Shared folderu
+- Vyrobit controller Participants, ktery zatim vraci random participanty podle meho modelu Participant
+- V serverovem Program.cs odstanit kod kteremu nerozumim a pridat kod, ktery namapuje vsechny controllery
 
