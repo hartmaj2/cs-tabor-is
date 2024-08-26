@@ -39,3 +39,10 @@ Nefungoval dotnet watch (connection to browser is taking too long)
 
 Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"` na jiny port na localhostu v profilu http. Nevim, proc tomu tak je.
 
+## 27.8.2024
+
+### TODO: 
+- Naplanovat konkretni dny a co udelat (treba do Google kalendare)
+- Zprovoznit vykreslovani z databaze, kterou mam na Admineru
+- Zprovoznit ukladani do databaze, kterou mam na Admineru
+
