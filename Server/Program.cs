@@ -1,16 +1,17 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddRazorPages();
+builder.Services.AddControllers(); // This adds all classes marked with [ApiController] as a service
 
 var app = builder.Build();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
-app.MapRazorPages();
-app.MapControllers();
+app.MapControllers(); // This adds the controller services to our routes
 
-//app.MapFallbackToFile("index.html");
+/* 
+*   The following line of code is necessary to be able to give control to the Blazor Web Assembly so I can address Client side pages
+*/
+app.MapFallbackToFile("index.html");
 
 app.Run();
