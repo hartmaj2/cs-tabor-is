@@ -1,0 +1,6 @@
+
+GET http://localhost:5062/participants
+
+###
+
+GET http://localhost:5062/weather
