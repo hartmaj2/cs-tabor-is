@@ -15,4 +15,6 @@
 
 ### DONE:
 - Zakladam jednu solution a dva separatni projekty, ktere pak spojim do te jedne solution
+  - Spojeni do jedne solution se dela commandem `dotnet sln add Server/Server.csproj` a `dotnet sln add Client/Client.csproj`
+- Vyrobim si shared class library abych mohl sdilet kod svych modelu (napriklad Participant)
 
