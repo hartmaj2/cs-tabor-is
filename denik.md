@@ -22,3 +22,15 @@
 - Vyrobit controller Participants, ktery zatim vraci random participanty podle meho modelu Participant
 - V serverovem Program.cs odstanit kod kteremu nerozumim a pridat kod, ktery namapuje vsechny controllery
 
+### Problem:
+Z nejakeho duvodu nefungovalo spojeni Clientskych razor pages a Serveroveho spousteni. 
+
+Nutne commandy:
+1. `app.UseBlazorFrameworkFiles();`
+2. `app.MapFallbackToFile("index.html");`
+
+Je nutne pridat do Server projektu referenci na ten Client.csproj, aby mohl server najit ty Blazerove stranky.
+
+! Je rozdil mezi Blazor page a Razor page! Takze neni nutne vubec pouzivat Razor stranky a setupovat pro ne service a routes
+
+
