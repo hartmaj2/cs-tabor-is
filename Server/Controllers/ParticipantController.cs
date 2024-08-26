@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared;
 
 [ApiController]
-[Route("participants")]
+[Route("api/participants")]
 
 public class ParticipantController : ControllerBase
 {
