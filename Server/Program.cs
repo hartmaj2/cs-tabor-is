@@ -1,6 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Server.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(); // This adds all classes marked with [ApiController] as a service
+
+builder.Services.AddDbContext<ParticipantsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
