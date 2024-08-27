@@ -27,11 +27,11 @@ public class ParticipantController : ControllerBase
         for (int i = 0; i < 3; i++)
         {
             participants.Add(
-                new Participant(
-                    FirstNames[random.Next(FirstNames.Length)],
-                    LastNames[random.Next(LastNames.Length)],
-                    random.Next(5,18)
-                )
+                new Participant {
+                    FirstName = FirstNames[random.Next(FirstNames.Length)], 
+                    LastName = LastNames[random.Next(LastNames.Length)], 
+                    Age = random.Next(5,18)
+                    }
             );
         }
     }
@@ -39,7 +39,6 @@ public class ParticipantController : ControllerBase
     [HttpGet]
     public IEnumerable<Participant> GetParticipants()
     {
-        Console.WriteLine(participants.Count);
         return participants;
     }
 
@@ -47,7 +46,6 @@ public class ParticipantController : ControllerBase
     public IActionResult CreateParticipant([FromBody] Participant participant)
     {
         participants.Add(participant);
-        Console.WriteLine(participants.Count);
         return CreatedAtAction(nameof(GetParticipants),participant);
     }
 }
