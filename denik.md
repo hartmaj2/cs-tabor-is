@@ -51,4 +51,10 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### DONE:
 - Do Google Cal jsem si zapsal kratky plan
 - Testuji post metodu na controlleru - zjistil jsem, ze controller pri kazdem POST requestu vytvari novou instanci
+- Komunikace klienta s backendem pomoci metody post (vytvareni ucastniku)
+  - Pouzit dependency injection abych mohl pouzivat Http class k sendovani requestu
+  - Pouzit funkci `PostAsJsonAsync`
+- Vypisovani tabulky ucastniku v klientovi
+  - Dependency injection
+  - `GetFromJsonAsync`
 
