@@ -50,4 +50,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### DONE:
 - Do Google Cal jsem si zapsal kratky plan
+- Testuji post metodu na controlleru - zjistil jsem, ze controller pri kazdem POST requestu vytvari novou instanci
 
