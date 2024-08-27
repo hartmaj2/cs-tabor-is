@@ -1,0 +1,55 @@
+@page "/addparticipant"
+@using Shared
+@inject HttpClient Http
+
+<PageTitle>Add participant</PageTitle>
+
+<h1> Add a participant </h1>
+
+<span> First name: </span>
+<input type="text" @bind="firstName"> 
+<br>
+
+<span> Last name: </span>
+<input type="text" @bind="lastName"> 
+<br>
+
+<span> Age: </span>
+<input type="text" @bind="age"> 
+<br><br>
+
+<button @onclick="SaveParticipant"> Add participant </button>
+
+<br><br>
+
+@if (firstName != null)
+{
+    <p> First name: @firstName </p>
+}
+@if (lastName != null)
+{
+    <p> Last name: @lastName </p>
+}
+@if (age != null)
+{
+    <p> Age: @age </p>
+}
+
+@code
+{
+    private string? firstName;
+    private string? lastName;
+    private int? age;
+    private void SaveParticipant()
+    {
+
+        if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || age == null)
+        {
+            // Handle the error, maybe log it or throw an exception
+            throw new InvalidOperationException("All fields must be filled out.");
+        }
+
+        var participant = new Participant{FirstName = firstName, LastName = lastName, Age = age.Value};
+        Http.PostAsJsonAsync<Participant>("/api/participants",participant,CancellationToken.None);
+    }
+}
