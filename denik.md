@@ -46,3 +46,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Zprovoznit vykreslovani z databaze, kterou mam na Admineru
 - Zprovoznit ukladani do databaze, kterou mam na Admineru
 
+- Komunikace s controllerem in memory - post, get 
+
+### DONE:
+- Do Google Cal jsem si zapsal kratky plan
+
