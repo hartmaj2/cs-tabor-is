@@ -84,4 +84,17 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### Entity
 - K pripojeni k databazi pouzivam Entity Framework, ktery umoznuje, ze muj Controller dostane v konstruktoru DbContext pomoci dependency injection a muze ho potom pouzivat
 - Entity samotna je chytra, jelikoz se dokaze spojit s mou databazi a vytvorit pozadovane dabulky dle mych modelu
+- `dotnet ef migrations add InitialCreate` a pote `dotnet ef database update`
 
+### EVENING TODO:
+- Pridat dalsi atributy do tabulky
+- Umoznit upravovat udaje ucastniku skrze dalsi Blazor stranku
+
+### EVENING DONE:
+- Upravil jsem model Participanta - atributy nejsou required v instancich, ale v databazi ano, stringy jsou nullable
+- Smazal jsem stare migrations a vytvoril nove
+- Pouzil jsem reflection, aby byl muj kod nezavisly na jmenech atributu
+  - To ma mozne nevyhody:
+    - reflection je pomala a prasacka
+    - stejne musim pro jednotlive parametry mit custom constraints, ktere jen tak neodvodim
+  
