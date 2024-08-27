@@ -2,6 +2,7 @@ using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 using Server.Data;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/participants")]
@@ -16,44 +17,18 @@ public class ParticipantController : ControllerBase
         _context = context;
     }
 
-    private static readonly string[] FirstNames = new[]
-    {
-        "James", "Olivia", "Liam", "Emma", "Noah", "Ava", "Lucas", "Sophia", "Mason", "Isabella"
-    };
-
-    private static readonly string[] LastNames = new[]
-    {
-        "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"
-    };
-
-    public static IList<Participant> participants;
-
-    static ParticipantController()
-    {
-        participants = new List<Participant>();
-        var random = new Random();
-        for (int i = 0; i < 3; i++)
-        {
-            participants.Add(
-                new Participant {
-                    FirstName = FirstNames[random.Next(FirstNames.Length)], 
-                    LastName = LastNames[random.Next(LastNames.Length)], 
-                    Age = random.Next(5,18)
-                    }
-            );
-        }
-    }
-
     [HttpGet]
-    public IEnumerable<Participant> GetParticipants()
+    public IEnumerable<Participant> GetParticipantsFromDb()
     {
-        return participants;
+        return _context.Participants.ToList<Participant>();
     }
 
     [HttpPost]
-    public IActionResult CreateParticipant([FromBody] Participant participant)
+    public IActionResult CreateParticipantDb([FromBody] Participant participant)
     {
-        participants.Add(participant);
-        return CreatedAtAction(nameof(GetParticipants),participant);
+        _context.Participants.Add(participant);
+        _context.SaveChanges();
+        return CreatedAtAction(nameof(GetParticipantsFromDb),participant);
     }
+
 }
