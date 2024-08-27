@@ -58,3 +58,30 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Dependency injection
   - `GetFromJsonAsync`
 
+### PROBLEM1:
+- Nefunguje spojeni s MySQL databazi
+- Duvod je nejspis to, ze je potreba se pripojovat z rotundy, coz ale delat nechci
+
+### Azure database creation
+- Vyuzil jsem studentsky plan, a vyrobil jsem si databazi + server
+- Development workload environment
+- Zpusob autentikace jsem dal jednoduse SQL Authentication
+- locally redundant storage
+- Bylo potreba povolit svoji IP na koleji
+
+### NEW TODO:
+- naucit se pridavat do Azure databaze interaktivne veci pres vs code nebo v browseru
+- propojit server s moji Azure databazi
+- okomentovat svuj kod
+- jak zmenim tabulku v databazi? staci upravit model a zavolat dotnet ef udpate?
+
+### NEW DONE:
+- Komunikovat interaktivne skrz SQL dotazy lze v te sekci databaze v polozce `Query editor`
+- Vyzkousel jsem komunikovat s databazi pomoci `SqlConnection` tridy z `System.Data.SqlClient` 
+- Po spusteni dotnet ef database update se mi automaticky vyrobila database dle meho `DbContext.cs` a moji entity `Participant.cs`
+
+
+### Entity
+- K pripojeni k databazi pouzivam Entity Framework, ktery umoznuje, ze muj Controller dostane v konstruktoru DbContext pomoci dependency injection a muze ho potom pouzivat
+- Entity samotna je chytra, jelikoz se dokaze spojit s mou databazi a vytvorit pozadovane dabulky dle mych modelu
+
