@@ -18,12 +18,13 @@ public class ParticipantController : ControllerBase
         "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"
     };
 
-    [HttpGet]
-    public IEnumerable<Participant> Get()
+    public static IList<Participant> participants;
+
+    static ParticipantController()
     {
-        var participants = new List<Participant>();
+        participants = new List<Participant>();
         var random = new Random();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 3; i++)
         {
             participants.Add(
                 new Participant(
@@ -33,6 +34,20 @@ public class ParticipantController : ControllerBase
                 )
             );
         }
+    }
+
+    [HttpGet]
+    public IEnumerable<Participant> GetParticipants()
+    {
+        Console.WriteLine(participants.Count);
         return participants;
+    }
+
+    [HttpPost]
+    public IActionResult CreateParticipant([FromBody] Participant participant)
+    {
+        participants.Add(participant);
+        Console.WriteLine(participants.Count);
+        return CreatedAtAction(nameof(GetParticipants),participant);
     }
 }
