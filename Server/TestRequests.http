@@ -1,6 +1,16 @@
 
-GET http://localhost:5062/participants
+GET http://localhost:5168/api/participants
 
 ###
 
-GET http://localhost:5062/weather
+GET http://localhost:5168/weather
+
+###
+POST http://localhost:5168/api/participants
+Content-Type: application/json
+
+{
+    "firstname": "Jan",
+    "lastname": "Hartman",
+    "age": "23"
+}
