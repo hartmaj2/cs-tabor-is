@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(); // This adds all classes marked with [ApiController] as a service
 
+// Adds the DbContext service to my builder, the connection string can be configured in appsettings.json
+// Using dependency injection so my controller gets the DbContext in constructor automatically
 builder.Services.AddDbContext<ParticipantsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
