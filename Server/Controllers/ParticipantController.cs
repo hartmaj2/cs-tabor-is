@@ -1,12 +1,20 @@
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
+using Server.Data;
 
 [ApiController]
 [Route("api/participants")]
 
 public class ParticipantController : ControllerBase
 {
+
+    private readonly ParticipantsDbContext _context;
+
+    public ParticipantController(ParticipantsDbContext context)
+    {
+        _context = context;
+    }
 
     private static readonly string[] FirstNames = new[]
     {
