@@ -98,3 +98,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
     - reflection je pomala a prasacka
     - stejne musim pro jednotlive parametry mit custom constraints, ktere jen tak neodvodim
   
+### TIP:
+- Testovat Blazor stranku se neda lehce pomoci printu ale staci pri spustenem dotnet watch vytvorit promennou, kterou jen vypisu do html a sleduji, co se v ni objevuje (misto tisknuti pisu do teto promenne)
+  
+## 28.8.2024
+
+### TODO: 
+- Pridat stranku na update informaci o ucastnikovy dle id
+- Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho
+- Vymyslet, jak zprovoznit constraints bez pouziti prasacke reflection
