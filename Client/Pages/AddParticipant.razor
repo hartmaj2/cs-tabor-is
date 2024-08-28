@@ -12,15 +12,15 @@
     @if (@propInfo.Name != typeof(Participant).GetProperties()[0].Name) // we don't want the key property to be set by user
     {
         <div>
-            <span> @propInfo.Name: </span>
-            <input type="text" @onchange="(ChangeEventArgs e) => HandleTextbox(e,propInfo)">
+            <label for="@propInfo.Name"> @propInfo.Name: </label>
+            <input id="@propInfo.Name" type="text" @onchange="(ChangeEventArgs e) => HandleTextbox(e,propInfo)">
         </div>
     } 
 }
 
 <br><br>
 
-<button @onclick="SaveParticipant"> Add participant </button>
+<button class="btn btn-primary" @onclick="SaveParticipant"> Add participant </button>
 
 <br><br>
 
@@ -29,7 +29,7 @@
 @code
 {
 
-    private string outputMessage;
+    private string? outputMessage;
 
     private Participant participantToAdd = new Participant();
 
@@ -38,11 +38,11 @@
         Type targetType = property.PropertyType;
         try
         {
-            object converted = Convert.ChangeType(e.Value,targetType);
+            object converted = Convert.ChangeType(e.Value,targetType)!;
             property.SetValue(participantToAdd,converted);
             outputMessage = "Success";
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             outputMessage = "Invalid cast";
         }
