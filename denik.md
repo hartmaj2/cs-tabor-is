@@ -135,3 +135,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Upravil jsem komponentu s validovanym formularem 
   - aby vysilala vlastni event pri uspesne validaci
   - abych se na hodnotu ucastnika z jejich policek zadanych uzivatelem mohl bindnout a pouzivat ho zvenci
+  - pomoci paired tagu se da nastavit text na buttonu
