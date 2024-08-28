@@ -7,51 +7,69 @@
 
 <h1> Add a participant </h1>
 
-@foreach (PropertyInfo propInfo in typeof(Participant).GetProperties())
-{   
-    @if (@propInfo.Name != typeof(Participant).GetProperties()[0].Name) // we don't want the key property to be set by user
-    {
-        <div>
-            <label for="@propInfo.Name"> @propInfo.Name: </label>
-            <input id="@propInfo.Name" type="text" @onchange="(ChangeEventArgs e) => HandleTextbox(e,propInfo)">
-        </div>
-    } 
-}
+<EditForm Model="@participantFormData" OnInvalidSubmit="SaveParticipant" >
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <div>
+        <label for="firstname"> FirstName: </label> <br/>
+        <InputText id="firstname" @bind-Value="participantFormData.FirstName"/>
+        <ValidationMessage For="() => participantFormData.FirstName" />
+    </div>
+
+    <div>
+        <label for="lastname"> LastName: </label> <br/>
+        <InputText id="lastname" @bind-Value="participantFormData.LastName"/>
+        <ValidationMessage For="() => participantFormData.LastName" />
+    </div>
+
+    <div>
+        <label for="age"> Age: </label> <br/>
+        <InputNumber id="age" @bind-Value="participantFormData.Age"/>
+        <ValidationMessage For="() => participantFormData.Age" />
+    </div>
+
+    <div>
+        <label for="phonenumber"> PhoneNumber: </label> <br/>
+        <InputText id="phonenumber" @bind-Value="participantFormData.PhoneNumber"/>
+        <ValidationMessage For="() => participantFormData.PhoneNumber" />
+    </div>
+
+    <div>
+        <label for="birthnumber"> BirthNumber: </label> <br/>
+        <InputText id="birthnumber" @bind-Value="participantFormData.BirthNumber"/>
+        <ValidationMessage For="() => participantFormData.BirthNumber" />
+    </div>
+
+    <br><br>
+    <button type="submit" class="btn btn-primary"> Add participant </button>
+
+</EditForm>
 
 <br><br>
 
-<button class="btn btn-primary" @onclick="SaveParticipant"> Add participant </button>
-
-<br><br>
-
-<p> @outputMessage </p>
 
 @code
 {
 
-    private string? outputMessage;
+    private ParticipantFormData participantFormData = new();
 
-    private Participant participantToAdd = new Participant();
-
-    private void HandleTextbox(ChangeEventArgs e, PropertyInfo property)
-    {
-        Type targetType = property.PropertyType;
-        try
-        {
-            object converted = Convert.ChangeType(e.Value,targetType)!;
-            property.SetValue(participantToAdd,converted);
-            outputMessage = "Success";
-        }
-        catch (Exception)
-        {
-            outputMessage = "Invalid cast";
-        }
-  
-    }
     private void SaveParticipant()
     {
 
-        Http.PostAsJsonAsync<Participant>("/api/participants",participantToAdd,CancellationToken.None);
+        Http.PostAsJsonAsync<Participant>("/api/participants",MapToApiModel(participantFormData),CancellationToken.None);
+    }
+
+    private Participant MapToApiModel(ParticipantFormData formParticipant)
+    {
+        return new Participant
+        {
+            FirstName = formParticipant.FirstName,
+            LastName = formParticipant.LastName,
+            Age = formParticipant.Age,
+            PhoneNumber = formParticipant.PhoneNumber,
+            BirthNumber = formParticipant.BirthNumber
+        };
     }
 
 }
