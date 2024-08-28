@@ -60,6 +60,7 @@ else
     private bool formSubmitted = false;
 
     private ParticipantFormData participantFormData = new();
+    
     private async Task SaveParticipant()
     {
         await Http.PostAsJsonAsync<Participant>("/api/participants",participantFormData.ConvertToApiParticipant(),CancellationToken.None);
