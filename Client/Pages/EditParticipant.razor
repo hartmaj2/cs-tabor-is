@@ -1,13 +1,30 @@
 @page "/participants/edit/{participantId:int}"
+@inject HttpClient Http
+@using Client.Components
+@using Shared
 
 <PageTitle> Edit participant </PageTitle>
 
-<h1> Edit participant </h1>
-
-<p> Here I will be able to edit participant @ParticipantId </p>
+@if (participant != null)
+{
+    <ParticipantEditForm InitialParticipantData="@participant" />
+}
+else
+{
+    <p> Loading... </p>
+}
 
 @code
 {
     [Parameter]
     public int ParticipantId {get ; set; }
+
+    ParticipantFormData? participant;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Participant? content = await Http.GetFromJsonAsync<Participant>($"/api/participants/{ParticipantId}");
+        participant = content!.ConvertToViewParticipant();
+        
+    }
 }
