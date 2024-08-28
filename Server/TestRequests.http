@@ -1,8 +1,8 @@
 ### Test request for get method
-GET http://localhost:5168/api/participants
+GET http://localhost:5141/api/participants
 
 ### Test request for post method
-POST http://localhost:5168/api/participants 
+POST http://localhost:5141/api/participants 
 Content-Type: application/json
 
 {
@@ -14,5 +14,5 @@ Content-Type: application/json
 }
 
 ### Test request for deleting the whole table
-DELETE http://localhost:5168/api/participants/delete-all
+DELETE http://localhost:5141/api/participants/delete-all
 
