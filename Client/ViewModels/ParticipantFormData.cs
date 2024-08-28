@@ -11,7 +11,7 @@ public class ParticipantFormData
 
     [Required(ErrorMessage = "Age is required.")]
     [Range(0, 200, ErrorMessage = "Age must be between 0 and 200.")]
-    public int Age { get; set; }
+    public int? Age { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
     [RegularExpression(@"^\d{9}$", ErrorMessage = "The phone number must consist of exactly 9 digits.")]
