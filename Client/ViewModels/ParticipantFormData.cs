@@ -1,9 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata;
-using System.Runtime.ConstrainedExecution;
-using System.Text.Json.Serialization;
-
-
 
 public class ParticipantFormData
 {
