@@ -3,6 +3,28 @@
 @using Client.Components
 @inject HttpClient Http
 
-<PageTitle>Add participant</PageTitle>
+@if (formSubmitted)
+{
+    <h1> Successfully added a participant! </h1>
+    <button class="btn btn-primary" @onclick="() => {formSubmitted = false;}"> Add another participant  </button>
+}
+else
+{
+    <h1> Add a participant </h1>
+    <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"/>
+}
 
-<ParticipantEditForm /> 
+@code
+{
+    private ParticipantFormData participantData = new();
+
+    private bool formSubmitted = false;
+    
+
+    private void SaveParticipant()
+    {
+        Http.PostAsJsonAsync<Participant>("/api/participants",participantData.ConvertToApiParticipant(),CancellationToken.None);
+        formSubmitted = true;
+        participantData = new();
+    }
+}
