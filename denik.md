@@ -144,6 +144,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [ ] Upravit quick grid, aby vypadal hezky
+  - [ ] Hezke buttonky
   - [ ] Ukazoval vzestupne/sestupne
 - [ ] Pridat do quick gridu buttonky na update ucastniku
 - [ ] Zprovoznit vyhledavani v quick gridu
