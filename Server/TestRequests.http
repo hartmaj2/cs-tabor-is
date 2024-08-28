@@ -1,16 +1,18 @@
-
+### Test request for get method
 GET http://localhost:5168/api/participants
 
-###
-
-GET http://localhost:5168/weather
-
-###
-POST http://localhost:5168/api/participants
+### Test request for post method
+POST http://localhost:5168/api/participants 
 Content-Type: application/json
 
 {
-    "firstname": "Jan",
-    "lastname": "Hartman",
-    "age": "23"
+    "FirstName" : "Marek",
+    "LastName" : "Nikolic",
+    "Age" : 31,
+    "PhoneNumber" : "777003334",
+    "BirthNumber" : "9304064000"
 }
+
+### Test request for deleting the whole table
+DELETE http://localhost:5168/api/participants/delete-all
+
