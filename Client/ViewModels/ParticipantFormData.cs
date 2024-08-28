@@ -13,7 +13,7 @@ public class ParticipantFormData
     public int Age { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
-    [RegularExpression(@"^\+\d{12}$|^\d{9}$", ErrorMessage = "Invalid phone number.")]
+    [RegularExpression(@"^\d{9}$", ErrorMessage = "The phone number must consist of exactly 9 digits.")]
     public string? PhoneNumber { get; set; }
 
     [Required(ErrorMessage = "Birth number is required.")]
