@@ -44,13 +44,15 @@
 @code
 {
 
-
+    // Used to hookup to my custom OnValidSubmitEvent of this component
     [Parameter]
     public EventCallback OnValidSubmitEvent { get; set; }
     
+    // Used in two way binding as the value I am bound to
     [Parameter]
     public ParticipantFormData ThisParticipant { get; set; } = new();
 
+    // When ThisParticipant property is modified, this event is fired (Blazor knows it must be this event because of the naming)
     [Parameter]
     public EventCallback<ParticipantFormData> ThisParticipantChanged { get; set; }
     
