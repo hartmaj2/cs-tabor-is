@@ -1,5 +1,6 @@
 @page "/participants/all"
 @inject HttpClient Http
+@using Microsoft.AspNetCore.Components.QuickGrid
 
 <PageTitle> Participants </PageTitle>
 
@@ -11,36 +12,24 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                @foreach (var property in typeof(Participant).GetProperties())
-                {
-                    <th> @property.Name </th>
-                }
-            </tr>
-        </thead>
-        <tbody> 
-            @foreach (var participant in participants)
-            {
-                <tr>
-                    @foreach (var property in typeof(Participant).GetProperties())
-                    {
-                        <td> @property.GetValue(participant) </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+    <QuickGrid Items="@participants" class="table">
+        <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.FirstName)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.LastName)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.Age)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
+    </QuickGrid>
 }
 
 @code
 {
-    private List<Participant>? participants;
+    private IQueryable<Participant>? participants;
 
     protected override async Task OnInitializedAsync()
     {
-        participants = await Http.GetFromJsonAsync<List<Participant>>("api/participants/all");
+        var participantsList = await Http.GetFromJsonAsync<List<Participant>>("api/participants/all");
+        participants = participantsList!.AsQueryable();
     }
     
 }
