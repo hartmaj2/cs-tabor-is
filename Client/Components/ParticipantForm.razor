@@ -1,0 +1,58 @@
+@using Shared
+
+<EditForm Model="@ThisParticipant" OnValidSubmit="OnValidSubmitEvent" >
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <div>
+        <label for="firstname"> FirstName: </label> <br/>
+        <InputText id="firstname" @bind-Value="ThisParticipant.FirstName"/>
+        <ValidationMessage For="() => ThisParticipant.FirstName" />
+    </div>
+
+    <div>
+        <label for="lastname"> LastName: </label> <br/>
+        <InputText id="lastname" @bind-Value="ThisParticipant.LastName"/>
+        <ValidationMessage For="() => ThisParticipant.LastName" />
+    </div>
+
+    <div>
+        <label for="age"> Age: </label> <br/>
+        <InputNumber id="age" @bind-Value="ThisParticipant.Age"/>
+        <ValidationMessage For="() => ThisParticipant.Age" />
+    </div>
+
+    <div>
+        <label for="phonenumber"> PhoneNumber: </label> <br/>
+        <InputText id="phonenumber" @bind-Value="ThisParticipant.PhoneNumber"/>
+        <ValidationMessage For="() => ThisParticipant.PhoneNumber" />
+    </div>
+
+    <div>
+        <label for="birthnumber"> BirthNumber: </label> <br/>
+        <InputText id="birthnumber" @bind-Value="ThisParticipant.BirthNumber"/>
+        <ValidationMessage For="() => ThisParticipant.BirthNumber" />
+    </div>
+
+    <br><br>
+    <button type="submit" class="btn btn-primary"> Add participant </button>
+
+</EditForm>
+
+
+@* The following code uses two way binding  *@
+@code
+{
+
+
+    [Parameter]
+    public EventCallback OnValidSubmitEvent { get; set; }
+    
+    [Parameter]
+    public ParticipantFormData ThisParticipant { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<ParticipantFormData> ThisParticipantChanged { get; set; }
+    
+
+}
