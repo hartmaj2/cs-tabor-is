@@ -1,6 +1,8 @@
 @using Shared
 
-<EditForm Model="@ThisParticipant" OnValidSubmit="OnValidSubmitEvent" >
+@* TODO: Find why submit button not working on first click  *@
+
+<EditForm Model="@ThisParticipant" OnValidSubmit="OnValidSubmitEvent" OnInvalidSubmit="OnInvalidSubmitEvent">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
 
@@ -47,6 +49,9 @@
     // Used to hookup to my custom OnValidSubmitEvent of this component
     [Parameter]
     public EventCallback OnValidSubmitEvent { get; set; }
+
+    [Parameter]
+    public EventCallback OnInvalidSubmitEvent { get; set; }
     
     // Used in two way binding as the value I am bound to
     [Parameter]
