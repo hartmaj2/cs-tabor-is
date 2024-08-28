@@ -31,8 +31,17 @@ public class ParticipantController : ControllerBase
         return _context.Participants.ToList<Participant>();
     }
 
+    [HttpPost("edit/{id:int}")]
+    public IActionResult EditParticipant(int id, [FromBody] Participant updatedParticipant)
+    {
+        Participant oldParticipant = _context.Participants.Find(id)!;
+        _context.Entry(oldParticipant).CurrentValues.SetValues(updatedParticipant);
+        _context.SaveChanges();
+        return NoContent();
+    }
+
     // Adds a participant to the participant table
-    [HttpPost]
+    [HttpPost("add")]
     public IActionResult CreateParticipantDb([FromBody] Participant participant)
     {
         _context.Participants.Add(participant);
