@@ -7,7 +7,7 @@
 
 @if (participant != null)
 {
-    <ParticipantEditForm InitialParticipantData="@participant" />
+    <ParticipantForm @bind-ThisParticipant="participant" OnValidSubmitEvent="() => participant = new()"/>
 }
 else
 {
