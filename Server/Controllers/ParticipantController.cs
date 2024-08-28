@@ -18,8 +18,14 @@ public class ParticipantController : ControllerBase
         _context = context;
     }
 
+    [HttpGet("{id:int}")]
+    public Participant? GetParticipantById(int id)
+    {
+        return _context.Participants.Find(id);
+    }
+
     // Gets the list of participants from the participant table
-    [HttpGet]
+    [HttpGet("all")]
     public IEnumerable<Participant> GetParticipantsFromDb()
     {
         return _context.Participants.ToList<Participant>();
