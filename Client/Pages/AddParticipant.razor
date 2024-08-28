@@ -1,6 +1,4 @@
 @page "/participants/add"
-@using Shared
-@using Client.Components
 @inject HttpClient Http
 
 @if (formSubmitted)
@@ -11,16 +9,18 @@
 else
 {
     <h1> Add a participant </h1>
-    <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"/>
+    <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"/> // Use my custom component with 2-way-binding to its value
 }
 
 @code
 {
+    // We initialize the participant to empty participant at the start
     private ParticipantFormData participantData = new();
 
+    // Use this to render different content based on if the form was successfully submitted or not
     private bool formSubmitted = false;
     
-
+    // Connects to my api and posts the participant that was submitted to the form
     private void SaveParticipant()
     {
         Http.PostAsJsonAsync<Participant>("/api/participants",participantData.ConvertToApiParticipant(),CancellationToken.None);
