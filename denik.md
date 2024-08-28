@@ -104,14 +104,23 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 28.8.2024
 
 ### TODO: 
-- Pridat stranku na update informaci o ucastnikovy dle id
-- Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho udaje
-- Vymyslet, jak zprovoznit constraints bez pouziti prasacke reflection
+- [ ] Pridat stranku na update informaci o ucastnikovy dle id
+- [ ] Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho udaje
+- [x] Vymyslet, jak zprovoznit constraints bez pouziti prasacke reflection
 
 ### MORNING TODO:
-- Vytvorit z formulare  na zadavani informaci samostatnou komponentu
+- [ ] Vytvorit z formulare  na zadavani informaci samostatnou komponentu
 
 ### MORNING DONE:
 - Prevadim formular, aby fungovala validace pomoci EditForm, kterou poskytuje Blazor
   - Tim se zbavim Reflections
 - Bylo potreba zalozit model pro Client side participanta, ktery slouzi k anotaci dat tim zpusobem, aby je pak mohl Blazerovsky EditForm validovat
+- Zprovoznil jsem validation pomoci EditForm a custom constraintu na BirthNumber
+- HTML je bohuzel hardcodnute, ale nevim, jak bych to mohl udelat lepe
+
+### MORNING PROBLEM:
+- Nejprve jsem omylem reagoval na event OnInvalidSubmittion a dlouho polemizoval, proc to funguje blbe
+- Dale jsem si neuvedomil, ze je mozne submitnout jak enterem, tak i tlacitkem a mel jsem tam duplicitni zaznamy, nejlepsi je informovat uzivatele o successful submittion
+- Muj custom constraint na edit form nefungoval spravne, boxik svitil zelene i kdyz constraint nebyl splnen
+- Resenim bylo pouzit jiny overload metody IsValid u meho custom AttributeValidatoru
+  - Myslim si, ze to maji v .NETu spatne, tak by bylo dobre to pak nahlasit
