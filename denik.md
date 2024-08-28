@@ -105,5 +105,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO: 
 - Pridat stranku na update informaci o ucastnikovy dle id
-- Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho
+- Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho udaje
 - Vymyslet, jak zprovoznit constraints bez pouziti prasacke reflection
