@@ -107,3 +107,11 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Pridat stranku na update informaci o ucastnikovy dle id
 - Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho udaje
 - Vymyslet, jak zprovoznit constraints bez pouziti prasacke reflection
+
+### MORNING TODO:
+- Vytvorit z formulare  na zadavani informaci samostatnou komponentu
+
+### MORNING DONE:
+- Prevadim formular, aby fungovala validace pomoci EditForm, kterou poskytuje Blazor
+  - Tim se zbavim Reflections
+- Bylo potreba zalozit model pro Client side participanta, ktery slouzi k anotaci dat tim zpusobem, aby je pak mohl Blazerovsky EditForm validovat
