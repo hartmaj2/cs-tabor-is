@@ -1,0 +1,13 @@
+@page "/participants/edit/{participantId:int}"
+
+<PageTitle> Edit participant </PageTitle>
+
+<h1> Edit participant </h1>
+
+<p> Here I will be able to edit participant @ParticipantId </p>
+
+@code
+{
+    [Parameter]
+    public int ParticipantId {get ; set; }
+}
