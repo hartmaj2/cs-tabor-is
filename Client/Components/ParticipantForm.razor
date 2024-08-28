@@ -35,7 +35,7 @@
     </div>
 
     <br><br>
-    <button type="submit" class="btn btn-primary"> Add participant </button>
+    <button type="submit" class="btn btn-primary"> @ChildContent </button>
 
 </EditForm>
 
@@ -55,6 +55,9 @@
     // When ThisParticipant property is modified, this event is fired (Blazor knows it must be this event because of the naming)
     [Parameter]
     public EventCallback<ParticipantFormData> ThisParticipantChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
     
 
 }
