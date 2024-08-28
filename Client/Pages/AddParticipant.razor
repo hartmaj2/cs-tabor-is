@@ -5,59 +5,68 @@
 
 <PageTitle>Add participant</PageTitle>
 
-<h1> Add a participant </h1>
 
-<EditForm Model="@participantFormData" OnValidSubmit="SaveParticipant" >
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
 
-    <div>
-        <label for="firstname"> FirstName: </label> <br/>
-        <InputText id="firstname" @bind-Value="participantFormData.FirstName"/>
-        <ValidationMessage For="() => participantFormData.FirstName" />
-    </div>
+@if (formSubmitted)
+{
+    <h1> Successfully added a participant! </h1>
+    <button class="btn btn-primary" @onclick="() => {formSubmitted = false;}"> Add another participant  </button>
+}
+else
+{
+    <h1> Add a participant </h1>
+    <EditForm Model="@participantFormData" OnValidSubmit="SaveParticipant" >
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
 
-    <div>
-        <label for="lastname"> LastName: </label> <br/>
-        <InputText id="lastname" @bind-Value="participantFormData.LastName"/>
-        <ValidationMessage For="() => participantFormData.LastName" />
-    </div>
+        <div>
+            <label for="firstname"> FirstName: </label> <br/>
+            <InputText id="firstname" @bind-Value="participantFormData.FirstName"/>
+            <ValidationMessage For="() => participantFormData.FirstName" />
+        </div>
 
-    <div>
-        <label for="age"> Age: </label> <br/>
-        <InputNumber id="age" @bind-Value="participantFormData.Age"/>
-        <ValidationMessage For="() => participantFormData.Age" />
-    </div>
+        <div>
+            <label for="lastname"> LastName: </label> <br/>
+            <InputText id="lastname" @bind-Value="participantFormData.LastName"/>
+            <ValidationMessage For="() => participantFormData.LastName" />
+        </div>
 
-    <div>
-        <label for="phonenumber"> PhoneNumber: </label> <br/>
-        <InputText id="phonenumber" @bind-Value="participantFormData.PhoneNumber"/>
-        <ValidationMessage For="() => participantFormData.PhoneNumber" />
-    </div>
+        <div>
+            <label for="age"> Age: </label> <br/>
+            <InputNumber id="age" @bind-Value="participantFormData.Age"/>
+            <ValidationMessage For="() => participantFormData.Age" />
+        </div>
 
-    <div>
-        <label for="birthnumber"> BirthNumber: </label> <br/>
-        <InputText id="birthnumber" @bind-Value="participantFormData.BirthNumber"/>
-        <ValidationMessage For="() => participantFormData.BirthNumber" />
-    </div>
+        <div>
+            <label for="phonenumber"> PhoneNumber: </label> <br/>
+            <InputText id="phonenumber" @bind-Value="participantFormData.PhoneNumber"/>
+            <ValidationMessage For="() => participantFormData.PhoneNumber" />
+        </div>
 
-    <br><br>
-    <button type="submit" class="btn btn-primary"> Add participant </button>
+        <div>
+            <label for="birthnumber"> BirthNumber: </label> <br/>
+            <InputText id="birthnumber" @bind-Value="participantFormData.BirthNumber"/>
+            <ValidationMessage For="() => participantFormData.BirthNumber" />
+        </div>
 
-</EditForm>
+        <br><br>
+        <button type="submit" class="btn btn-primary"> Add participant </button>
 
-<br><br>
+    </EditForm>
+}
 
 
 @code
 {
+    private bool formSubmitted = false;
 
     private ParticipantFormData participantFormData = new();
 
     private void SaveParticipant()
     {
-
         Http.PostAsJsonAsync<Participant>("/api/participants",MapToApiModel(participantFormData),CancellationToken.None);
+        formSubmitted = true;
+        participantFormData = new();
     }
 
     private Participant MapToApiModel(ParticipantFormData formParticipant)
