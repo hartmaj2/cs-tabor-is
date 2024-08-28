@@ -60,6 +60,7 @@ public class DivisibleByAttribute : ValidationAttribute
     }
 }
 
+// Used by EditParticipant razor component after it receives the api participant from the database
 public static class ParticipantExtensions
 {
     public static ParticipantFormData ConvertToViewParticipant(this Participant participant)
