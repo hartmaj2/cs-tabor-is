@@ -1,6 +1,5 @@
 @page "/participants/add"
 @using Shared
-@using System.Reflection
 @inject HttpClient Http
 
 <PageTitle>Add participant</PageTitle>
@@ -61,10 +60,9 @@ else
     private bool formSubmitted = false;
 
     private ParticipantFormData participantFormData = new();
-
-    private void SaveParticipant()
+    private async Task SaveParticipant()
     {
-        Http.PostAsJsonAsync<Participant>("/api/participants",participantFormData.ConvertToApiParticipant(),CancellationToken.None);
+        await Http.PostAsJsonAsync<Participant>("/api/participants",participantFormData.ConvertToApiParticipant(),CancellationToken.None);
         formSubmitted = true;
         participantFormData = new();
     }
