@@ -126,4 +126,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Myslim si, ze to maji v .NETu spatne, tak by bylo dobre to pak nahlasit
 
 ### Afternoon TODO:
+- [x] Remake the component so it fires its own events (use EventCallback)
+- [ ] Zprovoznit editaci ucastniku dle id
+- [ ] Zmenit vypisovani ucastniku, aby vyuzivalo Blazorovskou QuickTable
 - [ ] Add buttons to view single participant
+  
+### Afternoon DONE:
+- Upravil jsem komponentu s validovanym formularem 
+  - aby vysilala vlastni event pri uspesne validaci
+  - abych se na hodnotu ucastnika z jejich policek zadanych uzivatelem mohl bindnout a pouzivat ho zvenci
