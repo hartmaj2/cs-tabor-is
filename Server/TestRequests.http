@@ -1,8 +1,8 @@
 ### Test request for get method
-GET http://localhost:5141/api/participants
+GET http://localhost:5141/api/participants/all
 
 ### Test request for post method
-POST http://localhost:5141/api/participants 
+POST http://localhost:5141/api/participants/add 
 Content-Type: application/json
 
 {
@@ -16,6 +16,19 @@ Content-Type: application/json
 ### Test request for deleting the whole table
 DELETE http://localhost:5141/api/participants/delete-all
 
-### Test request for deleting the whole table
+### Test request for getting specific participant
 GET http://localhost:5141/api/participants/1
+
+### Test request for post method
+POST http://localhost:5141/api/participants/edit/2 
+Content-Type: application/json
+
+{
+    "id" : 2,
+    "FirstName" : "Marek",
+    "LastName" : "Nikolic",
+    "Age" : 18,
+    "PhoneNumber" : "777003334",
+    "BirthNumber" : "9304064000"
+}
 
