@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Shared;
 
 public class ParticipantFormData
 {
@@ -20,6 +21,18 @@ public class ParticipantFormData
     [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Birth number must consist of exaclty 10 digits.")]
     [DivisibleBy(11)]
     public string? BirthNumber { get; set; }
+
+    public Participant ConvertToApiParticipant()
+    {
+        return new Participant
+        {
+            FirstName = FirstName,
+            LastName = LastName,
+            Age = Age,
+            PhoneNumber = PhoneNumber,
+            BirthNumber = BirthNumber
+        };
+    }
 
 }
 

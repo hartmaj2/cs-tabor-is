@@ -64,21 +64,9 @@ else
 
     private void SaveParticipant()
     {
-        Http.PostAsJsonAsync<Participant>("/api/participants",MapToApiModel(participantFormData),CancellationToken.None);
+        Http.PostAsJsonAsync<Participant>("/api/participants",participantFormData.ConvertToApiParticipant(),CancellationToken.None);
         formSubmitted = true;
         participantFormData = new();
-    }
-
-    private Participant MapToApiModel(ParticipantFormData formParticipant)
-    {
-        return new Participant
-        {
-            FirstName = formParticipant.FirstName,
-            LastName = formParticipant.LastName,
-            Age = formParticipant.Age,
-            PhoneNumber = formParticipant.PhoneNumber,
-            BirthNumber = formParticipant.BirthNumber
-        };
     }
 
 }
