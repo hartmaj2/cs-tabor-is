@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Shared;
 
+// This represents the participant data needed for the client side
+// The difference is, that this participant doesn't have Id property because that is not filled in the form by the user
 public class ParticipantFormData
 {
     [Required(ErrorMessage = "First name is required.")]
@@ -32,6 +34,13 @@ public class ParticipantFormData
             PhoneNumber = PhoneNumber,
             BirthNumber = BirthNumber
         };
+    }
+
+    public Participant ConvertToApiParticipant(int id)
+    {
+        var participant = ConvertToApiParticipant();
+        participant.Id = id;
+        return participant;
     }
 
 }
