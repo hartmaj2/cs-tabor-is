@@ -59,3 +59,18 @@ public class DivisibleByAttribute : ValidationAttribute
         return false;
     }
 }
+
+public static class ParticipantExtensions
+{
+    public static ParticipantFormData ConvertToViewParticipant(this Participant participant)
+    {
+        return new ParticipantFormData
+        {
+            FirstName = participant.FirstName,
+            LastName = participant.LastName,
+            Age = participant.Age,
+            PhoneNumber = participant.PhoneNumber,
+            BirthNumber = participant.BirthNumber,
+        };
+    }
+}
