@@ -6,11 +6,11 @@ POST http://localhost:5141/api/participants/add
 Content-Type: application/json
 
 {
-    "FirstName" : "Marek",
-    "LastName" : "Nikolic",
-    "Age" : 31,
+    "FirstName" : "John",
+    "LastName" : "Conway",
+    "Age" : 70,
     "PhoneNumber" : "777003334",
-    "BirthNumber" : "9304064000"
+    "BirthNumber" : "0000000000"
 }
 
 ### Test request for deleting the whole table
@@ -20,15 +20,15 @@ DELETE http://localhost:5141/api/participants/delete-all
 GET http://localhost:5141/api/participants/1
 
 ### Test request for post method
-POST http://localhost:5141/api/participants/edit/2 
+POST http://localhost:5141/api/participants/edit/1 
 Content-Type: application/json
 
 {
-    "id" : 2,
-    "FirstName" : "Marek",
-    "LastName" : "Nikolic",
+    "id" : 1,
+    "FirstName" : "John",
+    "LastName" : "Conway",
     "Age" : 18,
     "PhoneNumber" : "777003334",
-    "BirthNumber" : "9304064000"
+    "BirthNumber" : "0000000000"
 }
 
