@@ -5,7 +5,12 @@
 
 @if (participant != null)
 {
-    <ParticipantForm @bind-ThisParticipant="participant" OnValidSubmitEvent="() => participant = new()"/>
+    <h1> Edit participant </h1>
+    <ParticipantForm @bind-ThisParticipant="participant" OnValidSubmitEvent="UpdateParticipant"> Edit participant </ParticipantForm>
+    if (updated)
+    {
+        <p style="color:green"> Update successful </p>
+    }
 }
 else
 {
@@ -14,6 +19,8 @@ else
 
 @code
 {
+    private bool updated = false;
+
     [Parameter]
     public int ParticipantId {get ; set; }
 
@@ -24,5 +31,11 @@ else
         Participant? content = await Http.GetFromJsonAsync<Participant>($"/api/participants/{ParticipantId}");
         participant = content!.ConvertToViewParticipant();
         
+    }
+
+    private void UpdateParticipant()
+    {
+        Http.PostAsJsonAsync<Participant>($"/api/participants/edit/{ParticipantId}",participant!.ConvertToApiParticipant(ParticipantId),CancellationToken.None);
+        updated = true;
     }
 }
