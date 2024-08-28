@@ -2,8 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 public class ParticipantFormData
 {
-
-
     [Required(ErrorMessage = "First name is required.")]
     public string? FirstName {get; set;}
 
@@ -15,16 +13,17 @@ public class ParticipantFormData
     public int Age { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
-    [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number.")]
+    [Phone(ErrorMessage = "Invalid phone number.")]
     public string? PhoneNumber { get; set; }
 
     [Required(ErrorMessage = "Birth number is required.")]
-    [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Birth number must contain only numbers.")]
-    [DivisibleBy(11,ErrorMessage = "Birth number must be divisible by 11.")]
-    public int? BirthNumber { get; set; }
+    [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Birth number must consist of exaclty 10 digits.")]
+    [DivisibleBy(11)]
+    public string? BirthNumber { get; set; }
 
 }
 
+// Class used for custom validation of divisivility
 public class DivisibleByAttribute : ValidationAttribute
 {
 
@@ -34,12 +33,16 @@ public class DivisibleByAttribute : ValidationAttribute
         _divisor = divisor;
     }
 
-    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    // Here for some reason the form was not validating properly when using ValidationResult overload of the IsValid method
+    // If I returned new ValidationResult with an error message, the form still allowed a submit even though the error message was displayed
+    // That is the reason I am using bool IsValid override instead
+    public override bool IsValid(object? value)
     {
-        if (value is int intValue && intValue % _divisor == 0)
+        if (value is string stringValue && int.TryParse(stringValue,out int number) && number % _divisor == 0)
         {
-            return ValidationResult.Success;
+            return true;
         }
-        return new ValidationResult(ErrorMessage);
+        ErrorMessage = $"Birth number must be divisible by {_divisor}";
+        return false;
     }
 }
