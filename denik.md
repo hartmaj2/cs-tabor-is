@@ -124,3 +124,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Muj custom constraint na edit form nefungoval spravne, boxik svitil zelene i kdyz constraint nebyl splnen
 - Resenim bylo pouzit jiny overload metody IsValid u meho custom AttributeValidatoru
   - Myslim si, ze to maji v .NETu spatne, tak by bylo dobre to pak nahlasit
+
+### Afternoon TODO:
+- [ ] Add buttons to view single participant
