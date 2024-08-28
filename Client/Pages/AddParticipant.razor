@@ -23,7 +23,7 @@ else
     // Connects to my api and posts the participant that was submitted to the form
     private void SaveParticipant()
     {
-        Http.PostAsJsonAsync<Participant>("/api/participants",participantData.ConvertToApiParticipant(),CancellationToken.None);
+        Http.PostAsJsonAsync<Participant>("/api/participants/add",participantData.ConvertToApiParticipant(),CancellationToken.None);
         formSubmitted = true;
         participantData = new();
     }
