@@ -104,12 +104,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 28.8.2024
 
 ### TODO: 
-- [ ] Pridat stranku na update informaci o ucastnikovy dle id
+- [x] Pridat stranku na update informaci o ucastnikovy dle id
 - [ ] Zprovoznit button, kterym kliknu na ucastnika a budu moci upravit prave jeho udaje
 - [x] Vymyslet, jak zprovoznit constraints bez pouziti prasacke reflection
 
 ### MORNING TODO:
-- [ ] Vytvorit z formulare  na zadavani informaci samostatnou komponentu
+- [x] Vytvorit z formulare  na zadavani informaci samostatnou komponentu
 
 ### MORNING DONE:
 - Prevadim formular, aby fungovala validace pomoci EditForm, kterou poskytuje Blazor
@@ -127,12 +127,25 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### Afternoon TODO:
 - [x] Remake the component so it fires its own events (use EventCallback)
-- [ ] Zprovoznit editaci ucastniku dle id
-- [ ] Zmenit vypisovani ucastniku, aby vyuzivalo Blazorovskou QuickTable
-- [ ] Add buttons to view single participant
+- [x] Zprovoznit editaci ucastniku dle id
+- [x] Pridat event, ktery mohu hooknout na OnInvalidSubmit
+- [x] Zmenit vypisovani ucastniku, aby vyuzivalo Blazorovskou QuickTable
+- [ ] Add buttons to view single participant into QuickTable
   
 ### Afternoon DONE:
 - Upravil jsem komponentu s validovanym formularem 
   - aby vysilala vlastni event pri uspesne validaci
   - abych se na hodnotu ucastnika z jejich policek zadanych uzivatelem mohl bindnout a pouzivat ho zvenci
-  - pomoci paired tagu se da nastavit text na buttonu
+  - pomoci paired tagu se da nastavit text na buttonu (je dobre ho nastavit jako required?)
+- Participanty vypisuji pomoci QuickGridu, ale nevim, jak ten grid udelat hezky 
+  - ukazovat na buttonku, zda sortime vzestupne/sestupne atd.
+  
+## 29.8.2024
+
+### TODO:
+- [ ] Upravit quick grid, aby vypadal hezky
+  - [ ] Ukazoval vzestupne/sestupne
+- [ ] Pridat do quick gridu buttonky na update ucastniku
+- [ ] Zprovoznit vyhledavani v quick gridu
+- [ ] Pridat button na add participant do sekce participants a vymazat sekci add participant
+- [ ] Vytvorit jednoduchou kostru pro sekci meals
