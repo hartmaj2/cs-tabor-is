@@ -57,19 +57,26 @@ else
 
     private LastNameFilter lastNameFilter = new LastNameFilter();
 
+    private List<IQuickGridFilter> filters = new();
+
     // Filtered source for the QuickGrid
     private IQueryable<Participant> FilteredParticipants
     {
         get
         {
-            var result = ageBoundFilter.GetFiltered(participants!);
-            return lastNameFilter.GetFiltered(result);
+            var result = participants;
+            foreach (var filter in filters){
+                result = filter.GetFiltered(result!);
+            }
+            return result!;
         }
     } 
 
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
+        filters.Add(ageBoundFilter); 
+        filters.Add(lastNameFilter);
         var participantsList = await Http.GetFromJsonAsync<List<Participant>>("api/participants/all");
         participants = participantsList!.AsQueryable();
     }
@@ -82,26 +89,6 @@ else
         Navigation.NavigateTo($"/participants/edit/{id}");
     }
 
-    private class LastNameFilter
-    {
-        public string? FilterText { get ; set; }
 
-        public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered)
-        {
-            if (string.IsNullOrWhiteSpace(FilterText)) return unfiltered;
-            return unfiltered.Where(p => p.LastName!.Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
-        }
-    }
-
-    private class AgeBoundFilter
-    {
-        public int Min { get; set; } = ParticipantFormData.LowestAge;
-        public int Max { get; set; } = ParticipantFormData.HighestAge;
-
-        public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered)
-        {
-            return unfiltered.Where(p => p.Age >= Min && p.Age <= Max);
-        }
-    }
     
 }
