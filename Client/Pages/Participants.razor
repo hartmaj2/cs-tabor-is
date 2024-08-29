@@ -34,11 +34,16 @@ else
 {
     private IQueryable<Participant>? participants;
 
+    // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
         var participantsList = await Http.GetFromJsonAsync<List<Participant>>("api/participants/all");
         participants = participantsList!.AsQueryable();
     }
+
+    // Used to navigate to edit page after pressing the edit button
+    // The id argument is received from the TemplateColumn context which is a reference to the participant in the current row
+    // 
     private void NavigateToEditPage(int id)
     {
         Navigation.NavigateTo($"/participants/edit/{id}");
