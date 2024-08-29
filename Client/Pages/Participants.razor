@@ -17,11 +17,25 @@
 }
 else
 {
-    <QuickGrid Items="@participants" class="table quickgrid">
+    <QuickGrid Items="@FilteredParticipants" class="table quickgrid">
         <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
         <PropertyColumn Property="@(p => p.FirstName)" Sortable="true" />
         <PropertyColumn Property="@(p => p.LastName)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.Age)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.Age)" Sortable="true" >
+            <ColumnOptions>
+                <div>
+                    Min: 
+                    <input type="range" @bind="ageBoundFilter.Min" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                    <input type="text" @bind="ageBoundFilter.Min" @bind:event="oninput" />
+                </div>
+                <br>
+                <div>
+                    Max: 
+                    <input type="range" @bind="ageBoundFilter.Max" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                    <input type="text" @bind="ageBoundFilter.Max" @bind:event="oninput" />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
         <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
         <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
         <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
@@ -29,10 +43,21 @@ else
     </QuickGrid>
 }
 
-
 @code
 {
     private IQueryable<Participant>? participants;
+
+    // Used to filter by age using lower and upper bound
+    private AgeBoundFilter ageBoundFilter = new AgeBoundFilter();
+
+    // Filtered source for the QuickGrid
+    private IQueryable<Participant> FilteredParticipants
+    {
+        get
+        {
+            return ageBoundFilter.GetFiltered(participants!);
+        }
+    } 
 
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
@@ -47,6 +72,17 @@ else
     private void NavigateToEditPage(int id)
     {
         Navigation.NavigateTo($"/participants/edit/{id}");
+    }
+
+    private class AgeBoundFilter
+    {
+        public int Min { get; set; } = ParticipantFormData.LowestAge;
+        public int Max { get; set; } = ParticipantFormData.HighestAge;
+
+        public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered)
+        {
+            return unfiltered.Where(p => p.Age >= Min && p.Age <= Max);
+        }
     }
     
 }
