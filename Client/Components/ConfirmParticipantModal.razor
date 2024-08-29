@@ -1,10 +1,11 @@
+@using Shared
 @* This component represents a simple modal for confirming actions on participants *@
 
 @if (isModalVisible)
 {
     <div>
         <div>
-            <p> @ChildContent @participantName &#63; </p>
+            <p> @ChildContent @participant!.FirstName @participant.LastName &#63; </p>
             <button class="btn btn-primary" @onclick="Confirm">Yes</button>
             <button class="btn btn-primary" @onclick="Cancel">No</button>
         </div>
@@ -22,20 +23,17 @@
     public EventCallback<int> OnConfirm { get; set; }   
 
     private bool isModalVisible = false;
-    private int participantId;
-    private string? participantName;
-
-    public void ShowModal(int participantId, string participantName)
+    private Participant? participant;
+    public void ShowModal(Participant participant)
     {
-        this.participantId = participantId;
-        this.participantName = participantName;
+        this.participant = participant;
         isModalVisible = true;
     }
 
     // On confirmation, we want to fire invoke the function we received from the parent component, we invoke it with the current participantId
     private void Confirm()
     {
-        OnConfirm.InvokeAsync(participantId);
+        OnConfirm.InvokeAsync(participant!.Id);
         isModalVisible = false;
     }
 

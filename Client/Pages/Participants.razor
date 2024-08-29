@@ -44,7 +44,7 @@ else
         <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
         <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
         <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
-        <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="@(() => ShowDeleteParticipantModal(context.Id,context.FirstName + " " + context.LastName))"> Delete </button></TemplateColumn>
+        <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(context)"> Delete </button></TemplateColumn>
         
     </QuickGrid>
 
@@ -74,9 +74,9 @@ else
     private ConfirmParticipantModal? deleteParticipantModal;
 
     // Uses the reference to deletion modal to call the ShowModal method of that modal that causes it to show up and also store the participant data
-    private void ShowDeleteParticipantModal(int participantId, string participantName)
+    private void ShowDeleteParticipantModal(Participant participant)
     {
-        deleteParticipantModal!.ShowModal(participantId,participantName);
+        deleteParticipantModal!.ShowModal(participant);
     }
 
     // Filtered source for the QuickGrid
