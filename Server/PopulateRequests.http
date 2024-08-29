@@ -1,0 +1,238 @@
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Alice",
+    "LastName" : "Johnson",
+    "Age" : 28,
+    "PhoneNumber" : "5551234567",
+    "BirthNumber" : "1234567890"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Bob",
+    "LastName" : "Smith",
+    "Age" : 35,
+    "PhoneNumber" : "5559876543",
+    "BirthNumber" : "2345678901"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Charlie",
+    "LastName" : "Brown",
+    "Age" : 42,
+    "PhoneNumber" : "5552233445",
+    "BirthNumber" : "3456789012"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Diana",
+    "LastName" : "Prince",
+    "Age" : 30,
+    "PhoneNumber" : "5553344556",
+    "BirthNumber" : "4567890123"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Evan",
+    "LastName" : "Taylor",
+    "Age" : 24,
+    "PhoneNumber" : "5554455667",
+    "BirthNumber" : "5678901234"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Fiona",
+    "LastName" : "Williams",
+    "Age" : 29,
+    "PhoneNumber" : "5555566778",
+    "BirthNumber" : "6789012345"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "George",
+    "LastName" : "Harrison",
+    "Age" : 38,
+    "PhoneNumber" : "5556677889",
+    "BirthNumber" : "7890123456"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Hannah",
+    "LastName" : "Montana",
+    "Age" : 31,
+    "PhoneNumber" : "5557788990",
+    "BirthNumber" : "8901234567"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Ian",
+    "LastName" : "McGregor",
+    "Age" : 36,
+    "PhoneNumber" : "5558899001",
+    "BirthNumber" : "9012345678"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Julia",
+    "LastName" : "Roberts",
+    "Age" : 45,
+    "PhoneNumber" : "5559900012",
+    "BirthNumber" : "0123456789"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Kevin",
+    "LastName" : "Hart",
+    "Age" : 41,
+    "PhoneNumber" : "5551011123",
+    "BirthNumber" : "1234567891"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Laura",
+    "LastName" : "Croft",
+    "Age" : 33,
+    "PhoneNumber" : "5552122234",
+    "BirthNumber" : "2345678912"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Michael",
+    "LastName" : "Jordan",
+    "Age" : 50,
+    "PhoneNumber" : "5553233345",
+    "BirthNumber" : "3456789123"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Natalie",
+    "LastName" : "Portman",
+    "Age" : 37,
+    "PhoneNumber" : "5554344456",
+    "BirthNumber" : "4567891234"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Oscar",
+    "LastName" : "Wilde",
+    "Age" : 29,
+    "PhoneNumber" : "5555455567",
+    "BirthNumber" : "5678912345"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Penelope",
+    "LastName" : "Cruz",
+    "Age" : 43,
+    "PhoneNumber" : "5556566678",
+    "BirthNumber" : "6789123456"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Quentin",
+    "LastName" : "Tarantino",
+    "Age" : 47,
+    "PhoneNumber" : "5557677789",
+    "BirthNumber" : "7891234567"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Rachel",
+    "LastName" : "Green",
+    "Age" : 32,
+    "PhoneNumber" : "5558788890",
+    "BirthNumber" : "8912345678"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Samuel",
+    "LastName" : "Jackson",
+    "Age" : 52,
+    "PhoneNumber" : "5559899001",
+    "BirthNumber" : "9123456789"
+}
+
+###
+POST http://localhost:5141/api/participants/add
+Content-Type: application/json
+
+{
+    "FirstName" : "Tina",
+    "LastName" : "Fey",
+    "Age" : 40,
+    "PhoneNumber" : "5550910123",
+    "BirthNumber" : "0234567891"
+}
