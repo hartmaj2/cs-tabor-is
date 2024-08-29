@@ -103,3 +103,7 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.quickgrid td{
+    vertical-align: middle;
+}
