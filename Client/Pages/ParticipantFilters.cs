@@ -1,5 +1,6 @@
 using Shared;
 
+// This interface serves as a base for filters that I would like to apply to my participants table
 public interface IQuickGridFilter
 {
     public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered);
