@@ -1,0 +1,41 @@
+@if (isModalVisible)
+{
+    <div>
+        <div>
+            <p> @ChildContent @participantName &#63; </p>
+            <button class="btn btn-primary" @onclick="Confirm">Yes</button>
+            <button class="btn btn-primary" @onclick="Cancel">No</button>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnConfirm { get; set; }   
+
+    private bool isModalVisible = false;
+    private int participantId;
+    private string? participantName;
+
+    public void ShowModal(int participantId, string participantName)
+    {
+        this.participantId = participantId;
+        this.participantName = participantName;
+        isModalVisible = true;
+    }
+
+    private void Confirm()
+    {
+        OnConfirm.InvokeAsync(participantId);
+        isModalVisible = false;
+    }
+
+    private void Cancel()
+    {
+        isModalVisible = false;
+    }
+}
