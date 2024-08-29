@@ -44,9 +44,11 @@ else
         <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
         <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
         <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
-        <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="() => DeleteParticipant(context.Id)"> Delete </button></TemplateColumn>
+        <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="@(() => ShowDeleteParticipantModal(context.Id,context.FirstName + " " + context.LastName))"> Delete </button></TemplateColumn>
         
     </QuickGrid>
+
+    <ConfirmParticipantModal @ref="confirmParticipantModal" OnConfirm="DeleteParticipant"> Are you sure you want to delete participant </ConfirmParticipantModal>
 }
 
 @code
@@ -66,6 +68,13 @@ else
     {
         filters.Add(ageBoundFilter); 
         filters.Add(lastNameFilter);
+    }
+
+    private ConfirmParticipantModal? confirmParticipantModal;
+
+    private void ShowDeleteParticipantModal(int participantId, string participantName)
+    {
+        confirmParticipantModal!.ShowModal(participantId,participantName);
     }
 
     // Filtered source for the QuickGrid
