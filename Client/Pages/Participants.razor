@@ -53,9 +53,9 @@ else
     private IQueryable<Participant>? participants;
 
     // Used to filter by age using lower and upper bound
-    private AgeBoundFilter ageBoundFilter = new AgeBoundFilter();
+    private IntegerBoundFilter ageBoundFilter = new() {Min = ParticipantFormData.LowestAge, Max = ParticipantFormData.HighestAge};
 
-    private LastNameFilter lastNameFilter = new LastNameFilter();
+    private TextFilter lastNameFilter = new();
 
     private List<IQuickGridFilter> filters = new();
 

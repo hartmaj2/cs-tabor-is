@@ -5,7 +5,7 @@ public interface IQuickGridFilter
     public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered);
 }
 
-public class LastNameFilter : IQuickGridFilter
+public class TextFilter : IQuickGridFilter
 {
     public string? FilterText { get ; set; }
 
@@ -16,10 +16,10 @@ public class LastNameFilter : IQuickGridFilter
     }
 }
 
-public class AgeBoundFilter : IQuickGridFilter
+public class IntegerBoundFilter : IQuickGridFilter
 {
-    public int Min { get; set; } = ParticipantFormData.LowestAge;
-    public int Max { get; set; } = ParticipantFormData.HighestAge;
+    public int Min { get; set; }
+    public int Max { get; set; }
 
     public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered)
     {
