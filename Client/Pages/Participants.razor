@@ -1,10 +1,15 @@
 @page "/participants/all"
 @inject HttpClient Http
+@inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Components.QuickGrid
 
 <PageTitle> Participants </PageTitle>
 
 <h1> Participants </h1>
+
+<NavLink class="nav-item" href="/participants/add">
+    <button class="btn btn-primary"> Add a participant </button>
+</NavLink>
 
 @if (participants == null)
 {
@@ -19,8 +24,11 @@ else
         <PropertyColumn Property="@(p => p.Age)" Sortable="true" />
         <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
         <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
+        <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
+        
     </QuickGrid>
 }
+
 
 @code
 {
@@ -30,6 +38,10 @@ else
     {
         var participantsList = await Http.GetFromJsonAsync<List<Participant>>("api/participants/all");
         participants = participantsList!.AsQueryable();
+    }
+    private void NavigateToEditPage(int id)
+    {
+        Navigation.NavigateTo($"/participants/edit/{id}");
     }
     
 }
