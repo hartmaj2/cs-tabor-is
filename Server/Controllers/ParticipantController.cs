@@ -49,6 +49,15 @@ public class ParticipantController : ControllerBase
         return CreatedAtAction(nameof(GetParticipantsFromDb),participant);
     }
 
+    // Deletes single participant with given id
+    [HttpDelete("delete/{id:int}")]
+    public IActionResult DeleteParticipant(int id)
+    {
+        Participant toDelete = _context.Participants.Find(id)!;
+        _context.Participants.Remove(toDelete);
+        _context.SaveChanges();
+        return NoContent();
+    }
 
     // Deletes everything from the participant table
     [HttpDelete("delete-all")]
