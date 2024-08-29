@@ -20,7 +20,12 @@ else
     <QuickGrid Items="@FilteredParticipants" class="table quickgrid">
         <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
         <PropertyColumn Property="@(p => p.FirstName)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.LastName)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.LastName)" Sortable="true" > 
+            <ColumnOptions>
+                <input type="search" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="Search last name... "/>
+            </ColumnOptions>
+        </PropertyColumn>
+        
         <PropertyColumn Property="@(p => p.Age)" Sortable="true" >
             <ColumnOptions>
                 <div>
@@ -50,12 +55,15 @@ else
     // Used to filter by age using lower and upper bound
     private AgeBoundFilter ageBoundFilter = new AgeBoundFilter();
 
+    private LastNameFilter lastNameFilter = new LastNameFilter();
+
     // Filtered source for the QuickGrid
     private IQueryable<Participant> FilteredParticipants
     {
         get
         {
-            return ageBoundFilter.GetFiltered(participants!);
+            var result = ageBoundFilter.GetFiltered(participants!);
+            return lastNameFilter.GetFiltered(result);
         }
     } 
 
@@ -72,6 +80,17 @@ else
     private void NavigateToEditPage(int id)
     {
         Navigation.NavigateTo($"/participants/edit/{id}");
+    }
+
+    private class LastNameFilter
+    {
+        public string? FilterText { get ; set; }
+
+        public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered)
+        {
+            if (string.IsNullOrWhiteSpace(FilterText)) return unfiltered;
+            return unfiltered.Where(p => p.LastName!.Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
+        }
     }
 
     private class AgeBoundFilter
