@@ -48,7 +48,7 @@ else
         
     </QuickGrid>
 
-    <ConfirmParticipantModal @ref="confirmParticipantModal" OnConfirm="DeleteParticipant"> Are you sure you want to delete participant </ConfirmParticipantModal>
+    <ConfirmParticipantModal @ref="deleteParticipantModal" OnConfirm="DeleteParticipant"> Are you sure you want to delete participant </ConfirmParticipantModal>
 }
 
 @code
@@ -70,11 +70,13 @@ else
         filters.Add(lastNameFilter);
     }
 
-    private ConfirmParticipantModal? confirmParticipantModal;
+    // Add reference to my modal which I will use to confirm deletion of given participant
+    private ConfirmParticipantModal? deleteParticipantModal;
 
+    // Uses the reference to deletion modal to call the ShowModal method of that modal that causes it to show up and also store the participant data
     private void ShowDeleteParticipantModal(int participantId, string participantName)
     {
-        confirmParticipantModal!.ShowModal(participantId,participantName);
+        deleteParticipantModal!.ShowModal(participantId,participantName);
     }
 
     // Filtered source for the QuickGrid

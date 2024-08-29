@@ -1,3 +1,5 @@
+@* This component represents a simple modal for confirming actions on participants *@
+
 @if (isModalVisible)
 {
     <div>
@@ -11,9 +13,11 @@
 
 @code {
 
+    // Serves to set the text of the modal before the participant name and questionmark
     [Parameter]
     public required RenderFragment ChildContent { get; set; }
 
+    // Represents a callback for function I will be calling when the confirm button is pressed
     [Parameter]
     public EventCallback<int> OnConfirm { get; set; }   
 
@@ -28,12 +32,14 @@
         isModalVisible = true;
     }
 
+    // On confirmation, we want to fire invoke the function we received from the parent component, we invoke it with the current participantId
     private void Confirm()
     {
         OnConfirm.InvokeAsync(participantId);
         isModalVisible = false;
     }
 
+    // Just set the modal as invisible
     private void Cancel()
     {
         isModalVisible = false;
