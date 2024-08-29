@@ -143,10 +143,24 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 29.8.2024
 
 ### TODO:
-- [ ] Upravit quick grid, aby vypadal hezky
-  - [ ] Hezke buttonky
-  - [ ] Ukazoval vzestupne/sestupne
-- [ ] Pridat do quick gridu buttonky na update ucastniku
-- [ ] Zprovoznit vyhledavani v quick gridu
-- [ ] Pridat button na add participant do sekce participants a vymazat sekci add participant
+- [x] Upravit quick grid, aby vypadal hezky
+  - [x] Hezke buttonky
+  - [x] Ukazoval vzestupne/sestupne
+- [x] Pridat do quick gridu buttonky na update ucastniku
+- [x] Pridat button na add participant do sekce participants a vymazat sekci add participant
+- [x] Zprovoznit filterovani cisel v quick gridu
+- [x] Zprovoznit vyhledavani v quick gridu
+- [ ] Pridat remove button do quick gridu
 - [ ] Vytvorit jednoduchou kostru pro sekci meals
+  
+### DONE:
+- Z nejakeho duvodu, horni buttonky quick gridu pres ktere se sorti uz vypadaji v pohode (ukazuji sipecku)
+- Pridal jsem buttonky na update ucastniku 
+  - pouzil jem TemplateColumn, ktera pri kliknuti zavola funkci NavigateToEditPage s Id od contextu (context je ucastnik)
+  - K navigaci je treba injectnout si NavigationManagera, abych mohl chodit na dynamicky vygenerovany link
+- Filterovani v quick gridu
+  - Funguje tak, ze jako Items nastavime vyfilterovanou IQueryable, kterou pak v getteru filterujeme
+  - Jednotlive filterovaci inputy pak nabindujeme k odpovidajicim promennym tech filteru
+  - Vytvoril jsem interface pro tridy, ktere poskytuji filterovani na participantech
+  - Cisleny range
+    - Pridal jsem tridu, ktera filteruje ciselny range, od ni si pak mohu vyrobit filter pro custom pocatecni range
