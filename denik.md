@@ -150,7 +150,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [x] Pridat button na add participant do sekce participants a vymazat sekci add participant
 - [x] Zprovoznit filterovani cisel v quick gridu
 - [x] Zprovoznit vyhledavani v quick gridu
-- [ ] Pridat remove button do quick gridu
+- [x] Pridat remove button do quick gridu
+  - [x] Pridat confirmation modal box na odstraneni ucastnika
+  - [ ] Udelat ten modal box aby prekryval zbytek
 - [ ] Vytvorit jednoduchou kostru pro sekci meals
   
 ### DONE:
@@ -164,3 +166,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Vytvoril jsem interface pro tridy, ktere poskytuji filterovani na participantech
   - Cisleny range
     - Pridal jsem tridu, ktera filteruje ciselny range, od ni si pak mohu vyrobit filter pro custom pocatecni range
+
+### Afternoon DONE:
+- Pridal jsem button na deletovani
+  - Nejprve bylo potreba pridat moznost deletovani dle id do meho api controlleru
+  - Pote stacilo zavolat tuto api metodu z klienta
+- Pridal jsem komponentu, ktera reprezentuje confirmacni boxik tykajici se akce na ucastnikovi
+  - Je mozne dovnitr zadat text
+  - Ta komponenta pote vysila event do ktereho preda id ucastnika
+  - Komponenta si pamatuje take jmeno, aby mohla vytisknout jmeno toho ucastnika, ktereho se chystame odstranit
