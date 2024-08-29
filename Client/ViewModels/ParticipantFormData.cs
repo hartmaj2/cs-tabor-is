@@ -11,8 +11,10 @@ public class ParticipantFormData
     [Required(ErrorMessage = "Last name is required.")]
     public string? LastName {get; set;}
 
+    public const int LowestAge = 0;
+    public const int HighestAge = 130;
     [Required(ErrorMessage = "Age is required.")]
-    [Range(0, 200, ErrorMessage = "Age must be between 0 and 200.")]
+    [Range(LowestAge, HighestAge, ErrorMessage = "Age must be between 0 and 130.")]
     public int? Age { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
