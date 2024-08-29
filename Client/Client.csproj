@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
-    <Content Include="Components\**\*.razor" />
-  </ItemGroup> -->
-
 </Project>
