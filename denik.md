@@ -175,3 +175,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Je mozne dovnitr zadat text
   - Ta komponenta pote vysila event do ktereho preda id ucastnika
   - Komponenta si pamatuje take jmeno, aby mohla vytisknout jmeno toho ucastnika, ktereho se chystame odstranit
+- DULEZITE: je mozne debuggovat v Clientovi, Console.WriteLine() se objevuje v console v inspect toolbaru browseru
