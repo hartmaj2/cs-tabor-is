@@ -44,6 +44,7 @@ else
         <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
         <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
         <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
+        <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="() => DeleteParticipant(context.Id)"> Delete </button></TemplateColumn>
         
     </QuickGrid>
 }
@@ -59,6 +60,13 @@ else
 
     // We need to add all filters to the list manually (because we need to bind to the filters in the QuickGrid using their name)
     private List<IQuickGridFilter> filters = new();
+
+    // Is called OnInitializeAsync to initialize the list of filters
+    private void SetupFilters()
+    {
+        filters.Add(ageBoundFilter); 
+        filters.Add(lastNameFilter);
+    }
 
     // Filtered source for the QuickGrid
     private IQueryable<Participant> FilteredParticipants
@@ -77,8 +85,13 @@ else
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
-        filters.Add(ageBoundFilter); 
-        filters.Add(lastNameFilter);
+        SetupFilters();
+        await LoadParticipants();
+    }
+
+    // Is used OnInitializedAsync and after deleting a participant
+    private async Task LoadParticipants()
+    {
         var participantsList = await Http.GetFromJsonAsync<List<Participant>>("api/participants/all");
         participants = participantsList!.AsQueryable();
     }
@@ -91,6 +104,10 @@ else
         Navigation.NavigateTo($"/participants/edit/{id}");
     }
 
-
+    private async Task DeleteParticipant(int id)
+    {
+        await Http.DeleteAsync($"api/participants/delete/{id}");
+        await LoadParticipants();
+    }
     
 }
