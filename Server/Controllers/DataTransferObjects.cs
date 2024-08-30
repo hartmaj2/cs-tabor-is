@@ -1,6 +1,9 @@
-
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+
+// These classes serve as the JSON templates to be communicated from client to server and vice versa
+// I wanted to be able to send the meal as the list of its properties + a list of names of allergens
+
 public class MealDto
 {
     [Required]
