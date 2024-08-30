@@ -8,9 +8,9 @@ public class MealAllergen
 
     [ForeignKey("Meal")]
     public int MealId { get; set; }
-    public Meal Meal { get; set; }
+    public Meal? Meal { get; set; }
 
     [ForeignKey("Allergen")]
     public int AllergenId { get; set; }
-    public Allergen Allergen { get; set; }
+    public Allergen? Allergen { get; set; }
 }

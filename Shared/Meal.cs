@@ -7,7 +7,7 @@ public class Meal
 
     [Required]
     [MaxLength(100)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [Required]
     public MealTime MealTime { get; set; }
@@ -18,7 +18,7 @@ public class Meal
     [Required]
     public DateTime Date { get; set; }
 
-    public ICollection<MealAllergen> MealAllergens { get; set; }
+    public ICollection<MealAllergen>? MealAllergens { get; set; }
 
 }
 
