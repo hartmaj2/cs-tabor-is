@@ -22,7 +22,7 @@ public class MealsController : ControllerBase
 
     // Gets all meals from the Meals table
     [HttpPost("add")]
-    public IActionResult AddMeal([FromBody] MealCreateDto received)
+    public IActionResult AddMeal([FromBody] MealDto received)
     {
 
 
@@ -53,10 +53,10 @@ public class MealsController : ControllerBase
     // Gets the list of all meals from the meals table
     // I have to map all Meal objects to MealCreateDtos because I want to be getting a list of all allergens for every meal
     [HttpGet("all")]
-    public IEnumerable<MealCreateDto> GetAllMeals()
+    public IEnumerable<MealDto> GetAllMeals()
     {
         return _context.Meals
-            .Select( meal => new MealCreateDto
+            .Select( meal => new MealDto
                 {
                     Name = meal.Name,
                     MealTime = meal.MealTime,
