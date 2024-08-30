@@ -1,0 +1,14 @@
+###
+POST http://localhost:5141/api/meals/add
+Content-Type: application/json
+
+{
+    "name" : "Caesar salad",
+    "mealTime" : "Dinner",
+    "type" : "Main",
+    "date" : "2024-08-30T14:16:00",
+    "mealAllergens" : null
+}
+
+###
+GET http://localhost:5141/api/meals/all
