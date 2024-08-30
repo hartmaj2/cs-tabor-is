@@ -8,18 +8,18 @@ public class Meal
 
     [Required]
     [MaxLength(100)]
-    public string? Name { get; set; }
+    public required string Name { get; set; }
 
     [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public MealTime MealTime { get; set; }
+    public required MealTime MealTime { get; set; }
 
     [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public MealType Type { get; set; }
+    public required MealType Type { get; set; }
 
     [Required]
-    public DateTime Date { get; set; }
+    public required DateTime Date { get; set; }
 
     public ICollection<MealAllergen>? MealAllergens { get; set; }
 

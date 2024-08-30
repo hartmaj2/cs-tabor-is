@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 public class MealDto
 {
     [Required]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -20,14 +20,14 @@ public class MealDto
     [Required]
     public DateTime Date { get; set; }
 
-    public List<AllergenDto> Allergens { get; set; }
+    public required List<AllergenDto> Allergens { get; set; }
 }
 
 public class AllergenDto
 {
 
     [Required]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 }
 
 public static class AllergenExtensions

@@ -7,7 +7,7 @@ public class Allergen
 
     [Required]
     [MaxLength(100)]
-    public string? Name { get; set; }
+    public required string Name { get; set; }
 
     public ICollection<MealAllergen>? MealAllergens { get; set; }
 }

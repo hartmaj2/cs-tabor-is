@@ -53,7 +53,7 @@ public class MealsController : ControllerBase
         return _context.Meals
             .Select( meal => new MealDto
                 {
-                    Name = meal.Name!,
+                    Name = meal.Name,
                     MealTime = meal.MealTime,
                     Type = meal.Type,
                     Date = meal.Date,
