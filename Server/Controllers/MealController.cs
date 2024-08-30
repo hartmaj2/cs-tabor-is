@@ -5,56 +5,32 @@ using Microsoft.EntityFrameworkCore;
 
 
 [ApiController]
-[Route("api/menu")]
+[Route("api/meals")]
 
-public class MenuController : ControllerBase
+public class MealsController : ControllerBase
 {
 
     private readonly ParticipantsDbContext _context;
 
     // The context gets injected using dependency injection
-    public MenuController(ParticipantsDbContext context)
+    public MealsController(ParticipantsDbContext context)
     {
         _context = context;
     }
 
+    // Gets all meals from the Meals table
+    [HttpPost("add")]
+    public IActionResult AddMeal([FromBody] Meal meal)
+    {
+        _context.Meals.Add(meal);
+        _context.SaveChanges();
+        return CreatedAtAction(nameof(GetAllMeals),meal);
+    }
+
     // Gets the list of all meals from the meals table
-    [HttpGet("allergens/all")]
-    public IEnumerable<Allergen> GetAllAllergens()
+    [HttpGet("all")]
+    public IEnumerable<Meal> GetAllMeals()
     {
-        return _context.Allergens.ToList<Allergen>();
+        return _context.Meals.ToList<Meal>();
     }
-
-    // Gets the list of all meals from the meals table
-    [HttpPost("allergens/add")]
-    public IActionResult AddNewAllergen([FromBody] Allergen allergen)
-    {
-        _context.Allergens.Add(allergen);
-        _context.SaveChanges();
-        return CreatedAtAction(nameof(GetAllAllergens),allergen);
-    }
-
-    // Adds a whole list of allergens
-    [HttpPost("allergens/add-many")]
-    public IActionResult AddMultipleAllergens([FromBody] ICollection<Allergen> allergens)
-    {
-        _context.Allergens.AddRange(allergens);
-        _context.SaveChanges();
-        return CreatedAtAction(nameof(GetAllAllergens),allergens);
-    }
-
-    // Deletes single allergen with given id
-    [HttpDelete("allergens/delete/{id:int}")]
-    public IActionResult DeleteAllergen(int id)
-    {
-        Allergen toDelete = _context.Allergens.Find(id)!;
-        _context.Allergens.Remove(toDelete);
-        _context.SaveChanges();
-        return NoContent();
-    }
-
-
-
-
-
 }
