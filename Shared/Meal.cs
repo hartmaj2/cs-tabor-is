@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 public class Meal
 {
@@ -10,9 +11,11 @@ public class Meal
     public string? Name { get; set; }
 
     [Required]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public MealTime MealTime { get; set; }
 
     [Required]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public MealType Type { get; set; }
 
     [Required]
