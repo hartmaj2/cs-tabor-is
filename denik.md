@@ -182,10 +182,16 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Vytvorit entity pro jidla, alergeny a objednavky dle ChatGPT
-- [ ] Vytvoti meals controller, ktery bude respondovat na get requesty ohledne meals
-  - [ ] Register new allergen - save the allergen to database (name, id chosen automatically)
-  - [ ] Create meal - send meal and allergens 
+- [x] Vytvoti meals controller, ktery bude respondovat na get requesty ohledne meals
+  - [x] Register new allergen - save the allergen to database (name, id chosen automatically)
+  - [x] Create meal - send meal and allergens
+  - [ ] Get meals for a certain day 
 
 
 ### DONE:
 - Vytvoril jsem entity dle ChatGPT - je nutne, nezapomenout, ze je potreba pridat odpovidajici DbSety do DbContextu!
+- Z entit se mi automaticky vytvorili databaze
+- Zakladam nove kontrollery - na alergeny a na jidla
+- U jidla jsem nastavil Json serialization aby se mi enumy psali jako stringy 
+- Chtel jsem, abych pri postovani requestu na jidla mohl zadavat seznam allergenu
+  - bylo potreba vytvorit tzv. DTO, ktery reprezentoval data, ktera bude posilat klient, server si pak tato data prevede na svoji vnitrni tabulkovou reprezentaci, ve ktere jidla nemaji seznamy alergenu ale tato relace je vyjadrena separatni tabulkou
