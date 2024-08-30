@@ -1,7 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-public class MealCreateDto
+public class MealDto
 {
     [Required]
     public string Name { get; set; }
@@ -22,7 +22,7 @@ public class MealCreateDto
 
 public class AllergenDto
 {
-    
+
     [Required]
     public string Name { get; set; }
 }
