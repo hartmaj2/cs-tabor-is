@@ -36,8 +36,8 @@ public class MealsController : ControllerBase
         meal.MealAllergens = new List<MealAllergen>();
         foreach (AllergenDto allergenDto in received.Allergens)
         {
-            Allergen allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
-            meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen.Id});
+            Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
+            meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id});
         }
 
         _context.Meals.Add(meal);
@@ -53,13 +53,13 @@ public class MealsController : ControllerBase
         return _context.Meals
             .Select( meal => new MealDto
                 {
-                    Name = meal.Name,
+                    Name = meal.Name!,
                     MealTime = meal.MealTime,
                     Type = meal.Type,
                     Date = meal.Date,
                     Allergens = _context.MealAllergens
                         .Where(ma => ma.MealId == meal.Id)
-                        .Select(ma => ma.Allergen.ToAllergenDto())
+                        .Select(ma => ma.Allergen!.ToAllergenDto())
                         .ToList<AllergenDto>(),
                 }
         );
