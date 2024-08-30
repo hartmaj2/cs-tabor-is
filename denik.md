@@ -181,7 +181,11 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 30.8.2024
 
 ### TODO:
-- [ ] Vytvorit entity pro jidla, alergeny a objednavky dle ChatGPT
+- [x] Vytvorit entity pro jidla, alergeny a objednavky dle ChatGPT
 - [ ] Vytvoti meals controller, ktery bude respondovat na get requesty ohledne meals
   - [ ] Register new allergen - save the allergen to database (name, id chosen automatically)
   - [ ] Create meal - send meal and allergens 
+
+
+### DONE:
+- Vytvoril jsem entity dle ChatGPT - je nutne, nezapomenout, ze je potreba pridat odpovidajici DbSety do DbContextu!
