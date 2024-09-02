@@ -6,7 +6,7 @@ Content-Type: application/json
     "name" : "Caesar salad",
     "mealTime" : "Dinner",
     "type" : "Main",
-    "date" : "2024-08-30T14:16:00",
+    "date" : "2024-08-30",
     "allergens" : []
 }
 
@@ -18,7 +18,7 @@ Content-Type: application/json
     "name" : "Caesar salad",
     "mealTime" : "Dinner",
     "type" : "Main",
-    "date" : "2024-08-30T14:16:00",
+    "date" : "2024-08-30",
     "allergens" : 
     [
         {
