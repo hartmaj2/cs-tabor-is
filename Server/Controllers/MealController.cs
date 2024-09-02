@@ -16,32 +16,22 @@ public class MealsController : ControllerBase
         _context = context;
     }
 
-    // Gets all meals from the Meals table
+    [HttpPost("many")]
+    public IActionResult AddMeals([FromBody] ICollection<MealDto> receiveds)
+    {
+        foreach (var mealDto in receiveds)
+        {
+            AddSingleMeal(mealDto);
+        }
+        _context.SaveChanges();
+        return CreatedAtAction(nameof(GetAllMeals),receiveds);
+    }
+
+    // Adds a meal to the meals table
     [HttpPost("add")]
     public IActionResult AddMeal([FromBody] MealDto received)
     {
-
-
-        var meal = new Meal
-        {
-            Name = received.Name,
-            MealTime = received.MealTime,
-            Type = received.Type,
-            Date = received.Date,
-            // MealAllergens = received.Allergens.Select(a => new MealAllergen
-            // {
-            //     AllergenId = a.Id
-            // }).ToList()
-        };
-
-        meal.MealAllergens = new List<MealAllergen>();
-        foreach (AllergenDto allergenDto in received.Allergens)
-        {
-            Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
-            meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id});
-        }
-
-        _context.Meals.Add(meal);
+        AddSingleMeal(received);
         _context.SaveChanges();
         return CreatedAtAction(nameof(GetAllMeals),received);
     }
@@ -74,6 +64,26 @@ public class MealsController : ControllerBase
         .ThenInclude( mealAllergen => mealAllergen.Allergen)
         .Select( meal => meal.ToMealDto());
 
+    }
+
+    private void AddSingleMeal(MealDto mealDto)
+    {
+        var meal = new Meal
+        {
+            Name = mealDto.Name,
+            MealTime = mealDto.MealTime,
+            Type = mealDto.Type,
+            Date = mealDto.Date,
+        };
+
+        meal.MealAllergens = new List<MealAllergen>();
+        foreach (AllergenDto allergenDto in mealDto.Allergens)
+        {
+            Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
+            meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id});
+        }
+
+        _context.Meals.Add(meal);
     }
 
 }
