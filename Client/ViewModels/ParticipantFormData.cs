@@ -51,8 +51,8 @@ public class ParticipantFormData
 public class DivisibleByAttribute : ValidationAttribute
 {
 
-    private int _divisor;
-    public DivisibleByAttribute(int divisor)
+    private long _divisor;
+    public DivisibleByAttribute(long divisor)
     {
         _divisor = divisor;
     }
@@ -62,7 +62,7 @@ public class DivisibleByAttribute : ValidationAttribute
     // That is the reason I am using bool IsValid override instead
     public override bool IsValid(object? value)
     {
-        if (value is string stringValue && int.TryParse(stringValue,out int number) && number % _divisor == 0)
+        if (value is string stringValue && long.TryParse(stringValue,out long number) && number % _divisor == 0)
         {
             return true;
         }
