@@ -200,7 +200,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 2.9.2024
 
 ### TODO:
-- [ ] Upravit datum, aby nebylo potreba hodiny (staci mi jenom den)
+- [x] Upravit datum, aby nebylo potreba hodiny (staci mi jenom den)
 - [ ] Implementovat vraceni meals jen pro urcity den (v Meals controlleru)
 
 ### DONE:
