@@ -35,3 +35,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5141/api/meals/all
+
+###
+GET http://localhost:5141/api/meals/2024-08-30
