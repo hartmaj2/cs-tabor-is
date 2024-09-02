@@ -37,3 +37,20 @@ public static class AllergenExtensions
         return new AllergenDto { Name = allergen.Name};
     }
 }
+
+// This method assumes that MealAllergens of every meal and Allergen field of each mealAllergen are eagerly loaded before this method is called
+// Eager loading is done by using Include keyword
+public static class MealExtension
+{
+    public static MealDto ToMealDto(this Meal meal)
+    {
+        return new MealDto
+            {
+                Name = meal.Name,
+                MealTime = meal.MealTime,
+                Type = meal.Type,
+                Date = meal.Date,
+                Allergens = meal.MealAllergens!.Select(mealAllergen => mealAllergen.Allergen!.ToAllergenDto()).ToList()
+            };
+    }
+}
