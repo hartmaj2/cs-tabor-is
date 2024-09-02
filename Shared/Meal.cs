@@ -19,7 +19,7 @@ public class Meal
     public required MealType Type { get; set; }
 
     [Required]
-    public required DateTime Date { get; set; }
+    public required DateOnly Date { get; set; }
 
     public ICollection<MealAllergen>? MealAllergens { get; set; }
 

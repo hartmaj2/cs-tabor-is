@@ -18,7 +18,7 @@ public class MealDto
     public MealType Type { get; set; }
 
     [Required]
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     public required List<AllergenDto> Allergens { get; set; }
 }
