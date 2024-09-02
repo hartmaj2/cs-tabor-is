@@ -201,7 +201,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Upravit datum, aby nebylo potreba hodiny (staci mi jenom den)
-- [ ] Implementovat vraceni meals jen pro urcity den (v Meals controlleru)
+- [x] Implementovat vraceni meals jen pro urcity den (v Meals controlleru)
+- [x] Otestovat vraceni meals pro urcity den
+  - [x] Pridat funkci na automaticke pridani nekolika jidel s ruznymi datumi
+  - [x] Pridat odpovidajici request
 
 ### DONE:
 - Bylo potreba zmenit int v testovani delitelnosti na long, protoze jinak se nejaka rodna cisla nevesla do intu
+- Stacilo zmenit DateTime na DateOnly a pote nastavit novou migration a Entity Framework mi vhodne opravil databazi
+- Request na ziskani vsech jidel a seznamu alergenu s kazdym jidlem je tezci, seznam alergenu totiz neni primo soucasti objektu a musi se vycist z dalsi tabulky, coz potencialne vyzaduje dalsi query
+  - Reseni je: pri ziskavani jidel si rovnou eager loadnout i jejich seznam MealAllergens a pro MealAllergen jeho konkretni allergen, at s nim pak mohu pracovat 
