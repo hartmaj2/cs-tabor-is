@@ -49,6 +49,15 @@ public class ParticipantController : ControllerBase
         return CreatedAtAction(nameof(GetParticipantsFromDb),participant);
     }
 
+    // Adds a whole list of participants
+    [HttpPost("add-many")]
+    public IActionResult AddMultipleAllergens([FromBody] ICollection<Participant> participants)
+    {
+        _context.Participants.AddRange(participants);
+        _context.SaveChanges();
+        return CreatedAtAction(nameof(GetParticipantsFromDb),participants);
+    }
+
     // Deletes single participant with given id
     [HttpDelete("delete/{id:int}")]
     public IActionResult DeleteParticipant(int id)
