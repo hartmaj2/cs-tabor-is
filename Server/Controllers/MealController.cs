@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Server.Data;
 
 [ApiController]
@@ -57,12 +58,22 @@ public class MealsController : ControllerBase
                     MealTime = meal.MealTime,
                     Type = meal.Type,
                     Date = meal.Date,
-                    Allergens = _context.MealAllergens
-                        .Where(ma => ma.MealId == meal.Id)
-                        .Select(ma => ma.Allergen!.ToAllergenDto())
-                        .ToList<AllergenDto>(),
+                    Allergens = meal.MealAllergens!.Select(allergen => allergen.Allergen!.ToAllergenDto()).ToList()
                 }
         );
+    }
+
+    // Uses eager loading for navigation entity MealAllergens (navigation entity represents a relationship to another entity or collection of entities)
+    // The code would not work without it when using ToMealDto function (the mealAllergens collection would appear empty)
+    [HttpGet("{date}")]
+    public IEnumerable<MealDto> GetMealsByDate(DateOnly date)
+    {
+        return _context.Meals
+        .Where( meal => meal.Date == date) 
+        .Include( meal => meal.MealAllergens!) // this and the following line are necessary, it eageryly loads the collection of MealAllergens for all meals so it is ready to be used by ToMealDto function
+        .ThenInclude( mealAllergen => mealAllergen.Allergen)
+        .Select( meal => meal.ToMealDto());
+
     }
 
 }
