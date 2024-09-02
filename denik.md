@@ -195,3 +195,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - U jidla jsem nastavil Json serialization aby se mi enumy psali jako stringy 
 - Chtel jsem, abych pri postovani requestu na jidla mohl zadavat seznam allergenu
   - bylo potreba vytvorit tzv. DTO, ktery reprezentoval data, ktera bude posilat klient, server si pak tato data prevede na svoji vnitrni tabulkovou reprezentaci, ve ktere jidla nemaji seznamy alergenu ale tato relace je vyjadrena separatni tabulkou
+
+
+## 2.9.2024
+
+### TODO:
+- [ ] Upravit datum, aby nebylo potreba hodiny (staci mi jenom den)
+- [ ] Implementovat vraceni meals jen pro urcity den (v Meals controlleru)
+
+### DONE:
+- Bylo potreba zmenit int v testovani delitelnosti na long, protoze jinak se nejaka rodna cisla nevesla do intu
