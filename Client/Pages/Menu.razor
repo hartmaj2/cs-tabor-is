@@ -2,20 +2,16 @@
 @inject HttpClient Http
 @layout SubLayout
 
-<h3> This is my food page </h3>
 <DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
-<p> Current date: @currentDate </p>
 
-@if (mealsList == null)
+@if (meals == null)
 {
     <p> Loading... </p>
 }
 else
 {
-    @foreach (var meal in mealsList)
-    {
-        <p> @meal.Name </p>
-    }
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals"> </MealTimeContainer>
 }
 
 @code
@@ -28,12 +24,13 @@ else
         await LoadMeals();
     }
 
-    private List<Meal>? mealsList;
+    private IQueryable<MealDto>? meals;
     private async Task LoadMeals()
     {
-        mealsList = null;
+        meals = null;
         var dateString = currentDate.ToString("yyyy-MM-dd");
         Console.WriteLine(dateString);
-        mealsList = await Http.GetFromJsonAsync<List<Meal>>($"api/meals/{dateString}");
+        var mealsList = await Http.GetFromJsonAsync<List<MealDto>>($"api/meals/{dateString}");
+        meals = mealsList!.AsQueryable();
     }
 }
