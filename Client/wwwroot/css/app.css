@@ -133,3 +133,12 @@ code {
     background-color: white;
     border-radius: 5px;
 }
+
+.btn-companion
+{
+    padding: 8px 5px 10px 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: #0071c1;
+    border-color: #1861ac;
+}

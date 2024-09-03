@@ -1,0 +1,16 @@
+<div>
+    <button class="btn btn-primary" @onclick="()=>date = date.AddDays(-1)"> &lt; </button>
+    <span class="btn-companion"> @date </span>
+    <button class="btn btn-primary" @onclick="IncrementDate" > &gt; </button>
+</div>
+
+@code
+{
+    private DateOnly date = new DateOnly(2024,09,03);
+
+    private void IncrementDate()
+    {
+        date = date.AddDays(1);
+        Console.WriteLine("increment");
+    }
+}
