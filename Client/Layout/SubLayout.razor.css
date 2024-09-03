@@ -3,12 +3,43 @@
     border-radius: 10px 10px 0 0;
     border-bottom: 2px solid #000; /* Black border at the bottom */
     padding: 10px; /* Some padding around the content */
-    box-sizing: border-box; /* Ensure padding does not affect the width */
-    background-color: darkgrey; /* Optional: Light gray background */
+    background-color: darkgrey;
+    display: flex;
+    justify-content: left;
 }
 
 .sub-layout .content {
     border-radius: 0 0 10px 10px;
     padding: 20px;
     background-color: grey;
+}
+
+.nav-item {
+    font-size: 1rem;
+    color: black;
+    margin-right: 10px;
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid; 
+    border-width: 2px;
+}
+
+.nav-item ::deep a {
+    color: black;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+}
+
+.nav-item ::deep a.active {
+    background-color: rgba(255,255,255,0.37);
+    color: black;
+}
+
+.nav-item ::deep a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: black;
 }
