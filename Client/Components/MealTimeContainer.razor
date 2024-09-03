@@ -1,11 +1,16 @@
 @* This component will hold meals of given type for given date *@
 @using Microsoft.AspNetCore.Components.QuickGrid
 
-<div>
-    <h2> @MealTime</h2>
+<div style="border-radius:5px; border: 2px solid black; margin: 10px 0px 10px 0px">
+    <div style="display:flex; align-items:center; background-color:rgb(200, 200, 200)">
+        <span class="px-2" style="font-size: x-large;"> @MealTime</span>
+        <button class="btn btn-primary" style="margin-left:auto; margin-right: 10px"> + </button>
+    </div>
     <QuickGrid Items="@Meals!.Where(m => m.MealTime == MealTime)" class="table quickgrid"> 
         <PropertyColumn Property="@(m => m.Name)"  />
         <PropertyColumn Property="@(m => m.Type)" IsDefaultSortColumn="true" />
+        <TemplateColumn Title="Edit"> <button class="btn btn-primary"> Edit </button></TemplateColumn>
+        <TemplateColumn Title="Delete"> <button class="btn btn-primary" > Delete </button></TemplateColumn>
     </QuickGrid>
 </div>
 
