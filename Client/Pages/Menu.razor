@@ -1,16 +1,39 @@
 @page "/food"
+@inject HttpClient Http
 @layout SubLayout
 
 <h3> This is my food page </h3>
-<DateSelector @bind-CurrentDate="currentDate"> </DateSelector>
+<DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 <p> Current date: @currentDate </p>
+
+@if (mealsList == null)
+{
+    <p> Loading... </p>
+}
+else
+{
+    @foreach (var meal in mealsList)
+    {
+        <p> @meal.Name </p>
+    }
+}
 
 @code
 {
     private DateOnly currentDate;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        currentDate = new DateOnly(2000,09,03);
+        currentDate = new DateOnly(2024,09,03);
+        await LoadMeals();
+    }
+
+    private List<Meal>? mealsList;
+    private async Task LoadMeals()
+    {
+        mealsList = null;
+        var dateString = currentDate.ToString("yyyy-MM-dd");
+        Console.WriteLine(dateString);
+        mealsList = await Http.GetFromJsonAsync<List<Meal>>($"api/meals/{dateString}");
     }
 }

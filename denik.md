@@ -222,7 +222,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Create the top nav bar
   - [x] Add navigation buttons to the top bar
   - [x] Add pages that use the top nav bar
-- [ ] Make side navbar food icon active also when on food/diet
+- [x] Make side navbar food icon active also when on food/diet
+- [x] Create component for date selector
+- [x] Make different foods appear on menu page based on the current date selected
 
 ### DONE:
 - Request to delete all meals - deletes also all MealAllergens as well
@@ -233,3 +235,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
     - For Blazor to detect the file, rebuild the project
   - Top bar - when adding a border don't forget border-width, border-style and border-color
 - Nav link ma Match attribute - umoznuje nastavit, zda je active pokud se namatchuje prefix/cela cesta
+- Komponenta - ktera umoznuje prepinat mezi datumy, je mozne se na ni bindnout (CurrentDate)
+- Nacitani jidel pomoci api requestu, kdyz se zmeni current date - je potreba upravit ToString toho DateOnly na "yyyy-MM-dd"
