@@ -225,6 +225,10 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [x] Make side navbar food icon active also when on food/diet
 - [x] Create component for date selector
 - [x] Make different foods appear on menu page based on the current date selected
+- [ ] Make component that holds food of given MealTime (Lunch,Dinner)
+  - [ ] Has button to add new food of component MealTime - will work through a modal this time
+  - [ ] Inside the component make the foods sorted (Soup,Main)
+  - [ ] Button to edit/remove given food (edit name/allergens)
 
 ### DONE:
 - Request to delete all meals - deletes also all MealAllergens as well
