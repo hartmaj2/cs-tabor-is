@@ -2,5 +2,15 @@
 @layout SubLayout
 
 <h3> This is my food page </h3>
-<DateSelector> </DateSelector>
-<p> Here will be content of food page</p>
+<DateSelector @bind-CurrentDate="currentDate"> </DateSelector>
+<p> Current date: @currentDate </p>
+
+@code
+{
+    private DateOnly currentDate;
+
+    protected override void OnInitialized()
+    {
+        currentDate = new DateOnly(2000,09,03);
+    }
+}

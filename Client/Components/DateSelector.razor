@@ -1,16 +1,20 @@
 <div>
-    <button class="btn btn-primary" @onclick="()=>date = date.AddDays(-1)"> &lt; </button>
-    <span class="btn-companion"> @date </span>
-    <button class="btn btn-primary" @onclick="IncrementDate" > &gt; </button>
+    <button class="btn btn-primary" @onclick="() => ChangeDate(-1)"> &lt; </button>
+    <span class="btn-companion"> @CurrentDate </span>
+    <button class="btn btn-primary" @onclick="() => ChangeDate(1)" > &gt; </button>
 </div>
 
 @code
 {
-    private DateOnly date = new DateOnly(2024,09,03);
-
-    private void IncrementDate()
+    private void ChangeDate(int amount)
     {
-        date = date.AddDays(1);
-        Console.WriteLine("increment");
+        CurrentDateChanged.InvokeAsync(CurrentDate.AddDays(amount));
     }
+
+    [Parameter]
+    public DateOnly CurrentDate { get; set; }
+
+    [Parameter]
+    public EventCallback<DateOnly> CurrentDateChanged { get ; set; }
+
 }
