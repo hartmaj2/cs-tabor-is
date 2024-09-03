@@ -72,7 +72,7 @@ public class ParticipantController : ControllerBase
     [HttpDelete("delete-all")]
     public IActionResult DeleteAllParticipantsDb()
     {
-        _context.Database.ExecuteSqlRaw("TRUNCATE TABLE [Participants]");
+        _context.Database.ExecuteSqlRaw("DELETE FROM [Participants]");
         return NoContent();
     }
 
