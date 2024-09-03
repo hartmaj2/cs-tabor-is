@@ -1,3 +1,5 @@
+@* This component represents two buttons that can control what date we want to view and also the displayed date in between the buttons *@
+
 <div>
     <button class="btn btn-primary" @onclick="() => ChangeDate(-1)"> &lt; </button>
     <span class="btn-companion"> @CurrentDate </span>
@@ -6,11 +8,13 @@
 
 @code
 {
+    // If the date was changed, we want to notify the parent component and pass it the new value of the current date
     private void ChangeDate(int amount)
     {
         CurrentDateChanged.InvokeAsync(CurrentDate.AddDays(amount));
     }
 
+    // Following properties are used when binding to them
     [Parameter]
     public DateOnly CurrentDate { get; set; }
 
