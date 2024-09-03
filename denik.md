@@ -209,11 +209,24 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### DONE:
 - Bylo potreba zmenit int v testovani delitelnosti na long, protoze jinak se nejaka rodna cisla nevesla do intu
 - Stacilo zmenit DateTime na DateOnly a pote nastavit novou migration a Entity Framework mi vhodne opravil databazi
-- Request na ziskani vsech jidel a seznamu alergenu s kazdym jidlem je tezci, seznam alergenu totiz neni primo soucasti objektu a musi se vycist z dalsi tabulky, coz potencialne vyzaduje dalsi query
+- Request na ziskani vsech jidel a seznamu alergenu s kazdym jidlem je tezsi, seznam alergenu totiz neni primo soucasti objektu a musi se vycist z dalsi tabulky, coz potencialne vyzaduje dalsi query
   - Reseni je: pri ziskavani jidel si rovnou eager loadnout i jejich seznam MealAllergens a pro MealAllergen jeho konkretni allergen, at s nim pak mohu pracovat 
+- Request na ziskani jidel pro konkretni den
+- Request na pridani mnoha ruznych jidel (vygenerovane ChatGPT)  
 
 ## 3.9.2024
 
 ### TODO:
-- [ ] Create food page 
+- [x] Create food page 
 - [ ] Create inner nav bar on top to choose between two subsections - menu, diets
+  - [x] Create the top nav bar
+  - [ ] Add navigation buttons to the top bar
+  - [ ] Add pages that use the top nav bar
+
+### DONE:
+- Request to delete all meals - deletes also all MealAllergens as well
+- Code to set focus on first form element after first render
+- Creating a layout inside a layout
+  - Has its own .css file
+    - Name must be same as the razor file + .css at end
+    - For Blazor to detect the file, rebuild the project
