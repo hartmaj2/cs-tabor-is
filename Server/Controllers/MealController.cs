@@ -67,6 +67,14 @@ public class MealsController : ControllerBase
 
     }
 
+    // Deletes everything from the meals table
+    [HttpDelete("delete-all")]
+    public IActionResult DeleteAllMeals()
+    {
+        _context.Database.ExecuteSqlRaw("DELETE FROM [Meals]");
+        return NoContent();
+    }
+
     // A function to add a single meal
     // Is called repeatedly when adding a list of meals
     private void AddSingleMeal(MealDto mealDto)
