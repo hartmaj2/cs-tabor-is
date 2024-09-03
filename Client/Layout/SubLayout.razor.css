@@ -1,0 +1,14 @@
+.sub-layout .top-bar{
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 2px solid #000; /* Black border at the bottom */
+    padding: 10px; /* Some padding around the content */
+    box-sizing: border-box; /* Ensure padding does not affect the width */
+    background-color: darkgrey; /* Optional: Light gray background */
+}
+
+.sub-layout .content {
+    border-radius: 0 0 10px 10px;
+    padding: 20px;
+    background-color: grey;
+}
