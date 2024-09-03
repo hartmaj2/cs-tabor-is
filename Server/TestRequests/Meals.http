@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5141/api/meals/many
+POST http://localhost:5141/api/meals/add-many
 Content-Type: application/json
 
 [
