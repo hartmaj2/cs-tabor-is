@@ -227,7 +227,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [x] Make different foods appear on menu page based on the current date selected
 - [ ] Make component that holds food of given MealTime (Lunch,Dinner)
   - [ ] Has button to add new food of component MealTime - will work through a modal this time
-  - [ ] Inside the component make the foods sorted (Soup,Main)
+  - [x] Inside the component make the foods sorted (Soup,Main)
   - [ ] Button to edit/remove given food (edit name/allergens)
 
 ### DONE:
@@ -241,3 +241,16 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Nav link ma Match attribute - umoznuje nastavit, zda je active pokud se namatchuje prefix/cela cesta
 - Komponenta - ktera umoznuje prepinat mezi datumy, je mozne se na ni bindnout (CurrentDate)
 - Nacitani jidel pomoci api requestu, kdyz se zmeni current date - je potreba upravit ToString toho DateOnly na "yyyy-MM-dd"
+- Added passable additional attributes to DateOnlySelector (so I can align it to the middle)
+- Added a MealTimeContainer component 
+  - pass DateOnly CurrentDate, MealTime MealTime and IQueryable of MealDtos
+  - added dummy buttons for adding new meal, editing and removing meals
+
+## 4.9.2024
+
+### TODO:
+- [ ] Improve MealTimeContainer
+  - [ ] Make columns with buttons appear at very right
+  - [ ] All columns have fixed size
+  - [ ] Make buttons work
+    - [ ] Add modals with input forms and verification
