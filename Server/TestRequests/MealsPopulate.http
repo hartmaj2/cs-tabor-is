@@ -1,0 +1,273 @@
+###
+POST http://localhost:5141/api/meals/add-many
+Content-Type: application/json
+
+[
+    {
+        "name" : "Caesar salad",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-01",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            },
+            {
+                "name": "Lactose"
+            },
+            {
+                "name": "Gluten"
+            }
+        ]
+    },
+    {
+        "name" : "Salmon fillet",
+        "mealTime" : "Lunch",
+        "type" : "Main",
+        "date" : "2024-09-01",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            },
+            {
+                "Name" : "Fish"
+            },
+            {
+                "name": "Gluten"
+            }
+        ]
+    },
+    {
+        "name" : "Broccoli soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-01",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Lactose"
+            }
+        ]
+    },
+    {
+        "name" : "Grilled Chicken Breast",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-02",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            }
+        ]
+    },
+    {
+        "name" : "Minestrone Soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-02",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            }
+        ]
+    },
+    {
+        "name" : "Spaghetti Bolognese",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-03",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Meat"
+            }
+        ]
+    },
+    {
+        "name" : "Vegetable Stir Fry",
+        "mealTime" : "Lunch",
+        "type" : "Main",
+        "date" : "2024-09-03",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Nuts"
+            }
+        ]
+    },
+    {
+        "name" : "Beef Stew",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-04",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            }
+        ]
+    },
+    {
+        "name" : "Creamy Tomato Soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-04",
+        "allergens" : 
+        [
+            {
+                "name": "Lactose"
+            },
+            {
+                "name": "Gluten"
+            }
+        ]
+    },
+    {
+        "name" : "Tofu Salad",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-05",
+        "allergens" : 
+        [
+            {
+                "name": "Nuts"
+            }
+        ]
+    },
+    {
+        "name" : "Chicken Noodle Soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-05",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Meat"
+            },
+            {
+                "name": "Eggs"
+            }
+        ]
+    },
+    {
+        "name" : "Fish and Chips",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-06",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Fish"
+            }
+        ]
+    },
+    {
+        "name" : "Pumpkin Soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-06",
+        "allergens" : 
+        [
+            {
+                "name": "Lactose"
+            }
+        ]
+    },
+    {
+        "name" : "Lamb Curry",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-07",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            }
+        ]
+    },
+    {
+        "name" : "Caesar Salad",
+        "mealTime" : "Lunch",
+        "type" : "Main",
+        "date" : "2024-09-07",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Eggs"
+            },
+            {
+                "name": "Lactose"
+            }
+        ]
+    },
+    {
+        "name" : "Beef Stroganoff",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-08",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            },
+            {
+                "name": "Lactose"
+            },
+            {
+                "name": "Gluten"
+            }
+        ]
+    },
+    {
+        "name" : "Miso Soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-08",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Fish"
+            }
+        ]
+    },
+    {
+        "name" : "Prawn Risotto",
+        "mealTime" : "Dinner",
+        "type" : "Main",
+        "date" : "2024-09-09",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Fish"
+            }
+        ]
+    }
+]
