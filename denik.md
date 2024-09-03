@@ -230,3 +230,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Has its own .css file
     - Name must be same as the razor file + .css at end
     - For Blazor to detect the file, rebuild the project
+  - Top bar - when adding a border don't forget border-width, border-style and border-color
