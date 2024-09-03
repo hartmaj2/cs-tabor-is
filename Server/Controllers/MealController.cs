@@ -16,7 +16,17 @@ public class MealsController : ControllerBase
         _context = context;
     }
 
-    [HttpPost("many")]
+    // Adds a meal to the meals table
+    [HttpPost("add")]
+    public IActionResult AddMeal([FromBody] MealDto received)
+    {
+        AddSingleMeal(received);
+        _context.SaveChanges();
+        return CreatedAtAction(nameof(GetAllMeals),received);
+    }
+
+    // Adds a list of meals to the meals table
+    [HttpPost("add-many")]
     public IActionResult AddMeals([FromBody] ICollection<MealDto> receiveds)
     {
         foreach (var mealDto in receiveds)
@@ -25,15 +35,6 @@ public class MealsController : ControllerBase
         }
         _context.SaveChanges();
         return CreatedAtAction(nameof(GetAllMeals),receiveds);
-    }
-
-    // Adds a meal to the meals table
-    [HttpPost("add")]
-    public IActionResult AddMeal([FromBody] MealDto received)
-    {
-        AddSingleMeal(received);
-        _context.SaveChanges();
-        return CreatedAtAction(nameof(GetAllMeals),received);
     }
 
     // Gets the list of all meals from the meals table
@@ -66,6 +67,8 @@ public class MealsController : ControllerBase
 
     }
 
+    // A function to add a single meal
+    // Is called repeatedly when adding a list of meals
     private void AddSingleMeal(MealDto mealDto)
     {
         var meal = new Meal
