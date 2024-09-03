@@ -218,10 +218,11 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Create food page 
-- [ ] Create inner nav bar on top to choose between two subsections - menu, diets
+- [x] Create inner nav bar on top to choose between two subsections - menu, diets
   - [x] Create the top nav bar
-  - [ ] Add navigation buttons to the top bar
-  - [ ] Add pages that use the top nav bar
+  - [x] Add navigation buttons to the top bar
+  - [x] Add pages that use the top nav bar
+- [ ] Make side navbar food icon active also when on food/diet
 
 ### DONE:
 - Request to delete all meals - deletes also all MealAllergens as well
@@ -231,3 +232,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
     - Name must be same as the razor file + .css at end
     - For Blazor to detect the file, rebuild the project
   - Top bar - when adding a border don't forget border-width, border-style and border-color
+- Nav link ma Match attribute - umoznuje nastavit, zda je active pokud se namatchuje prefix/cela cesta
