@@ -39,8 +39,41 @@ Content-Type: application/json
             }
         ]
     },
+        {
+        "name" : "Palak paneer",
+        "mealTime" : "Lunch",
+        "type" : "Main",
+        "date" : "2024-09-01",
+        "allergens" : 
+        [
+            {
+                "name": "Meat"
+            },
+            {
+                "Name" : "Fish"
+            },
+            {
+                "name": "Gluten"
+            }
+        ]
+    },
     {
         "name" : "Broccoli soup",
+        "mealTime" : "Lunch",
+        "type" : "Soup",
+        "date" : "2024-09-01",
+        "allergens" : 
+        [
+            {
+                "name": "Gluten"
+            },
+            {
+                "name": "Lactose"
+            }
+        ]
+    },
+        {
+        "name" : "Mushroom soup",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-01",
