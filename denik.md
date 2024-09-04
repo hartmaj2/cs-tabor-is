@@ -254,8 +254,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [ ] Make buttons work
     - [ ] Add modal that lists all allergens after button click
     - [ ] Add modals with input forms and verification
+- [ ] Remove old modal and use the Bootstrap version
+  - [ ] Remove .css styles for modal
+  - [ ] Edit code in Participants.razor page
+- [ ] Fix style issue after removing `wwwroot/css/bootstrap` folder and `<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />` link in index.html 
 
 ### DONE:
 - Used div with flex instead of quick grid so I can align the buttons to the right (each row is a flex box and columns are items)
 - Add id to meal dto so I can use it to delete it from database (the db needs the id for find function)
 - Put styles for MealTimeContainer to separate .css file (some hard coded styles could be replaced by a rule that applied the same style to multiple components with the same class/relation to parent component)
+- Tried to use Blazor.Bootstrap package so I can use premade modals - for some reason I am getting an error with `Could not find 'window.blazorBootstrap.modal.initialize'` but when I use `JSRuntime.InvokeVoidAsynx("blazorBootstrap.modal.initialize")` in overriden `OnAfterRenderAsync` then it works
