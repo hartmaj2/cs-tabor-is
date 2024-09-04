@@ -1,17 +1,33 @@
 @* This component will hold meals of given type for given date *@
 @using Microsoft.AspNetCore.Components.QuickGrid
 
-<div style="border-radius:5px; border: 2px solid black; margin: 10px 0px 10px 0px">
+<div style="border-radius:5px; border: 2px solid black; margin: 10px 0px 10px 0px ">
     <div style="display:flex; align-items:center; background-color:rgb(200, 200, 200)">
         <span class="px-2" style="font-size: x-large;"> @MealTime</span>
         <button class="btn btn-primary" style="margin-left:auto; margin-right: 10px"> + </button>
     </div>
-    <QuickGrid Items="@Meals!.Where(m => m.MealTime == MealTime)" class="table quickgrid"> 
+    <div class="div-table">
+        <div class="div-header" style="display:flex; align-items: center; border-bottom: 1px solid grey; background-color: rgb(237, 237, 237);">
+            <div style="margin-left:10px; width:200px; font-size: large; font-weight: 500;" > Name </div>
+            <div style="font-size: large; font-weight: 500;"> Type </div>
+        </div>
+        @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime))
+        {
+            <div class="div-row" style="display:flex; align-items: center; border-bottom: 1px solid grey">
+                <div style="margin-left:10px; width:200px" > @meal.Name </div>
+                <div> @meal.Type </div>
+                <div style="margin-left:auto; margin-right: 10px;"> <button class="btn btn-primary"> Edit </button> </div>
+                <div style="margin-right:10px"> <button class="btn btn-primary" > Delete </button> </div>
+            </div>
+        }
+
+    </div>
+    @* <QuickGrid Items="@Meals!.Where(m => m.MealTime == MealTime)" class="table quickgrid" style="grid-template-columns: 3fr 2fr 1fr 1fr;"> 
         <PropertyColumn Property="@(m => m.Name)"  />
         <PropertyColumn Property="@(m => m.Type)" IsDefaultSortColumn="true" />
         <TemplateColumn Title="Edit"> <button class="btn btn-primary"> Edit </button></TemplateColumn>
         <TemplateColumn Title="Delete"> <button class="btn btn-primary" > Delete </button></TemplateColumn>
-    </QuickGrid>
+    </QuickGrid> *@
 </div>
 
 @code
