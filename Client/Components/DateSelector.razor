@@ -1,8 +1,8 @@
 @* This component represents two buttons that can control what date we want to view and also the displayed date in between the buttons *@
 
-<div @attributes="AdditionalAttributes">
+<div style="display: flex; justify-content: center; align-items: center;">
     <button class="btn btn-primary" @onclick="() => ChangeDate(-1)" style="margin-right: 5px"> &lt; </button>
-    <span style="height:39px"class="btn-companion"> @CurrentDate </span>
+    <span style="height:39px" class="btn-companion"> @CurrentDate </span>
     <button class="btn btn-primary" @onclick="() => ChangeDate(1)" style="margin-left: 5px"> &gt; </button>
 </div>
 
@@ -20,8 +20,5 @@
 
     [Parameter]
     public EventCallback<DateOnly> CurrentDateChanged { get ; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string,object>? AdditionalAttributes { get; set; }
 
 }
