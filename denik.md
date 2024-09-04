@@ -256,4 +256,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### DONE:
 - Used div with flex instead of quick grid so I can align the buttons to the right (each row is a flex box and columns are items)
-- Add id to meal dto so I can use it to delete it from database
+- Add id to meal dto so I can use it to delete it from database (the db needs the id for find function)
