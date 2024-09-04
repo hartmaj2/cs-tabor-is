@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 using System.Text.Json.Serialization;
 
 // These classes serve as the JSON templates to be communicated from client to server and vice versa
@@ -6,6 +7,8 @@ using System.Text.Json.Serialization;
 
 public class MealDto
 {
+    public int Id { get; set; }
+
     [Required]
     public required string Name { get; set; }
 
@@ -46,6 +49,7 @@ public static class MealExtension
     {
         return new MealDto
             {
+                Id = meal.Id,
                 Name = meal.Name,
                 MealTime = meal.MealTime,
                 Type = meal.Type,

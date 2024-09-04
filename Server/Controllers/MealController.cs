@@ -39,19 +39,15 @@ public class MealsController : ControllerBase
 
     // Gets the list of all meals from the meals table
     // I have to map all Meal objects to MealCreateDtos because I want to be getting a list of all allergens for every meal
+    // (also uses eager loading with Include and then Include)
     [HttpGet("all")]
     public IEnumerable<MealDto> GetAllMeals()
     {
         return _context.Meals
-            .Select( meal => new MealDto
-                {
-                    Name = meal.Name,
-                    MealTime = meal.MealTime,
-                    Type = meal.Type,
-                    Date = meal.Date,
-                    Allergens = meal.MealAllergens!.Select(allergen => allergen.Allergen!.ToAllergenDto()).ToList()
-                }
-        );
+            .Include( meal => meal.MealAllergens!) // this and the following line are necessary, it eageryly loads the collection of MealAllergens for all meals so it is ready to be used by ToMealDto function
+            .ThenInclude( mealAllergen => mealAllergen.Allergen)
+            .Select( meal => meal.ToMealDto());
+        
     }
 
     // Uses eager loading for navigation entity MealAllergens (navigation entity represents a relationship to another entity or collection of entities)
