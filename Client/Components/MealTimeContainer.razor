@@ -11,7 +11,7 @@
             <div style="margin-left:10px; width:200px; font-size: large; font-weight: 500;" > Name </div>
             <div style="font-size: large; font-weight: 500;"> Type </div>
         </div>
-        @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime))
+        @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m.Type))
         {
             <div class="div-row" style="display:flex; align-items: center; border-bottom: 1px solid grey">
                 <div style="margin-left:10px; width:200px" > @meal.Name </div>
@@ -20,14 +20,7 @@
                 <div style="margin-right:10px"> <button class="btn btn-primary" > Delete </button> </div>
             </div>
         }
-
     </div>
-    @* <QuickGrid Items="@Meals!.Where(m => m.MealTime == MealTime)" class="table quickgrid" style="grid-template-columns: 3fr 2fr 1fr 1fr;"> 
-        <PropertyColumn Property="@(m => m.Name)"  />
-        <PropertyColumn Property="@(m => m.Type)" IsDefaultSortColumn="true" />
-        <TemplateColumn Title="Edit"> <button class="btn btn-primary"> Edit </button></TemplateColumn>
-        <TemplateColumn Title="Delete"> <button class="btn btn-primary" > Delete </button></TemplateColumn>
-    </QuickGrid> *@
 </div>
 
 @code
