@@ -1,0 +1,47 @@
+div.meal-type-container {
+    border-radius:5px; 
+    border: 2px solid black; 
+    margin: 10px 0px 10px 0px;
+}
+
+div.meal-type-header {
+    display:flex; 
+    align-items:center; 
+    background-color:rgb(200, 200, 200);
+}
+
+div.meal-type-header > span {
+    margin-left: 10px;
+    font-size: x-large;
+}
+
+div.div-table-header > div {
+    font-size: large; 
+    font-weight: 500;
+}
+
+div.div-table-header > *:first-child, div.div-table-row > *:first-child {
+    margin-left: 10px;
+    width: 200px;
+}
+
+div.meal-type-header > button, div.div-table-row > button {
+    margin-right: 10px;
+}
+
+/* The first button is always pushed right as much as it can using margin-left: auto */
+div.meal-type-header > button:first-of-type, div.div-table-row > button:first-of-type {
+    margin-left : auto;
+}
+
+div.div-table-row, div.div-table-header{
+    display: flex; 
+    align-items: center; 
+    border-bottom: 1px solid grey;
+}
+
+div.div-table-header {
+    background-color: rgb(237, 237, 237);
+}
+
+

@@ -1,23 +1,23 @@
 @* This component will hold meals of given type for given date *@
 @using Microsoft.AspNetCore.Components.QuickGrid
 
-<div style="border-radius:5px; border: 2px solid black; margin: 10px 0px 10px 0px ">
-    <div style="display:flex; align-items:center; background-color:rgb(200, 200, 200)">
-        <span class="px-2" style="font-size: x-large;"> @MealTime</span>
-        <button class="btn btn-primary" style="margin-left:auto; margin-right: 10px"> + </button>
+<div class="meal-type-container">
+    <div class="meal-type-header">
+        <span> @MealTime </span>
+        <button class="btn btn-primary"> + </button>
     </div>
     <div class="div-table">
-        <div class="div-header" style="display:flex; align-items: center; border-bottom: 1px solid grey; background-color: rgb(237, 237, 237);">
-            <div style="margin-left:10px; width:200px; font-size: large; font-weight: 500;" > Name </div>
-            <div style="font-size: large; font-weight: 500;"> Type </div>
+        <div class="div-table-header">
+            <div> Name </div>
+            <div> Type </div>
         </div>
         @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m.Type))
         {
-            <div class="div-row" style="display:flex; align-items: center; border-bottom: 1px solid grey">
-                <div style="margin-left:10px; width:200px" > @meal.Name </div>
+            <div class="div-table-row" >
+                <div> @meal.Name </div>
                 <div> @meal.Type </div>
-                <div style="margin-left:auto; margin-right: 10px;"> <button class="btn btn-primary"> Edit </button> </div>
-                <div style="margin-right:10px"> <button class="btn btn-primary" > Delete </button> </div>
+                <button class="btn btn-primary"> Edit </button>
+                <button class="btn btn-primary" > Delete </button>
             </div>
         }
     </div>
