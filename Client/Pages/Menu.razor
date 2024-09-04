@@ -1,8 +1,11 @@
 @page "/food"
 @inject HttpClient Http
 @layout SubLayout
+@inject IJSRuntime JSRuntime
 
-<DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals" > </DateSelector>
+<Modal @ref="modal" />
+
+<DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 
 @if (meals == null)
 {
@@ -10,7 +13,7 @@
 }
 else
 {
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" > </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddFoodButtonClicked="ShowAddFoodModal"> </MealTimeContainer>
     <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals"> </MealTimeContainer>
 }
 
@@ -32,5 +35,21 @@ else
         Console.WriteLine(dateString);
         var mealsList = await Http.GetFromJsonAsync<List<MealDto>>($"api/meals/{dateString}");
         meals = mealsList!.AsQueryable();
+    }
+
+    private Modal modal = default!;
+
+    private async Task ShowAddFoodModal()
+    {
+        await modal.ShowAsync<AddFoodModal>(title: "Allergens");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Ensure that the BlazorBootstrap modal initialization is called after the first render
+            await JSRuntime.InvokeVoidAsync("blazorBootstrap.modal.initialize");
+        }
     }
 }
