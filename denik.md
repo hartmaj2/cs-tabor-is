@@ -250,7 +250,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [ ] Improve MealTimeContainer
-  - [ ] Make columns with buttons appear at very right
-  - [ ] All columns have fixed size
+  - [x] Make columns with buttons appear at very right
   - [ ] Make buttons work
     - [ ] Add modals with input forms and verification
+
+### DONE:
+- Used div with flex instead of quick grid so I can align the buttons to the right (each row is a flex box and columns are items)
