@@ -299,3 +299,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Made submit button inside EditForm work, the request method for a given MealFormData object is connected to its OnValidSubmit event
   - IMPORTANT: check the names of the EventCallback functions passed <= it is easy to make a mistake
   - Don't forget to pass some of the necessary properties to the Json request 
+  - After submit I need to create new instance of the MealFormData object otherwise the validation won't reset
+    - This means I also have to load the AllergenSelection list again after each submission
