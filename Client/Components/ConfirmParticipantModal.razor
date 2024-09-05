@@ -1,49 +1,14 @@
 @using Shared
 @* This component represents a simple modal for confirming actions on participants *@
 
-@if (isModalVisible)
-{
-    <div class="modal-background">
-        <div class="modal">
-            <div>
-                <p> @ChildContent @participant!.FirstName @participant.LastName &#63; </p>
-            </div>
-            <div>
-                <button class="btn btn-primary" @onclick="Confirm">Yes</button>
-                <button class="btn btn-primary" @onclick="Cancel">No</button>
-            </div>
-        </div>
+<div class="modal-div">
+    <p> Are you sure you want to delete this participant? </p>
+    <div class="modal-buttons">
+        <button class="btn btn-primary"> Yes </button>
+        <button class="btn btn-primary"> No </button>
     </div>
-}
+</div>
 
 @code {
 
-    // Serves to set the text of the modal before the participant name and questionmark
-    [Parameter]
-    public required RenderFragment ChildContent { get; set; }
-
-    // Represents a callback for function I will be calling when the confirm button is pressed
-    [Parameter]
-    public EventCallback<int> OnConfirm { get; set; }   
-
-    private bool isModalVisible = false;
-    private Participant? participant;
-    public void ShowModal(Participant participant)
-    {
-        this.participant = participant;
-        isModalVisible = true;
-    }
-
-    // On confirmation, we want to fire invoke the function we received from the parent component, we invoke it with the current participantId
-    private void Confirm()
-    {
-        OnConfirm.InvokeAsync(participant!.Id);
-        isModalVisible = false;
-    }
-
-    // Just set the modal as invisible
-    private void Cancel()
-    {
-        isModalVisible = false;
-    }
 }

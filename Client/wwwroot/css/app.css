@@ -123,4 +123,15 @@ code {
     vertical-align: middle;
 }
 
+.modal-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
 
