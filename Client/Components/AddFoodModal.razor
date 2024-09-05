@@ -6,27 +6,28 @@
 <label> Meal type: </label> <br/>
 @foreach (var mealType in MealTypes!)
 {
-    <input id="@mealType" type="radio"> <label for="@mealType"> @mealType </label> <br/>
+    <input name="meal-type" id="@mealType" type="radio" @onchange="() => mealFormData.MealType = mealType"> <label for="@mealType"> @mealType </label> <br/>
 }
 <br/>
 
 <label> Allergens: </label> <br/>
-@foreach (var allergenSelection in allergenSelections!)
+@foreach (var allergenSelection in mealFormData.AllergenSelections!)
 {
     <input id="@allergenSelection.Name" type="checkbox" @bind="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
 }
 
-<button type="submit" class="btn btn-primary"> Add meal </button> <br/>
+<button type="submit" class="btn btn-primary"> Add meal </button>
 
+<p> Selected meal type: @mealFormData.MealType</p>
 <span> Selected allergens: </span>
-@foreach (var selected in allergenSelections!.Where(selection => selection.IsSelected))
+@foreach (var selected in mealFormData.AllergenSelections!.Where(selection => selection.IsSelected))
 {
     <span> @selected.Name </span>
 }
 
 @code
 {
-    private IList<AllergenSelection>? allergenSelections;
+    private MealFormData mealFormData = new();
 
     [Parameter]
     public IEnumerable<Allergen>? AllAllergens { get; set; }
@@ -34,14 +35,8 @@
     [Parameter]
     public IEnumerable<string>? MealTypes { get; set; }
 
-    private class AllergenSelection
-    {
-        public required string Name { get; init; }
-        public bool IsSelected { get; set; }
-    }
-
     protected override void OnInitialized()
     {
-        allergenSelections = AllAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
+        mealFormData.AllergenSelections = AllAllergens!.Select(allergen => new MealFormData.AllergenSelection() {Name = allergen.Name}).ToList();
     }
 }
