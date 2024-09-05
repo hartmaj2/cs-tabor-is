@@ -1,22 +1,40 @@
 @using Shared
 
-<label for="meal-name" > Meal name: </label> <br/>
-<input id="meal-name" type="text" /> <br/> <br/>
+<EditForm Model="@mealFormData" OnValidSubmit="()=>Console.WriteLine(42)">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
 
-<label> Meal type: </label> <br/>
-@foreach (var mealType in MealTypes!)
-{
-    <input name="meal-type" id="@mealType" type="radio" @onchange="() => mealFormData.MealType = mealType"> <label for="@mealType"> @mealType </label> <br/>
-}
-<br/>
+    <div>
+        <label for="meal-name" > Meal name: </label> <br/>
+        <InputText id="meal-name" @bind-Value="mealFormData.Name"/> <br/>
+        <ValidationMessage For="() => mealFormData.Name" />
+        <br/> 
+    </div>
 
-<label> Allergens: </label> <br/>
-@foreach (var allergenSelection in mealFormData.AllergenSelections!)
-{
-    <input id="@allergenSelection.Name" type="checkbox" @bind="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
-}
+    <div>
+        <label> Meal type: </label> <br/>
+        <InputRadioGroup @bind-Value="mealFormData.MealType">
+            @foreach (var mealType in MealTypes!)
+            {
+                <InputRadio id="@mealType" Value="@mealType" /> <label for="@mealType"> @mealType </label> <br/>
+                @* <input name="meal-type" " type="radio" @onchange="() => mealFormData.MealType = mealType">  *@
+            }
+        </InputRadioGroup>
+        <ValidationMessage For="() => mealFormData.MealType" />
+        <br/>
+    </div>
 
-<button type="submit" class="btn btn-primary"> Add meal </button>
+    <div>
+        <label> Allergens: </label> <br/>
+        @foreach (var allergenSelection in mealFormData.AllergenSelections!)
+        {
+            <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary"> Add meal </button>
+
+</EditForm>
 
 <p> Selected meal type: @mealFormData.MealType</p>
 <span> Selected allergens: </span>
