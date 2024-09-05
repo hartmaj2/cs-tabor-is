@@ -63,6 +63,14 @@ public class MealsController : ControllerBase
 
     }
 
+    // Gets the list of names of possible enum values for meal type
+    [HttpGet("meal-types")]
+    public IEnumerable<string> GetMealTypes()
+    {
+        
+        return Enum.GetNames<MealType>();
+    }
+
     // Deletes everything from the meals table
     [HttpDelete("delete-all")]
     public IActionResult DeleteAllMeals()
