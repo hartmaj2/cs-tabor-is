@@ -71,6 +71,16 @@ public class MealsController : ControllerBase
         return Enum.GetNames<MealType>();
     }
 
+    // Deletes single meal based on id
+    [HttpDelete("{id:int}")]
+    public IActionResult DeleteMeal(int id)
+    {
+        Meal mealToDelete = _context.Meals.Find(id)!;
+        _context.Remove(mealToDelete);
+        _context.SaveChanges();
+        return NoContent();
+    }
+
     // Deletes everything from the meals table
     [HttpDelete("delete-all")]
     public IActionResult DeleteAllMeals()

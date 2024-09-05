@@ -13,6 +13,9 @@ Content-Type: application/json
 ### Test request for deleting the whole table
 DELETE http://localhost:5141/api/meals/delete-all
 
+### Test request to delete single meal
+DELETE http://localhost:5141/api/meals/123
+
 ###
 GET http://localhost:5141/api/meals/all
 
