@@ -20,6 +20,7 @@
     [Parameter]
     public EventCallback OnRejectButton { get; set; }
 
+    // We want to invoke the method that connected to the OnDeleteParticipant EventCallback with the current participant id
     private void OnDeleteButton()
     {
         OnDeleteParticipant.InvokeAsync(CurrentParticipant.Id);
