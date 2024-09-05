@@ -282,6 +282,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Use edit form to validate inputs (validate name and type were entered)
   - [x] Create new food based on validated meal form data object (modal will get passed the meal time on appearance)
 - [ ] Display allergens next to Meal Type in MealTimeContainer
+- [ ] Implement Delete meal button
+- [ ] Implement Edit meal button
 
 ### DONE:
 - Fixed nav-link style by adding .css style selector in app.css file (needed to add padding left and right)
