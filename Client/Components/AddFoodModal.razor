@@ -1,19 +1,19 @@
 @using Shared
 
-<label> Meal name: </label> <br/>
-<input type="text" /> <br/> <br/>
+<label for="meal-name" > Meal name: </label> <br/>
+<input id="meal-name" type="text" /> <br/> <br/>
 
 <label> Meal type: </label> <br/>
 @foreach (var mealType in MealTypes!)
 {
-    <input type="radio"> <label> @mealType </label> <br/>
+    <input id="@mealType" type="radio"> <label for="@mealType"> @mealType </label> <br/>
 }
 <br/>
 
 <label> Allergens: </label> <br/>
 @foreach (var allergenSelection in allergenSelections!)
 {
-    <input type="checkbox" @bind="allergenSelection.IsSelected" /> <label> @allergenSelection.Name </label> <br/>
+    <input id="@allergenSelection.Name" type="checkbox" @bind="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
 }
 
 <button type="submit" class="btn btn-primary"> Add meal </button> <br/>
