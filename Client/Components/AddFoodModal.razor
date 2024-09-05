@@ -1,6 +1,6 @@
 @using Shared
 
-<EditForm Model="@mealFormData" OnValidSubmit="()=>Console.WriteLine(42)">
+<EditForm Model="@mealFormData" OnValidSubmit="OnFormSubmit">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
 
@@ -46,6 +46,13 @@
     [Parameter]
     public IEnumerable<string>? MealTypes { get; set; }
 
+    [Parameter]
+    public EventCallback<MealFormData> OnFoodSubmit { get; set; }
+    
+    private void OnFormSubmit()
+    {
+        OnFoodSubmit.InvokeAsync(mealFormData);
+    }
     protected override void OnInitialized()
     {
         mealFormData.AllergenSelections = AllAllergens!.Select(allergen => new MealFormData.AllergenSelection() {Name = allergen.Name}).ToList();

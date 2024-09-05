@@ -2,6 +2,7 @@
 @inject HttpClient Http
 @layout SubLayout
 @inject IJSRuntime JSRuntime
+@using System.Text.Json
 
 <Modal @ref="addFoodModal" />
 
@@ -13,13 +14,15 @@
 }
 else
 {
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddFoodButtonClicked="ShowAddFoodModal"> </MealTimeContainer>
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnAddFoodButtonClicked="ShowAddFoodModal"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddFoodButtonClicked="() => ShowAddFoodModal(MealTime.Lunch)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnAddFoodButtonClicked="() => ShowAddFoodModal(MealTime.Dinner)"> </MealTimeContainer>
 }
 
 @code
 {
     private DateOnly currentDate;
+
+    private MealTime currentModalMealTime;
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,12 +59,30 @@ else
 
     private Modal addFoodModal = default!;
 
-    private async Task ShowAddFoodModal()
+    private async Task ShowAddFoodModal(MealTime mealTime)
     {
+        currentModalMealTime = mealTime;
         var parameters = new Dictionary<string,object>();
         parameters.Add("AllAllergens",allAllergens!);
         parameters.Add("MealTypes",mealTypes!);
+        parameters.Add("OnFoodSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestFoodCreation));
         await addFoodModal.ShowAsync<AddFoodModal>(title: "Add meal", parameters:parameters);
     }
 
+    private async Task RequestFoodCreation(MealFormData submittedMeal)
+    {
+        var mealDto = new MealDto() 
+            {
+                
+                Name = submittedMeal.Name!,
+                MealTime = currentModalMealTime,
+                Type = Enum.Parse<MealType>(submittedMeal.MealType!),
+                Date = currentDate,
+                Allergens = submittedMeal.AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
+            };
+        Console.WriteLine(JsonSerializer.Serialize(mealDto));
+        await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
+        await addFoodModal.HideAsync();
+        await LoadMeals();
+    }
 }
