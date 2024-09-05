@@ -44,12 +44,4 @@ else
         await modal.ShowAsync<AddFoodModal>(title: "Allergens");
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Ensure that the BlazorBootstrap modal initialization is called after the first render
-            await JSRuntime.InvokeVoidAsync("blazorBootstrap.modal.initialize");
-        }
-    }
 }
