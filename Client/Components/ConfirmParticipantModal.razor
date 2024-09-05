@@ -4,16 +4,24 @@
 <div class="modal-div">
     <p> Are you sure you want to delete @CurrentParticipant.FirstName @CurrentParticipant.LastName? </p>
     <div class="modal-buttons">
-        <button class="btn btn-primary" @onclick="OnDeleteParticipant"> Yes </button>
-        <button class="btn btn-primary"> No </button>
+        <button class="btn btn-primary" @onclick="OnDeleteButton"> Yes </button>
+        <button class="btn btn-primary" @onclick="OnRejectButton"> No </button>
     </div>
 </div>
 
 @code {
 
     [Parameter]
-    public Participant? CurrentParticipant { get; set; }
+    public required Participant CurrentParticipant { get; set; }
 
     [Parameter]
-    public EventCallback OnDeleteParticipant { get; set; }
+    public EventCallback<int> OnDeleteParticipant { get; set; }
+
+    [Parameter]
+    public EventCallback OnRejectButton { get; set; }
+
+    private void OnDeleteButton()
+    {
+        OnDeleteParticipant.InvokeAsync(CurrentParticipant.Id);
+    }
 }

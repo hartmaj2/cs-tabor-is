@@ -73,12 +73,14 @@ else
     // Add reference to my modal which I will use to confirm deletion of given participant
     private Modal deleteParticipantModal = default!;
 
-    // Uses the reference to deletion modal to call the ShowModal method of that modal that causes it to show up and also store the participant data
+    // Uses the reference to deletion modal to call the ShowAsync method with the component to be shown by the modal modal
+    // The parameters are passed to the modal using dictionary with entries in format -> parameter_name : passed_value
     private void ShowDeleteParticipantModal(Participant participant)
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("CurrentParticipant",participant);
-        parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create(this,()=>Console.WriteLine("Hello world")));
+        parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,DeleteParticipant));
+        parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteParticipantModal));
         deleteParticipantModal.ShowAsync<ConfirmParticipantModal>(title:"Delete participant",parameters: parameters);
     }
 
@@ -121,6 +123,12 @@ else
     {
         await Http.DeleteAsync($"api/participants/delete/{id}");
         await LoadParticipants();
+        await deleteParticipantModal.HideAsync();
+    }
+
+    private async Task HideDeleteParticipantModal()
+    {
+        await deleteParticipantModal.HideAsync();
     }
     
 }
