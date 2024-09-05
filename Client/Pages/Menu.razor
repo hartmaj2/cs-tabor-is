@@ -6,6 +6,7 @@
 
 <Modal @ref="addMealModal" />
 <Modal @ref="deleteMealModal" />
+<Modal @ref="editMealModal" />
 
 <DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 
@@ -15,8 +16,8 @@
 }
 else
 {
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Lunch)"> </MealTimeContainer>
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Dinner)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnEditButtonClicked="ShowEditMealModal" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Lunch)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnEditButtonClicked="ShowEditMealModal" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Dinner)"> </MealTimeContainer>
 }
 
 @code
@@ -81,7 +82,7 @@ else
     // Sends api post request for the MealsController to create new meal with given values
     private async Task RequestMealCreation(MealFormData submittedMeal)
     {
-        var mealDto = new MealDto() 
+        @* var mealDto = new MealDto() 
             {
                 
                 Name = submittedMeal.Name!,
@@ -89,7 +90,8 @@ else
                 Type = Enum.Parse<MealType>(submittedMeal.MealType!),
                 Date = currentDate,
                 Allergens = submittedMeal.AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
-            };
+            }; *@
+        var mealDto = submittedMeal.ConvertToMealDto(currentModalMealTime,currentDate);
         await addMealModal.HideAsync();
         await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
         await LoadMeals();
@@ -117,5 +119,24 @@ else
         await Http.DeleteAsync($"api/meals/{id}");
         await deleteMealModal.HideAsync();
         await LoadMeals();
+    }
+
+    private Modal editMealModal = default!;
+
+    private async Task ShowEditMealModal(MealDto meal)
+    {
+        currentModalMealTime = meal.MealTime;
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("MealFormData",meal.ConvertToMealFormData(allAllergens!));
+        parameters.Add("AllAllergens",allAllergens!);
+        parameters.Add("MealTypes",mealTypes!);
+        parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
+        await addMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
+    }
+
+    private async Task RequestMealEdit(MealFormData meal)
+    {
+        var mealDto = meal.ConvertToMealDto(currentModalMealTime,currentDate);
+        await Http.PostAsJsonAsync<MealDto>($"api/meals/edit/{meal.Id}",mealDto,CancellationToken.None);
     }
 }

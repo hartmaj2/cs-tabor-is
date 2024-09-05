@@ -1,31 +1,31 @@
 @using Shared
 
-<EditForm Model="@mealFormData" OnValidSubmit="OnFormSubmit">
+<EditForm Model="@MealFormData" OnValidSubmit="OnFormSubmit">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
 
     <div>
         <label for="meal-name" > Meal name: </label> <br/>
-        <InputText id="meal-name" @bind-Value="mealFormData.Name"/> <br/>
-        <ValidationMessage For="() => mealFormData.Name" />
+        <InputText id="meal-name" @bind-Value="MealFormData.Name"/> <br/>
+        <ValidationMessage For="() => MealFormData.Name" />
         <br/> 
     </div>
 
     <div>
         <label> Meal type: </label> <br/>
-        <InputRadioGroup @bind-Value="mealFormData.MealType">
+        <InputRadioGroup @bind-Value="MealFormData.MealType">
             @foreach (var mealType in MealTypes!)
             {
                 <InputRadio id="@mealType" Value="@mealType" /> <label for="@mealType"> @mealType </label> <br/>
             }
         </InputRadioGroup>
-        <ValidationMessage For="() => mealFormData.MealType" />
+        <ValidationMessage For="() => MealFormData.MealType" />
         <br/>
     </div>
 
     <div>
         <label> Allergens: </label> <br/>
-        @foreach (var allergenSelection in mealFormData.AllergenSelections!)
+        @foreach (var allergenSelection in MealFormData.AllergenSelections!)
         {
             <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
         }
@@ -38,7 +38,8 @@
 
 @code
 {
-    private MealFormData mealFormData = new();
+    [Parameter]
+    public MealFormData MealFormData { get; set; } = new();
 
     [Parameter]
     public IEnumerable<Allergen>? AllAllergens { get; set; }
@@ -53,7 +54,7 @@
     // Invoke the function to request creation of new meal from our api
     private void OnFormSubmit()
     {
-        OnMealSubmit.InvokeAsync(mealFormData);
+        OnMealSubmit.InvokeAsync(MealFormData);
         ResetMealFormData();
     }
 
@@ -65,12 +66,12 @@
     
     private void ResetMealFormData()
     {
-        mealFormData = new();
+        MealFormData = new();
         LoadAllergensToMealFormData();
     }
 
     private void LoadAllergensToMealFormData()
     {
-        mealFormData.AllergenSelections = AllAllergens!.Select(allergen => new MealFormData.AllergenSelection() {Name = allergen.Name}).ToList();
+        MealFormData.AllergenSelections = AllAllergens!.Select(allergen => new MealFormData.AllergenSelection() {Name = allergen.Name}).ToList();
     }
 }

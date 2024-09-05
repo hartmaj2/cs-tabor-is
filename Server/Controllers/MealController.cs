@@ -71,6 +71,15 @@ public class MealsController : ControllerBase
         return Enum.GetNames<MealType>();
     }
 
+    [HttpPost("edit/{id:int}")]
+    public IActionResult EditMeal(int id, [FromBody] Meal updatedMeal)
+    {
+        Meal oldMeal = _context.Meals.Find(id)!;
+        _context.Entry(oldMeal).CurrentValues.SetValues(updatedMeal);
+        _context.SaveChanges();
+        return NoContent();
+    }
+
     // Deletes single meal based on id
     [HttpDelete("{id:int}")]
     public IActionResult DeleteMeal(int id)

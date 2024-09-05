@@ -15,7 +15,7 @@
             <div class="div-table-row" >
                 <div> @meal.Name </div>
                 <div> @meal.Type </div>
-                <button class="btn btn-primary"> Edit </button>
+                <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Edit </button>
                 <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Delete </button>
             </div>
         }
@@ -38,4 +38,7 @@
 
     [Parameter]
     public EventCallback<MealDto> OnDeleteButtonClicked { get; set; }
+
+    [Parameter]
+    public EventCallback<MealDto> OnEditButtonClicked { get; set; }
 }
