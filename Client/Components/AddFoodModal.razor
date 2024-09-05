@@ -17,7 +17,6 @@
             @foreach (var mealType in MealTypes!)
             {
                 <InputRadio id="@mealType" Value="@mealType" /> <label for="@mealType"> @mealType </label> <br/>
-                @* <input name="meal-type" " type="radio" @onchange="() => mealFormData.MealType = mealType">  *@
             }
         </InputRadioGroup>
         <ValidationMessage For="() => mealFormData.MealType" />
