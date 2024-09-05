@@ -1,0 +1,26 @@
+@using Shared
+
+<div class="modal-div">
+    <p> Are you sure you want to delete @CurrentMeal.Name ? </p>
+    <div class="modal-buttons">
+        <button class="btn btn-primary" @onclick="OnDeleteButton"> Yes </button>
+        <button class="btn btn-primary" @onclick="OnRejectButton"> No </button>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public required MealDto CurrentMeal { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnDeleteMeal { get; set; }
+
+    [Parameter]
+    public EventCallback OnRejectButton { get; set; }
+
+    private void OnDeleteButton()
+    {
+        OnDeleteMeal.InvokeAsync(CurrentMeal.Id);
+    }
+}

@@ -5,6 +5,7 @@
 @using System.Text.Json
 
 <Modal @ref="addMealModal" />
+<Modal @ref="deleteMealModal" />
 
 <DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 
@@ -14,8 +15,8 @@
 }
 else
 {
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Lunch)"> </MealTimeContainer>
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Dinner)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Lunch)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Dinner)"> </MealTimeContainer>
 }
 
 @code
@@ -91,6 +92,30 @@ else
             };
         await addMealModal.HideAsync();
         await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
+        await LoadMeals();
+    }
+
+    private Modal deleteMealModal = default!;
+
+    private void ShowDeleteMealModal(MealDto meal)
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("CurrentMeal",meal);
+        parameters.Add("OnDeleteMeal",EventCallback.Factory.Create<int>(this,RequestMealDelete));
+        parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteMealModal));
+        deleteMealModal.ShowAsync<DeleteMealModal>(title:"Delete Meal",parameters: parameters);
+    }
+
+    private async Task HideDeleteMealModal()
+    {
+        await deleteMealModal.HideAsync();
+    }
+
+    // Sends api delete request for MealsController to delete meal with given id
+    private async Task RequestMealDelete(int id)
+    {
+        await Http.DeleteAsync($"api/meals/{id}");
+        await deleteMealModal.HideAsync();
         await LoadMeals();
     }
 }
