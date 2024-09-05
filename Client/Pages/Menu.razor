@@ -75,7 +75,7 @@ else
         parameters.Add("AllAllergens",allAllergens!);
         parameters.Add("MealTypes",mealTypes!);
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealCreation));
-        await addMealModal.ShowAsync<AddMealModal>(title: "Add meal", parameters:parameters);
+        await addMealModal.ShowAsync<EditMealModal>(title: "Add meal", parameters:parameters);
     }
 
     // Sends api post request for the MealsController to create new meal with given values
