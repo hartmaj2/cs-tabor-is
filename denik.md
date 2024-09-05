@@ -272,12 +272,20 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### TODO:
 - [x] Fix styling after removing `wwwroot/css/bootstrap` folder
 - [x] Implement modal to delete participant using Blazor Bootstrap package
-- [ ] Implement button to add new meal
-  - [ ] Create modal to display all allergens after clicking
-  - [ ] Make the allergens into checkboxes so you can pick what allergens the food has
+- [x] Create add food modal skeleton
+  - [x] Create modal to display all allergens after clicking
+  - [x] Make the allergens into checkboxes so you can pick what allergens the food has
+  - [x] Pass possible meal types to Client from Server using api request
+- [ ] Make add food modal work
+  - [ ] Connect labels to their corresponding inputs
+  - [ ] Connect meal type radio buttons as one group
 
 ### DONE:
 - Fixed nav-link style by adding .css style selector in app.css file (needed to add padding left and right)
 - Implemented modal delete participant modal
   - Add .modal-div and .modal-buttons selectors to display modal content aligned to center
   - Need to pass parameters using a Dictionary<string,object>
+- Add http get method to get all possible meal types (used by the add food modal to display possible meal types to select)
+  - Done using `Enum.GetNames<MealType>()` and is passed as a list of strings
+- Created a list of AllergenSelecion items so I can bind allergen names to the values of the checkboxes
+  - To be able to bind to a list of something, it can't be IEnumerable but must be a concrete List or Array or something
