@@ -81,7 +81,7 @@ else
         parameters.Add("CurrentParticipant",participant);
         parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,DeleteParticipant));
         parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteParticipantModal));
-        deleteParticipantModal.ShowAsync<ConfirmParticipantModal>(title:"Delete participant",parameters: parameters);
+        deleteParticipantModal.ShowAsync<DeleteParticipantModal>(title:"Delete participant",parameters: parameters);
     }
 
     // Filtered source for the QuickGrid
