@@ -26,9 +26,12 @@ else
         currentDate = new DateOnly(2024,09,03);
         await LoadMeals();
         await LoadAllergens();
+        await LoadMealTypes();
     }
 
     private IEnumerable<Allergen>? allAllergens;
+
+    private IEnumerable<string>? mealTypes;
 
     private IQueryable<MealDto>? meals;
     private async Task LoadMeals()
@@ -45,12 +48,19 @@ else
         allAllergens = await Http.GetFromJsonAsync<List<Allergen>>("api/allergens/all");
     }
 
+    private async Task LoadMealTypes()
+    {
+        mealTypes = await Http.GetFromJsonAsync<List<string>>("api/meals/meal-types");
+        foreach(var mealType in mealTypes!) Console.WriteLine(mealType);
+    }
+
     private Modal addFoodModal = default!;
 
     private async Task ShowAddFoodModal()
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("AllAllergens",allAllergens!);
+        parameters.Add("MealTypes",mealTypes!);
         await addFoodModal.ShowAsync<AddFoodModal>(title: "Add meal", parameters:parameters);
     }
 

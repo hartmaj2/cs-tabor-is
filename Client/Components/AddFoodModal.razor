@@ -4,9 +4,11 @@
 <input type="text" /> <br/> <br/>
 
 <label> Meal type: </label> <br/>
-<input type="radio"> <label> Soup </label> <br/>
-<input type="radio"> <label> Main </label>
-<br/> <br/>
+@foreach (var mealType in MealTypes!)
+{
+    <input type="radio"> <label> @mealType </label> <br/>
+}
+<br/>
 
 <label> Allergens: </label> <br/>
 @foreach (var allergen in AllAllergens!)
@@ -20,4 +22,7 @@
 {
     [Parameter]
     public IEnumerable<Allergen>? AllAllergens { get; set; }
+
+    [Parameter]
+    public IEnumerable<string>? MealTypes { get; set; }
 }
