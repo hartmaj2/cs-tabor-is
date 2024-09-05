@@ -2,13 +2,18 @@
 @* This component represents a simple modal for confirming actions on participants *@
 
 <div class="modal-div">
-    <p> Are you sure you want to delete this participant? </p>
+    <p> Are you sure you want to delete @CurrentParticipant.FirstName @CurrentParticipant.LastName? </p>
     <div class="modal-buttons">
-        <button class="btn btn-primary"> Yes </button>
+        <button class="btn btn-primary" @onclick="OnDeleteParticipant"> Yes </button>
         <button class="btn btn-primary"> No </button>
     </div>
 </div>
 
 @code {
 
+    [Parameter]
+    public Participant? CurrentParticipant { get; set; }
+
+    [Parameter]
+    public EventCallback OnDeleteParticipant { get; set; }
 }

@@ -76,7 +76,10 @@ else
     // Uses the reference to deletion modal to call the ShowModal method of that modal that causes it to show up and also store the participant data
     private void ShowDeleteParticipantModal(Participant participant)
     {
-        deleteParticipantModal.ShowAsync<ConfirmParticipantModal>(title:"Delete participant");
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("CurrentParticipant",participant);
+        parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create(this,()=>Console.WriteLine("Hello world")));
+        deleteParticipantModal.ShowAsync<ConfirmParticipantModal>(title:"Delete participant",parameters: parameters);
     }
 
     // Filtered source for the QuickGrid
