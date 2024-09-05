@@ -11,6 +11,7 @@ public class MealFormData
 
     public IList<AllergenSelection>? AllergenSelections;
 
+    // Used to bind IsSelected property to the EditForm checkboxes
     public class AllergenSelection
     {
         public required string Name { get; init; }

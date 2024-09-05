@@ -37,6 +37,8 @@ else
     private IEnumerable<string>? mealTypes;
 
     private IQueryable<MealDto>? meals;
+
+    // Loads the meals for current date
     private async Task LoadMeals()
     {
         meals = null;
@@ -46,11 +48,13 @@ else
         meals = mealsList!.AsQueryable();
     }
 
+    // Gets list of all allergens
     private async Task LoadAllergens()
     {
         allAllergens = await Http.GetFromJsonAsync<List<Allergen>>("api/allergens/all");
     }
 
+    // Gets list of all meal types {"Soup","Main"}
     private async Task LoadMealTypes()
     {
         mealTypes = await Http.GetFromJsonAsync<List<string>>("api/meals/meal-types");
@@ -59,6 +63,10 @@ else
 
     private Modal addFoodModal = default!;
 
+    // All possible allergens to choose from get passed to the modal
+    // All possible meal types also get passed
+    // Lastly we pass the function that should be triggered when the food is submitted
+    // When modal is clicked, we also want to know, which MealTime (Lunch,Dinner) it is associated with
     private async Task ShowAddFoodModal(MealTime mealTime)
     {
         currentModalMealTime = mealTime;
@@ -69,6 +77,7 @@ else
         await addFoodModal.ShowAsync<AddFoodModal>(title: "Add meal", parameters:parameters);
     }
 
+    // Sends api post request for the MealsController to create new meal with given values
     private async Task RequestFoodCreation(MealFormData submittedMeal)
     {
         var mealDto = new MealDto() 
@@ -80,7 +89,6 @@ else
                 Date = currentDate,
                 Allergens = submittedMeal.AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
             };
-        Console.WriteLine(JsonSerializer.Serialize(mealDto));
         await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
         await addFoodModal.HideAsync();
         await LoadMeals();
