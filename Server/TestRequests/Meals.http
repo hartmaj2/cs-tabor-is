@@ -18,3 +18,6 @@ GET http://localhost:5141/api/meals/all
 
 ###
 GET http://localhost:5141/api/meals/2024-09-02
+
+###
+GET http://localhost:5141/api/meals/meal-types
