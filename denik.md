@@ -282,7 +282,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Use edit form to validate inputs (validate name and type were entered)
   - [x] Create new food based on validated meal form data object (modal will get passed the meal time on appearance)
 - [ ] Display allergens next to Meal Type in MealTimeContainer
-- [ ] Implement Delete meal button
+- [x] Implement Delete meal button
 - [ ] Implement Edit meal button
 
 ### DONE:
@@ -303,3 +303,15 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Don't forget to pass some of the necessary properties to the Json request 
   - After submit I need to create new instance of the MealFormData object otherwise the validation won't reset
     - This means I also have to load the AllergenSelection list again after each submission
+- Implemented remove button - basically same as last time
+- Tried to implement edit button 
+  - mostly works but allergens are not loading properly to the form
+  - Also the text should change to Edit meal on the submit button when editing
+  - Should try to reuse editMealModal instead of having both editMealModal and addMealModal
+
+
+## 6.9.2024
+
+### TODO:
+- [ ] Display allergens next to meal (also good for debugging)
+- [ ] Fix edit meal modal
