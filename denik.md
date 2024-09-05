@@ -1,3 +1,5 @@
+# Coding Diary
+
 ## 25.8.2024
 
 ### DONE:
