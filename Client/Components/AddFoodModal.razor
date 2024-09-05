@@ -30,18 +30,12 @@
         {
             <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
         }
+        <br/>
     </div>
 
     <button type="submit" class="btn btn-primary"> Add meal </button>
 
 </EditForm>
-
-<p> Selected meal type: @mealFormData.MealType</p>
-<span> Selected allergens: </span>
-@foreach (var selected in mealFormData.AllergenSelections!.Where(selection => selection.IsSelected))
-{
-    <span> @selected.Name </span>
-}
 
 @code
 {
