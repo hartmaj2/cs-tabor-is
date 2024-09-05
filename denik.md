@@ -277,8 +277,10 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Make the allergens into checkboxes so you can pick what allergens the food has
   - [x] Pass possible meal types to Client from Server using api request
 - [ ] Make add food modal work
-  - [ ] Connect labels to their corresponding inputs
-  - [ ] Connect meal type radio buttons as one group
+  - [x] Connect labels to their corresponding inputs
+  - [x] Connect meal type radio buttons as one group
+  - [ ] Use edit form to validate inputs (validate name and type were entered)
+  - [ ] Create new food based on validated meal form data object (modal will get passed the meal time on appearance) 
 
 ### DONE:
 - Fixed nav-link style by adding .css style selector in app.css file (needed to add padding left and right)
@@ -289,3 +291,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Done using `Enum.GetNames<MealType>()` and is passed as a list of strings
 - Created a list of AllergenSelecion items so I can bind allergen names to the values of the checkboxes
   - To be able to bind to a list of something, it can't be IEnumerable but must be a concrete List or Array or something
+- Bound radio buttons to single group using same name attribute value of their input tags
+- Add `MealFormData` class so I can use EditForm to validate inputs to my AddFoodModal
