@@ -131,12 +131,14 @@ else
         parameters.Add("AllAllergens",allAllergens!);
         parameters.Add("MealTypes",mealTypes!);
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
-        await addMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
+        await editMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
     }
 
     private async Task RequestMealEdit(MealFormData meal)
     {
         var mealDto = meal.ConvertToMealDto(currentModalMealTime,currentDate);
         await Http.PostAsJsonAsync<MealDto>($"api/meals/edit/{meal.Id}",mealDto,CancellationToken.None);
+        await editMealModal.HideAsync();
+        await LoadMeals();
     }
 }
