@@ -4,7 +4,7 @@
 @inject IJSRuntime JSRuntime
 @using System.Text.Json
 
-<Modal @ref="addFoodModal" />
+<Modal @ref="addMealModal" />
 
 <DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 
@@ -14,8 +14,8 @@
 }
 else
 {
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddFoodButtonClicked="() => ShowAddFoodModal(MealTime.Lunch)"> </MealTimeContainer>
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnAddFoodButtonClicked="() => ShowAddFoodModal(MealTime.Dinner)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Lunch)"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Dinner)"> </MealTimeContainer>
 }
 
 @code
@@ -61,24 +61,24 @@ else
         foreach(var mealType in mealTypes!) Console.WriteLine(mealType);
     }
 
-    private Modal addFoodModal = default!;
+    private Modal addMealModal = default!;
 
     // All possible allergens to choose from get passed to the modal
     // All possible meal types also get passed
-    // Lastly we pass the function that should be triggered when the food is submitted
+    // Lastly we pass the function that should be triggered when the meal is submitted
     // When modal is clicked, we also want to know, which MealTime (Lunch,Dinner) it is associated with
-    private async Task ShowAddFoodModal(MealTime mealTime)
+    private async Task ShowAddMealModal(MealTime mealTime)
     {
         currentModalMealTime = mealTime;
         var parameters = new Dictionary<string,object>();
         parameters.Add("AllAllergens",allAllergens!);
         parameters.Add("MealTypes",mealTypes!);
-        parameters.Add("OnFoodSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestFoodCreation));
-        await addFoodModal.ShowAsync<AddFoodModal>(title: "Add meal", parameters:parameters);
+        parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealCreation));
+        await addMealModal.ShowAsync<AddMealModal>(title: "Add meal", parameters:parameters);
     }
 
     // Sends api post request for the MealsController to create new meal with given values
-    private async Task RequestFoodCreation(MealFormData submittedMeal)
+    private async Task RequestMealCreation(MealFormData submittedMeal)
     {
         var mealDto = new MealDto() 
             {
@@ -89,8 +89,8 @@ else
                 Date = currentDate,
                 Allergens = submittedMeal.AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
             };
+        await addMealModal.HideAsync();
         await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
-        await addFoodModal.HideAsync();
         await LoadMeals();
     }
 }

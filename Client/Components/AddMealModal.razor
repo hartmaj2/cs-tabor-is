@@ -46,19 +46,30 @@
     [Parameter]
     public IEnumerable<string>? MealTypes { get; set; }
 
-    // When food is submitted we trigger a function that will get the resulting meal passed to it
+    // When meal is submitted we trigger a function that will get the resulting meal passed to it
     [Parameter]
-    public EventCallback<MealFormData> OnFoodSubmit { get; set; }
+    public EventCallback<MealFormData> OnMealSubmit { get; set; }
     
     // Invoke the function to request creation of new meal from our api
     private void OnFormSubmit()
     {
-        OnFoodSubmit.InvokeAsync(mealFormData);
-        mealFormData = new();
+        OnMealSubmit.InvokeAsync(mealFormData);
+        ResetMealFormData();
     }
 
     // Initialize the AllergenSelections of our mealFormData, we need to set the names of each AllergenSelection object to the correct allergen name
     protected override void OnInitialized()
+    {
+        LoadAllergensToMealFormData();
+    }
+    
+    private void ResetMealFormData()
+    {
+        mealFormData = new();
+        LoadAllergensToMealFormData();
+    }
+
+    private void LoadAllergensToMealFormData()
     {
         mealFormData.AllergenSelections = AllAllergens!.Select(allergen => new MealFormData.AllergenSelection() {Name = allergen.Name}).ToList();
     }
