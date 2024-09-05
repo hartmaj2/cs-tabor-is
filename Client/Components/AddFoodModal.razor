@@ -11,18 +11,37 @@
 <br/>
 
 <label> Allergens: </label> <br/>
-@foreach (var allergen in AllAllergens!)
+@foreach (var allergenSelection in allergenSelections!)
 {
-    <input type="checkbox" /> <label> @allergen.Name </label> <br/>
+    <input type="checkbox" @bind="allergenSelection.IsSelected" /> <label> @allergenSelection.Name </label> <br/>
 }
 
-<button type="submit" class="btn btn-primary"> Add meal </button>
+<button type="submit" class="btn btn-primary"> Add meal </button> <br/>
+
+<span> Selected allergens: </span>
+@foreach (var selected in allergenSelections!.Where(selection => selection.IsSelected))
+{
+    <span> @selected.Name </span>
+}
 
 @code
 {
+    private IList<AllergenSelection>? allergenSelections;
+
     [Parameter]
     public IEnumerable<Allergen>? AllAllergens { get; set; }
 
     [Parameter]
     public IEnumerable<string>? MealTypes { get; set; }
+
+    private class AllergenSelection
+    {
+        public required string Name { get; init; }
+        public bool IsSelected { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        allergenSelections = AllAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
+    }
 }
