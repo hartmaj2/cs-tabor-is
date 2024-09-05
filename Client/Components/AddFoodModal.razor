@@ -1,9 +1,23 @@
 @using Shared
 
-<p> Here is some modal text </p>
+<label> Meal name: </label> <br/>
+<input type="text" /> <br/> <br/>
+
+<label> Meal type: </label> <br/>
+<input type="radio"> <label> Soup </label> <br/>
+<input type="radio"> <label> Main </label>
+<br/> <br/>
+
+<label> Allergens: </label> <br/>
+@foreach (var allergen in AllAllergens!)
+{
+    <input type="checkbox" /> <label> @allergen.Name </label> <br/>
+}
+
+<button type="submit" class="btn btn-primary"> Add meal </button>
 
 @code
 {
     [Parameter]
-    public IEnumerable<Allergen> AllAllergens { get; set; }
+    public IEnumerable<Allergen>? AllAllergens { get; set; }
 }

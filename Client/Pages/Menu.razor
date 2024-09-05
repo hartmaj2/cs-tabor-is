@@ -14,7 +14,7 @@
 else
 {
     <MealTimeContainer Date="currentDate" MealTime="MealTime.Lunch" Meals="meals" OnAddFoodButtonClicked="ShowAddFoodModal"> </MealTimeContainer>
-    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals"> </MealTimeContainer>
+    <MealTimeContainer Date="currentDate" MealTime="MealTime.Dinner" Meals="meals" OnAddFoodButtonClicked="ShowAddFoodModal"> </MealTimeContainer>
 }
 
 @code
@@ -25,7 +25,10 @@ else
     {
         currentDate = new DateOnly(2024,09,03);
         await LoadMeals();
+        await LoadAllergens();
     }
+
+    private IEnumerable<Allergen>? allAllergens;
 
     private IQueryable<MealDto>? meals;
     private async Task LoadMeals()
@@ -37,11 +40,18 @@ else
         meals = mealsList!.AsQueryable();
     }
 
+    private async Task LoadAllergens()
+    {
+        allAllergens = await Http.GetFromJsonAsync<List<Allergen>>("api/allergens/all");
+    }
+
     private Modal addFoodModal = default!;
 
     private async Task ShowAddFoodModal()
     {
-        await addFoodModal.ShowAsync<AddFoodModal>(title: "Allergens");
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("AllAllergens",allAllergens!);
+        await addFoodModal.ShowAsync<AddFoodModal>(title: "Add meal", parameters:parameters);
     }
 
 }
