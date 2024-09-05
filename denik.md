@@ -279,7 +279,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Make add food modal work
   - [x] Connect labels to their corresponding inputs
   - [x] Connect meal type radio buttons as one group
-  - [ ] Use edit form to validate inputs (validate name and type were entered)
+  - [x] Use edit form to validate inputs (validate name and type were entered)
   - [ ] Create new food based on validated meal form data object (modal will get passed the meal time on appearance) 
 
 ### DONE:
@@ -287,9 +287,11 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Implemented modal delete participant modal
   - Add .modal-div and .modal-buttons selectors to display modal content aligned to center
   - Need to pass parameters using a Dictionary<string,object>
-- Add http get method to get all possible meal types (used by the add food modal to display possible meal types to select)
+- Added http get method to get all possible meal types (used by the add food modal to display possible meal types to select)
   - Done using `Enum.GetNames<MealType>()` and is passed as a list of strings
 - Created a list of AllergenSelecion items so I can bind allergen names to the values of the checkboxes
   - To be able to bind to a list of something, it can't be IEnumerable but must be a concrete List or Array or something
 - Bound radio buttons to single group using same name attribute value of their input tags
-- Add `MealFormData` class so I can use EditForm to validate inputs to my AddFoodModal
+- Added `MealFormData` class so I can use EditForm to validate inputs to my AddFoodModal
+- Made EditForm that uses MealFormData as its model
+  - Had to edit .css file to remove annoying green outline around radio buttons
