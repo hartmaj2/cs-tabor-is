@@ -276,11 +276,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Create modal to display all allergens after clicking
   - [x] Make the allergens into checkboxes so you can pick what allergens the food has
   - [x] Pass possible meal types to Client from Server using api request
-- [ ] Make add food modal work
+- [x] Make add food modal work
   - [x] Connect labels to their corresponding inputs
   - [x] Connect meal type radio buttons as one group
   - [x] Use edit form to validate inputs (validate name and type were entered)
-  - [ ] Create new food based on validated meal form data object (modal will get passed the meal time on appearance) 
+  - [x] Create new food based on validated meal form data object (modal will get passed the meal time on appearance)
+- [ ] Display allergens next to Meal Type in MealTimeContainer
 
 ### DONE:
 - Fixed nav-link style by adding .css style selector in app.css file (needed to add padding left and right)
@@ -295,3 +296,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Added `MealFormData` class so I can use EditForm to validate inputs to my AddFoodModal
 - Made EditForm that uses MealFormData as its model
   - Had to edit .css file to remove annoying green outline around radio buttons
+- Made submit button inside EditForm work, the request method for a given MealFormData object is connected to its OnValidSubmit event
+  - IMPORTANT: check the names of the EventCallback functions passed <= it is easy to make a mistake
+  - Don't forget to pass some of the necessary properties to the Json request 
