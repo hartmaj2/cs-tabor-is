@@ -3,7 +3,7 @@
 @layout SubLayout
 @inject IJSRuntime JSRuntime
 
-<Modal @ref="modal" />
+<Modal @ref="addFoodModal" />
 
 <DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 
@@ -37,11 +37,11 @@ else
         meals = mealsList!.AsQueryable();
     }
 
-    private Modal modal = default!;
+    private Modal addFoodModal = default!;
 
     private async Task ShowAddFoodModal()
     {
-        await modal.ShowAsync<AddFoodModal>(title: "Allergens");
+        await addFoodModal.ShowAsync<AddFoodModal>(title: "Allergens");
     }
 
 }
