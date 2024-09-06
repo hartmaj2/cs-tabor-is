@@ -32,12 +32,15 @@
         <br/>
     </div>
 
-    <button type="submit" class="btn btn-primary"> Add meal </button>
+    <button type="submit" class="btn btn-primary"> @SubmitButtonText </button>
 
 </EditForm>
 
 @code
 {
+    [Parameter]
+    public string SubmitButtonText { get; set; } = "Edit meal";
+
     [Parameter]
     public MealFormData MealFormData { get; set; } = new();
 
