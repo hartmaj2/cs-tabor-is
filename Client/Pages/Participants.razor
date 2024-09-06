@@ -79,9 +79,22 @@ else
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("CurrentParticipant",participant);
-        parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,DeleteParticipant));
+        parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,RequestParticipantDelete));
         parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteParticipantModal));
         deleteParticipantModal.ShowAsync<DeleteParticipantModal>(title:"Delete participant",parameters: parameters);
+    }
+
+    private async Task HideDeleteParticipantModal()
+    {
+        await deleteParticipantModal.HideAsync();
+    }
+
+    // Sends api request to delete participant with given id
+    private async Task RequestParticipantDelete(int id)
+    {
+        await Http.DeleteAsync($"api/participants/delete/{id}");
+        await LoadParticipants();
+        await deleteParticipantModal.HideAsync();
     }
 
     // Filtered source for the QuickGrid
@@ -119,16 +132,4 @@ else
         Navigation.NavigateTo($"/participants/edit/{id}");
     }
 
-    private async Task DeleteParticipant(int id)
-    {
-        await Http.DeleteAsync($"api/participants/delete/{id}");
-        await LoadParticipants();
-        await deleteParticipantModal.HideAsync();
-    }
-
-    private async Task HideDeleteParticipantModal()
-    {
-        await deleteParticipantModal.HideAsync();
-    }
-    
 }
