@@ -22,6 +22,9 @@ div.div-table-header > div {
 
 div.div-table-header > *:first-child, div.div-table-row > *:first-child {
     margin-left: 10px;
+}
+
+div.div-table-header > div, div.div-table-row > div {
     width: 200px;
 }
 
