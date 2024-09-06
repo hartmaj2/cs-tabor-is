@@ -314,11 +314,20 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Display allergens next to meal (also good for debugging)
-- [ ] Fix edit meal modal
+- [x] Fix edit meal modal
   - [x] Fix allergens not loading
-  - [ ] Fix allergen choices not changing on edit
+  - [x] Fix allergen choices not changing on edit
+  - [x] Make both edit/add use the same modal reference
+  - [x] Make edit modal have correct text
+- [ ] Make participants table shrinkable (maybe allow hiding some of the columns)
 
 
 ### DONE:
 - Made meal container display allergens
 - Fixed error with non loading allergens - the problem was that I was overriding it with emtpy allergen selections over again (that needs to be done only when adding a meal not on edit)
+- Fix error with changes not made to allergens in database - this is because the .Entry(entity).CurrentValues.SetValues(newEntity) only sets simple values (no associacion values)
+  - The MealAllergens must be loaded and removed manually and then added manually as well
+- Implemented column hiding
+  - Didn't want to use reflection to go through possible properties because I might add some later
+  - Unfortunately trick with binding to dictionary didn't work (bind to values for attribute names as keys)
+  - Also, for (int i ...) loop is bad for binding because the last i value is used for binding (i think, because binding is done after the render maybe)
