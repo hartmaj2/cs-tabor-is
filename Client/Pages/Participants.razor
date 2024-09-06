@@ -7,9 +7,13 @@
 
 <h1> Participants </h1>
 
+
+
 <NavLink class="nav-item" href="/participants/add">
     <button class="btn btn-primary"> Add a participant </button>
 </NavLink>
+
+
 
 @if (participants == null)
 {
@@ -17,32 +21,63 @@
 }
 else
 {
+    <br/>
+    <span> Show: </span> 
+    @foreach (var tableColumnInfo in columnInfos)
+    {
+        <label class="checkbox-label"> <input type="checkbox" @bind="tableColumnInfo.IsChecked"/> @tableColumnInfo.PropName </label>
+    }
+
     <QuickGrid Items="@FilteredParticipants" class="table quickgrid">
-        <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.FirstName)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.LastName)" Sortable="true" > 
-            <ColumnOptions>
-                <input type="search" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="Search last name... "/>
-            </ColumnOptions>
-        </PropertyColumn>
         
-        <PropertyColumn Property="@(p => p.Age)" Sortable="true" >
-            <ColumnOptions>
-                <div>
-                    Min: 
-                    <input type="range" @bind="ageBoundFilter.Min" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                    <input type="text" @bind="ageBoundFilter.Min" @bind:event="oninput" />
-                </div>
-                <br>
-                <div>
-                    Max: 
-                    <input type="range" @bind="ageBoundFilter.Max" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                    <input type="text" @bind="ageBoundFilter.Max" @bind:event="oninput" />
-                </div>
-            </ColumnOptions>
-        </PropertyColumn>
-        <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" />
+        @if (columnInfos[0].IsChecked)
+        {
+            <PropertyColumn Property="@(p => p.Id)" Sortable="true" Title=@columnInfos[0].PropName/>
+        }
+        
+        @if (columnInfos[1].IsChecked)
+        {
+            <PropertyColumn Property="@(p => p.FirstName)" Sortable="true" Title=@columnInfos[1].PropName />
+        }
+
+        @if (columnInfos[2].IsChecked)
+        {
+            <PropertyColumn Property="@(p => p.LastName)" Sortable="true" Title=@columnInfos[2].PropName> 
+                <ColumnOptions>
+                    <input type="search" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="Search last name... "/>
+                </ColumnOptions>
+            </PropertyColumn>
+        }
+
+        @if (columnInfos[3].IsChecked)
+        {
+            <PropertyColumn Property="@(p => p.Age)" Sortable="true" Title=@columnInfos[3].PropName>
+                <ColumnOptions>
+                    <div>
+                        Min: 
+                        <input type="range" @bind="ageBoundFilter.Min" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                        <input type="text" @bind="ageBoundFilter.Min" @bind:event="oninput" />
+                    </div>
+                    <br>
+                    <div>
+                        Max: 
+                        <input type="range" @bind="ageBoundFilter.Max" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                        <input type="text" @bind="ageBoundFilter.Max" @bind:event="oninput" />
+                    </div>
+                </ColumnOptions>
+            </PropertyColumn>
+        }
+
+        @if (columnInfos[4].IsChecked)
+        {
+            <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" Title=@columnInfos[4].PropName/>
+        }
+
+        @if (columnInfos[5].IsChecked)
+        {
+            <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" Title=@columnInfos[5].PropName/>
+        }
+        
         <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
         <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(context)"> Delete </button></TemplateColumn>
         
@@ -131,5 +166,21 @@ else
     {
         Navigation.NavigateTo($"/participants/edit/{id}");
     }
+
+    private class TableColumnInfo
+    {
+        public required string PropName { get; set; }
+        public bool IsChecked { get; set; } = true;
+    }
+
+    private TableColumnInfo[] columnInfos = 
+    {
+        new TableColumnInfo() {PropName = "Id"},
+        new TableColumnInfo() {PropName = "First Name"},
+        new TableColumnInfo() {PropName = "Last Name"},
+        new TableColumnInfo() {PropName = "Age"},
+        new TableColumnInfo() {PropName = "Phone Number"},
+        new TableColumnInfo() {PropName = "Birth Number"},
+    };
 
 }

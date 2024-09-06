@@ -135,3 +135,10 @@ code {
     column-gap: 10px;
 }
 
+.checkbox-label {
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px 10px 5px 10px;
+    margin: 5px 10px 5px 10px;
+}
+
