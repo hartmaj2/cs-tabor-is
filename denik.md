@@ -313,5 +313,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 6.9.2024
 
 ### TODO:
-- [ ] Display allergens next to meal (also good for debugging)
+- [x] Display allergens next to meal (also good for debugging)
 - [ ] Fix edit meal modal
+  - [x] Fix allergens not loading
+  - [ ] Fix allergen choices not changing on edit
+
+
+### DONE:
+- Made meal container display allergens
+- Fixed error with non loading allergens - the problem was that I was overriding it with emtpy allergen selections over again (that needs to be done only when adding a meal not on edit)
