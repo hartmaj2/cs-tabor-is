@@ -74,9 +74,20 @@ public class MealsController : ControllerBase
     [HttpPost("edit/{id:int}")]
     public IActionResult EditMeal(int id, [FromBody] MealDto updatedMeal)
     {
-        Meal oldMeal = _context.Meals.Find(id)!;
+        Meal oldMeal = _context.Meals.Where(meal => meal.Id == id).Include(meal => meal.MealAllergens).First();
         Meal newMeal = updatedMeal.ConvertToMeal(_context);
         _context.Entry(oldMeal).CurrentValues.SetValues(newMeal);
+
+        // I also need to remove old entries in the association tables (this is why i needed to call .Include for old meal)
+        foreach (var mealAllergen in oldMeal.MealAllergens!)
+        {
+            _context.MealAllergens.Remove(mealAllergen);
+        }
+        // Add new entries to the association table
+        foreach (var mealAllergen in newMeal.MealAllergens!)
+        {
+            _context.MealAllergens.Add(mealAllergen);
+        }
         _context.SaveChanges();
         return NoContent();
     }
@@ -114,6 +125,7 @@ public static class MealDtoExtensions
     {
         var meal = new Meal
         {
+            Id = mealDto.Id,
             Name = mealDto.Name,
             MealTime = mealDto.MealTime,
             Type = mealDto.Type,
@@ -124,7 +136,8 @@ public static class MealDtoExtensions
         foreach (AllergenDto allergenDto in mealDto.Allergens)
         {
             Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
-            meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id});
+            // Here it is necessary to set MealId = meal.Id (when editing meal, I need it to create an entry in the MealAllergens association table)
+            meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id, MealId = meal.Id}); 
         }
         return meal;
     }
