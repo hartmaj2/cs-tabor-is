@@ -11,21 +11,23 @@
             <div> Type </div>
             <div> Allergens </div>
         </div>
-        @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m.Type))
-        {
-            <div class="div-table-row" >
-                <div> @meal.Name </div>
-                <div> @meal.Type </div>
-                <div>
-                    @foreach( var allergen in meal.Allergens)
-                    {
-                        <span> @allergen.Name,  </span>
-                    }
+        <div class="div-table-body">
+            @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m.Type))
+            {
+                <div class="div-table-row" >
+                    <div> @meal.Name </div>
+                    <div> @meal.Type </div>
+                    <div>
+                        @foreach( var allergen in meal.Allergens)
+                        {
+                            <span> @allergen.Name,  </span>
+                        }
+                    </div>
+                    <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Edit </button>
+                    <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Delete </button>
                 </div>
-                <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Edit </button>
-                <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Delete </button>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
 

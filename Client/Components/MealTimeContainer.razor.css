@@ -7,7 +7,7 @@ div.meal-type-container {
 div.meal-type-header {
     display:flex; 
     align-items:center; 
-    background-color:rgb(200, 200, 200);
+    background-color:rgb(185, 185, 185);
 }
 
 div.meal-type-header > span {
@@ -44,7 +44,11 @@ div.div-table-row, div.div-table-header{
 }
 
 div.div-table-header {
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(221, 220, 220);
+}
+
+div.div-table-body > div:nth-of-type(even) {
+    background: rgb(247, 247, 247);
 }
 
 
