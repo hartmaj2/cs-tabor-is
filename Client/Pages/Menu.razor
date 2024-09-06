@@ -82,15 +82,6 @@ else
     // Sends api post request for the MealsController to create new meal with given values
     private async Task RequestMealCreation(MealFormData submittedMeal)
     {
-        @* var mealDto = new MealDto() 
-            {
-                
-                Name = submittedMeal.Name!,
-                MealTime = currentModalMealTime,
-                Type = Enum.Parse<MealType>(submittedMeal.MealType!),
-                Date = currentDate,
-                Allergens = submittedMeal.AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
-            }; *@
         var mealDto = submittedMeal.ConvertToMealDto(currentModalMealTime,currentDate);
         await editMealModal.HideAsync();
         await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
