@@ -60,8 +60,12 @@
 
     // Initialize the AllergenSelections of our mealFormData, we need to set the names of each AllergenSelection object to the correct allergen name
     protected override void OnInitialized()
-    {
-        LoadAllergensToMealFormData();
+    {   
+        // I only need to create List of allergen selecitons if there is none already (when editing I have it prefilled)
+        if (MealFormData.AllergenSelections == null)
+        {
+            LoadAllergensToMealFormData();
+        }
     }
     
     private void ResetMealFormData()
