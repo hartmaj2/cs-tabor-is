@@ -72,10 +72,11 @@ public class MealsController : ControllerBase
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditMeal(int id, [FromBody] Meal updatedMeal)
+    public IActionResult EditMeal(int id, [FromBody] MealDto updatedMeal)
     {
         Meal oldMeal = _context.Meals.Find(id)!;
-        _context.Entry(oldMeal).CurrentValues.SetValues(updatedMeal);
+        Meal newMeal = updatedMeal.ConvertToMeal(_context);
+        _context.Entry(oldMeal).CurrentValues.SetValues(newMeal);
         _context.SaveChanges();
         return NoContent();
     }
@@ -102,6 +103,15 @@ public class MealsController : ControllerBase
     // Is called repeatedly when adding a list of meals
     private void AddSingleMeal(MealDto mealDto)
     {
+        _context.Meals.Add(mealDto.ConvertToMeal(_context));
+    }
+
+}
+
+public static class MealDtoExtensions
+{
+    public static Meal ConvertToMeal(this MealDto mealDto, ParticipantsDbContext _context)
+    {
         var meal = new Meal
         {
             Name = mealDto.Name,
@@ -116,8 +126,6 @@ public class MealsController : ControllerBase
             Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
             meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id});
         }
-
-        _context.Meals.Add(meal);
+        return meal;
     }
-
 }
