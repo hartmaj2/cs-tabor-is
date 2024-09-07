@@ -7,104 +7,119 @@ Content-Type: application/json
         "LastName" : "Johnson",
         "Age" : 28,
         "PhoneNumber" : "777251356",
-        "BirthNumber" : "1231231232"
+        "BirthNumber" : "1231231232",
+		"Allergens" : []
     },
     {
         "FirstName" : "Bob",
         "LastName" : "Smith",
         "Age" : 35,
         "PhoneNumber" : "608542356",
-        "BirthNumber" : "0000000000"
+        "BirthNumber" : "0000000000",
+		"Allergens" : []
     },
     {
         "FirstName" : "Charlie",
         "LastName" : "Brown",
         "Age" : 42,
         "PhoneNumber" : "605453482",
-        "BirthNumber" : "0000000000"
+        "BirthNumber" : "0000000000",
+		"Allergens" : []
     },
     {
         "FirstName" : "David",
         "LastName" : "Miller",
         "Age" : 29,
         "PhoneNumber" : "712456789",
-        "BirthNumber" : "1037802458"
+        "BirthNumber" : "1037802458",
+		"Allergens" : []
     },
     {
         "FirstName" : "Eve",
         "LastName" : "Davis",
         "Age" : 31,
         "PhoneNumber" : "619845267",
-        "BirthNumber" : "2075604916"
+        "BirthNumber" : "2075604916",
+		"Allergens" : []
     },
     {
         "FirstName" : "Frank",
         "LastName" : "Wilson",
         "Age" : 26,
         "PhoneNumber" : "724582341",
-        "BirthNumber" : "3113407374"
+        "BirthNumber" : "3113407374",
+		"Allergens" : []
     },
     {
         "FirstName" : "Grace",
         "LastName" : "Moore",
         "Age" : 33,
         "PhoneNumber" : "608123456",
-        "BirthNumber" : "4151209832"
+        "BirthNumber" : "4151209832",
+		"Allergens" : []
     },
     {
         "FirstName" : "Hank",
         "LastName" : "Taylor",
         "Age" : 40,
         "PhoneNumber" : "715643278",
-        "BirthNumber" : "5189012290"
+        "BirthNumber" : "5189012290",
+		"Allergens" : []
     },
     {
         "FirstName" : "Ivy",
         "LastName" : "Anderson",
         "Age" : 27,
         "PhoneNumber" : "703945612",
-        "BirthNumber" : "6226814748"
+        "BirthNumber" : "6226814748",
+		"Allergens" : []
     },
     {
         "FirstName" : "Jack",
         "LastName" : "Thomas",
         "Age" : 34,
         "PhoneNumber" : "710256934",
-        "BirthNumber" : "7264617206"
+        "BirthNumber" : "7264617206",
+		"Allergens" : []
     },
     {
         "FirstName" : "Karen",
         "LastName" : "Jackson",
         "Age" : 36,
         "PhoneNumber" : "709865432",
-        "BirthNumber" : "8302419664"
+        "BirthNumber" : "8302419664",
+		"Allergens" : []
     },
     {
         "FirstName" : "Leo",
         "LastName" : "White",
         "Age" : 39,
         "PhoneNumber" : "714582390",
-        "BirthNumber" : "9340222122"
+        "BirthNumber" : "9340222122",
+		"Allergens" : []
     },
     {
         "FirstName" : "Mia",
         "LastName" : "Harris",
         "Age" : 24,
         "PhoneNumber" : "703456789",
-        "BirthNumber" : "3112674114"
+        "BirthNumber" : "3112674114",
+		"Allergens" : []
     },
     {
         "FirstName" : "Nina",
         "LastName" : "Martinez",
         "Age" : 38,
         "PhoneNumber" : "719856341",
-        "BirthNumber" : "4150232152"
+        "BirthNumber" : "4150232152",
+		"Allergens" : []
     },
     {
         "FirstName" : "Oscar",
         "LastName" : "Clark",
         "Age" : 41,
         "PhoneNumber" : "723456789",
-        "BirthNumber" : "5187790190"
+        "BirthNumber" : "5187790190",
+		"Allergens" : []
     }
 ]

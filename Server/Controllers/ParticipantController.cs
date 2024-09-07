@@ -56,9 +56,9 @@ public class ParticipantController : ControllerBase
 
     // Adds a whole list of participants
     [HttpPost("add-many")]
-    public IActionResult AddMultipleParticipants([FromBody] ICollection<Participant> participants)
+    public IActionResult AddMultipleParticipants([FromBody] ICollection<ParticipantDto> participants)
     {
-        _context.Participants.AddRange(participants);
+        _context.Participants.AddRange(participants.Select(participant => participant.ConvertToParticipant(_context)));
         _context.SaveChanges();
         return CreatedAtAction(nameof(GetParticipants),participants);
     }
