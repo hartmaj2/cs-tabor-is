@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
 using System.Text.Json.Serialization;
 
-// These classes serve as the JSON templates to be communicated from client to server and vice versa
+// Serve as the JSON templates to be communicated from client to server and vice versa
 // I wanted to be able to send the meal as the list of its properties + a list of names of allergens
 
 public class MealDto
@@ -26,20 +25,7 @@ public class MealDto
     public required List<AllergenDto> Allergens { get; set; }
 }
 
-public class AllergenDto
-{
 
-    [Required]
-    public required string Name { get; set; }
-}
-
-public static class AllergenExtensions
-{
-    public static AllergenDto ToAllergenDto(this Allergen allergen)
-    {
-        return new AllergenDto { Name = allergen.Name};
-    }
-}
 
 // This method assumes that MealAllergens of every meal and Allergen field of each mealAllergen are eagerly loaded before this method is called
 // Eager loading is done by using Include keyword
