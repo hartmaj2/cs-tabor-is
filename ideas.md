@@ -9,6 +9,8 @@
 - Generalize confirm delete modal so I can reuse code for delete participant and delete meal (maybe use generic types and single AddTypeModal.razor component)
 - Rename ParticipantsDbContext to CampDbContext
 - Make the width of my div table meal columns adjust themselves automatically based on the longest entry
+- Add male/female 
+- Remove age and calculate it from birth number instead
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
