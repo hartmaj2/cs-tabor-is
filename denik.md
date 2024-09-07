@@ -331,3 +331,16 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Didn't want to use reflection to go through possible properties because I might add some later
   - Unfortunately trick with binding to dictionary didn't work (bind to values for attribute names as keys)
   - Also, for (int i ...) loop is bad for binding because the last i value is used for binding (i think, because binding is done after the render maybe)
+
+## 7.9.2024
+
+### TODO:
+- [ ] Update participant model so participants have list of allergens
+  - [ ] Add ParticipantAllergen model 
+  - [ ] To participant add ICollection of MealAllergens
+- [ ] Probably make ParticipantDto where allergens will be a list of AllergenDtos
+- [ ] Move Dtos to their own folder and separate the classes into their own files
+
+
+### DONE:
+- 
