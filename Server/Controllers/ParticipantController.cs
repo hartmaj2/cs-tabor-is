@@ -24,6 +24,16 @@ public class ParticipantController : ControllerBase
         return _context.Participants.Find(id);
     }
 
+    [HttpGet("all-diets")]
+    public IEnumerable<ParticipantDietsDto> GetParticipantDietsDtos()
+    {
+        return _context.Participants
+            .Include(p => p.ParticipantAllergens)!
+            .ThenInclude(pa => pa.Allergen)
+            .ToList<Participant>()
+            .Select(p => p.ConvertToParticipantDietsDto(_context));
+    }
+
     // Gets the list of participants from the participant table
     [HttpGet("all")]
     public IEnumerable<Participant> GetParticipantsFromDb()
@@ -76,4 +86,19 @@ public class ParticipantController : ControllerBase
         return NoContent();
     }
 
+}
+
+public static class ParticipantExtensions
+{
+    // Converts a Participant to Participant diets dto, the navigation properties ParticipantAllergens and Allergen must be loaded from db explicitly using Include
+    public static ParticipantDietsDto ConvertToParticipantDietsDto(this Participant thisParticipant,ParticipantsDbContext _context)
+    {
+        return new ParticipantDietsDto()
+        {
+            Id = thisParticipant.Id,
+            FirstName = thisParticipant.FirstName,
+            LastName = thisParticipant.LastName,
+            Allergens = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
+        };
+    }
 }

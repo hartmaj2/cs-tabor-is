@@ -1,6 +1,9 @@
 ### Test request for get method
 GET http://localhost:5141/api/participants/all
 
+### 
+GET http://localhost:5141/api/participants/all-diets
+
 ### Test request for post method
 POST http://localhost:5141/api/participants/add 
 Content-Type: application/json
