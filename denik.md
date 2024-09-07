@@ -354,3 +354,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Tested git branching and merging so I can develop safer
 - Changed ParticipantDietDto to ParticipantDto - the ParticipantFromData might have to change as well
   - The reason is consistency with how I communicate meals
+- Migrating to a local database (so I don't have to connect online every time)
+  - Need to install docker so I can run the mysql server inside a container (because I would need windows otherwise)
+  - Accidentaly created MySql docker container but I need Sql
+    - So I need to install sql express image
