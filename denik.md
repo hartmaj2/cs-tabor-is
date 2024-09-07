@@ -340,6 +340,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] To participant add ICollection of MealAllergens
 - [x] Probably make ParticipantDietDto where allergens will be a list of AllergenDtos
 - [x] Move Dtos to their own folder and separate the classes into their own files
+- [ ] Implement communication using ParticipantDto instead of Participant directly
+- [ ] Communicate AllergenDto instead of Allergens directly
+  - [ ] Add Id to AllergenDto
 - [ ] Implement diet section
   - [ ] Load a list of participant diet dtos 
   - [ ] Show them in table that lists allergens 
@@ -348,3 +351,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### DONE:
 - Created ParticipantDietDto so I can transfer only relevant data when communicating diets to Client
+- Tested git branching and merging so I can develop safer
+- Changed ParticipantDietDto to ParticipantDto - the ParticipantFromData might have to change as well
+  - The reason is consistency with how I communicate meals
