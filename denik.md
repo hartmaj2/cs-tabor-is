@@ -343,4 +343,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 
 ### DONE:
-- 
+- Blah blah blah I added something here
