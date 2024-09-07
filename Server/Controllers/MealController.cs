@@ -8,10 +8,10 @@ using Server.Data;
 public class MealsController : ControllerBase
 {
 
-    private readonly ParticipantsDbContext _context;
+    private readonly TaborIsDbContext _context;
 
     // The context gets injected using dependency injection
-    public MealsController(ParticipantsDbContext context)
+    public MealsController(TaborIsDbContext context)
     {
         _context = context;
     }
@@ -121,7 +121,7 @@ public class MealsController : ControllerBase
 
 public static class MealDtoExtensions
 {
-    public static Meal ConvertToMeal(this MealDto mealDto, ParticipantsDbContext _context)
+    public static Meal ConvertToMeal(this MealDto mealDto, TaborIsDbContext _context)
     {
         var meal = new Meal
         {

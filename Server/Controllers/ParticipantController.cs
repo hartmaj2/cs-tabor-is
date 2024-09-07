@@ -10,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 public class ParticipantController : ControllerBase
 {
 
-    private readonly ParticipantsDbContext _context;
+    private readonly TaborIsDbContext _context;
 
     // The context gets injected using dependency injection
-    public ParticipantController(ParticipantsDbContext context)
+    public ParticipantController(TaborIsDbContext context)
     {
         _context = context;
     }
@@ -86,7 +86,7 @@ public class ParticipantController : ControllerBase
 // Extension is used because I need the DbContext so can't just put it in ParticipantDto class which doesn't have reference to this context
 public static class ParticipantDtoExtensions
 {
-    public static Participant ConvertToParticipant(this ParticipantDto participantDto, ParticipantsDbContext _context)
+    public static Participant ConvertToParticipant(this ParticipantDto participantDto, TaborIsDbContext _context)
     {
         var participant = new Participant
         {

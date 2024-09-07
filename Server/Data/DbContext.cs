@@ -3,9 +3,9 @@ using Shared;
 
 namespace Server.Data
 {
-    public class ParticipantsDbContext : DbContext
+    public class TaborIsDbContext : DbContext
     {
-        public ParticipantsDbContext(DbContextOptions<ParticipantsDbContext> options)
+        public TaborIsDbContext(DbContextOptions<TaborIsDbContext> options)
             : base(options)
         {
         }

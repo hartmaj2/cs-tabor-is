@@ -7,7 +7,7 @@ builder.Services.AddControllers(); // This adds all classes marked with [ApiCont
 
 // Adds the DbContext service to my builder, the connection string can be configured in appsettings.json
 // Using dependency injection so my controller gets the DbContext in constructor automatically
-builder.Services.AddDbContext<ParticipantsDbContext>(options =>
+builder.Services.AddDbContext<TaborIsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

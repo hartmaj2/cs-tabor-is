@@ -10,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 public class AllergensController : ControllerBase
 {
 
-    private readonly ParticipantsDbContext _context;
+    private readonly TaborIsDbContext _context;
 
     // The context gets injected using dependency injection
-    public AllergensController(ParticipantsDbContext context)
+    public AllergensController(TaborIsDbContext context)
     {
         _context = context;
     }
