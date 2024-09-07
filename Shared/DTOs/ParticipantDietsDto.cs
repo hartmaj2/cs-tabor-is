@@ -2,6 +2,8 @@
 // I don't need information like Age, PhoneNumber etc. 
 // The reason to have separate class like this is so I don't transfer unnecessary data through json api requests
 
+using Shared;
+
 public class ParticipantDietsDto
 {
 
@@ -11,6 +13,7 @@ public class ParticipantDietsDto
 
     public required string LastName { get; set; }
 
-    public required ICollection<AllergenDto> Allergens { get; set; }
+    public required List<AllergenDto> Allergens { get; set; }
 
 }
+
