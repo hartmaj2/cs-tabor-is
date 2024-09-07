@@ -16,6 +16,8 @@ namespace Server.Data
         public DbSet<Allergen> Allergens { get; set; }
         public DbSet<MealAllergen> MealAllergens { get; set; }
 
+        public DbSet<ParticipantAllergen> ParticipantAllergens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
