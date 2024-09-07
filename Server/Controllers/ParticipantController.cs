@@ -25,7 +25,7 @@ public class ParticipantController : ControllerBase
     }
 
     [HttpGet("all-diets")]
-    public IEnumerable<ParticipantDietsDto> GetParticipantDietsDtos()
+    public IEnumerable<ParticipantDto> GetParticipants()
     {
         return _context.Participants
             .Include(p => p.ParticipantAllergens)!
@@ -91,13 +91,16 @@ public class ParticipantController : ControllerBase
 public static class ParticipantExtensions
 {
     // Converts a Participant to Participant diets dto, the navigation properties ParticipantAllergens and Allergen must be loaded from db explicitly using Include
-    public static ParticipantDietsDto ConvertToParticipantDietsDto(this Participant thisParticipant,ParticipantsDbContext _context)
+    public static ParticipantDto ConvertToParticipantDietsDto(this Participant thisParticipant,ParticipantsDbContext _context)
     {
-        return new ParticipantDietsDto()
+        return new ParticipantDto()
         {
             Id = thisParticipant.Id,
             FirstName = thisParticipant.FirstName,
             LastName = thisParticipant.LastName,
+            Age = thisParticipant.Age,
+            PhoneNumber = thisParticipant.PhoneNumber,
+            BirthNumber = thisParticipant.BirthNumber,
             Allergens = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
         };
     }

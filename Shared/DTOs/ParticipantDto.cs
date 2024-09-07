@@ -1,10 +1,9 @@
 // Participant model for communication of participant diets between Client and Server
-// I don't need information like Age, PhoneNumber etc. 
-// The reason to have separate class like this is so I don't transfer unnecessary data through json api requests
+// I want to communicate allergens as list of Allergens
 
 using Shared;
 
-public class ParticipantDietsDto
+public class ParticipantDto
 {
 
     public int Id { get; set; }
@@ -12,6 +11,12 @@ public class ParticipantDietsDto
     public required string FirstName { get; set; }
 
     public required string LastName { get; set; }
+
+    public int? Age { get; set; }
+
+    public string? PhoneNumber {get; set; }
+
+    public required string BirthNumber {get; set; }
 
     public required List<AllergenDto> Allergens { get; set; }
 
