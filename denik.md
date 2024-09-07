@@ -335,12 +335,16 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 7.9.2024
 
 ### TODO:
-- [ ] Update participant model so participants have list of allergens
-  - [ ] Add ParticipantAllergen model 
-  - [ ] To participant add ICollection of MealAllergens
-- [ ] Probably make ParticipantDto where allergens will be a list of AllergenDtos
-- [ ] Move Dtos to their own folder and separate the classes into their own files
+- [x] Update participant model so participants have list of allergens
+  - [x] Add ParticipantAllergen model 
+  - [x] To participant add ICollection of MealAllergens
+- [x] Probably make ParticipantDietDto where allergens will be a list of AllergenDtos
+- [x] Move Dtos to their own folder and separate the classes into their own files
+- [ ] Implement diet section
+  - [ ] Load a list of participant diet dtos 
+  - [ ] Show them in table that lists allergens 
+  - [ ] Implement filtering by checking which diets I want to see (use a modal)
 
 
 ### DONE:
-- Blah blah blah I added something here
+- Created ParticipantDietDto so I can transfer only relevant data when communicating diets to Client
