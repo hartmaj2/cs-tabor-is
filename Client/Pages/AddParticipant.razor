@@ -1,6 +1,8 @@
 @page "/participants/add"
 @inject HttpClient Http
 
+@* In contrast to edit participant, this page has also selection of diets that the participant has *@
+
 @if (formSubmitted)
 {
     <h1> Successfully added a participant! </h1>
@@ -9,11 +11,39 @@
 else
 {
     <h1> Add a participant </h1>
-    <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"> Add participant </ParticipantForm> // Use my custom component with 2-way-binding to its value
+    <div style="display:flex">
+        <div>
+            <h2> General information </h2>
+            @* Use my custom component with 2-way-binding to its value *@
+            <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"> Add participant </ParticipantForm> 
+        </div>
+
+        @if (dietSelections != null)
+        {
+            <div style="margin-left:100px">
+                <h2> Diets </h2>
+                @foreach (var selection in dietSelections)
+                {
+                    <div>
+                        <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Allergen.Name </label>
+                        
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p> Loading diets.. </p>
+        }
+    </div>
 }
 
 @code
 {
+    private IEnumerable<Allergen>? allAllergens;
+
+    private IList<DietSelection>? dietSelections;
+
     // We initialize the participant to empty participant at the start
     private ParticipantFormData participantData = new();
 
@@ -26,5 +56,28 @@ else
         Http.PostAsJsonAsync<Participant>("/api/participants/add",participantData.ConvertToApiParticipant(),CancellationToken.None);
         formSubmitted = true;
         participantData = new();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAllergens();
+        LoadAllergenSelections();
+    }
+
+    // Gets list of all allergens
+    private async Task LoadAllergens()
+    {
+        allAllergens = await Http.GetFromJsonAsync<List<Allergen>>("api/allergens/all");
+    }
+
+    private void LoadAllergenSelections()
+    {
+        dietSelections = allAllergens!.Select(allergen => new DietSelection() {Allergen = allergen}).ToList();
+    }
+
+    private class DietSelection
+    {
+        public required Allergen Allergen { get; set ;}
+        public bool IsSelected { get; set; }
     }
 }
