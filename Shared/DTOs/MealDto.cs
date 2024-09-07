@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 // Serve as the JSON templates to be communicated from client to server and vice versa
@@ -8,18 +7,14 @@ public class MealDto
 {
     public int Id { get; set; }
 
-    [Required]
     public required string Name { get; set; }
 
-    [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public MealTime MealTime { get; set; }
 
-    [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public MealType Type { get; set; }
 
-    [Required]
     public DateOnly Date { get; set; }
 
     public required List<AllergenDto> Allergens { get; set; }
