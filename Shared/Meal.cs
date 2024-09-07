@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
+// Meal model for the database
+
 public class Meal
 {
     [Key]
