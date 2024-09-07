@@ -4,22 +4,28 @@ Content-Type: application/json
 
 [
     {
-        "Name" : "Gluten"
+        "Name" : "Gluten",
+		"MealAllergens" : []
     },
     {
-        "Name" : "Lactose"
+        "Name" : "Lactose",
+		"MealAllergens" : []
     },
     {
-        "Name" : "Nuts"
+        "Name" : "Nuts",
+		"MealAllergens" : []
     },
     {
-        "Name" : "Eggs"
+        "Name" : "Eggs",
+		"MealAllergens" : []
     },
     {
-        "Name" : "Fish"
+        "Name" : "Fish",
+		"MealAllergens" : []
     },
     {
-        "Name" : "Meat"
+        "Name" : "Meat",
+		"MealAllergens" : []
     }
 ]
 
@@ -28,7 +34,8 @@ POST http://localhost:5141/api/allergens/add
 Content-Type: application/json
 
 {
-    "Name" : "Gluten"
+    "Name" : "Gluten",
+    "MealAllergens" : []
 }
 
 
@@ -37,3 +44,6 @@ GET http://localhost:5141/api/allergens/all
 
 ###
 DELETE http://localhost:5141/api/allergens/delete/5
+
+###
+DELETE http://localhost:5141/api/allergens/delete-all
