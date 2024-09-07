@@ -30,11 +30,11 @@ public class ParticipantFormData
     {
         return new Participant
         {
-            FirstName = FirstName,
-            LastName = LastName,
+            FirstName = FirstName!,
+            LastName = LastName!,
             Age = Age,
             PhoneNumber = PhoneNumber,
-            BirthNumber = BirthNumber
+            BirthNumber = BirthNumber!
         };
     }
 
