@@ -53,4 +53,12 @@ public class AllergensController : ControllerBase
         return NoContent();
     }
 
+    // Deletes everything from the allergens table
+    [HttpDelete("delete-all")]
+    public IActionResult DeleteAllAllergens()
+    {
+        _context.Database.ExecuteSqlRaw("DELETE FROM [Allergens]");
+        return NoContent();
+    }
+
 }
