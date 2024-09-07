@@ -24,21 +24,16 @@ public class ParticipantController : ControllerBase
         return _context.Participants.Find(id);
     }
 
-    [HttpGet("all-diets")]
+    // Gets the list of participants from the participant table
+    // Also transfers them to dtos so allergens are sent as list of allergendtos
+    [HttpGet("all")]
     public IEnumerable<ParticipantDto> GetParticipants()
     {
         return _context.Participants
             .Include(p => p.ParticipantAllergens)!
             .ThenInclude(pa => pa.Allergen)
             .ToList<Participant>()
-            .Select(p => p.ConvertToParticipantDietsDto(_context));
-    }
-
-    // Gets the list of participants from the participant table
-    [HttpGet("all")]
-    public IEnumerable<Participant> GetParticipantsFromDb()
-    {
-        return _context.Participants.ToList<Participant>();
+            .Select(p => p.ConvertToParticipantDto());
     }
 
     [HttpPost("edit/{id:int}")]
@@ -52,20 +47,20 @@ public class ParticipantController : ControllerBase
 
     // Adds a participant to the participant table
     [HttpPost("add")]
-    public IActionResult CreateParticipantDb([FromBody] Participant participant)
+    public IActionResult CreateParticipantDb([FromBody] ParticipantDto participantDto)
     {
-        _context.Participants.Add(participant);
+        _context.Participants.Add(participantDto.ConvertToParticipant(_context));
         _context.SaveChanges();
-        return CreatedAtAction(nameof(GetParticipantsFromDb),participant);
+        return CreatedAtAction(nameof(GetParticipants),participantDto);
     }
 
     // Adds a whole list of participants
     [HttpPost("add-many")]
-    public IActionResult AddMultipleAllergens([FromBody] ICollection<Participant> participants)
+    public IActionResult AddMultipleParticipants([FromBody] ICollection<Participant> participants)
     {
         _context.Participants.AddRange(participants);
         _context.SaveChanges();
-        return CreatedAtAction(nameof(GetParticipantsFromDb),participants);
+        return CreatedAtAction(nameof(GetParticipants),participants);
     }
 
     // Deletes single participant with given id
@@ -88,20 +83,29 @@ public class ParticipantController : ControllerBase
 
 }
 
-public static class ParticipantExtensions
+// Extension is used because I need the DbContext so can't just put it in ParticipantDto class which doesn't have reference to this context
+public static class ParticipantDtoExtensions
 {
-    // Converts a Participant to Participant diets dto, the navigation properties ParticipantAllergens and Allergen must be loaded from db explicitly using Include
-    public static ParticipantDto ConvertToParticipantDietsDto(this Participant thisParticipant,ParticipantsDbContext _context)
+    public static Participant ConvertToParticipant(this ParticipantDto participantDto, ParticipantsDbContext _context)
     {
-        return new ParticipantDto()
+        var participant = new Participant
         {
-            Id = thisParticipant.Id,
-            FirstName = thisParticipant.FirstName,
-            LastName = thisParticipant.LastName,
-            Age = thisParticipant.Age,
-            PhoneNumber = thisParticipant.PhoneNumber,
-            BirthNumber = thisParticipant.BirthNumber,
-            Allergens = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
+            Id = participantDto.Id,
+            FirstName = participantDto.FirstName,
+            LastName = participantDto.LastName,
+            Age = participantDto.Age,
+            PhoneNumber = participantDto.PhoneNumber,
+            BirthNumber = participantDto.BirthNumber
         };
+
+        participant.ParticipantAllergens = new List<ParticipantAllergen>();
+        foreach (AllergenDto allergenDto in participantDto.Allergens)
+        {
+            Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
+            // Here it is necessary to set ParticipantId = participant.Id (when editing participant, I need it to create an entry in the ParticipantAllergens association table)
+            participant.ParticipantAllergens.Add(new ParticipantAllergen {AllergenId = allergen!.Id, ParticipantId = participant.Id}); 
+        }
+        return participant;
     }
 }
+

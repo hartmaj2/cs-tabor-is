@@ -22,3 +22,21 @@ public class ParticipantDto
 
 }
 
+public static class ParticipantExtensions
+{
+    // Converts a Participant to Participant diets dto, the navigation properties ParticipantAllergens and Allergen must be loaded from db explicitly using Include
+    public static ParticipantDto ConvertToParticipantDto(this Participant thisParticipant)
+    {
+        return new ParticipantDto()
+        {
+            Id = thisParticipant.Id,
+            FirstName = thisParticipant.FirstName,
+            LastName = thisParticipant.LastName,
+            Age = thisParticipant.Age,
+            PhoneNumber = thisParticipant.PhoneNumber,
+            BirthNumber = thisParticipant.BirthNumber,
+            Allergens = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
+        };
+    }
+}
+

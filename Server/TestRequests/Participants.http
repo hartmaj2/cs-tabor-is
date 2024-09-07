@@ -1,9 +1,6 @@
 ### Test request for get method
 GET http://localhost:5141/api/participants/all
 
-### 
-GET http://localhost:5141/api/participants/all-diets
-
 ### Test request for post method
 POST http://localhost:5141/api/participants/add 
 Content-Type: application/json
@@ -13,7 +10,8 @@ Content-Type: application/json
     "LastName" : "Conway",
     "Age" : 70,
     "PhoneNumber" : "777003334",
-    "BirthNumber" : "0000000000"
+    "BirthNumber" : "0000000000",
+    "Allergens" : [] 
 }
 
 ### Test request for deleting the whole table
