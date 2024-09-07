@@ -17,4 +17,6 @@ public class Participant
     [Required]
     public string? BirthNumber {get; set; }
 
+    public ICollection<ParticipantAllergen>? ParticipantAllergens { get; set; }
+
 }
