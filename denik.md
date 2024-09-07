@@ -340,14 +340,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] To participant add ICollection of MealAllergens
 - [x] Probably make ParticipantDietDto where allergens will be a list of AllergenDtos
 - [x] Move Dtos to their own folder and separate the classes into their own files
-- [ ] Implement communication using ParticipantDto instead of Participant directly
-- [ ] Communicate AllergenDto instead of Allergens directly
-  - [ ] Add Id to AllergenDto
-- [ ] Implement diet section
-  - [ ] Load a list of participant diet dtos 
-  - [ ] Show them in table that lists allergens 
-  - [ ] Implement filtering by checking which diets I want to see (use a modal)
-
 
 ### DONE:
 - Created ParticipantDietDto so I can transfer only relevant data when communicating diets to Client
@@ -358,3 +350,19 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Need to install docker so I can run the mysql server inside a container (because I would need windows otherwise)
   - Accidentaly created MySql docker container but I need Sql
     - So I need to install sql express image
+    - Remove the Migrations folder
+    - Renamed ParticipantDbContext to TaborIsDbContext
+- For some reason needed to fix request to create allergens (probably because first I had only allergens and mealallergens where added later so now I have to add MealAllergen empty list when creating new allergen)
+
+## 8.9.2024
+
+### TODO:
+- [ ] Implement communication using ParticipantDto instead of Participant directly
+  - [ ] Update http requests accordingly if necessary
+- [ ] Communicate AllergenDto instead of Allergens directly 
+  - [ ] Add Id to AllergenDto
+  - [ ] Update http requests accordingly
+- [ ] Implement diet section
+  - [ ] Load a list of participant diet dtos 
+  - [ ] Show them in table that lists allergens 
+  - [ ] Implement filtering by checking which diets I want to see (use a modal)
