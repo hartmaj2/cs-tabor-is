@@ -135,7 +135,7 @@ public static class MealDtoExtensions
         meal.MealAllergens = new List<MealAllergen>();
         foreach (AllergenDto allergenDto in mealDto.Allergens)
         {
-            Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
+            Allergen? allergen = _context.Allergens.First(a => a.Name == allergenDto.Name);
             // Here it is necessary to set MealId = meal.Id (when editing meal, I need it to create an entry in the MealAllergens association table)
             meal.MealAllergens.Add(new MealAllergen {AllergenId = allergen!.Id, MealId = meal.Id}); 
         }
