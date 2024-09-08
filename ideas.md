@@ -11,6 +11,8 @@
 - Make the width of my div table meal columns adjust themselves automatically based on the longest entry
 - Add male/female 
 - Remove age and calculate it from birth number instead
+- Create api manager - all methods to communicate with api will be stored there in one place
+- Create allergen manager - will load possible allergens and will provide them to classes that need them
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
