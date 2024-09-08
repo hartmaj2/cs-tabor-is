@@ -44,15 +44,16 @@ public class ParticipantController : ControllerBase
     [HttpPost("edit/{id:int}")]
     public IActionResult EditParticipant(int id, [FromBody] ParticipantDto updatedParticipant)
     {
-        Participant oldParticipant = _context.Participants.Include(p => p.Diets).;
+        Participant oldParticipant = _context.Participants.Include(p => p.Diets)!.ThenInclude(pa => pa.Allergen).First();
+        Participant newParticipant = updatedParticipant.ConvertToParticipant(_context);
         _context.Entry(oldParticipant).CurrentValues.SetValues(updatedParticipant);
         foreach (var mealAllergen in oldParticipant.Diets!)
         {
             _context.Remove(mealAllergen);
         }
-        foreach (var allergenDto in updatedParticipant.Allergens)
+        foreach (var mealAllergen in newParticipant.Diets!)
         {
-            _context.Add()
+            _context.Add(mealAllergen);
         }
         _context.SaveChanges();
         return NoContent();
