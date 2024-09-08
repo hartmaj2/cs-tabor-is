@@ -19,6 +19,6 @@ public class Participant
     [Required]
     public required string BirthNumber {get; set; }
 
-    public ICollection<ParticipantAllergen>? Diets { get; set; }
+    public ICollection<ParticipantAllergen>? ParticipantAllergens { get; set; }
 
 }

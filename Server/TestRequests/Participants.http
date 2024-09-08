@@ -8,7 +8,7 @@ Content-Type: application/json
     "Age" : 70,
     "PhoneNumber" : "777003334",
     "BirthNumber" : "0000000000",
-    "Allergens" : [
+    "Diets" : [
         {
             "name": "Lactose"
         }

@@ -18,7 +18,7 @@ public class ParticipantDto
 
     public required string BirthNumber {get; set; }
 
-    public required List<AllergenDto> Allergens { get; set; }
+    public required List<AllergenDto> Diets { get; set; }
 
 }
 
@@ -35,7 +35,7 @@ public static class ParticipantExtensions
             Age = thisParticipant.Age,
             PhoneNumber = thisParticipant.PhoneNumber,
             BirthNumber = thisParticipant.BirthNumber,
-            Allergens = thisParticipant.Diets!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
+            Diets = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
         };
     }
 }
