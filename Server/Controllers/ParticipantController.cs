@@ -19,9 +19,14 @@ public class ParticipantController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public Participant? GetParticipantById(int id)
+    public ParticipantDto? GetParticipantById(int id)
     {
-        return _context.Participants.Find(id);
+        Console.WriteLine(id);
+        var participant =  _context.Participants
+            .Include(participant => participant.ParticipantAllergens)
+            .First(participant => participant.Id == id);
+        Console.WriteLine($"{participant.FirstName}, {participant.LastName}");
+        return participant.ConvertToParticipantDto();
     }
 
     // Gets the list of participants from the participant table
@@ -101,7 +106,7 @@ public static class ParticipantDtoExtensions
         participant.ParticipantAllergens = new List<ParticipantAllergen>();
         foreach (AllergenDto allergenDto in participantDto.Allergens)
         {
-            Allergen? allergen = _context.Allergens.FirstOrDefault(a => a.Name == allergenDto.Name);
+            Allergen? allergen = _context.Allergens.First(a => a.Name == allergenDto.Name);
             // Here it is necessary to set ParticipantId = participant.Id (when editing participant, I need it to create an entry in the ParticipantAllergens association table)
             participant.ParticipantAllergens.Add(new ParticipantAllergen {AllergenId = allergen!.Id, ParticipantId = participant.Id}); 
         }
