@@ -369,6 +369,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Add sort direction indicators to column headers
   - [ ] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
     - [ ] Add div row with filtering options with text fields or dropdowns
+    - [ ] Make dropdown with Blazor Bootstrap
 - [ ] Rename conversion methods from ConvertToSomething to ToSomething
 
 ### DONE:
@@ -379,3 +380,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Renamed allergens to diets in participant dto and also added the diets to populate http request
 - Diets section implemented by reusing my grid table .css style
   - Had to move the styles to app.css so I can use it everywhere
+- Implemented diet editing in participant diet section
+  - There was a mistake in my edit participant api endpoint method (.Find() was called without test predicate)
+  - When editing another participant after edit of different participant, the checkboxes resemble still the old participants diets
+    - Fix was to pass dietSelections to the component directly and not load them OnInitialize
