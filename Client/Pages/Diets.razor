@@ -3,18 +3,24 @@
 
 <div class="div-table-container">
     <div class="div-table-container-header"> <span> Diets </span> </div>
-    @if (participantDtos != null)
-    {
-
-        <p> Loading participants... </p>
-    }
     <div class="div-table">
         <div class="div-table-header">
             <div> First name </div>
             <div> Last name </div>
             <div> Diets </div>
         </div>
+        @if (participantDtos == null)
+        {
+            <div class="div-table-row">
+                <span> Loading participants... </span>
+            </div>
+        }
+        else
+        {
+
+        }
     </div>
+
 </div>
 
 
