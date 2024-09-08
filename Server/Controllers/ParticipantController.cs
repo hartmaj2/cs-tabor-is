@@ -23,7 +23,7 @@ public class ParticipantController : ControllerBase
     public ParticipantDto? GetParticipantById(int id)
     {
         return _context.Participants
-            .Include(participant => participant.ParticipantAllergens)
+            .Include(participant => participant.ParticipantAllergens)!
             .ThenInclude(pa => pa.Allergen)
             .First(participant => participant.Id == id)
             .ConvertToParticipantDto();
