@@ -59,7 +59,6 @@ else
     private async Task LoadMealTypes()
     {
         mealTypes = await Http.GetFromJsonAsync<List<string>>("api/meals/meal-types");
-        foreach(var mealType in mealTypes!) Console.WriteLine(mealType);
     }
 
     private Modal editMealModal = default!;
