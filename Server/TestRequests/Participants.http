@@ -22,17 +22,17 @@ GET http://localhost:5141/api/participants/all
 DELETE http://localhost:5141/api/participants/delete-all
 
 ### Test request for post method
-POST http://localhost:5141/api/participants/edit/1002 
+POST http://localhost:5141/api/participants/edit/1019
 Content-Type: application/json
 
 {
-    "id": 1002,
+    "id": 1019,
     "firstName": "Alice",
     "lastName": "Johnson",
     "age": 28,
     "phoneNumber": "777251356",
     "birthNumber": "1231231232",
-    "allergens": 
+    "diets": 
     [
       {
         "id": 1014,
