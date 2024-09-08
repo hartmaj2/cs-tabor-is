@@ -8,7 +8,18 @@ Content-Type: application/json
         "Age" : 28,
         "PhoneNumber" : "777251356",
         "BirthNumber" : "1231231232",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Meat"
+            },
+            {
+                "Name": "Lactose"
+            },
+            {
+                "Name": "Gluten"
+            }
+        ]
     },
     {
         "FirstName" : "Bob",
@@ -16,7 +27,12 @@ Content-Type: application/json
         "Age" : 35,
         "PhoneNumber" : "608542356",
         "BirthNumber" : "0000000000",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Nuts"
+            }
+        ]
     },
     {
         "FirstName" : "Charlie",
@@ -24,7 +40,15 @@ Content-Type: application/json
         "Age" : 42,
         "PhoneNumber" : "605453482",
         "BirthNumber" : "0000000000",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Eggs"
+            },
+            {
+                "Name": "Fish"
+            }
+        ]
     },
     {
         "FirstName" : "David",
@@ -32,7 +56,12 @@ Content-Type: application/json
         "Age" : 29,
         "PhoneNumber" : "712456789",
         "BirthNumber" : "1037802458",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Gluten"
+            }
+        ]
     },
     {
         "FirstName" : "Eve",
@@ -40,7 +69,12 @@ Content-Type: application/json
         "Age" : 31,
         "PhoneNumber" : "619845267",
         "BirthNumber" : "2075604916",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Lactose"
+            }
+        ]
     },
     {
         "FirstName" : "Frank",
@@ -48,7 +82,12 @@ Content-Type: application/json
         "Age" : 26,
         "PhoneNumber" : "724582341",
         "BirthNumber" : "3113407374",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Meat"
+            }
+        ]
     },
     {
         "FirstName" : "Grace",
@@ -56,7 +95,12 @@ Content-Type: application/json
         "Age" : 33,
         "PhoneNumber" : "608123456",
         "BirthNumber" : "4151209832",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Nuts"
+            }
+        ]
     },
     {
         "FirstName" : "Hank",
@@ -64,7 +108,12 @@ Content-Type: application/json
         "Age" : 40,
         "PhoneNumber" : "715643278",
         "BirthNumber" : "5189012290",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Fish"
+            }
+        ]
     },
     {
         "FirstName" : "Ivy",
@@ -72,7 +121,12 @@ Content-Type: application/json
         "Age" : 27,
         "PhoneNumber" : "703945612",
         "BirthNumber" : "6226814748",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Gluten"
+            }
+        ]
     },
     {
         "FirstName" : "Jack",
@@ -80,7 +134,12 @@ Content-Type: application/json
         "Age" : 34,
         "PhoneNumber" : "710256934",
         "BirthNumber" : "7264617206",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Eggs"
+            }
+        ]
     },
     {
         "FirstName" : "Karen",
@@ -88,7 +147,12 @@ Content-Type: application/json
         "Age" : 36,
         "PhoneNumber" : "709865432",
         "BirthNumber" : "8302419664",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Lactose"
+            }
+        ]
     },
     {
         "FirstName" : "Leo",
@@ -96,7 +160,12 @@ Content-Type: application/json
         "Age" : 39,
         "PhoneNumber" : "714582390",
         "BirthNumber" : "9340222122",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Nuts"
+            }
+        ]
     },
     {
         "FirstName" : "Mia",
@@ -104,7 +173,12 @@ Content-Type: application/json
         "Age" : 24,
         "PhoneNumber" : "703456789",
         "BirthNumber" : "3112674114",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Fish"
+            }
+        ]
     },
     {
         "FirstName" : "Nina",
@@ -112,7 +186,12 @@ Content-Type: application/json
         "Age" : 38,
         "PhoneNumber" : "719856341",
         "BirthNumber" : "4150232152",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Meat"
+            }
+        ]
     },
     {
         "FirstName" : "Oscar",
@@ -120,6 +199,11 @@ Content-Type: application/json
         "Age" : 41,
         "PhoneNumber" : "723456789",
         "BirthNumber" : "5187790190",
-		"Allergens" : []
+        "Allergens" : 
+        [
+            {
+                "Name": "Gluten"
+            }
+        ]
     }
 ]
