@@ -6,8 +6,8 @@
     <div class="div-table-container-header"> <span> Diets </span> </div>
     <div class="div-table">
         <div class="div-table-header">
-            <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name </button>
-            <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name </button>
+            <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name @headerArrows[0] </button>
+            <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name @headerArrows[1] </button>
             <div> Diets </div>
         </div>
         <div class="div-table-body">
@@ -46,6 +46,8 @@
 
     private int activeSortingColumn = 0;
 
+    private string[] headerArrows = {"",""};
+
     private List<ParticipantDto>? participantDtos;
     private IEnumerable<ParticipantDto>? sortedParticipants;
     
@@ -66,9 +68,12 @@
         if (clickedColumn == activeSortingColumn)
         {
             participantSorters[clickedColumn].KeyComparer.ReverseSort = !participantSorters[clickedColumn].KeyComparer.ReverseSort;
+            headerArrows[activeSortingColumn] = (headerArrows[activeSortingColumn] == "▲") ? "▼" : "▲";
         }
         else
         {
+            headerArrows[activeSortingColumn] = "";
+            headerArrows[clickedColumn] = "▲";
             participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
         }
         activeSortingColumn = clickedColumn;
