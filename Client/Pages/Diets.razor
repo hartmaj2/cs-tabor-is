@@ -19,7 +19,7 @@
             }
             else
             {
-                @foreach(var participant in participantDtos.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer))
+                @foreach(var participant in sortedParticipants!)
                 {
                     <div class="div-table-row">
                         <div> @participant.FirstName </div>
@@ -45,15 +45,23 @@
 {
 
     private int activeSortingColumn = 0;
-    private List<ParticipantDto>? participantDtos;
 
+    private List<ParticipantDto>? participantDtos;
+    private IEnumerable<ParticipantDto>? sortedParticipants;
+    
+    // array of sorters which consist of a key selector and a switchable comparer
+    // this array allows me to select current keyselector and comparer based on the active sorting column
     private ParticipantSorter<string>[] participantSorters = 
         {
             new ParticipantSorter<string>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
             new ParticipantSorter<string>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
         };
 
-    private void HandleSortClick(int clickedColumn)
+    // The sort click is handled depending if the clicked column was already active or not
+    // we flip the sort direction if the column was already active and was clicked
+    // otherwise we sort in unreversed direction
+    // lastly we have to update our active column
+    private async Task HandleSortClick(int clickedColumn)
     {
         if (clickedColumn == activeSortingColumn)
         {
@@ -64,11 +72,13 @@
             participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
         }
         activeSortingColumn = clickedColumn;
+        sortedParticipants = participantDtos!.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
     }
 
     protected override async Task OnInitializedAsync()
     {
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
+        sortedParticipants = participantDtos;
     }
 
 
