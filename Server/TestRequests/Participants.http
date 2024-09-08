@@ -17,22 +17,23 @@ Content-Type: application/json
 ### Test request for deleting the whole table
 DELETE http://localhost:5141/api/participants/delete-all
 
-### Test request for deleting single participant
-DELETE http://localhost:5141/api/participants/delete/1
-
-### Test request for getting specific participant
-GET http://localhost:5141/api/participants/1
-
 ### Test request for post method
-POST http://localhost:5141/api/participants/edit/1 
+POST http://localhost:5141/api/participants/edit/1002 
 Content-Type: application/json
 
 {
-    "id" : 1,
-    "FirstName" : "John",
-    "LastName" : "Conway",
-    "Age" : 18,
-    "PhoneNumber" : "777003334",
-    "BirthNumber" : "0000000000"
+    "id": 1002,
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "age": 28,
+    "phoneNumber": "777251356",
+    "birthNumber": "1231231232",
+    "allergens": 
+    [
+      {
+        "id": 1014,
+        "name": "Meat"
+      }
+    ]
 }
 
