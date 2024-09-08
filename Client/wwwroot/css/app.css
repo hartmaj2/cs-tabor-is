@@ -142,3 +142,38 @@ code {
     margin: 5px 10px 5px 10px;
 }
 
+.div-table-header > div {
+    font-size: large; 
+    font-weight: 500;
+}
+
+.div-table-header > *:first-child, .div-table-row > *:first-child {
+    margin-left: 10px;
+}
+
+.div-table-header > div, .div-table-row > div {
+    width: 200px;
+}
+
+.meal-type-header > button, .div-table-row > button {
+    margin-right: 10px;
+}
+
+/* The first button is always pushed right as much as it can using margin-left: auto */
+.meal-type-header > button:first-of-type, .div-table-row > button:first-of-type {
+    margin-left : auto;
+}
+
+.div-table-row, .div-table-header{
+    display: flex; 
+    align-items: center; 
+    border-bottom: 1px solid grey;
+}
+
+.div-table-header {
+    background-color: rgb(221, 220, 220);
+}
+
+.div-table-body > div:nth-of-type(even) {
+    background: rgb(247, 247, 247);
+}
