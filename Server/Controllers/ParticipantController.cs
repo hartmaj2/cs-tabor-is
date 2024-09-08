@@ -21,12 +21,10 @@ public class ParticipantController : ControllerBase
     [HttpGet("{id:int}")]
     public ParticipantDto? GetParticipantById(int id)
     {
-        Console.WriteLine(id);
-        var participant =  _context.Participants
+        return _context.Participants
             .Include(participant => participant.ParticipantAllergens)
-            .First(participant => participant.Id == id);
-        Console.WriteLine($"{participant.FirstName}, {participant.LastName}");
-        return participant.ConvertToParticipantDto();
+            .First(participant => participant.Id == id)
+            .ConvertToParticipantDto();
     }
 
     // Gets the list of participants from the participant table
