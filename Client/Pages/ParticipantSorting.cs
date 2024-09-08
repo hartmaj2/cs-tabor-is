@@ -16,7 +16,7 @@ public interface ISwitchableComparer<T> : IComparer<T>
 
 public class ParticipantSorter<T>
 {
-    public Func<ParticipantDto,T> KeySelector { get; set;}
-    public ISwitchableComparer<T> KeyComparer { get; set;}
+    public required Func<ParticipantDto,T> KeySelector { get; set;}
+    public required ISwitchableComparer<T> KeyComparer { get; set;}
 
 }
