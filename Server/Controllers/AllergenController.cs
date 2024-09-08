@@ -20,25 +20,25 @@ public class AllergensController : ControllerBase
 
     // Gets the list of all meals from the meals table
     [HttpGet("all")]
-    public IEnumerable<Allergen> GetAllAllergens()
+    public IEnumerable<AllergenDto> GetAllAllergens()
     {
-        return _context.Allergens.ToList<Allergen>();
+        return _context.Allergens.ToList().Select(allergen => allergen.ToAllergenDto());
     }
 
     // Gets the list of all meals from the meals table
     [HttpPost("add")]
-    public IActionResult AddNewAllergen([FromBody] Allergen allergen)
+    public IActionResult AddNewAllergen([FromBody] AllergenDto allergen)
     {
-        _context.Allergens.Add(allergen);
+        _context.Allergens.Add(allergen.ConvertToAllergen());
         _context.SaveChanges();
         return CreatedAtAction(nameof(GetAllAllergens),allergen);
     }
 
     // Adds a whole list of allergens
     [HttpPost("add-many")]
-    public IActionResult AddMultipleAllergens([FromBody] ICollection<Allergen> allergens)
+    public IActionResult AddMultipleAllergens([FromBody] ICollection<AllergenDto> allergens)
     {
-        _context.Allergens.AddRange(allergens);
+        _context.Allergens.AddRange(allergens.Select(allergenDto => allergenDto.ConvertToAllergen()));
         _context.SaveChanges();
         return CreatedAtAction(nameof(GetAllAllergens),allergens);
     }

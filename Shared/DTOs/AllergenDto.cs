@@ -6,14 +6,20 @@ using System.ComponentModel.DataAnnotations;
 public class AllergenDto
 {
 
-    [Required]
+    public int Id { get; set; }
+
     public required string Name { get; set; }
+
+    public Allergen ConvertToAllergen()
+    {
+        return new Allergen { Id = Id, Name = Name};
+    }
 }
 
 public static class AllergenExtensions
 {
     public static AllergenDto ToAllergenDto(this Allergen allergen)
     {
-        return new AllergenDto { Name = allergen.Name};
+        return new AllergenDto { Id = allergen.Id, Name = allergen.Name};
     }
 }
