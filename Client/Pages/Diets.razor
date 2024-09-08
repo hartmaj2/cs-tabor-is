@@ -1,5 +1,6 @@
 @page "/food/diets"
 @layout SubLayout
+@inject HttpClient Http
 
 <div class="div-table-container">
     <div class="div-table-container-header"> <span> Diets </span> </div>
@@ -17,7 +18,20 @@
         }
         else
         {
-
+            @foreach(var participant in participantDtos)
+            {
+                <div class="div-table-row">
+                    <div> @participant.FirstName </div>
+                    <div> @participant.LastName </div>
+                    <div>
+                        @foreach(var diet in participant.Diets)
+                        {
+                            <span> @diet.Name,  </span>
+                        }
+                    </div>
+                    <button class="btn btn-primary"> Edit diets </button>
+                </div>
+            }
         }
     </div>
 
@@ -31,6 +45,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
     }
 }
