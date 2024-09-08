@@ -370,6 +370,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [ ] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
     - [ ] Add div row with filtering options with text fields or dropdowns
     - [ ] Make dropdown with Blazor Bootstrap
+- [ ] Work with ParticipantDto everywhere on client side
 - [ ] Rename conversion methods from ConvertToSomething to ToSomething
 
 ### DONE:
