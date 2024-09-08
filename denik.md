@@ -363,9 +363,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Add Id to AllergenDto
   - [x] Update http requests accordingly
 - [ ] Implement diet section
-  - [ ] Load a list of participant diet dtos 
-  - [ ] Show them in table that lists allergens 
-  - [ ] Implement filtering by checking which diets I want to see (use a modal)
+  - [x] Load a list of participant diet dtos 
+  - [x] Show them in table that lists allergens 
+  - [x] Implement sorting in my custom div table
+  - [x] Add sort direction indicators to column headers
+  - [ ] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
+    - [ ] Add div row with filtering options with text fields or dropdowns
 - [ ] Rename conversion methods from ConvertToSomething to ToSomething
 
 ### DONE:
@@ -374,3 +377,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Had issue with participant.Diets not loading (ParticipantAllergens) -> had to use .Include and .ThenInclude
 - Also changed AllAllergens in client side to use AllergenDto instead of Allergen directly
 - Renamed allergens to diets in participant dto and also added the diets to populate http request
+- Diets section implemented by reusing my grid table .css style
+  - Had to move the styles to app.css so I can use it everywhere
