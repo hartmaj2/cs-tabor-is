@@ -2,6 +2,8 @@
 @layout SubLayout
 @inject HttpClient Http
 
+<Modal @ref="editDietsModal" />
+
 <div class="div-table-container">
     <div class="div-table-container-header"> <span> Diets </span> </div>
     <div class="div-table">
@@ -34,7 +36,7 @@
                                 <span> @diet.Name,  </span>
                             }
                         </div>
-                        <button class="btn btn-primary"> Edit diets </button>
+                        <button class="btn btn-primary" @onclick="() => ShowEditDietsModal(participant)"> Edit diets </button>
                     </div>
                 }
             }
@@ -103,11 +105,53 @@
         }
     }
 
+    private List<AllergenDto>? allAllergens;
+
+    // Gets list of all allergens
+    private async Task LoadAllergens()
+    {
+        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
+    }
+
     protected override async Task OnInitializedAsync()
     {
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
+        await LoadAllergens();
         sortedParticipants = participantDtos;
     }
 
+    private Modal editDietsModal = default!;
+
+
+    // shows the edit meals modal
+    // have to pass who was the participant at which it was clicked, all possible allergens to display on the modal, and the function that we will trigger on click on modal button
+    private async Task ShowEditDietsModal(ParticipantDto selectedParticipant)
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("CurrentParticipant",selectedParticipant);
+        parameters.Add("DietSelections",GetParticipantDietSelections(selectedParticipant));
+        parameters.Add("OnSubmit",EventCallback.Factory.Create<ParticipantDto>(this,RequestParticipantEdit));
+        await editDietsModal.ShowAsync<EditDietsModal>(title: $"Edit {selectedParticipant.FirstName}'s diets", parameters:parameters);
+    }
+
+    // Helper method to get diet selection list for the given participant
+    private List<AllergenSelection> GetParticipantDietSelections(ParticipantDto participant)
+    {
+        var dietSelections = allAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name, IsSelected = false}).ToList();
+        foreach (var selection in dietSelections)
+        {
+            // Check if the name of this selection is contained in diet names of current participant
+            if (participant.Diets.Select(diet => diet.Name).Contains(selection.Name)) selection.IsSelected = true;
+        }
+        return dietSelections;
+    }
+
+    // Send request to edit the participant to api, also have to hide the modal
+    // TODO: fix changes made to the database
+    private async Task RequestParticipantEdit(ParticipantDto updatedParticipant)
+    {
+        await Http.PostAsJsonAsync<ParticipantDto>($"api/participants/edit/{updatedParticipant.Id}",updatedParticipant,CancellationToken.None);
+        await editDietsModal.HideAsync();
+    }
 
 }

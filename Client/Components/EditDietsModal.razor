@@ -1,0 +1,33 @@
+@if (DietSelections != null)
+{
+    <div>
+        <label> Diets: </label> <br/>
+        @foreach (var dietSelection in DietSelections!)
+        {
+            <input id="@dietSelection.Name" type="checkbox" @bind="dietSelection.IsSelected" /> <label for="@dietSelection.Name"> @dietSelection.Name </label> <br/>
+        }
+        <br/>
+    </div>
+
+    <button type="submit" class="btn btn-primary" @onclick="OnClick"> Edit diets </button>  
+}
+    
+@code
+{
+    [Parameter]
+    public required ParticipantDto CurrentParticipant { get; set; }
+
+    [Parameter]
+    public EventCallback<ParticipantDto> OnSubmit { get; set; }
+    
+    // The diet selections have to be passed for some reason, otherwise the last selections are remembered
+    [Parameter]
+    public List<AllergenSelection>? DietSelections {get ;set; }
+
+    // We have to invoke the listening parent function and pass the participant with new diets to it
+    private void OnClick()
+    {
+        CurrentParticipant.Diets = DietSelections!.Where(ds => ds.IsSelected).Select(ds => new AllergenDto() {Name = ds.Name}).ToList();
+        OnSubmit.InvokeAsync(CurrentParticipant);
+    }
+} 
