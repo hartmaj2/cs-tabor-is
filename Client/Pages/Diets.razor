@@ -1,5 +1,30 @@
 @page "/food/diets"
 @layout SubLayout
 
-<h3> This is my food page </h3>
-<p> Here will be content of food page</p>
+<div class="div-table-container">
+    <div class="div-table-container-header"> <span> Diets </span> </div>
+    @if (participantDtos != null)
+    {
+
+        <p> Loading participants... </p>
+    }
+    <div class="div-table">
+        <div class="div-table-header">
+            <div> First name </div>
+            <div> Last name </div>
+            <div> Diets </div>
+        </div>
+    </div>
+</div>
+
+
+@code
+{
+
+    private List<ParticipantDto>? participantDtos;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+}
