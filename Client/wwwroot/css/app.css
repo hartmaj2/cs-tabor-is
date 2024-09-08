@@ -199,6 +199,7 @@ code {
     background-color:rgb(221, 220, 220);
     text-align:left;
     border-width: 0px;
+    padding-left: 0px;
 }
 
 .div-table-header > .clickable-header:hover{
