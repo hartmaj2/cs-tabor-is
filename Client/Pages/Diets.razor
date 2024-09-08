@@ -10,29 +10,32 @@
             <div> Last name </div>
             <div> Diets </div>
         </div>
-        @if (participantDtos == null)
-        {
-            <div class="div-table-row">
-                <span> Loading participants... </span>
-            </div>
-        }
-        else
-        {
-            @foreach(var participant in participantDtos)
+        <div class="div-table-body">
+            @if (participantDtos == null)
             {
                 <div class="div-table-row">
-                    <div> @participant.FirstName </div>
-                    <div> @participant.LastName </div>
-                    <div>
-                        @foreach(var diet in participant.Diets)
-                        {
-                            <span> @diet.Name,  </span>
-                        }
-                    </div>
-                    <button class="btn btn-primary"> Edit diets </button>
+                    <span> Loading participants... </span>
                 </div>
             }
-        }
+            else
+            {
+                @foreach(var participant in participantDtos)
+                {
+                    <div class="div-table-row">
+                        <div> @participant.FirstName </div>
+                        <div> @participant.LastName </div>
+                        <div>
+                            @foreach(var diet in participant.Diets)
+                            {
+                                <span> @diet.Name,  </span>
+                            }
+                        </div>
+                        <button class="btn btn-primary"> Edit diets </button>
+                    </div>
+                }
+            }
+        </div>
+
     </div>
 
 </div>
