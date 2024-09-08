@@ -1,53 +1,53 @@
-div.meal-type-container {
+.meal-type-container {
     border-radius:5px; 
     border: 2px solid black; 
     margin: 10px 0px 10px 0px;
 }
 
-div.meal-type-header {
+.meal-type-header {
     display:flex; 
     align-items:center; 
     background-color:rgb(185, 185, 185);
 }
 
-div.meal-type-header > span {
+.meal-type-header > span {
     margin-left: 10px;
     font-size: x-large;
 }
 
-div.div-table-header > div {
+.div-table-header > div {
     font-size: large; 
     font-weight: 500;
 }
 
-div.div-table-header > *:first-child, div.div-table-row > *:first-child {
+.div-table-header > *:first-child, .div-table-row > *:first-child {
     margin-left: 10px;
 }
 
-div.div-table-header > div, div.div-table-row > div {
+.div-table-header > div, .div-table-row > div {
     width: 200px;
 }
 
-div.meal-type-header > button, div.div-table-row > button {
+.meal-type-header > button, .div-table-row > button {
     margin-right: 10px;
 }
 
 /* The first button is always pushed right as much as it can using margin-left: auto */
-div.meal-type-header > button:first-of-type, div.div-table-row > button:first-of-type {
+.meal-type-header > button:first-of-type, .div-table-row > button:first-of-type {
     margin-left : auto;
 }
 
-div.div-table-row, div.div-table-header{
+.div-table-row, .div-table-header{
     display: flex; 
     align-items: center; 
     border-bottom: 1px solid grey;
 }
 
-div.div-table-header {
+.div-table-header {
     background-color: rgb(221, 220, 220);
 }
 
-div.div-table-body > div:nth-of-type(even) {
+.div-table-body > div:nth-of-type(even) {
     background: rgb(247, 247, 247);
 }
 
