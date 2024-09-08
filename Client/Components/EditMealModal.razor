@@ -79,6 +79,6 @@
 
     private void LoadAllergensToMealFormData()
     {
-        MealFormData.AllergenSelections = AllAllergens!.Select(allergen => new MealFormData.AllergenSelection() {Name = allergen.Name}).ToList();
+        MealFormData.AllergenSelections = AllAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
     }
 }

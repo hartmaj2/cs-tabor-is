@@ -14,12 +14,6 @@ public class MealFormData
 
     public IList<AllergenSelection>? AllergenSelections;
 
-    // Used to bind IsSelected property to the EditForm checkboxes
-    public class AllergenSelection
-    {
-        public required string Name { get; init; }
-        public bool IsSelected { get; set; }
-    }
 
     public MealDto ConvertToMealDto(MealTime mealTime, DateOnly date)
     {
@@ -36,6 +30,14 @@ public class MealFormData
     
 }
 
+
+// Used to bind IsSelected property to the EditForm checkboxes
+public class AllergenSelection
+{
+    public required string Name { get; init; }
+    public bool IsSelected { get; set; }
+}
+
 public static class MealDtoExtensions
 {
     public static MealFormData ConvertToMealFormData(this MealDto mealDto, IEnumerable<AllergenDto> AllAllergens)
@@ -45,7 +47,7 @@ public static class MealDtoExtensions
                 Id = mealDto.Id,
                 Name = mealDto.Name,
                 MealType = mealDto.Type.ToString(),
-                AllergenSelections = AllAllergens.Select(allergen => new MealFormData.AllergenSelection {Name = allergen.Name, IsSelected = false}).ToList()
+                AllergenSelections = AllAllergens.Select(allergen => new AllergenSelection {Name = allergen.Name, IsSelected = false}).ToList()
             };
         // Mark all allergens of mealDto as true in AllergenSelections of the mealFormData
         foreach (var selection in mealFormData.AllergenSelections)
@@ -58,3 +60,4 @@ public static class MealDtoExtensions
         return mealFormData;
     }
 }
+
