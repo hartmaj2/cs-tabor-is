@@ -10,6 +10,10 @@
             <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name @headerArrows[1] </button> </div>
             <div> Diets </div>
         </div>
+        <div class="div-table-header">
+            <div class="div-table-h-col"> <input class="name-search-box" placeholder="search..." type="text"/> </div>
+            <div class="div-table-h-col"> <input class="name-search-box" placeholder="search..." type="text"/> </div>
+        </div>
         <div class="div-table-body">
             @if (participantDtos == null)
             {

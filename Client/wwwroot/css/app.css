@@ -204,3 +204,8 @@ code {
 .div-table-header .clickable-header:hover{
     background-color:rgb(204, 204, 204);   
 }
+
+.name-search-box {
+    margin: 5px 10px 5px 0px;
+    width: 150px;
+}
