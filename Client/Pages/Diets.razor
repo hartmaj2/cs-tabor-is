@@ -44,8 +44,11 @@
 @code
 {
 
+    // Indicates index of the column by which we currently sort the participants
     private int activeSortingColumn = 0;
 
+    // Stores the string that should be appended to every column if it is a sortable column
+    // The active column has the arrow up/down symbol in the corresponding field
     private string[] headerArrows = {"",""};
 
     private List<ParticipantDto>? participantDtos;
@@ -63,21 +66,37 @@
     // we flip the sort direction if the column was already active and was clicked
     // otherwise we sort in unreversed direction
     // lastly we have to update our active column
-    private async Task HandleSortClick(int clickedColumn)
+    private void HandleSortClick(int clickedColumn)
+    {
+        AdjustSorters(clickedColumn);
+        AdjustHeaderArrows(clickedColumn);
+        activeSortingColumn = clickedColumn;
+        sortedParticipants = participantDtos!.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
+    }
+
+    private void AdjustSorters(int clickedColumn)
     {
         if (clickedColumn == activeSortingColumn)
         {
             participantSorters[clickedColumn].KeyComparer.ReverseSort = !participantSorters[clickedColumn].KeyComparer.ReverseSort;
+        }
+        else
+        {
+            participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
+        }
+    }
+
+    private void AdjustHeaderArrows(int clickedColumn)
+    {
+        if (clickedColumn == activeSortingColumn)
+        {
             headerArrows[activeSortingColumn] = (headerArrows[activeSortingColumn] == "▲") ? "▼" : "▲";
         }
         else
         {
             headerArrows[activeSortingColumn] = "";
             headerArrows[clickedColumn] = "▲";
-            participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
         }
-        activeSortingColumn = clickedColumn;
-        sortedParticipants = participantDtos!.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
     }
 
     protected override async Task OnInitializedAsync()
