@@ -35,7 +35,7 @@ public static class ParticipantExtensions
             Age = thisParticipant.Age,
             PhoneNumber = thisParticipant.PhoneNumber,
             BirthNumber = thisParticipant.BirthNumber,
-            Allergens = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
+            Allergens = thisParticipant.Diets!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
         };
     }
 }

@@ -23,7 +23,7 @@ public class ParticipantController : ControllerBase
     public ParticipantDto? GetParticipantById(int id)
     {
         return _context.Participants
-            .Include(participant => participant.ParticipantAllergens)!
+            .Include(participant => participant.Diets)!
             .ThenInclude(pa => pa.Allergen)
             .First(participant => participant.Id == id)
             .ConvertToParticipantDto();
@@ -35,17 +35,25 @@ public class ParticipantController : ControllerBase
     public IEnumerable<ParticipantDto> GetParticipants()
     {
         return _context.Participants
-            .Include(p => p.ParticipantAllergens)!
+            .Include(p => p.Diets)!
             .ThenInclude(pa => pa.Allergen)
             .ToList<Participant>()
             .Select(p => p.ConvertToParticipantDto());
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditParticipant(int id, [FromBody] Participant updatedParticipant)
+    public IActionResult EditParticipant(int id, [FromBody] ParticipantDto updatedParticipant)
     {
-        Participant oldParticipant = _context.Participants.Find(id)!;
+        Participant oldParticipant = _context.Participants.Include(p => p.Diets).;
         _context.Entry(oldParticipant).CurrentValues.SetValues(updatedParticipant);
+        foreach (var mealAllergen in oldParticipant.Diets!)
+        {
+            _context.Remove(mealAllergen);
+        }
+        foreach (var allergenDto in updatedParticipant.Allergens)
+        {
+            _context.Add()
+        }
         _context.SaveChanges();
         return NoContent();
     }
@@ -103,12 +111,12 @@ public static class ParticipantDtoExtensions
             BirthNumber = participantDto.BirthNumber
         };
 
-        participant.ParticipantAllergens = new List<ParticipantAllergen>();
+        participant.Diets = new List<ParticipantAllergen>();
         foreach (AllergenDto allergenDto in participantDto.Allergens)
         {
             Allergen? allergen = _context.Allergens.First(a => a.Name == allergenDto.Name);
             // Here it is necessary to set ParticipantId = participant.Id (when editing participant, I need it to create an entry in the ParticipantAllergens association table)
-            participant.ParticipantAllergens.Add(new ParticipantAllergen {AllergenId = allergen!.Id, ParticipantId = participant.Id}); 
+            participant.Diets.Add(new ParticipantAllergen {AllergenId = allergen!.Id, ParticipantId = participant.Id}); 
         }
         return participant;
     }
