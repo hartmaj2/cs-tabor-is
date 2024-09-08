@@ -357,12 +357,20 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 8.9.2024
 
 ### TODO:
-- [ ] Implement communication using ParticipantDto instead of Participant directly
-  - [ ] Update http requests accordingly if necessary
-- [ ] Communicate AllergenDto instead of Allergens directly 
-  - [ ] Add Id to AllergenDto
-  - [ ] Update http requests accordingly
+- [x] Implement communication using ParticipantDto instead of Participant directly
+  - [x] Update http requests accordingly if necessary
+- [x] Communicate AllergenDto instead of Allergens directly 
+  - [x] Add Id to AllergenDto
+  - [x] Update http requests accordingly
 - [ ] Implement diet section
   - [ ] Load a list of participant diet dtos 
   - [ ] Show them in table that lists allergens 
   - [ ] Implement filtering by checking which diets I want to see (use a modal)
+- [ ] Rename conversion methods from ConvertToSomething to ToSomething
+
+### DONE:
+- Added Id to AllergenDto and made Allergen controller to communicate using the dtos
+- Changed all methods that use Participant to use ParticipantDto
+  - Had issue with participant.Diets not loading (ParticipantAllergens) -> had to use .Include and .ThenInclude
+- Also changed AllAllergens in client side to use AllergenDto instead of Allergen directly
+- Renamed allergens to diets in participant dto and also added the diets to populate http request
