@@ -159,7 +159,7 @@ code {
     font-size: x-large;
 }
 
-.div-table-header > div {
+.div-table-header > div, .div-table-header > button {
     font-size: large; 
     font-weight: 500;
 }
@@ -168,7 +168,7 @@ code {
     margin-left: 10px;
 }
 
-.div-table-header > div, .div-table-row > div {
+.div-table-header > div, .div-table-header > button, .div-table-row > div {
     width: 200px;
 }
 
@@ -193,4 +193,14 @@ code {
 
 .div-table-body > div:nth-of-type(even) {
     background: rgb(247, 247, 247);
+}
+
+.div-table-header > .clickable-header{
+    background-color:rgb(221, 220, 220);
+    text-align:left;
+    border-width: 0px;
+}
+
+.div-table-header > .clickable-header:hover{
+    background-color:rgb(204, 204, 204);   
 }

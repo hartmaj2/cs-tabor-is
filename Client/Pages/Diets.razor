@@ -6,8 +6,8 @@
     <div class="div-table-container-header"> <span> Diets </span> </div>
     <div class="div-table">
         <div class="div-table-header">
-            <div> First name </div>
-            <div> Last name </div>
+            <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name </button>
+            <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name </button>
             <div> Diets </div>
         </div>
         <div class="div-table-body">
@@ -19,7 +19,7 @@
             }
             else
             {
-                @foreach(var participant in participantDtos)
+                @foreach(var participant in participantDtos.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer))
                 {
                     <div class="div-table-row">
                         <div> @participant.FirstName </div>
@@ -44,10 +44,32 @@
 @code
 {
 
+    private int activeSortingColumn = 0;
     private List<ParticipantDto>? participantDtos;
+
+    private ParticipantSorter<string>[] participantSorters = 
+        {
+            new ParticipantSorter<string>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
+            new ParticipantSorter<string>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
+        };
+
+    private void HandleSortClick(int clickedColumn)
+    {
+        if (clickedColumn == activeSortingColumn)
+        {
+            participantSorters[clickedColumn].KeyComparer.ReverseSort = !participantSorters[clickedColumn].KeyComparer.ReverseSort;
+        }
+        else
+        {
+            participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
+        }
+        activeSortingColumn = clickedColumn;
+    }
 
     protected override async Task OnInitializedAsync()
     {
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
     }
+
+
 }
