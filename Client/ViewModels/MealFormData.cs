@@ -38,7 +38,7 @@ public class MealFormData
 
 public static class MealDtoExtensions
 {
-    public static MealFormData ConvertToMealFormData(this MealDto mealDto, IEnumerable<Allergen> AllAllergens)
+    public static MealFormData ConvertToMealFormData(this MealDto mealDto, IEnumerable<AllergenDto> AllAllergens)
     {
         var mealFormData = new MealFormData()
             {

@@ -33,7 +33,7 @@ else
         await LoadMealTypes();
     }
 
-    private IEnumerable<Allergen>? allAllergens;
+    private IEnumerable<AllergenDto>? allAllergens;
 
     private IEnumerable<string>? mealTypes;
 
@@ -52,7 +52,7 @@ else
     // Gets list of all allergens
     private async Task LoadAllergens()
     {
-        allAllergens = await Http.GetFromJsonAsync<List<Allergen>>("api/allergens/all");
+        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
     // Gets list of all meal types {"Soup","Main"}
