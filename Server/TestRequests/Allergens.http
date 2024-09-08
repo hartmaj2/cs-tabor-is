@@ -35,7 +35,4 @@ Content-Type: application/json
 GET http://localhost:5141/api/allergens/all
 
 ###
-DELETE http://localhost:5141/api/allergens/delete/5
-
-###
 DELETE http://localhost:5141/api/allergens/delete-all

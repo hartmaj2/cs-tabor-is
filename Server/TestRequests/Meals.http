@@ -10,24 +10,8 @@ Content-Type: application/json
     "allergens" : []
 }
 
-###
-POST http://localhost:5141/api/meals/edit/101
-Content-Type: application/json
-
-{
-    "id" : 101,
-    "name" : "Caesar salatos",
-    "mealTime" : "Dinner",
-    "type" : "Main",
-    "date" : "2024-08-30",
-    "allergens" : []
-}
-
 ### Test request for deleting the whole table
 DELETE http://localhost:5141/api/meals/delete-all
-
-### Test request to delete single meal
-DELETE http://localhost:5141/api/meals/123
 
 ###
 GET http://localhost:5141/api/meals/all
