@@ -18,6 +18,7 @@ public class ParticipantController : ControllerBase
         _context = context;
     }
 
+    // Gets participant by id, it is important to eagerly load the participant Allergens before we convert him (the database does not automatically include allergens)
     [HttpGet("{id:int}")]
     public ParticipantDto? GetParticipantById(int id)
     {
