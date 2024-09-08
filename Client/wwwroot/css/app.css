@@ -159,7 +159,7 @@ code {
     font-size: x-large;
 }
 
-.div-table-header > div, .div-table-header > button {
+.div-table-header div, .div-table-header button {
     font-size: large; 
     font-weight: 500;
 }
@@ -195,13 +195,12 @@ code {
     background: rgb(247, 247, 247);
 }
 
-.div-table-header > .clickable-header{
+.div-table-header .clickable-header{
     background-color:rgb(221, 220, 220);
     text-align:left;
     border-width: 0px;
-    padding-left: 0px;
 }
 
-.div-table-header > .clickable-header:hover{
+.div-table-header .clickable-header:hover{
     background-color:rgb(204, 204, 204);   
 }
