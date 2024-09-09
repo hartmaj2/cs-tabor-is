@@ -147,7 +147,6 @@
     }
 
     // Send request to edit the participant to api, also have to hide the modal
-    // TODO: fix changes made to the database
     private async Task RequestParticipantEdit(ParticipantDto updatedParticipant)
     {
         await Http.PostAsJsonAsync<ParticipantDto>($"api/participants/edit/{updatedParticipant.Id}",updatedParticipant,CancellationToken.None);
