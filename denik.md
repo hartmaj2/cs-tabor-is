@@ -385,3 +385,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - There was a mistake in my edit participant api endpoint method (.Find() was called without test predicate)
   - When editing another participant after edit of different participant, the checkboxes resemble still the old participants diets
     - Fix was to pass dietSelections to the component directly and not load them OnInitialize
+
+## 9.9.2024
+
+### TODO:
+- [ ] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
+  - [ ] Add div row with filtering options with text fields or dropdowns
+  - [ ] Filter using my interfaces I created for participant filtering
+  - [ ] Make dropdown with Blazor Bootstrap
+- [ ] Work with ParticipantDto everywhere on client side
+- [ ] Rename conversion methods from ConvertToSomething to ToSomething
