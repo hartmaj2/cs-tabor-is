@@ -13,6 +13,7 @@
 - Remove age and calculate it from birth number instead
 - Create api manager - all methods to communicate with api will be stored there in one place
 - Create allergen manager - will load possible allergens and will provide them to classes that need them
+- Add clear filters button
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
