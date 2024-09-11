@@ -91,9 +91,9 @@ else
     private IQueryable<Participant>? participants;
  
     // Used to filter by age using lower and upper bound
-    private IntegerBoundFilter ageBoundFilter = new() {Min = ParticipantFormData.LowestAge, Max = ParticipantFormData.HighestAge};
+    private QueryableIntegerBoundFilter ageBoundFilter = new() {Min = ParticipantFormData.LowestAge, Max = ParticipantFormData.HighestAge};
 
-    private TextFilter lastNameFilter = new();
+    private QueryableTextFilter lastNameFilter = new();
 
     // We need to add all filters to the list manually (because we need to bind to the filters in the QuickGrid using their name)
     private List<IQueryableParticipantFilter> filters = new();
