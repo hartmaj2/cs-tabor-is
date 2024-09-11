@@ -118,7 +118,7 @@
     {
         headerArrows = new string[participantSorters.Length];
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
-        foreach (var participant in participantDtos) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
+        foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
         await LoadAllergens();
         sortedParticipants = participantDtos;
     }
