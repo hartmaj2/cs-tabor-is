@@ -4,47 +4,52 @@
 
 <Modal @ref="editDietsModal" />
 
-<div class="div-table-container">
-    <div class="div-table-container-header"> <span> Diets </span> </div>
-    <div class="div-table">
-        <div class="div-table-header">
-            <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name @headerArrows![0] </button> </div>
-            <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name @headerArrows[1] </button> </div>
-            <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)"> Diets @headerArrows[2] </button> </div>
-        </div>
-        <div class="div-table-header">
-            <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-            <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-        </div>
-        <div class="div-table-body">
-            @if (participantDtos == null)
-            {
-                <div class="div-table-row">
-                    <span> Loading participants... </span>
-                </div>
-            }
-            else
-            {
-                @foreach(var participant in sortedParticipants!)
+@* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
+@if (filterDietSelections != null)
+{
+    <div class="div-table-container">
+        <div class="div-table-container-header"> <span> Diets </span> </div>
+        <div class="div-table">
+            <div class="div-table-header">
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name @headerArrows![0] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name @headerArrows[1] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)"> Diets @headerArrows[2] </button> </div>
+            </div>
+            <div class="div-table-header">
+                <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div class="div-table-h-col"> <DietFilterDropup FilterDietSelections="filterDietSelections"></DietFilterDropup></div>
+            </div>
+            <div class="div-table-body">
+                @if (participantDtos == null)
                 {
                     <div class="div-table-row">
-                        <div> @participant.FirstName </div>
-                        <div> @participant.LastName </div>
-                        <div>
-                            @foreach(var diet in participant.Diets)
-                            {
-                                <span> @diet.Name,  </span>
-                            }
-                        </div>
-                        <button class="btn btn-primary" @onclick="() => ShowEditDietsModal(participant)"> Edit diets </button>
+                        <span> Loading participants... </span>
                     </div>
                 }
-            }
+                else
+                {
+                    @foreach(var participant in sortedParticipants!)
+                    {
+                        <div class="div-table-row">
+                            <div> @participant.FirstName </div>
+                            <div> @participant.LastName </div>
+                            <div>
+                                @foreach(var diet in participant.Diets)
+                                {
+                                    <span> @diet.Name,  </span>
+                                }
+                            </div>
+                            <button class="btn btn-primary" @onclick="() => ShowEditDietsModal(participant)"> Edit diets </button>
+                        </div>
+                    }
+                }
+            </div>
+
         </div>
 
     </div>
-
-</div>
+}
 
 
 @code
@@ -147,10 +152,11 @@
     protected override async Task OnInitializedAsync()
     {
         InitializeFilters();
+        await LoadAllergens();
+        InitializeFilterDietSelections();
         headerArrows = new string[participantSorters.Length];
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
         foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
-        await LoadAllergens();
     }
 
     private Modal editDietsModal = default!;
@@ -184,6 +190,17 @@
     {
         await Http.PostAsJsonAsync<ParticipantDto>($"api/participants/edit/{updatedParticipant.Id}",updatedParticipant,CancellationToken.None);
         await editDietsModal.HideAsync();
+    }
+
+    private List<AllergenSelection>? filterDietSelections;
+
+    private void InitializeFilterDietSelections()
+    {
+        filterDietSelections = new();
+        foreach (var allergen in allAllergens!)
+        {
+            filterDietSelections.Add(new AllergenSelection() {Name = allergen.Name} );
+        }
     }
 
 }
