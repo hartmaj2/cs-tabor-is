@@ -4,9 +4,20 @@
 
 <Modal @ref="editDietsModal" />
 
+
+
 @* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
 @if (filterDietSelections != null)
 {
+    
+    @foreach (var selection in filterDietSelections)
+    {
+        <br/>
+        @selection.Name 
+        @selection.IsSelected
+        <button @onclick="() => selection.IsSelected = false"> False </button>
+        <button @onclick="() => selection.IsSelected = true"> True </button>
+    }
     <div class="div-table-container">
         <div class="div-table-container-header"> <span> Diets </span> </div>
         <div class="div-table">
@@ -51,13 +62,14 @@
     </div>
 }
 
-
 @code
 {
 
     // Initialize the concrete filters (I want to have them named)
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
     private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
+
+    private DietsFilter? dietsFilter;
 
     // Stores all the filters to be applied to participants
     private IList<IParticipantFilter> participantFilters = new List<IParticipantFilter>();
@@ -67,6 +79,8 @@
     {
         participantFilters.Add(firstNameFilter);
         participantFilters.Add(lastNameFilter);
+        dietsFilter = new DietsFilter() {DietSelections = filterDietSelections};
+        participantFilters.Add(dietsFilter);
     }
 
     // Indicates index of the column by which we currently sort the participants
@@ -151,9 +165,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        InitializeFilters();
         await LoadAllergens();
         InitializeFilterDietSelections();
+        InitializeFilters();
         headerArrows = new string[participantSorters.Length];
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
         foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();

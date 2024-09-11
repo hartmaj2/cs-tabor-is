@@ -33,3 +33,19 @@ public class IntegerBoundFilter : IParticipantFilter
         return unfiltered.Where(p => p.Age >= Min && p.Age <= Max);
     }
 }
+
+public class DietsFilter : IParticipantFilter
+{
+    public required IList<AllergenSelection> DietSelections { get; set; }
+
+    public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
+    {
+        // fold that starts with only the selected diet choices and goes through them and returns only the participants with a diet names list containing the name of the current selection
+        return DietSelections
+            .Where(selection => selection.IsSelected) // start with only the selected checkboxes
+            .Aggregate(
+                unfiltered,
+                (accFiltered,currentSelection) => accFiltered.Where(participant => participant.Diets.Select(diet => diet.Name).Contains(currentSelection.Name))
+            );
+    }
+}
