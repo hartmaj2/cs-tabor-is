@@ -9,8 +9,11 @@ public interface IParticipantFilter
 // The filtering is done by binding the filtering input field to the FilterText field of this filter
 public class TextFilter : IParticipantFilter
 {
+
+    // This is the input text we use to filter the participants
     public string? FilterText { get ; set; }
 
+    // The selector function that selects the key of participant by which we want to filter
     public required Func<ParticipantDto,string> FilterKeySelector { get; set;}
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
