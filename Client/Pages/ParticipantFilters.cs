@@ -1,12 +1,12 @@
 using Shared;
 
 // This interface serves as a base for filters that I would like to apply to my participants table
-public interface IQuickGridFilter
+public interface IParticipantFilter
 {
     public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered);
 }
 
-public class TextFilter : IQuickGridFilter
+public class TextFilter : IParticipantFilter
 {
     public string? FilterText { get ; set; }
 
@@ -17,7 +17,7 @@ public class TextFilter : IQuickGridFilter
     }
 }
 
-public class IntegerBoundFilter : IQuickGridFilter
+public class IntegerBoundFilter : IParticipantFilter
 {
     public int Min { get; set; }
     public int Max { get; set; }
