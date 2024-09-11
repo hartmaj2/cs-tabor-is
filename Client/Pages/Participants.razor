@@ -167,9 +167,15 @@ else
         Navigation.NavigateTo($"/participants/edit/{id}");
     }
 
+    // Manages the header content of the columns
+    // Also manages if a certain column should be shown or not in the quick grid
     private class TableColumnInfo
     {
+
+        // Name of the property
         public required string PropName { get; set; }
+
+        // Mark whether the property is checked in the show
         public bool IsChecked { get; set; } = true;
     }
 
