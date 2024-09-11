@@ -78,10 +78,9 @@
     {
         get 
         {
-            var filteredParticipants = participantDtos!;
 
             // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
-            filteredParticipants = 
+            var filteredParticipants = 
                 participantFilters.Aggregate(
                     participantDtos!,
                     (participantsSoFar,currentFilter) => currentFilter.GetFiltered(participantsSoFar)
