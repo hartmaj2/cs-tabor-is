@@ -406,12 +406,14 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 11.9.2024
 
 ### TODO:
-- [ ] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
-  - [ ] Add div row with filtering options with text fields or dropdowns
-  - [ ] Filter using my interfaces I created for participant filtering
+- [x] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
+  - [x] Add div row with filtering options with text fields or dropdowns
+  - [x] Filter using my interfaces I created for participant filtering
   - [ ] Make dropdown with Blazor Bootstrap
-- [ ] Work with ParticipantDto everywhere on client side
+- [ ] Work with ParticipantDto everywhere on client side (fix this in Participants.razor)
 - [ ] Rename conversion methods from ConvertToSomething to ToSomething
 
 ### DONE:
-- 
+- Didn't want to use IQueryable in my filtering interface => created a new interface IParticipantFilter and moved the old one to IQueryableParticipantFilter
+- Improved TextFilter to be able to filter all text properties of a participant using a key selector that returns string values
+- Applied all filters using a fold
