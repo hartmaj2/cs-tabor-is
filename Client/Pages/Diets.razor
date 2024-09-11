@@ -72,12 +72,18 @@
     private string[]? headerArrows;
 
     private IEnumerable<ParticipantDto>? participantDtos;
+
+    // Provides a getter that first filters and then sorts the participants
     private IEnumerable<ParticipantDto>? sortedParticipants
     {
         get 
         {
             var filteredParticipants = participantDtos!;
+
+            // filter all participants
             foreach (var filter in participantFilters) filteredParticipants = filter.GetFiltered(filteredParticipants);
+
+            // then sort them
             return filteredParticipants.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
         }
     }
