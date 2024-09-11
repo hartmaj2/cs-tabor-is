@@ -80,8 +80,12 @@
         {
             var filteredParticipants = participantDtos!;
 
-            // filter all participants
-            foreach (var filter in participantFilters) filteredParticipants = filter.GetFiltered(filteredParticipants);
+            // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
+            filteredParticipants = 
+                participantFilters.Aggregate(
+                    participantDtos!,
+                    (participantsSoFar,currentFilter) => currentFilter.GetFiltered(participantsSoFar)
+                    );
 
             // then sort them
             return filteredParticipants.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
