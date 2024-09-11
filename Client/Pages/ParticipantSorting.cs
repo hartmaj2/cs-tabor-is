@@ -10,10 +10,7 @@ public abstract class ObjectSwitchableComparer : ISwitchableComparer<object>
         return ReverseSort ? -1 : 1;
     }
 
-    public virtual int Compare(object? x, object? y)
-    {
-         return x!.ToString()!.CompareTo(y!.ToString()!) * GetDirectionInt();
-    }
+    public abstract int Compare(object? x, object? y);
 }
 
 public class StringSwitchableComparer : ObjectSwitchableComparer, ISwitchableComparer<string>
