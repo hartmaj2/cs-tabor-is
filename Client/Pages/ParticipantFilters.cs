@@ -6,6 +6,7 @@ public interface IParticipantFilter
     public IQueryable<Participant> GetFiltered(IQueryable<Participant> unfiltered);
 }
 
+// The filtering is done by binding the filtering input field to the FilterText field of this filter
 public class TextFilter : IParticipantFilter
 {
     public string? FilterText { get ; set; }
