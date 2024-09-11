@@ -96,7 +96,7 @@ else
     private TextFilter lastNameFilter = new();
 
     // We need to add all filters to the list manually (because we need to bind to the filters in the QuickGrid using their name)
-    private List<IParticipantFilter> filters = new();
+    private List<IQueryableParticipantFilter> filters = new();
 
     // Is called OnInitializeAsync to initialize the list of filters
     private void SetupFilters()
