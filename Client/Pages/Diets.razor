@@ -13,8 +13,8 @@
             <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)"> Diets @headerArrows[2] </button> </div>
         </div>
         <div class="div-table-header">
-            <div class="div-table-h-col"> <input class="name-search-box" placeholder="search..." type="text"/> </div>
-            <div class="div-table-h-col"> <input class="name-search-box" placeholder="search..." type="text"/> </div>
+            <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+            <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
         </div>
         <div class="div-table-body">
             @if (participantDtos == null)
@@ -50,6 +50,17 @@
 @code
 {
 
+    private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
+    private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
+
+    private IList<IParticipantFilter> participantFilters = new List<IParticipantFilter>();
+
+    private void InitializeFilters()
+    {
+        participantFilters.Add(firstNameFilter);
+        participantFilters.Add(lastNameFilter);
+    }
+
     // Indicates index of the column by which we currently sort the participants
     private int activeSortingColumn = 0;
 
@@ -57,8 +68,16 @@
     // The active column has the arrow up/down symbol in the corresponding field
     private string[]? headerArrows;
 
-    private List<ParticipantDto>? participantDtos;
-    private IEnumerable<ParticipantDto>? sortedParticipants;
+    private IEnumerable<ParticipantDto>? participantDtos;
+    private IEnumerable<ParticipantDto>? sortedParticipants
+    {
+        get 
+        {
+            var filteredParticipants = participantDtos!;
+            foreach (var filter in participantFilters) filteredParticipants = filter.GetFiltered(filteredParticipants);
+            return filteredParticipants.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
+        }
+    }
     
     // array of sorters which consist of a key selector and a switchable comparer
     // this array allows me to select current keyselector and comparer based on the active sorting column
@@ -78,7 +97,6 @@
         AdjustSorters(clickedColumn);
         AdjustHeaderArrows(clickedColumn);
         activeSortingColumn = clickedColumn;
-        sortedParticipants = participantDtos!.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
     }
 
     private void AdjustSorters(int clickedColumn)
@@ -116,11 +134,11 @@
 
     protected override async Task OnInitializedAsync()
     {
+        InitializeFilters();
         headerArrows = new string[participantSorters.Length];
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
         foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
         await LoadAllergens();
-        sortedParticipants = participantDtos;
     }
 
     private Modal editDietsModal = default!;
