@@ -11,10 +11,12 @@ public class TextFilter : IParticipantFilter
 {
     public string? FilterText { get ; set; }
 
+    public required Func<ParticipantDto,string> FilterKeySelector { get; set;}
+
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
         if (string.IsNullOrWhiteSpace(FilterText)) return unfiltered;
-        return unfiltered.Where(p => p.LastName!.Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
+        return unfiltered.Where(p => FilterKeySelector(p).Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
     }
 }
 
