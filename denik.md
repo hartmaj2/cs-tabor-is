@@ -402,3 +402,16 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Abstracts reversing the sort
   - Has an abstract method that needs to be overriden by all members
   - All the comparers used by ParticipantSorters are used with the method on general objects (I couldn't figure out another way) so they must implement this general object switchable sorter and then when receiving the object cast them to their desired type and make the comparison
+
+## 11.9.2024
+
+### TODO:
+- [ ] Implement filtering by checking which diets I want to see (use dropdown box with checkboxes)
+  - [ ] Add div row with filtering options with text fields or dropdowns
+  - [ ] Filter using my interfaces I created for participant filtering
+  - [ ] Make dropdown with Blazor Bootstrap
+- [ ] Work with ParticipantDto everywhere on client side
+- [ ] Rename conversion methods from ConvertToSomething to ToSomething
+
+### DONE:
+- 
