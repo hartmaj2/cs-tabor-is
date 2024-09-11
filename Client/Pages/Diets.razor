@@ -50,11 +50,14 @@
 @code
 {
 
+    // Initialize the concrete filters (I want to have them named)
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
     private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
 
+    // Stores all the filters to be applied to participants
     private IList<IParticipantFilter> participantFilters = new List<IParticipantFilter>();
 
+    // Add all filters to the filters list so I can apply them all sequentially
     private void InitializeFilters()
     {
         participantFilters.Add(firstNameFilter);
