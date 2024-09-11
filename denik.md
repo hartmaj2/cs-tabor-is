@@ -395,3 +395,10 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [ ] Make dropdown with Blazor Bootstrap
 - [ ] Work with ParticipantDto everywhere on client side
 - [ ] Rename conversion methods from ConvertToSomething to ToSomething
+
+#### DONE:
+- Made allergens and diets in div tables sorted for nicer UI
+- Added ObjectSwitchableComparer abstract class to be used by ParticipantSorters
+  - Abstracts reversing the sort
+  - Has an abstract method that needs to be overriden by all members
+  - All the comparers used by ParticipantSorters are used with the method on general objects (I couldn't figure out another way) so they must implement this general object switchable sorter and then when receiving the object cast them to their desired type and make the comparison
