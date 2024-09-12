@@ -422,7 +422,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Fix dropdown bind in Blazor Bootstrap
+- [ ] Edit ParticipantFormData
+  - [ ] Added DietSelections to ParticipantFormData
+  - [ ] Make ParticipantFormData convert to ParticipantDto instead of Participant
 - [ ] Fix adding new participants 
+  - [ ] Add flag to participant edit form to include/exclude diet selections
+  - [ ] Add diet selections to participant form data class
+  - [ ] Change conversion method to convert to participant dto
 - [ ] Implement adding participants with diets
 
 ### DONE:
