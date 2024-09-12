@@ -4,20 +4,9 @@
 
 <Modal @ref="editDietsModal" />
 
-
-
 @* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
 @if (filterDietSelections != null)
 {
-    
-    @foreach (var selection in filterDietSelections)
-    {
-        <br/>
-        @selection.Name 
-        @selection.IsSelected
-        <button @onclick="() => selection.IsSelected = false"> False </button>
-        <button @onclick="() => selection.IsSelected = true"> True </button>
-    }
     <div class="div-table-container">
         <div class="div-table-container-header"> <span> Diets </span> </div>
         <div class="div-table">
@@ -89,7 +78,7 @@
     {
         participantFilters.Add(firstNameFilter);
         participantFilters.Add(lastNameFilter);
-        dietsFilter = new DietsFilter() {DietSelections = filterDietSelections};
+        dietsFilter = new DietsFilter() {DietSelections = filterDietSelections!};
         participantFilters.Add(dietsFilter);
     }
 
@@ -173,6 +162,9 @@
         allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
+    // Initialize filters must be called after the filter diet selections are initialized (the diet filter uses the selections)
+    // The filter diet selections can only be initialized after the allergens are loaded (diet selection are dependent on the list of all possible allergens)
+    // So it is necessary to call 1. LoadAllergens(); 2. InitializeFilterDietSelections(); 3. InitializeFilters();
     protected override async Task OnInitializedAsync()
     {
         await LoadAllergens();
