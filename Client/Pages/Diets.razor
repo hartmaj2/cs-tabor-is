@@ -29,7 +29,17 @@
             <div class="div-table-header">
                 <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div class="div-table-h-col"> <DietFilterDropup FilterDietSelections="filterDietSelections"></DietFilterDropup></div>
+                <div class="div-table-h-col">
+                    <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
+                        <DropdownToggleButton> Filter diets </DropdownToggleButton>
+                        <DropdownMenu Class="px-3" Style="width:150px;">
+                            @foreach (var dietSelection in filterDietSelections)
+                            {
+                                <label> <input type="checkbox" @bind="dietSelection.IsSelected" @bind:event="oninput"> @dietSelection.Name </label> <br/>
+                            }
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
             </div>
             <div class="div-table-body">
                 @if (participantDtos == null)
