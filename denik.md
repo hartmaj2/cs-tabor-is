@@ -417,3 +417,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Didn't want to use IQueryable in my filtering interface => created a new interface IParticipantFilter and moved the old one to IQueryableParticipantFilter
 - Improved TextFilter to be able to filter all text properties of a participant using a key selector that returns string values
 - Applied all filters using a fold
+
+## 12.9.2024
+
+### TODO:
+- [ ] Fix dropdown bind in Blazor Bootstrap
+- [ ] Fix adding new participants 
+- [ ] Implement adding participants with diets
+
+### DONE:
+
