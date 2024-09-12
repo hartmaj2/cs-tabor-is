@@ -421,9 +421,10 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 12.9.2024
 
 ### TODO:
-- [ ] Fix dropdown bind in Blazor Bootstrap
+- [x] Fix dropdown bind in Blazor Bootstrap
 - [ ] Fix adding new participants 
 - [ ] Implement adding participants with diets
 
 ### DONE:
-
+- Fixed the bind of the dropup box
+  - The fix was to move the code directly to the Diets page instead of having a separate component, for some reason that makes the bind event not work oninput
