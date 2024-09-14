@@ -444,8 +444,19 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Add diet selections to participant form data class
   - [x] Change conversion method to convert to participant dto
 - [x] Implement adding participants with diets
+- [ ] Make columns in my div table sortable
+- [ ] Add SubLayout to Participants also
 
 ### DONE:
 - Tested, that the api part of adding/editing participants works (using my http requests)
 - Implemented all conversion to Dto instead of the database model objects directly - all went smoothly
 - Needed to add DietSelections to ParticipantFormData which in the end meant that I have to pass allergens list to conversion method that I use even when editing only other values of the participants (that could be fixed somehow)
+- Removed the Home section from the Client app template
+- Changed confirmation texts to "Confirm"
+- Added smarter first and last name check
+  - Used regexp
+  - Allowed . or - in some cases 
+- Switched to my div table instead of quick grid
+  - Added style for columns whose content needs to be aligned to center 
+  - Made my IntegerBoundFilter to work with any integer participant property
+  - Deleted IQueryableParticipantFilter
