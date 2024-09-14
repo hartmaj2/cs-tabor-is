@@ -3,6 +3,7 @@
 @inject HttpClient Http
 @inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Components.QuickGrid
+@using System.Text.Json
 
 <PageTitle> Participants </PageTitle>
 
@@ -22,88 +23,102 @@
 }
 else
 {
-    <br/>
-    <span> Show: </span> 
-    @foreach (var tableColumnInfo in columnInfos)
-    {
-        <label class="checkbox-label"> <input type="checkbox" @bind="tableColumnInfo.IsChecked"/> @tableColumnInfo.PropName </label>
-    }
 
-    <QuickGrid Items="@FilteredParticipants" class="table quickgrid">
-        
-        @if (columnInfos[0].IsChecked)
-        {
-            <PropertyColumn Property="@(p => p.Id)" Sortable="true" Title=@columnInfos[0].PropName/>
-        }
-        
-        @if (columnInfos[1].IsChecked)
-        {
-            <PropertyColumn Property="@(p => p.FirstName)" Sortable="true" Title=@columnInfos[1].PropName />
-        }
-
-        @if (columnInfos[2].IsChecked)
-        {
-            <PropertyColumn Property="@(p => p.LastName)" Sortable="true" Title=@columnInfos[2].PropName> 
-                <ColumnOptions>
-                    <input type="search" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="Search last name... "/>
-                </ColumnOptions>
-            </PropertyColumn>
-        }
-
-        @if (columnInfos[3].IsChecked)
-        {
-            <PropertyColumn Property="@(p => p.Age)" Sortable="true" Title=@columnInfos[3].PropName>
-                <ColumnOptions>
-                    <div>
-                        Min: 
-                        <input type="range" @bind="ageBoundFilter.Min" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                        <input type="text" @bind="ageBoundFilter.Min" @bind:event="oninput" />
+    <div class="div-table-container">
+        <div class="div-table-container-header"> <span> Participants </span> </div>
+        <div class="div-table">
+            <div class="div-table-header">
+                <div style="width:@colWidths[0]px" class="div-table-h-col"> <button class="clickable-header" > Id  </button> </div>
+                <div style="width:@colWidths[1]px" class="div-table-h-col"> <button class="clickable-header" > First name  </button> </div>
+                <div style="width:@colWidths[2]px" class="div-table-h-col"> <button class="clickable-header" > Last name  </button> </div>
+                <div style="width:@colWidths[3]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" > Age  </button> </div>
+                <div style="width:@colWidths[4]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" > Phone number  </button> </div>
+                <div style="width:@colWidths[5]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" > Birth number  </button> </div>
+            </div>
+            <div class="div-table-header">
+                <div style="width:@colWidths[0]px" class="div-table-h-col"></div>
+                <div style="width:@colWidths[1]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-20)px" class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[2]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-20)px" class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[3]px" class="div-table-h-col">
+                    <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
+                        <DropdownToggleButton> Filter </DropdownToggleButton>
+                        <DropdownMenu Class="px-3" Style="width:150px;">
+                            <div>
+                                Min: 
+                                <input type="range" @bind="ageBoundFilter.Min" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                                <input style="width:130px" type="text" @bind="ageBoundFilter.Min" @bind:event="oninput" />
+                            </div>
+                            <br>
+                            <div>
+                                Max: 
+                                <input type="range" @bind="ageBoundFilter.Max" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                                <input style="width:130px" type="text" @bind="ageBoundFilter.Max" @bind:event="oninput" />
+                            </div>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+                <div style="width:@colWidths[4]px" class="div-table-h-col"></div>
+                <div style="width:@colWidths[5]px" class="div-table-h-col"></div>
+                
+            </div>
+            <div class="div-table-body">
+                @if (participants == null)
+                {
+                    <div class="div-table-row">
+                        <span> Loading participants... </span>
                     </div>
-                    <br>
-                    <div>
-                        Max: 
-                        <input type="range" @bind="ageBoundFilter.Max" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                        <input type="text" @bind="ageBoundFilter.Max" @bind:event="oninput" />
-                    </div>
-                </ColumnOptions>
-            </PropertyColumn>
-        }
+                }
+                else
+                {
+                    @foreach(var participant in FilteredParticipants!)
+                    {
+                        <div class="div-table-row">
+                            <div style="width:@colWidths[0]px" > @participant.Id </div>
+                            <div style="width:@colWidths[1]px"> @participant.FirstName </div>
+                            <div style="width:@colWidths[2]px"> @participant.LastName </div>
+                            <div class="justify-center-col" style="width:@colWidths[3]px"> @participant.Age </div>
+                            <div class="justify-center-col" style="width:@colWidths[4]px"> @participant.PhoneNumber </div>
+                            <div class="justify-center-col" style="width:@colWidths[5]px"> @participant.BirthNumber </div>
+                            <button class="btn btn-primary" @onclick="() => NavigateToEditPage(participant.Id)" > Edit </button>
+                            <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
+                        </div>
+                    }
+                }
+            </div>
 
-        @if (columnInfos[4].IsChecked)
-        {
-            <PropertyColumn Property="@(p => p.PhoneNumber)" Sortable="true" Title=@columnInfos[4].PropName/>
-        }
+        </div>
 
-        @if (columnInfos[5].IsChecked)
-        {
-            <PropertyColumn Property="@(p => p.BirthNumber)" Sortable="true" Title=@columnInfos[5].PropName/>
-        }
-        
-        <TemplateColumn Title="Edit"> <button class="btn btn-primary" @onclick="() => NavigateToEditPage(context.Id)"> Edit </button></TemplateColumn>
-        <TemplateColumn Title="Delete"> <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(context)"> Delete </button></TemplateColumn>
-        
-    </QuickGrid>
+    </div>
 
     <Modal @ref="deleteParticipantModal" /> 
 }
 
 @code
 {
-    private IQueryable<ParticipantDto>? participants;
+
+    private int[] colWidths = {70,150,150,100,150,150};
+    private IEnumerable<ParticipantDto>? participants;
  
     // Used to filter by age using lower and upper bound
-    private QueryableIntegerBoundFilter ageBoundFilter = new() {Min = ParticipantFormData.LowestAge, Max = ParticipantFormData.HighestAge};
+    private IntegerBoundFilter ageBoundFilter = new() 
+        {
+            Min = ParticipantFormData.LowestAge, 
+            Max = ParticipantFormData.HighestAge,
+            FilterKeySelector = p => (int) p.Age 
+        };
 
-    private QueryableTextFilter lastNameFilter = new();
+    private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
+    private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
 
     // We need to add all filters to the list manually (because we need to bind to the filters in the QuickGrid using their name)
-    private List<IQueryableParticipantFilter> filters = new();
+    private List<IParticipantFilter> filters = new();
 
     // Is called OnInitializeAsync to initialize the list of filters
     private void SetupFilters()
     {
         filters.Add(ageBoundFilter); 
         filters.Add(lastNameFilter);
+        filters.Add(firstNameFilter);
     }
 
     // Add reference to my modal which I will use to confirm deletion of given participant
@@ -113,6 +128,7 @@ else
     // The parameters are passed to the modal using dictionary with entries in format -> parameter_name : passed_value
     private void ShowDeleteParticipantModal(ParticipantDto participant)
     {
+        Console.WriteLine(JsonSerializer.Serialize(participant));
         var parameters = new Dictionary<string,object>();
         parameters.Add("CurrentParticipant",participant);
         parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,RequestParticipantDelete));
@@ -134,7 +150,7 @@ else
     }
 
     // Filtered source for the QuickGrid
-    private IQueryable<ParticipantDto> FilteredParticipants
+    private List<ParticipantDto> FilteredParticipants
     {
         get
         {
@@ -142,7 +158,7 @@ else
             foreach (var filter in filters){
                 result = filter.GetFiltered(result!);
             }
-            return result!;
+            return result!.ToList();
         }
     } 
 

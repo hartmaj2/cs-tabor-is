@@ -28,9 +28,12 @@ public class IntegerBoundFilter : IParticipantFilter
     public int Min { get; set; }
     public int Max { get; set; }
 
+    // The selector function that selects the key of participant by which we want to filter
+    public required Func<ParticipantDto,int> FilterKeySelector { get; set;}
+
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
-        return unfiltered.Where(p => p.Age >= Min && p.Age <= Max);
+        return unfiltered.Where(p => FilterKeySelector(p) >= Min && FilterKeySelector(p) <= Max);
     }
 }
 

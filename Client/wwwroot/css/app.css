@@ -170,6 +170,8 @@ code {
 
 .div-table-header > div, .div-table-header > button, .div-table-row > div {
     width: 200px;
+    /* background-color: aqua;
+    border: 2px solid black; */
 }
 
 .div-table-container-header > button, .div-table-row > button {
@@ -208,4 +210,10 @@ code {
 .name-search-box {
     margin: 5px 10px 5px 0px;
     width: 150px;
+}
+
+.justify-center-col {
+   display:flex;
+   justify-content:center;
+   text-align:center;
 }
