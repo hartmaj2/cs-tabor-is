@@ -40,7 +40,7 @@ else
 
 @code
 {
-    private IEnumerable<Allergen>? allAllergens;
+    private IEnumerable<AllergenDto>? allAllergens;
 
     private IList<DietSelection>? dietSelections;
 
@@ -67,7 +67,7 @@ else
     // Gets list of all allergens
     private async Task LoadAllergens()
     {
-        allAllergens = await Http.GetFromJsonAsync<List<Allergen>>("api/allergens/all");
+        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
     private void LoadAllergenSelections()
@@ -77,7 +77,7 @@ else
 
     private class DietSelection
     {
-        public required Allergen Allergen { get; set ;}
+        public required AllergenDto Allergen { get; set ;}
         public bool IsSelected { get; set; }
     }
 }
