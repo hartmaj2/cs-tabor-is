@@ -426,7 +426,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [ ] Add DietSelections to ParticipantFormData
   - [ ] Make ParticipantFormData convert to ParticipantDto instead of Participant
 - [ ] Fix adding new participants 
-  - [ ] Add flag to participant edit form to include/exclude diet selections
   - [ ] Add diet selections to participant form data class
   - [ ] Change conversion method to convert to participant dto
 - [ ] Implement adding participants with diets
@@ -438,14 +437,15 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 14.9.2024
 
 ### TODO:
-- [ ] Edit ParticipantFormData
-  - [ ] Add DietSelections to ParticipantFormData
-  - [ ] Make ParticipantFormData convert to ParticipantDto instead of Participant
-- [ ] Fix adding new participants 
-  - [ ] Add flag to participant edit form to include/exclude diet selections
-  - [ ] Add diet selections to participant form data class
-  - [ ] Change conversion method to convert to participant dto
-- [ ] Implement adding participants with diets
+- [x] Edit ParticipantFormData
+  - [x] Add DietSelections to ParticipantFormData
+  - [x] Make ParticipantFormData convert to ParticipantDto instead of Participant
+- [x] Fix adding new participants 
+  - [x] Add diet selections to participant form data class
+  - [x] Change conversion method to convert to participant dto
+- [x] Implement adding participants with diets
 
 ### DONE:
 - Tested, that the api part of adding/editing participants works (using my http requests)
+- Implemented all conversion to Dto instead of the database model objects directly - all went smoothly
+- Needed to add DietSelections to ParticipantFormData which in the end meant that I have to pass allergens list to conversion method that I use even when editing only other values of the participants (that could be fixed somehow)
