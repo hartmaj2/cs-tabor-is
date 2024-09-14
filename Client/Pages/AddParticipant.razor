@@ -18,11 +18,11 @@ else
             <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"> Add participant </ParticipantForm> 
         </div>
 
-        @if (dietSelections != null)
+        @if (participantData.DietSelections != null)
         {
             <div style="margin-left:100px">
                 <h2> Diets </h2>
-                @foreach (var selection in dietSelections)
+                @foreach (var selection in participantData.DietSelections)
                 {
                     <div>
                         <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
@@ -41,8 +41,6 @@ else
 @code
 {
     private IEnumerable<AllergenDto>? allAllergens;
-
-    private IList<AllergenSelection>? dietSelections;
 
     // We initialize the participant to empty participant at the start
     private ParticipantFormData participantData = new();
@@ -72,7 +70,7 @@ else
 
     private void LoadAllergenSelections()
     {
-        dietSelections = allAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
+        participantData.DietSelections = allAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
     }
 
 }
