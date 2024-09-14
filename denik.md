@@ -460,3 +460,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Added style for columns whose content needs to be aligned to center 
   - Made my IntegerBoundFilter to work with any integer participant property
   - Deleted IQueryableParticipantFilter
+- Implemented sorting in my div table 
+  - Added IntegerSwitchableSorter
+  - Copied rest of the code from diets page
