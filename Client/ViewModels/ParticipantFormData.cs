@@ -26,21 +26,25 @@ public class ParticipantFormData
     [DivisibleBy(11)]
     public string? BirthNumber { get; set; }
 
-    public Participant ConvertToApiParticipant()
+    public IList<AllergenSelection>? DietSelections;
+
+    public ParticipantDto ConvertToParticipantDto()
     {
-        return new Participant
+        return new ParticipantDto
         {
             FirstName = FirstName!,
             LastName = LastName!,
             Age = Age,
             PhoneNumber = PhoneNumber,
-            BirthNumber = BirthNumber!
+            BirthNumber = BirthNumber!,
+            // Add a corresponding AllergenDto only when the selection IsSelected
+            Diets = DietSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
         };
     }
 
-    public Participant ConvertToApiParticipant(int id)
+    public ParticipantDto ConvertToParticipantDto(int id)
     {
-        var participant = ConvertToApiParticipant();
+        var participant = ConvertToParticipantDto();
         participant.Id = id;
         return participant;
     }

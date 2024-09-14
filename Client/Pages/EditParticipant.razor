@@ -35,7 +35,7 @@ else
 
     private void UpdateParticipant()
     {
-        Http.PostAsJsonAsync<Participant>($"/api/participants/edit/{ParticipantId}",participant!.ConvertToApiParticipant(ParticipantId),CancellationToken.None);
+        Http.PostAsJsonAsync<ParticipantDto>($"/api/participants/edit/{ParticipantId}",participant!.ConvertToParticipantDto(ParticipantId),CancellationToken.None);
         updated = true;
     }
 }
