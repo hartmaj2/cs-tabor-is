@@ -25,7 +25,7 @@ else
                 @foreach (var selection in dietSelections)
                 {
                     <div>
-                        <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Allergen.Name </label>
+                        <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
                         
                     </div>
                 }
@@ -42,7 +42,7 @@ else
 {
     private IEnumerable<AllergenDto>? allAllergens;
 
-    private IList<DietSelection>? dietSelections;
+    private IList<AllergenSelection>? dietSelections;
 
     // We initialize the participant to empty participant at the start
     private ParticipantFormData participantData = new();
@@ -72,12 +72,7 @@ else
 
     private void LoadAllergenSelections()
     {
-        dietSelections = allAllergens!.Select(allergen => new DietSelection() {Allergen = allergen}).ToList();
+        dietSelections = allAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
     }
 
-    private class DietSelection
-    {
-        public required AllergenDto Allergen { get; set ;}
-        public bool IsSelected { get; set; }
-    }
 }
