@@ -76,9 +76,9 @@ public class DivisibleByAttribute : ValidationAttribute
 }
 
 // Used by EditParticipant razor component after it receives the api participant from the database
-public static class ParticipantExtensions
+public static class ParticipantDtoExtensions
 {
-    public static ParticipantFormData ConvertToViewParticipant(this Participant participant)
+    public static ParticipantFormData ConvertToParticipantFormData(this ParticipantDto participant, IEnumerable<AllergenDto> allAllergens)
     {
         return new ParticipantFormData
         {
@@ -87,6 +87,16 @@ public static class ParticipantExtensions
             Age = participant.Age,
             PhoneNumber = participant.PhoneNumber,
             BirthNumber = participant.BirthNumber,
+
+            // Go through all possible allergens and create a new allergen for each one with corresponding name and marked as selected if the name of the allergen is contained in the participantDto diets
+            DietSelections = 
+                allAllergens
+                    .Select( allergen => new AllergenSelection()
+                        { 
+                            Name = allergen.Name, 
+                            IsSelected = participant.Diets.Select(diet => diet.Name).Contains(allergen.Name)
+                        })
+                    .ToList()
         };
     }
 }

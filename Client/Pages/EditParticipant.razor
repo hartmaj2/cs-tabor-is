@@ -24,13 +24,21 @@ else
     [Parameter]
     public int ParticipantId {get ; set; }
 
+    private IEnumerable<AllergenDto>? allAllergens { get; set; }
+
     ParticipantFormData? participant;
 
     protected override async Task OnInitializedAsync()
     {
-        Participant? content = await Http.GetFromJsonAsync<Participant>($"/api/participants/{ParticipantId}");
-        participant = content!.ConvertToViewParticipant();
+        await LoadAllergens();
+        ParticipantDto? content = await Http.GetFromJsonAsync<ParticipantDto>($"/api/participants/{ParticipantId}");
+        participant = content!.ConvertToParticipantFormData(allAllergens!);
         
+    }
+
+    private async Task LoadAllergens()
+    {
+        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
     private void UpdateParticipant()
