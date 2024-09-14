@@ -7,13 +7,13 @@
 - Make quick grid with participants adjust when window size changed
 - Add posibility to hide column with allergen list
 - Generalize confirm delete modal so I can reuse code for delete participant and delete meal (maybe use generic types and single AddTypeModal.razor component)
-- Rename ParticipantsDbContext to CampDbContext
 - Make the width of my div table meal columns adjust themselves automatically based on the longest entry
 - Add male/female 
 - Remove age and calculate it from birth number instead
 - Create api manager - all methods to communicate with api will be stored there in one place
 - Create allergen manager - will load possible allergens and will provide them to classes that need them
-- Add clear filters button
+- Add clear filters button (so all filtering option fields get cleared)
+- Add possibility to work with file instead of database (generalize controllers)
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
