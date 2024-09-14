@@ -24,6 +24,7 @@ public class MealFormData
                 MealTime = mealTime,
                 Type = Enum.Parse<MealType>(MealType!),
                 Date = date,
+                // Add a corresponding AllergenDto only when the selection IsSelected
                 Allergens = AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
             };
     }
