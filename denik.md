@@ -423,7 +423,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### TODO:
 - [x] Fix dropdown bind in Blazor Bootstrap
 - [ ] Edit ParticipantFormData
-  - [ ] Added DietSelections to ParticipantFormData
+  - [ ] Add DietSelections to ParticipantFormData
   - [ ] Make ParticipantFormData convert to ParticipantDto instead of Participant
 - [ ] Fix adding new participants 
   - [ ] Add flag to participant edit form to include/exclude diet selections
@@ -434,3 +434,17 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### DONE:
 - Fixed the bind of the dropup box
   - The fix was to move the code directly to the Diets page instead of having a separate component, for some reason that makes the bind event not work oninput
+
+## 14.9.2024
+
+### TODO:
+- [ ] Edit ParticipantFormData
+  - [ ] Add DietSelections to ParticipantFormData
+  - [ ] Make ParticipantFormData convert to ParticipantDto instead of Participant
+- [ ] Fix adding new participants 
+  - [ ] Add flag to participant edit form to include/exclude diet selections
+  - [ ] Add diet selections to participant form data class
+  - [ ] Change conversion method to convert to participant dto
+- [ ] Implement adding participants with diets
+
+### DONE:
