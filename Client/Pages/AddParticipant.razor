@@ -56,10 +56,11 @@ else
         participantData = new();
     }
 
+    // First we need to know what all allergens are before we load the selections for the allergens/diets
     protected override async Task OnInitializedAsync()
     {
         await LoadAllergens();
-        LoadAllergenSelections();
+        LoadDietSelections();
     }
 
     // Gets list of all allergens
@@ -68,7 +69,8 @@ else
         allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
-    private void LoadAllergenSelections()
+    // Initialize the list of diet selections of this participantFormData to all unselected
+    private void LoadDietSelections()
     {
         participantData.DietSelections = allAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
     }
