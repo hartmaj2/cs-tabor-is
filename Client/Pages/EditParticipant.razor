@@ -6,7 +6,7 @@
 @if (participant != null)
 {
     <h1> Edit participant </h1>
-    <ParticipantForm @bind-ThisParticipant="participant" OnValidSubmitEvent="UpdateParticipant" OnInvalidSubmitEvent="()=>updated = false"> Edit participant </ParticipantForm>
+    <ParticipantForm @bind-ThisParticipant="participant" OnValidSubmitEvent="UpdateParticipant" OnInvalidSubmitEvent="()=>updated = false"> Confirm </ParticipantForm>
     if (updated)
     {
         <p style="color:green"> Update successful </p>
