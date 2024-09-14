@@ -448,3 +448,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Implement adding participants with diets
 
 ### DONE:
+- Tested, that the api part of adding/editing participants works (using my http requests)
