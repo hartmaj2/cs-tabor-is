@@ -54,6 +54,7 @@ else
         Http.PostAsJsonAsync<ParticipantDto>("/api/participants/add",participantData.ConvertToParticipantDto(),CancellationToken.None);
         formSubmitted = true;
         participantData = new();
+        LoadDietSelections();
     }
 
     // First we need to know what all allergens are before we load the selections for the allergens/diets
