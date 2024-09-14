@@ -28,6 +28,21 @@ public class StringSwitchableComparer : ObjectSwitchableComparer, ISwitchableCom
     }
 }
 
+public class IntegerSwitchableComparer : ObjectSwitchableComparer, ISwitchableComparer<int>
+{   
+    
+    public int Compare(int x, int y)
+    {
+        return x.CompareTo(y) * GetDirectionInt();
+    }
+
+    // This is kind of workaround because I couldn't have one collection of participant sorters witch comparers for different types 
+    public override int Compare(object? x, object? y)
+    {
+        return Compare((int)x!,(int)y!);
+    }
+}
+
 public class DietsSwitchableComparer : ObjectSwitchableComparer, ISwitchableComparer<IEnumerable<AllergenDto>>
 {
 
