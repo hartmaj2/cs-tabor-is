@@ -1,0 +1,23 @@
+@namespace Client.Components
+
+<ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmit"> Confirm </ParticipantForm>
+
+@code
+{
+    [Parameter]
+    public ParticipantFormData Participant { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<ParticipantFormData> UpdateParticipant { get; set; }
+
+    private void OnFormSubmit()
+    {
+        UpdateParticipant.InvokeAsync(Participant);
+        ResetParticipantFormData();
+    }
+
+    private void ResetParticipantFormData()
+    {
+        Participant = new();
+    }
+}

@@ -1,10 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 using Shared;
 
 // This represents the participant data needed for the client side
 // The difference is, that this participant doesn't have Id property because that is not filled in the form by the user
 public class ParticipantFormData
 {
+    public int Id { get; set; }
+
     [Required(ErrorMessage = "First name is required.")]
     [RegularExpression(@"^([A-Z][A-Za-z]*(\. |[\.\- ])?)+$", ErrorMessage = "First name must start with capital letter and contain no digits.")]
     public string? FirstName {get; set;}
@@ -34,6 +37,7 @@ public class ParticipantFormData
     {
         return new ParticipantDto
         {
+            Id = Id,
             FirstName = FirstName!,
             LastName = LastName!,
             Age = Age,
@@ -84,6 +88,7 @@ public static class ParticipantDtoExtensions
     {
         return new ParticipantFormData
         {
+            Id = participant.Id,
             FirstName = participant.FirstName,
             LastName = participant.LastName,
             Age = participant.Age,

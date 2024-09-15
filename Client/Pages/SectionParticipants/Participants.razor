@@ -8,6 +8,8 @@
 
 <PageTitle> Participants </PageTitle>
 
+<Modal @ref="editParticipantModal"/>
+
 <NavLink class="nav-item" href="/participants/add">
     <button class="btn btn-primary"> Add a participant </button>
 </NavLink>
@@ -69,7 +71,7 @@ else
                         <div class="justify-center-col" style="width:@colWidths[3]px"> @participant.Age </div>
                         <div class="justify-center-col" style="width:@colWidths[4]px"> @participant.PhoneNumber </div>
                         <div class="justify-center-col" style="width:@colWidths[5]px"> @participant.BirthNumber </div>
-                        <button class="btn btn-primary" @onclick="() => NavigateToEditPage(participant.Id)" > Edit </button>
+                        <button class="btn btn-primary" @onclick="() => ShowEditParticipantModal(participant)" > Edit </button>
                         <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
                     </div>
                 }
@@ -109,6 +111,37 @@ else
         participantFilters.Add(ageBoundFilter); 
         participantFilters.Add(lastNameFilter);
         participantFilters.Add(firstNameFilter);
+    }
+
+    // These following two properties/methods should be somehow generalized and reused
+    private IEnumerable<AllergenDto>? allAllergens { get; set; }
+
+    private async Task LoadAllergens()
+    {
+        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
+    }
+
+    // Add reference to the editParticipantsModal
+    private Modal editParticipantModal = default!;
+
+    // We need to convert the participantDto to the ParticipantFormData (it allows us to do form valiadtion)
+    private async Task ShowEditParticipantModal(ParticipantDto participant)
+    {
+        var parameters = new Dictionary<string,object>();
+        await LoadAllergens();
+        parameters.Add("Participant",participant.ConvertToParticipantFormData(allAllergens!));
+        parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
+        await editParticipantModal.ShowAsync<EditParticipantModal>(title:"Edit participant",parameters: parameters);
+    }
+
+    // Send api request to update the participant
+    // Need to convert from ParticipantFormData to ParticipantDto 
+    private async Task RequestParticipantEdit(ParticipantFormData participant)
+    {
+        var participantDto = participant.ConvertToParticipantDto();
+        await Http.PostAsJsonAsync<ParticipantDto>($"/api/participants/edit/{participantDto.Id}",participantDto,CancellationToken.None);
+        await LoadParticipants();
+        await editParticipantModal.HideAsync();
     }
 
     // Add reference to my modal which I will use to confirm deletion of given participant
