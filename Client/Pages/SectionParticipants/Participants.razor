@@ -130,7 +130,7 @@ else
         await LoadAllergens();
         parameters.Add("Participant",participant.ConvertToParticipantFormData(allAllergens!));
         parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
-        await editParticipantModal.ShowAsync<EditParticipantModal>(title:"Edit participant",parameters: parameters);
+        await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Edit {participant.FirstName}",parameters: parameters);
     }
 
     // Send api request to update the participant
