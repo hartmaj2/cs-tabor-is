@@ -1,0 +1,18 @@
+@* Serves as a layout used by food section, on top I want to be able to choose between subsections menu and diets *@
+
+@inherits LayoutComponentBase
+@layout MainLayout
+
+<div class="sub-layout">
+    <div class="top-bar"> 
+        <div class="nav-item">
+            <NavLink class="nav-link" href="participants" Match="NavLinkMatch.All">
+                <span> All participants </span>
+            </NavLink>
+        </div>
+    </div>
+
+    <div class="content">
+        @Body
+    </div>
+</div>

@@ -1,15 +1,12 @@
-@page "/participants/all"
+@page "/participants"
 @page "/"
+@layout ParticipantsSubLayout
 @inject HttpClient Http
 @inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using System.Text.Json
 
 <PageTitle> Participants </PageTitle>
-
-<h1> Participants </h1>
-
-
 
 <NavLink class="nav-item" href="/participants/add">
     <button class="btn btn-primary"> Add a participant </button>
