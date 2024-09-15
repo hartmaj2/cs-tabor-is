@@ -16,6 +16,9 @@ else
             <h2> General information </h2>
             @* Use my custom component with 2-way-binding to its value *@
             <ParticipantForm @bind-ThisParticipant="participantData" OnValidSubmitEvent="SaveParticipant"> Confirm </ParticipantForm> 
+            <NavLink href="participants">
+                <button class="btn btn-primary"> Back to all participants </button>
+            </NavLink>
         </div>
 
         @if (participantData.DietSelections != null)
