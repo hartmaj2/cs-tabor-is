@@ -18,6 +18,7 @@ a, .btn-link {
     margin-bottom: 10px;
 }
 
+/* Used for date selector */
 .btn-companion
 {
     padding: 8px 5px 10px 5px;
@@ -28,6 +29,7 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+/* Used to fix nav-link style after switching to Blazor Bootstrap */ 
 .nav-link {
     padding-left: 10px;
     padding-right: 10px;
@@ -41,6 +43,7 @@ a, .btn-link {
     padding-top: 1.1rem;
 }
 
+/* :not([type=radio]) added so there is no green outline around radiobuttons in Edit Form for meals */
 .valid.modified:not([type=checkbox]):not([type=radio]) {
     outline: 1px solid #26b050;
 }
@@ -119,6 +122,8 @@ code {
     color: #c02d76;
 }
 
+/* MODAL */
+
 .modal-div {
     display: flex;
     flex-direction: column;
@@ -131,12 +136,15 @@ code {
     column-gap: 10px;
 }
 
+/* Used by column showing selector */
 .checkbox-label {
     border-radius: 10px;
     border: 1px solid black;
     padding: 5px 10px 5px 10px;
     margin: 5px 10px 5px 10px;
 }
+
+/* DIV TABLE */
 
 .div-table-container {
     border-radius:5px; 
@@ -166,8 +174,6 @@ code {
 
 .div-table-header > div, .div-table-header > button, .div-table-row > div {
     width: 200px;
-    /* background-color: aqua;
-    border: 2px solid black; */
 }
 
 .div-table-container-header > button, .div-table-row > button {
