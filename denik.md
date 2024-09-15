@@ -444,7 +444,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Add diet selections to participant form data class
   - [x] Change conversion method to convert to participant dto
 - [x] Implement adding participants with diets
-- [ ] Make columns in my div table sortable
+- [x] Make columns in my div table sortable
 - [ ] Add SubLayout to Participants also
 
 ### DONE:
@@ -463,3 +463,16 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Implemented sorting in my div table 
   - Added IntegerSwitchableSorter
   - Copied rest of the code from diets page
+
+## 15.9.2024
+
+### TODO:
+- [ ] Add SubLayout to Participants
+  - [ ] Rename SubLayout to FoodSubLayout
+  - [ ] Create ParticipantsSubLayout
+- [ ] Add ParticipantMealOrders to database
+  - [ ] Add DbSet and apply migration
+  - [ ] Add method to place order to my api
+
+### DONE:
+-
