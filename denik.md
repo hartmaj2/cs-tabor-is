@@ -473,6 +473,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Add ParticipantMealOrders to database
   - [ ] Add DbSet and apply migration
   - [ ] Add method to place order to my api
+- [ ] Implement participant editing using Edit Modal
 
 ### DONE:
 -
