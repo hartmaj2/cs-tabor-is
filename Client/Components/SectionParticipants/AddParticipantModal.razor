@@ -1,0 +1,60 @@
+@namespace Client.Components
+
+<div style="display:flex">
+    <div>
+        <h2 style="width:120px"> General information </h2>
+        @* Use my custom component with 2-way-binding to its value *@
+        <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmit"> Confirm </ParticipantForm> 
+    </div>
+
+    @if (Participant.DietSelections != null)
+    {
+        <div style="margin-left:90px">
+            <h2> Diets </h2>
+            @foreach (var selection in Participant.DietSelections)
+            {
+                <div>
+                    <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
+                    
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p> Loading diets.. </p>
+    }
+</div>
+@code
+{
+    
+    public ParticipantFormData Participant { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<ParticipantFormData> CreateParticipant { get; set; }
+
+    [Parameter]
+    public IEnumerable<AllergenDto>? AllAllergens { get; set; }
+
+    private void OnFormSubmit()
+    {
+        CreateParticipant.InvokeAsync(Participant);
+        ResetParticipantFormData();
+    }
+
+    protected override void OnInitialized()
+    {
+        InitializeParticipantDietSelections();
+    }
+
+    private void ResetParticipantFormData()
+    {
+        Participant = new();
+        InitializeParticipantDietSelections();
+    }
+
+    private void InitializeParticipantDietSelections()
+    {
+        Participant.DietSelections = AllAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name }).ToList();
+    }
+}

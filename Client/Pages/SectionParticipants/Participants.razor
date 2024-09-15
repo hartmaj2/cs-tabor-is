@@ -10,6 +10,7 @@
 
 <Modal @ref="editParticipantModal"/>
 <Modal @ref="deleteParticipantModal"/>
+<Modal @ref="addParticipantModal"/>
 
 @if (participantDtos == null || headerArrows == null)
 {
@@ -21,7 +22,7 @@ else
     <div class="div-table-container">
         <div class="div-table-container-header"> 
             <span> Participants </span> 
-            <button @onclick="NavigateToAddPage" class="btn btn-primary"> Add a participant </button>
+            <button @onclick="ShowAddParticipantModal" class="btn btn-primary"> Add a participant </button>
         </div>
         <div class="div-table">
             <div class="div-table-header">
@@ -117,6 +118,25 @@ else
         allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
+    private Modal addParticipantModal = default!;
+
+    private async Task ShowAddParticipantModal()
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("AllAllergens",allAllergens!);
+        parameters.Add("CreateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestCreateParticipant));
+        await addParticipantModal.ShowAsync<AddParticipantModal>(title:$"Add participant",parameters: parameters);
+    }
+
+    // Connects to my api and posts the participant that was submitted to the form
+    private async Task RequestCreateParticipant(ParticipantFormData participant)
+    {
+        await Http.PostAsJsonAsync<ParticipantDto>("/api/participants/add",participant.ConvertToParticipantDto(),CancellationToken.None);
+        await LoadParticipants();
+        await addParticipantModal.HideAsync();
+    }
+
+
     // Add reference to the editParticipantsModal
     private Modal editParticipantModal = default!;
 
@@ -124,7 +144,6 @@ else
     private async Task ShowEditParticipantModal(ParticipantDto participant)
     {
         var parameters = new Dictionary<string,object>();
-        await LoadAllergens();
         parameters.Add("Participant",participant.ConvertToParticipantFormData(allAllergens!));
         parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
         await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Edit {participant.FirstName}",parameters: parameters);
@@ -175,6 +194,7 @@ else
         InitializeFilters();
         headerArrows = new string[participantSorters.Length];
         await LoadParticipants();
+        await LoadAllergens();
     }
 
     // Is used OnInitializedAsync and after deleting a participant
