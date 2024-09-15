@@ -119,10 +119,6 @@ code {
     color: #c02d76;
 }
 
-.quickgrid td{
-    vertical-align: middle;
-}
-
 .modal-div {
     display: flex;
     flex-direction: column;
