@@ -9,6 +9,7 @@
 <PageTitle> Participants </PageTitle>
 
 <Modal @ref="editParticipantModal"/>
+<Modal @ref="deleteParticipantModal"/>
 
 <NavLink class="nav-item" href="/participants/add">
     <button class="btn btn-primary"> Add a participant </button>
@@ -81,8 +82,6 @@ else
         </div>
 
     </div>
-
-    <Modal @ref="deleteParticipantModal" /> 
 }
 
 @code
