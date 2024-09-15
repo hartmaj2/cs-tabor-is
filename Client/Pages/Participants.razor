@@ -17,9 +17,9 @@
 
 
 
-@if (participantDtos == null)
+@if (participantDtos == null || headerArrows == null)
 {
-    <p> Loading participants... </p>
+    <p> Loading... </p>
 }
 else
 {
@@ -28,7 +28,7 @@ else
         <div class="div-table-container-header"> <span> Participants </span> </div>
         <div class="div-table">
             <div class="div-table-header">
-                <div style="width:@colWidths[0]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)" > Id @headerArrows[0] </button> </div>
+                <div style="width:@colWidths[0]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)" > Id @headerArrows![0] </button> </div>
                 <div style="width:@colWidths[1]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)" > First name @headerArrows[1] </button> </div>
                 <div style="width:@colWidths[2]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)" > Last name @headerArrows[2] </button> </div>
                 <div style="width:@colWidths[3]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(3)" > Age @headerArrows[3] </button> </div>
@@ -62,28 +62,21 @@ else
                 
             </div>
             <div class="div-table-body">
-                @if (participantDtos == null)
+
+                @foreach(var participant in sortedParticipants!)
                 {
                     <div class="div-table-row">
-                        <span> Loading participants... </span>
+                        <div style="width:@colWidths[0]px" > @participant.Id </div>
+                        <div style="width:@colWidths[1]px"> @participant.FirstName </div>
+                        <div style="width:@colWidths[2]px"> @participant.LastName </div>
+                        <div class="justify-center-col" style="width:@colWidths[3]px"> @participant.Age </div>
+                        <div class="justify-center-col" style="width:@colWidths[4]px"> @participant.PhoneNumber </div>
+                        <div class="justify-center-col" style="width:@colWidths[5]px"> @participant.BirthNumber </div>
+                        <button class="btn btn-primary" @onclick="() => NavigateToEditPage(participant.Id)" > Edit </button>
+                        <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
                     </div>
                 }
-                else
-                {
-                    @foreach(var participant in sortedParticipants!)
-                    {
-                        <div class="div-table-row">
-                            <div style="width:@colWidths[0]px" > @participant.Id </div>
-                            <div style="width:@colWidths[1]px"> @participant.FirstName </div>
-                            <div style="width:@colWidths[2]px"> @participant.LastName </div>
-                            <div class="justify-center-col" style="width:@colWidths[3]px"> @participant.Age </div>
-                            <div class="justify-center-col" style="width:@colWidths[4]px"> @participant.PhoneNumber </div>
-                            <div class="justify-center-col" style="width:@colWidths[5]px"> @participant.BirthNumber </div>
-                            <button class="btn btn-primary" @onclick="() => NavigateToEditPage(participant.Id)" > Edit </button>
-                            <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
-                        </div>
-                    }
-                }
+                
             </div>
 
         </div>
@@ -104,7 +97,7 @@ else
         {
             Min = ParticipantFormData.LowestAge, 
             Max = ParticipantFormData.HighestAge,
-            FilterKeySelector = p => (int) p.Age 
+            FilterKeySelector = p => (int) p.Age! 
         };
 
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
@@ -154,8 +147,8 @@ else
     protected override async Task OnInitializedAsync()
     {
         InitializeFilters();
-        await LoadParticipants();
         headerArrows = new string[participantSorters.Length];
+        await LoadParticipants();
     }
 
     // Is used OnInitializedAsync and after deleting a participant
@@ -226,8 +219,8 @@ else
             new ParticipantSorter<object>() { KeySelector = participant => participant.Id, KeyComparer = new IntegerSwitchableComparer() },
             new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
             new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.Age, KeyComparer = new IntegerSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber, KeyComparer = new StringSwitchableComparer() },
+            new ParticipantSorter<object>() { KeySelector = participant => participant.Age!, KeyComparer = new IntegerSwitchableComparer() },
+            new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber!, KeyComparer = new StringSwitchableComparer() },
             new ParticipantSorter<object>() { KeySelector = participant => participant.BirthNumber, KeyComparer = new StringSwitchableComparer() },
         };
 

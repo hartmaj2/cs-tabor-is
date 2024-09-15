@@ -467,6 +467,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 15.9.2024
 
 ### TODO:
+- [x] Get rid of warnings
 - [ ] Add SubLayout to Participants
   - [ ] Rename SubLayout to FoodSubLayout
   - [ ] Create ParticipantsSubLayout
