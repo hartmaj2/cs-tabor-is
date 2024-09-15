@@ -468,13 +468,18 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Get rid of warnings
-- [ ] Add SubLayout to Participants
-  - [ ] Rename SubLayout to FoodSubLayout
-  - [ ] Create ParticipantsSubLayout
+- [x] Add SubLayout to Participants
+  - [x] Rename SubLayout to FoodSubLayout
+  - [x] Create ParticipantsSubLayout
 - [ ] Add ParticipantMealOrders to database
   - [ ] Add DbSet and apply migration
   - [ ] Add method to place order to my api
 - [ ] Implement participant editing using Edit Modal
 
 ### DONE:
--
+- Got rid of warnings so I can see the actual warnings always
+- Added Sublayout to participants
+  - Needed to move .css scoped style to be global (needed to remove ::deep)
+- Organized files 
+  - Pages and Components according to section
+  - Created DBModels folder
