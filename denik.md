@@ -474,7 +474,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Add ParticipantMealOrders to database
   - [ ] Add DbSet and apply migration
   - [ ] Add method to place order to my api
-- [ ] Implement participant editing using Edit Modal
+- [x] Implement participant editing using Edit Modal
+- [ ] Implement participant adding using Add Modal
 
 ### DONE:
 - Got rid of warnings so I can see the actual warnings always
@@ -483,3 +484,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Organized files 
   - Pages and Components according to section
   - Created DBModels folder
+- Implemented editing participant using Edit Modal
+  - Had to add Id to ParticipantFormData and conversion methods
+  - Broken the port so had to change launchSettings
