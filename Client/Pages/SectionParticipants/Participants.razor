@@ -11,12 +11,6 @@
 <Modal @ref="editParticipantModal"/>
 <Modal @ref="deleteParticipantModal"/>
 
-<NavLink class="nav-item" href="/participants/add">
-    <button class="btn btn-primary"> Add a participant </button>
-</NavLink>
-
-
-
 @if (participantDtos == null || headerArrows == null)
 {
     <p> Loading... </p>
@@ -25,7 +19,10 @@ else
 {
 
     <div class="div-table-container">
-        <div class="div-table-container-header"> <span> Participants </span> </div>
+        <div class="div-table-container-header"> 
+            <span> Participants </span> 
+            <button @onclick="NavigateToAddPage" class="btn btn-primary"> Add a participant </button>
+        </div>
         <div class="div-table">
             <div class="div-table-header">
                 <div style="width:@colWidths[0]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)" > Id @headerArrows![0] </button> </div>
@@ -192,6 +189,12 @@ else
     private void NavigateToEditPage(int id)
     {
         Navigation.NavigateTo($"/participants/edit/{id}");
+    }
+
+    // Used because using a href didn't allow me to auto adjust the button nicely to the right side of header
+    private void NavigateToAddPage()
+    {
+        Navigation.NavigateTo("/participants/add");
     }
 
     // Manages the header content of the columns
