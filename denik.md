@@ -496,11 +496,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [x] Make age into a property because it can be calculated using birth number
   - [x] Database should not store age
   - [x] Age is a property of ParticipantDto that is calculated automatically
-- [ ] Add ParticipantMealOrders to database
-  - [ ] Add DbSet and apply migration
-  - [ ] Add method to place order to my api
-  - [ ] Add https requests to - add order, see all orders of participant, see all orders of meal, see all orders
-  - [ ] Maybe create OrderDto
+- [x] Add ParticipantMealOrders to database
+  - [x] Add DbSet and apply migration
+  - [x] Add method to place order to my api
+  - [x] Add https requests to - add order, see all orders of participant, see all orders of meal, see all orders
+  - [x] Maybe create OrderDto
+- [ ] Make client display order count for each meal
+  - [ ] Add orders list to mealdto?
 - [ ] Genralize 
   - [ ] Allergen loading
 
