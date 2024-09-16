@@ -1,5 +1,5 @@
 ###
-POST http://localhost:5141/api/allergens/add-many
+POST http://localhost:5142/api/allergens/add-many
 Content-Type: application/json
 
 [
@@ -24,7 +24,7 @@ Content-Type: application/json
 ]
 
 ###
-POST http://localhost:5141/api/allergens/add
+POST http://localhost:5142/api/allergens/add
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5141/api/allergens/all
+GET http://localhost:5142/api/allergens/all
 
 ###
-DELETE http://localhost:5141/api/allergens/delete-all
+DELETE http://localhost:5142/api/allergens/delete-all

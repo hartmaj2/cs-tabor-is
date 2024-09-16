@@ -1,5 +1,5 @@
 ###
-POST http://localhost:5141/api/meals/add
+POST http://localhost:5142/api/meals/add
 Content-Type: application/json
 
 {
@@ -11,13 +11,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5141/api/meals/all
+GET http://localhost:5142/api/meals/all
 
 ### Test request for deleting the whole table
-DELETE http://localhost:5141/api/meals/delete-all
+DELETE http://localhost:5142/api/meals/delete-all
 
 ###
-GET http://localhost:5141/api/meals/2024-09-02
+GET http://localhost:5142/api/meals/2024-09-02
 
 ###
-GET http://localhost:5141/api/meals/meal-types
+GET http://localhost:5142/api/meals/meal-types
