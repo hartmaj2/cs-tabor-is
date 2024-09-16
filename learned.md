@@ -12,3 +12,6 @@
 `for file in ./Client/Components/*.razor ; do`
 `cat prepend.txt "$file" > temp.txt ; mv temp.txt "$file"`
 `done`
+
+## C#
+- `[start..end]` is a way to get substring using the range operator
