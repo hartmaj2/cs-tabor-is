@@ -26,7 +26,7 @@ public class ParticipantFormData
     private string _birthNumber = string.Empty;
 
     [Required(ErrorMessage = "Birth number is required.")]
-    [RegularExpression(@"^([0-9]{10})|([0-9]{6}/[0-9]{4})$", ErrorMessage = "Birth number must consist of exactly 10 digits.")]
+    [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Birth number must consist of exactly 10 digits.")]
     [DivisibleBy(11)]
     public string? BirthNumber 
     { 

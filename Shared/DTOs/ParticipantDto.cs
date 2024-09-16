@@ -16,20 +16,7 @@ public class ParticipantDto
 
     public string? PhoneNumber {get; set; }
 
-    private string _birthNumber = string.Empty; // initialize to string.Empty to avoid nullability issues
-
-    public required string BirthNumber
-    { 
-        get
-        {
-            return _birthNumber[..6] + "/" + _birthNumber[6..]; // when printing the birth number, add the / character
-        }
-        set
-        {
-            _birthNumber = value;
-        }
-
-    }
+    public required string BirthNumber { get; set; }
 
     public required List<AllergenDto> Diets { get; set; }
 
