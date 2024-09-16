@@ -8,11 +8,12 @@ public class Order
     [Key]
     public int Id { get; set; }
 
+    [ForeignKey("Participant")]
+    public int ParticipantId { get; set; }
+    public Participant? Participant { get; set; }
+    
     [ForeignKey("Meal")]
     public int MealId { get; set; }
     public Meal? Meal { get; set; }
 
-    [ForeignKey("Participant")]
-    public int ParticipantId { get; set; }
-    public Participant? Participant { get; set; }
 }
