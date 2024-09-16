@@ -17,19 +17,38 @@ public class ParticipantFormData
     public string? LastName {get; set;}
 
     public const int LowestAge = 0;
-    public const int HighestAge = 130;
-    [Required(ErrorMessage = "Age is required.")]
-    [Range(LowestAge, HighestAge, ErrorMessage = "Age must be between 0 and 130.")]
-    public int? Age { get; set; }
+    public const int HighestAge = 80; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
     [Required(ErrorMessage = "Phone number is required.")]
     [RegularExpression(@"^((\+420)?\d{9})|(\+(?!420)\d{8,12})$", ErrorMessage = "The phone number is not valid.")]
     public string? PhoneNumber { get; set; }
 
+    private string _birthNumber = string.Empty;
+
     [Required(ErrorMessage = "Birth number is required.")]
-    [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Birth number must consist of exaclty 10 digits.")]
+    [RegularExpression(@"^([0-9]{10})|([0-9]{6}/[0-9]{4})$", ErrorMessage = "Birth number must consist of exactly 10 digits.")]
     [DivisibleBy(11)]
-    public string? BirthNumber { get; set; }
+    public string? BirthNumber 
+    { 
+        get
+        {
+            return _birthNumber;
+        }
+        set // the setter is complex because I want the user to be able to set complex data (the backing field should be simple again)
+        {
+            if (value!.Length == 10) // user entered the birth number without / character
+            {
+                _birthNumber = value;
+            }
+            else if (value!.Length == 11) // if user entered the birth number with / character
+            {
+                _birthNumber = value[..6] + value[7..];
+            }
+            else throw new ArgumentException("Invalid birth number");
+        } 
+    
+    }
+
 
     public IList<AllergenSelection>? DietSelections;
 
@@ -40,7 +59,6 @@ public class ParticipantFormData
             Id = Id,
             FirstName = FirstName!,
             LastName = LastName!,
-            Age = Age,
             PhoneNumber = PhoneNumber,
             BirthNumber = BirthNumber!,
             // Add a corresponding AllergenDto only when the selection IsSelected
@@ -91,7 +109,6 @@ public static class ParticipantDtoExtensions
             Id = participant.Id,
             FirstName = participant.FirstName,
             LastName = participant.LastName,
-            Age = participant.Age,
             PhoneNumber = participant.PhoneNumber,
             BirthNumber = participant.BirthNumber,
 

@@ -12,13 +12,31 @@ public class ParticipantDto
 
     public required string LastName { get; set; }
 
-    public int? Age { get; set; }
+    public int Age => GetAge();
 
     public string? PhoneNumber {get; set; }
 
-    public required string BirthNumber {get; set; }
+    private string _birthNumber = string.Empty; // initialize to string.Empty to avoid nullability issues
+
+    public required string BirthNumber
+    { 
+        get
+        {
+            return _birthNumber[..6] + "/" + _birthNumber[6..]; // when printing the birth number, add the / character
+        }
+        set
+        {
+            _birthNumber = value;
+        }
+
+    }
 
     public required List<AllergenDto> Diets { get; set; }
+
+    private int GetAge()
+    {
+        return 14;
+    }
 
 }
 
@@ -32,7 +50,6 @@ public static class ParticipantExtensions
             Id = thisParticipant.Id,
             FirstName = thisParticipant.FirstName,
             LastName = thisParticipant.LastName,
-            Age = thisParticipant.Age,
             PhoneNumber = thisParticipant.PhoneNumber,
             BirthNumber = thisParticipant.BirthNumber,
             Diets = thisParticipant.ParticipantAllergens!.Select(pa => pa.Allergen!.ToAllergenDto()).ToList()
