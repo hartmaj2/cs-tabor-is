@@ -1,8 +1,6 @@
 // Participant model for communication of participant diets between Client and Server
 // I want to communicate allergens as list of Allergens
 
-using Shared;
-
 public class ParticipantDto
 {
 

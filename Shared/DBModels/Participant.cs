@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Shared;
-
 // Participant model for the database
 
 public class Participant

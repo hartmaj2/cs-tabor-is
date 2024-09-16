@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Shared;
 
 // This model represents the association table between participants and allergens
 // Represents what participant has "allergy" to what (what this participant can't eat)
