@@ -1,0 +1,129 @@
+POST http://localhost:5142/api/orders/add-many
+Content-Type: application/json
+
+[
+    {
+        "participantId" : 5006,
+        "mealId" : 1003
+    },
+    {
+        "participantId" : 5007,
+        "mealId" : 1003
+    },
+    {
+        "participantId" : 5006,
+        "mealId" : 1004
+    },
+    {
+        "participantId" : 5006,
+        "mealId" : 1005
+    },
+    {
+        "participantId" : 5008,
+        "mealId" : 1006
+    },
+    {
+        "participantId" : 5009,
+        "mealId" : 1007
+    },
+    {
+        "participantId" : 5010,
+        "mealId" : 1008
+    },
+    {
+        "participantId" : 5011,
+        "mealId" : 1009
+    },
+    {
+        "participantId" : 5012,
+        "mealId" : 1010
+    },
+    {
+        "participantId" : 5013,
+        "mealId" : 1011
+    },
+    {
+        "participantId" : 5013,
+        "mealId" : 1003
+    },
+    {
+        "participantId" : 5014,
+        "mealId" : 1012
+    },
+    {
+        "participantId" : 5015,
+        "mealId" : 1013
+    },
+    {
+        "participantId" : 5015,
+        "mealId" : 1016
+    },
+    {
+        "participantId" : 5016,
+        "mealId" : 1014
+    },
+    {
+        "participantId" : 5017,
+        "mealId" : 1015
+    },
+    {
+        "participantId" : 5017,
+        "mealId" : 1020
+    },
+    {
+        "participantId" : 5018,
+        "mealId" : 1016
+    },
+    {
+        "participantId" : 5018,
+        "mealId" : 1019
+    },
+    {
+        "participantId" : 5019,
+        "mealId" : 1017
+    },
+    {
+        "participantId" : 5020,
+        "mealId" : 1018
+    },
+    {
+        "participantId" : 5021,
+        "mealId" : 1019
+    },
+    {
+        "participantId" : 5021,
+        "mealId" : 1012
+    },
+    {
+        "participantId" : 5022,
+        "mealId" : 1020
+    },
+    {
+        "participantId" : 5006,
+        "mealId" : 1009
+    },
+    {
+        "participantId" : 5006,
+        "mealId" : 1013
+    },
+    {
+        "participantId" : 5014,
+        "mealId" : 1019
+    },
+    {
+        "participantId" : 5014,
+        "mealId" : 1018
+    },
+    {
+        "participantId" : 5008,
+        "mealId" : 1010
+    },
+    {
+        "participantId" : 5009,
+        "mealId" : 1004
+    },
+    {
+        "participantId" : 5022,
+        "mealId" : 1005
+    }
+]

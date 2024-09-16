@@ -37,5 +37,14 @@ Content-Type: application/json
 ###
 GET http://localhost:5142/api/orders/all
 
+###
+GET http://localhost:5142/api/orders/meal/1003
+
+###
+GET http://localhost:5142/api/orders/meal/1004
+
+###
+GET http://localhost:5142/api/orders/meal/1006
+
 ### Test request for deleting the whole table
 DELETE http://localhost:5142/api/orders/delete-all
