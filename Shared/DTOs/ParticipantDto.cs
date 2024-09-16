@@ -31,6 +31,7 @@ public class ParticipantDto
         
     }
 
+    // get the date only from the birth number
     private DateOnly GetBirthNumberDateOnly()
     {
         int year = ParseYear(BirthNumber[0..2]);
@@ -39,7 +40,8 @@ public class ParticipantDto
         return new DateOnly(year,month,day);
     }
 
-    private int ParseYear(string twoLastDigits)
+    // convert two last digits from year, this assumes that the person was not born before year 54
+    private static int ParseYear(string twoLastDigits)
     {
         var year = int.Parse(twoLastDigits);
         if (year >= 54)
@@ -49,7 +51,8 @@ public class ParticipantDto
         return year += 2000;
     }
 
-    private int ParseMonth(string monthString)
+    // convert month from birth number according to czech rules
+    private static int ParseMonth(string monthString)
     {
         var month = int.Parse(monthString);
         if (month >= 50) month -= 50;
