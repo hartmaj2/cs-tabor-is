@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "participantId" : 5006,
-    "mealId" : 1003,
+    "mealId" : 1003
 }
 
 ###
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 {
     "participantId" : 5007,
-    "mealId" : 1003,
+    "mealId" : 1003
 }
 
 ###
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
     "participantId" : 5006,
-    "mealId" : 1004,
+    "mealId" : 1004
 }
 
 ###
@@ -31,8 +31,11 @@ Content-Type: application/json
 
 {
     "participantId" : 5006,
-    "mealId" : 1005,
+    "mealId" : 1005
 }
 
 ###
 GET http://localhost:5142/api/orders/all
+
+### Test request for deleting the whole table
+DELETE http://localhost:5142/api/orders/delete-all
