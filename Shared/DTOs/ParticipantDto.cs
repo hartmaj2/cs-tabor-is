@@ -1,6 +1,7 @@
 // Participant model for communication of participant diets between Client and Server
 // I want to communicate allergens as list of Allergens
 
+using System.Reflection.Metadata.Ecma335;
 using Shared;
 
 public class ParticipantDto
@@ -22,7 +23,40 @@ public class ParticipantDto
 
     private int GetAge()
     {
-        return 14;
+        var today = DateOnly.FromDateTime(DateTime.Now);
+        var birthDate = GetBirthNumberDateOnly();
+        var age = today.Year - birthDate.Year;
+        if (today.Month < birthDate.Month) age --; // it wasn't my birthday this year yet
+        else if (today.Month == birthDate.Month && today.Day < birthDate.Day) age--; // it wasn't my birthday this year yet
+        return age;
+        
+    }
+
+    private DateOnly GetBirthNumberDateOnly()
+    {
+        int year = ParseYear(BirthNumber[0..2]);
+        int month = ParseMonth(BirthNumber[2..4]);
+        int day = int.Parse(BirthNumber[4..6]);
+        Console.WriteLine($"{year} {month} {day}");
+        return new DateOnly(year,month,day);
+    }
+
+    private int ParseYear(string twoLastDigits)
+    {
+        var year = int.Parse(twoLastDigits);
+        if (year >= 54)
+        {
+            return year + 1900;
+        } 
+        return year += 2000;
+    }
+
+    private int ParseMonth(string monthString)
+    {
+        var month = int.Parse(monthString);
+        if (month >= 50) month -= 50;
+        if (month >= 20) month -= 20;
+        return month;     
     }
 
 }
