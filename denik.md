@@ -489,3 +489,15 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Broken the port so had to change launchSettings
 - Implemented adding participants using a modal
   - Had to set the styles of heading General information in the modal and the margin of the Diets selection checkboxes div
+
+## 16.9.2024
+
+### TODO:
+- [ ] Make age into a property because it can be calculated using birth number
+  - [ ] Database should not store age
+  - [ ] Age is a property of ParticipantDto that is calculated automatically
+- [ ] Add ParticipantMealOrders to database
+  - [ ] Add DbSet and apply migration
+  - [ ] Add method to place order to my api
+- [ ] Genralize 
+  - [ ] Allergen loading
