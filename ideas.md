@@ -12,7 +12,6 @@
 - Create allergen manager - will load possible allergens and will provide them to classes that need them
 - Add clear filters button (so all filtering option fields get cleared)
 - Add possibility to work with file instead of database (generalize controllers)
-- Add meal orders from kids to API (add a controller), show how many times meal was ordered
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
