@@ -493,11 +493,15 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 16.9.2024
 
 ### TODO:
-- [ ] Make age into a property because it can be calculated using birth number
-  - [ ] Database should not store age
-  - [ ] Age is a property of ParticipantDto that is calculated automatically
+- [x] Make age into a property because it can be calculated using birth number
+  - [x] Database should not store age
+  - [x] Age is a property of ParticipantDto that is calculated automatically
 - [ ] Add ParticipantMealOrders to database
   - [ ] Add DbSet and apply migration
   - [ ] Add method to place order to my api
 - [ ] Genralize 
   - [ ] Allergen loading
+
+### DONE:
+- Added setter to ParticipantForm that removes the / character if entered by user
+- Made Age a getter only property that is calculated automatically
