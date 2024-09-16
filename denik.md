@@ -501,8 +501,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Add method to place order to my api
   - [x] Add https requests to - add order, see all orders of participant, see all orders of meal, see all orders
   - [x] Maybe create OrderDto
-- [ ] Make client display order count for each meal
-  - [ ] Add orders list to mealdto?
+- [x] Make client display order count for each meal
+  - [x] Add orders list to mealdto?
 - [ ] Genralize 
   - [ ] Allergen loading
 
@@ -512,3 +512,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Removed using Shared from multiple files that appeared there probably automatically because Participant had Shared as namespace
 - Created Order and OrderDto classes, added DbSet to DBcontext, added ICollections of Orders to Meal and Participant classes
 - Created OrderController and some test requests
+- Added OrderDtos list to MealDto
+  - Had to use .Include to load the orders from database eagerly when converting meal to mealdto
+  - The list is not required because it is only used when reading the meals and not when editing them through client (this client can't edit orders)
+  - Used the justify-center-col class for styling the column with orders count
