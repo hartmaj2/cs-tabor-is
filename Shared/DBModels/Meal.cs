@@ -25,6 +25,8 @@ public class Meal
 
     public ICollection<MealAllergen>? MealAllergens { get; set; } // Represents allergens that are present in the food
 
+    public ICollection<Order>? Orders { get; set; } // Represents orders of this meal that were placed by the participants
+
 }
 
 public enum MealTime

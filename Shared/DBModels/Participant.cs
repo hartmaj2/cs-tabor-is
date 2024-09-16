@@ -17,6 +17,8 @@ public class Participant
     [Required]
     public required string BirthNumber {get; set; }
 
-    public ICollection<ParticipantAllergen>? ParticipantAllergens { get; set; }
+    public ICollection<ParticipantAllergen>? ParticipantAllergens { get; set; } // Represents diets that this participant has
+
+    public ICollection<Order>? Orders { get; set; } // Represents orders that this participant placed
 
 }
