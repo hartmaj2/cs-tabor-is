@@ -15,3 +15,4 @@
 
 ## C#
 - `[start..end]` is a way to get substring using the range operator
+- The check by edit form is done on the backing field after the getter is applied
