@@ -499,6 +499,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Add ParticipantMealOrders to database
   - [ ] Add DbSet and apply migration
   - [ ] Add method to place order to my api
+  - [ ] Add https requests to - add order, see all orders of participant, see all orders of meal, see all orders
+  - [ ] Maybe create OrderDto
 - [ ] Genralize 
   - [ ] Allergen loading
 
