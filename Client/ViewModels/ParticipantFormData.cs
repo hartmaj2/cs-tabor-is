@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
-using Shared;
 
 // This represents the participant data needed for the client side
 // The difference is, that this participant doesn't have Id property because that is not filled in the form by the user
@@ -34,17 +32,17 @@ public class ParticipantFormData
         {
             return _birthNumber;
         }
-        set // the setter is complex because I want the user to be able to set complex data (the backing field should be simple again)
+        set // the validation logic cause by data annotation is processed AFTER the setter
         {
-            if (value!.Length == 10) // user entered the birth number without / character
+            if (value!.Length == 11 && value[6] == '/') // if user entered the birth number with / character
+            {
+     
+                _birthNumber = value[..6] + value[7..];
+            }
+            else
             {
                 _birthNumber = value;
             }
-            else if (value!.Length == 11) // if user entered the birth number with / character
-            {
-                _birthNumber = value[..6] + value[7..];
-            }
-            else throw new ArgumentException("Invalid birth number");
         } 
     
     }
