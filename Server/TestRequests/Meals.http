@@ -17,7 +17,7 @@ GET http://localhost:5142/api/meals/all
 DELETE http://localhost:5142/api/meals/delete-all
 
 ###
-GET http://localhost:5142/api/meals/2024-09-02
+GET http://localhost:5142/api/meals/2024-09-01
 
 ###
 GET http://localhost:5142/api/meals/meal-types

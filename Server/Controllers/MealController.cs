@@ -46,6 +46,7 @@ public class MealsController : ControllerBase
         return _context.Meals
             .Include( meal => meal.MealAllergens!) // this and the following line are necessary, it eageryly loads the collection of MealAllergens for all meals so it is ready to be used by ToMealDto function
             .ThenInclude( mealAllergen => mealAllergen.Allergen)
+            .Include( meal => meal.Orders)
             .Select( meal => meal.ToMealDto());
         
     }
@@ -59,6 +60,7 @@ public class MealsController : ControllerBase
         .Where( meal => meal.Date == date) 
         .Include( meal => meal.MealAllergens!) // this and the following line are necessary, it eageryly loads the collection of MealAllergens for all meals so it is ready to be used by ToMealDto function
         .ThenInclude( mealAllergen => mealAllergen.Allergen)
+        .Include( meal => meal.Orders)
         .Select( meal => meal.ToMealDto());
 
     }

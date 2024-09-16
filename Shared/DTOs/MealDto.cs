@@ -18,6 +18,8 @@ public class MealDto
     public DateOnly Date { get; set; }
 
     public required List<AllergenDto> Allergens { get; set; }
+
+    public List<OrderDto>? Orders { get; set; }
 }
 
 
@@ -35,7 +37,8 @@ public static class MealExtension
                 MealTime = meal.MealTime,
                 Type = meal.Type,
                 Date = meal.Date,
-                Allergens = meal.MealAllergens!.Select(mealAllergen => mealAllergen.Allergen!.ToAllergenDto()).ToList()
+                Allergens = meal.MealAllergens!.Select(mealAllergen => mealAllergen.Allergen!.ToAllergenDto()).ToList(),
+                Orders = meal.Orders!.Select(order => order.ConvertToOrderDto()).ToList()
             };
     }
 }
