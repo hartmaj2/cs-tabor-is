@@ -1,11 +1,38 @@
 ###
-POST http://localhost:5142/api/meals/order
+POST http://localhost:5142/api/orders/add
 Content-Type: application/json
 
 {
-    "name" : "Caesar salad",
-    "mealTime" : "Dinner",
-    "type" : "Main",
-    "date" : "2024-08-30",
-    "allergens" : []
+    "participantId" : 5006,
+    "mealId" : 1003,
 }
+
+###
+POST http://localhost:5142/api/orders/add
+Content-Type: application/json
+
+{
+    "participantId" : 5007,
+    "mealId" : 1003,
+}
+
+###
+POST http://localhost:5142/api/orders/add
+Content-Type: application/json
+
+{
+    "participantId" : 5006,
+    "mealId" : 1004,
+}
+
+###
+POST http://localhost:5142/api/orders/add
+Content-Type: application/json
+
+{
+    "participantId" : 5006,
+    "mealId" : 1005,
+}
+
+###
+GET http://localhost:5142/api/orders/all
