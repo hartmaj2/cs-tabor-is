@@ -25,6 +25,14 @@ public class OrdersController : ControllerBase
     }
 
     // Gets the list of all meals from the meals table
+    [HttpGet("meal/{id:int}")]
+    public IEnumerable<OrderDto> GetMealOrders(int id)
+    {
+        var meal = _context.Meals.Include(meal => meal.Orders).First(meal => meal.Id == id);
+        return meal.Orders!.Select(order => order.ConvertToOrderDto());
+    }
+
+    // Gets the list of all meals from the meals table
     [HttpPost("add")]
     public IActionResult AddNewOrder([FromBody] OrderDto orderDto)
     {
