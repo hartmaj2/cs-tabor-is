@@ -516,3 +516,11 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - Had to use .Include to load the orders from database eagerly when converting meal to mealdto
   - The list is not required because it is only used when reading the meals and not when editing them through client (this client can't edit orders)
   - Used the justify-center-col class for styling the column with orders count
+
+## 17.9.2024
+
+### TODO:
+- [ ] Add comments to my files
+- [ ] Read documentation of Stepan and Hanka
+- [ ] Maybe implement better sorting of meals in DateMealContainer
+- [ ] Make allergens load using dependency injections or some static class (avoid declaring same function multiple times)
