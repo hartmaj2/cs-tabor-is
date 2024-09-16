@@ -509,3 +509,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### DONE:
 - Added setter to ParticipantForm that removes the / character if entered by user
 - Made Age a getter only property that is calculated automatically
+- Removed using Shared from multiple files that appeared there probably automatically because Participant had Shared as namespace
+- Created Order and OrderDto classes, added DbSet to DBcontext, added ICollections of Orders to Meal and Participant classes
+- Created OrderController and some test requests
