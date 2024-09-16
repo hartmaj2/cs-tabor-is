@@ -19,27 +19,27 @@ public class OrdersController : ControllerBase
 
     // Gets the list of all meals from the meals table
     [HttpGet("all")]
-    public IEnumerable<Order> GetAllOrders()
+    public IEnumerable<OrderDto> GetAllOrders()
     {
-        return _context.Orders.ToList();
+        return _context.Orders.Select(order => order.ConvertToOrderDto());
     }
 
     // Gets the list of all meals from the meals table
     [HttpPost("add")]
-    public IActionResult AddNewOrder([FromBody] Order Order)
+    public IActionResult AddNewOrder([FromBody] OrderDto orderDto)
     {
-        _context.Orders.Add(Order);
+        _context.Orders.Add(orderDto.ConvertToOrder());
         _context.SaveChanges();
-        return CreatedAtAction(nameof(GetAllOrders),Order);
+        return CreatedAtAction(nameof(GetAllOrders),orderDto);
     }
 
     // Adds a whole list of Orders
     [HttpPost("add-many")]
-    public IActionResult AddMultipleOrders([FromBody] ICollection<Order> Orders)
+    public IActionResult AddMultipleOrders([FromBody] ICollection<OrderDto> orders)
     {
-        _context.Orders.AddRange(Orders);
+        _context.Orders.AddRange(orders.Select(orderDto => orderDto.ConvertToOrder()));
         _context.SaveChanges();
-        return CreatedAtAction(nameof(GetAllOrders),Orders);
+        return CreatedAtAction(nameof(GetAllOrders),orders);
     }
 
     // Deletes everything from the Orders table
