@@ -530,3 +530,6 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Add Unit Tests
   - [ ] Form validators - regexp validators, divisible by 11 validator
   - [ ] Sorters & filters?
+
+### DONE:
+- Change divisibility by 11 logic to be more memory efficient (use divisibility check by digit checksum)
