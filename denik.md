@@ -521,6 +521,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [ ] Add comments to my files
-- [ ] Read documentation of Stepan and Hanka
+- [ ] Write short documentation in markdown
+  - [ ] User documentation
+  - [ ] Developer documentation
+- [x] Read documentation of Stepan and Hanka
 - [ ] Maybe implement better sorting of meals in DateMealContainer
 - [ ] Make allergens load using dependency injections or some static class (avoid declaring same function multiple times)
