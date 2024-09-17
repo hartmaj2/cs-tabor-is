@@ -16,3 +16,6 @@
 ## C#
 - `[start..end]` is a way to get substring using the range operator
 - The check by edit form is done on the backing field after the getter is applied
+
+## Markdown
+- Extension Markdown All In One allows to automatically create Table Of Contents, I can also set what levels of headings I can include or not using either a special comment `<!-- omit from toc -->` or by setting the Toc: Levels 
