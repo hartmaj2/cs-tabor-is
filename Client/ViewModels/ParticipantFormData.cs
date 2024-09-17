@@ -25,7 +25,7 @@ public class ParticipantFormData
 
     [Required(ErrorMessage = "Birth number is required.")]
     [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Birth number must consist of exactly 10 digits.")]
-    [DivisibleBy(11)]
+    [DivisibleByEleven]
     public string? BirthNumber 
     { 
         get
@@ -71,30 +71,6 @@ public class ParticipantFormData
         return participant;
     }
 
-}
-
-// Class used for custom validation of divisivility
-public class DivisibleByAttribute : ValidationAttribute
-{
-
-    private long _divisor;
-    public DivisibleByAttribute(long divisor)
-    {
-        _divisor = divisor;
-    }
-
-    // Here for some reason the form was not validating properly when using ValidationResult overload of the IsValid method
-    // If I returned new ValidationResult with an error message, the form still showed the box as green even though the error message was displayed
-    // That is the reason I am using bool IsValid override instead
-    public override bool IsValid(object? value)
-    {
-        if (value is string stringValue && long.TryParse(stringValue,out long number) && number % _divisor == 0)
-        {
-            return true;
-        }
-        ErrorMessage = $"Birth number must be divisible by {_divisor}";
-        return false;
-    }
 }
 
 // Used by EditParticipant razor component after it receives the api participant from the database
