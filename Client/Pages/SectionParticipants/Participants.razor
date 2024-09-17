@@ -35,29 +35,29 @@ else
             </div>
             <div class="div-table-header">
                 <div style="width:@colWidths[0]px" class="div-table-h-col">  <input style="width:@(colWidths[0]-20)px" class="name-search-box" @bind="idFilter.FilterText" @bind:event="oninput" placeholder="..." type="text"/> </div>
-                <div style="width:@colWidths[1]px" class="div-table-h-col"> <input style="width:@(colWidths[1]-20)px" class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="width:@colWidths[2]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-20)px" class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[1]px" class="div-table-h-col"> <input style="width:@(colWidths[1]-30)px" class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[2]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-30)px" class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div style="width:@colWidths[3]px" class="div-table-h-col">
                     <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
-                        <DropdownToggleButton> Filter </DropdownToggleButton>
+                        <DropdownToggleButton Class="filter-button"> Filter </DropdownToggleButton>
                         <DropdownMenu Class="px-3" Style="width:150px;">
                             <div>
                                 Min: 
-                                <input type="range" @bind="ageBoundFilter.Min" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                                <input style="width:130px" type="text" @bind="ageBoundFilter.Min" @bind:event="oninput" />
+                                <input type="range" @bind="ageBoundFilter.CurrentMin" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                                <input style="width:130px" type="text" @bind="ageBoundFilter.CurrentMin" @bind:event="oninput" />
                             </div>
                             <br>
                             <div>
                                 Max: 
-                                <input type="range" @bind="ageBoundFilter.Max" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                                <input style="width:130px" type="text" @bind="ageBoundFilter.Max" @bind:event="oninput" />
+                                <input type="range" @bind="ageBoundFilter.CurrentMax" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
+                                <input style="width:130px" type="text" @bind="ageBoundFilter.CurrentMax" @bind:event="oninput" />
                             </div>
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div style="width:@colWidths[4]px" class="div-table-h-col"> <input style="width:@(colWidths[4]-20)px" class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="width:@colWidths[5]px" class="div-table-h-col"> <input style="width:@(colWidths[5]-20)px" class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                
+                <div style="width:@colWidths[4]px" class="div-table-h-col justify-center-col"> <input style="width:@(colWidths[4]-50)px" class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[5]px" class="div-table-h-col justify-center-col"> <input style="width:@(colWidths[5]-40)px" class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> 
             </div>
             <div class="div-table-body">
 
@@ -89,10 +89,8 @@ else
     private IEnumerable<ParticipantDto>? participantDtos;
  
     // Used to filter by age using lower and upper bound
-    private IntegerBoundFilter ageBoundFilter = new() 
+    private IntegerBoundFilter ageBoundFilter = new(ParticipantFormData.LowestAge,ParticipantFormData.HighestAge) 
         {
-            Min = ParticipantFormData.LowestAge, 
-            Max = ParticipantFormData.HighestAge,
             FilterKeySelector = p => (int) p.Age! 
         };
 
@@ -115,6 +113,15 @@ else
         participantFilters.Add(firstNameFilter);
         participantFilters.Add(phoneNumberFilter);
         participantFilters.Add(birthNumberFilter);
+    }
+
+    // Reset all filters so we can see all participants
+    private void ResetFilters()
+    {
+        foreach (var filter in participantFilters)
+        {
+            filter.Reset();
+        }
     }
 
     // These following two properties/methods should be somehow generalized and reused

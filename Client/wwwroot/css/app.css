@@ -163,7 +163,7 @@ code {
     font-size: x-large;
 }
 
-.div-table-header div, .div-table-header button {
+.div-table-header div, .filter-button, .clickable-header {
     font-size: large; 
     font-weight: 500;
 }
@@ -176,12 +176,12 @@ code {
     width: 200px;
 }
 
-.div-table-container-header > button, .div-table-row > button {
+.div-table-container-header > button, .div-table-row > button, .div-table-header > button {
     margin-right: 10px;
 }
 
 /* The first button is always pushed right as much as it can using margin-left: auto */
-.div-table-container-header > button:first-of-type, .div-table-row > button:first-of-type {
+.div-table-container-header > button:first-of-type, .div-table-row > button:first-of-type, .div-table-header > button:first-of-type {
     margin-left : auto;
 }
 
