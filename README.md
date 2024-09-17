@@ -1,4 +1,4 @@
-# Stručná dokumentace <!-- omit from toc -->
+# Stručná dokumentace
 
 ## Obsah <!-- omit from toc -->
 
@@ -22,4 +22,12 @@ Program se spouští příkazem `dotnet run` nebo `dotnet watch` z adresáře *S
 
 ### Navigace v programu
 
-Po spuštění ve webovém prohlížeči se objevíte automaticky v sekci *Participants*, která obsahuje jedinou podsekci jménem *All participants*. Vybírat mezi jednotlivými sekcemi můžete v levém panelu, kde se nachází kromě sekce *Participants*, také sekce *Food*. Právě aktivní sekci je vždy možné poznat pomocí bílého zbarvení pozadí tlačítka na levém panelu odpovídající dané sekci.
+Web se dělí na sekce, které se dále dělí na podsekce. Po spuštění ve webovém prohlížeči se objevíte automaticky v sekci *Participants*. Vybírat mezi jednotlivými sekcemi můžete v levém panelu, kde se nachází kromě sekce *Participants*, také sekce *Food*. Právě aktivní sekci je vždy možné poznat pomocí bílého zbarvení pozadí tlačítka na levém panelu odpovídající dané sekci. Nacházíte-li se právě v nějaké sekci, tak přepínat mezi podsekcemi můžete pomocí horního panelu, který obsahuje klikatelný seznam podsekcí. Stejně jako u panelu se sekcemi poznáte aktivní podsekci bílým zbarvením pozadí tlačítka dané podsekce.
+
+#### Sekce Participants
+
+Sekce *Participants* obsahuje pouze jedno podsekci jménem *All participants*.
+
+##### Podsekce All participants
+
+
