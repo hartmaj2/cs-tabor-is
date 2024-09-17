@@ -12,12 +12,12 @@ public class TextFilter : IParticipantFilter
     public string? FilterText { get ; set; }
 
     // The selector function that selects the key of participant by which we want to filter
-    public required Func<ParticipantDto,string> FilterKeySelector { get; set;}
+    public required Func<ParticipantDto,string?> FilterKeySelector { get; set;}
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
         if (string.IsNullOrWhiteSpace(FilterText)) return unfiltered;
-        return unfiltered.Where(p => FilterKeySelector(p).Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
+        return unfiltered.Where(p => FilterKeySelector(p) != null && FilterKeySelector(p)!.Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
     }
 }
 

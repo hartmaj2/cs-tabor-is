@@ -34,8 +34,8 @@ else
                 <div style="width:@colWidths[5]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(5)" > Birth number @headerArrows[5] </button> </div>
             </div>
             <div class="div-table-header">
-                <div style="width:@colWidths[0]px" class="div-table-h-col"></div>
-                <div style="width:@colWidths[1]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-20)px" class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[0]px" class="div-table-h-col">  <input style="width:@(colWidths[0]-20)px" class="name-search-box" @bind="idFilter.FilterText" @bind:event="oninput" placeholder="..." type="text"/> </div>
+                <div style="width:@colWidths[1]px" class="div-table-h-col"> <input style="width:@(colWidths[1]-20)px" class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div style="width:@colWidths[2]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-20)px" class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div style="width:@colWidths[3]px" class="div-table-h-col">
                     <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
@@ -55,8 +55,8 @@ else
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div style="width:@colWidths[4]px" class="div-table-h-col"></div>
-                <div style="width:@colWidths[5]px" class="div-table-h-col"></div>
+                <div style="width:@colWidths[4]px" class="div-table-h-col"> <input style="width:@(colWidths[4]-20)px" class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="width:@colWidths[5]px" class="div-table-h-col"> <input style="width:@(colWidths[5]-20)px" class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 
             </div>
             <div class="div-table-body">
@@ -96,8 +96,12 @@ else
             FilterKeySelector = p => (int) p.Age! 
         };
 
+    private TextFilter idFilter = new() {FilterKeySelector = p => p.Id.ToString()};
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
     private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
+    private TextFilter phoneNumberFilter = new() {FilterKeySelector = p => p.PhoneNumber};
+    private TextFilter birthNumberFilter = new() {FilterKeySelector = p => p.BirthNumber};
+
 
     // We need to add all filters to the list manually (because we need to bind to the filters in the QuickGrid using their name)
     private List<IParticipantFilter> participantFilters = new();
@@ -105,9 +109,12 @@ else
     // Is called OnInitializeAsync to initialize the list of filters
     private void InitializeFilters()
     {
+        participantFilters.Add(idFilter);
         participantFilters.Add(ageBoundFilter); 
         participantFilters.Add(lastNameFilter);
         participantFilters.Add(firstNameFilter);
+        participantFilters.Add(phoneNumberFilter);
+        participantFilters.Add(birthNumberFilter);
     }
 
     // These following two properties/methods should be somehow generalized and reused
