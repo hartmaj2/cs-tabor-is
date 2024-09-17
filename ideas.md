@@ -10,9 +10,7 @@
 - Add male/female 
 - Create api manager - all methods to communicate with api will be stored there in one place
 - Create allergen manager - will load possible allergens and will provide them to classes that need them
-- Add clear filters button (so all filtering option fields get cleared)
 - Add possibility to work with file instead of database (generalize controllers)
-- Make Meals Container sorted on start by more criteria -> first meal_type, then name
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA

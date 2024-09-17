@@ -14,7 +14,7 @@
             <div class="justify-center-col" > Orders count </div>
         </div>
         <div class="div-table-body">
-            @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m.Type))
+            @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m, MealComparer.Instance))
             {
                 <div class="div-table-row" >
                     <div> @meal.Name </div>
