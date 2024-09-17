@@ -26,8 +26,9 @@ Web se dělí na sekce, které se dále dělí na podsekce. Po spuštění ve we
 
 #### Sekce Participants
 
-Sekce *Participants* obsahuje pouze jedno podsekci jménem *All participants*.
+Sekce *Participants* obsahuje pouze jednu podsekci jménem *All participants*.
 
 ##### Podsekce All participants
 
+Podsekce *All participants* sestává z tabulky, která poskytuje seznam účastníků a jejich základních informací jako id, jméno, příjmení a další. 
 
