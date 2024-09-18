@@ -533,3 +533,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### DONE:
 - Change divisibility by 11 logic to be more memory efficient (use divisibility check by digit checksum)
+
+## 18.9.2024
+
+### TODO:
+- [ ] Unit tests
+  - [ ] Create custom validation attribute for name and phone number checking
+  - [ ] Allow also names with diacritic
+  
+### DONE:
