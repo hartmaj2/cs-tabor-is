@@ -6,27 +6,33 @@
     <DataAnnotationsValidator/>
 
     <div>
-        <label @ref="firstLabel" for="firstname"> FirstName: </label> <br/>
+        <label @ref="firstLabel" for="firstname"> First Name: </label> <br/>
         <InputText id="firstname" @bind-Value="ThisParticipant.FirstName"/>
         <ValidationMessage For="() => ThisParticipant.FirstName" />
     </div>
 
     <div>
-        <label for="lastname"> LastName: </label> <br/>
+        <label for="lastname"> Last Name: </label> <br/>
         <InputText id="lastname" @bind-Value="ThisParticipant.LastName"/>
         <ValidationMessage For="() => ThisParticipant.LastName" />
     </div>
 
     <div>
-        <label for="phonenumber"> PhoneNumber: </label> <br/>
+        <label for="phonenumber"> Phone Number: </label> <br/>
         <InputText id="phonenumber" @bind-Value="ThisParticipant.PhoneNumber"/>
         <ValidationMessage For="() => ThisParticipant.PhoneNumber" />
     </div>
 
     <div>
-        <label for="birthnumber"> BirthNumber: </label> <br/>
+        <label for="birthnumber"> Birth Number: </label> <br/>
         <InputText id="birthnumber" @bind-Value="ThisParticipant.BirthNumber"/>
         <ValidationMessage For="() => ThisParticipant.BirthNumber" />
+    </div>
+
+    <div>
+        <label for="birthnumber"> Age: </label> <br/>
+        <InputNumber id="birthnumber" @bind-Value="ThisParticipant.Age"/>
+        <ValidationMessage For="() => ThisParticipant.Age" />
     </div>
 
     <button type="submit" class="btn btn-primary"> @ChildContent </button>

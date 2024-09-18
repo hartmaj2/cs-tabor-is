@@ -53,6 +53,9 @@ public class ParticipantFormData
     public const int LowestAge = 0;
     public const int HighestAge = 80; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
+    [IntegerRangeValidator(LowestAge,HighestAge,nameof(Age))]
+    public int? Age { get; set; }
+
     // 
     // PHONE NUMBER
     // 
@@ -90,7 +93,6 @@ public class ParticipantFormData
 
     private string _birthNumber = string.Empty;
 
-    [Required(ErrorMessage = "Birth number is required.")]
     [ValidBirthNumber]
     public string? BirthNumber 
     { 
@@ -107,7 +109,10 @@ public class ParticipantFormData
             {
                 _birthNumber = stringValue;
             }
-            
+            if (ValidBirthNumberAttribute.Instance.IsValid(_birthNumber)) // if the birth number is valid, set the age automatically
+            {
+                Age = BirthNumberToAgeParser.Parse(_birthNumber);
+            }            
         } 
     
     }
@@ -124,6 +129,7 @@ public class ParticipantFormData
             LastName = LastName!,
             PhoneNumber = PhoneNumber,
             BirthNumber = BirthNumber!,
+            Age = Age,
             // Add a corresponding AllergenDto only when the selection IsSelected
             Diets = DietSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
         };
@@ -135,6 +141,8 @@ public class ParticipantFormData
         participant.Id = id;
         return participant;
     }
+
+
 
 }
 
@@ -150,6 +158,7 @@ public static class ParticipantDtoExtensions
             LastName = participant.LastName,
             PhoneNumber = participant.PhoneNumber,
             BirthNumber = participant.BirthNumber,
+            Age = participant.Age,
 
             // Go through all possible allergens and create a new allergen for each one with corresponding name and marked as selected if the name of the allergen is contained in the participantDto diets
             DietSelections = 
@@ -161,5 +170,47 @@ public static class ParticipantDtoExtensions
                         })
                     .ToList()
         };
+    }
+}
+
+public static class BirthNumberToAgeParser
+{
+    public static int Parse(string validBirthNumber)
+    {
+        var today = DateOnly.FromDateTime(DateTime.Now);
+        var birthDate = GetBirthNumberDateOnly(validBirthNumber);
+        var age = today.Year - birthDate.Year;
+        if (today.Month < birthDate.Month) age --; // it wasn't my birthday this year yet
+        else if (today.Month == birthDate.Month && today.Day < birthDate.Day) age--; // it wasn't my birthday this year yet
+        return age;
+    }
+
+    // get the date only from the birth number
+    private static DateOnly GetBirthNumberDateOnly(string validBirthNumber)
+    {
+        int year = ParseYear(validBirthNumber[0..2]);
+        int month = ParseMonth(validBirthNumber[2..4]);
+        int day = int.Parse(validBirthNumber[4..6]);
+        return new DateOnly(year,month,day);
+    }
+
+    // convert two last digits from year, this assumes that the person was not born before year 54
+    private static int ParseYear(string twoLastDigits)
+    {
+        var year = int.Parse(twoLastDigits);
+        if (year >= 54)
+        {
+            return year + 1900;
+        } 
+        return year += 2000;
+    }
+
+    // convert month from birth number according to czech rules
+    private static int ParseMonth(string monthString)
+    {
+        var month = int.Parse(monthString);
+        if (month >= 50) month -= 50;
+        if (month >= 20) month -= 20;
+        return month;     
     }
 }

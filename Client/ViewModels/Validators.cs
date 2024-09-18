@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 public class ValidBirthNumberAttribute : ValidationAttribute
 {
 
+    public static ValidBirthNumberAttribute Instance = new();
+
     private const int CorrectDigitsCount = 10;
 
     // Here for some reason the form was not validating properly when using ValidationResult overload of the IsValid method
@@ -14,6 +16,7 @@ public class ValidBirthNumberAttribute : ValidationAttribute
     {
         if (value is string stringValue)
         {
+            if (stringValue == "") return true;
             if (stringValue.Length != CorrectDigitsCount)
             {
                 ErrorMessage = $"The birth number must consist of exactly {CorrectDigitsCount} digits";
@@ -192,4 +195,32 @@ public class ValidPhoneNumberAttribute : ValidationAttribute
         return true;
     }
 
+}
+
+public class IntegerRangeValidator : ValidationAttribute
+{
+    private int _minValue;
+    private int _maxValue;
+
+    private string _validatedPropertyName;
+
+    public IntegerRangeValidator(int min, int max, string propertyName)
+    {
+        _minValue = min;
+        _maxValue = max;
+        _validatedPropertyName = propertyName;
+    }
+
+    public override bool IsValid(object? value)
+    {
+        if (value is int intValue)
+        {
+            if (intValue >= _minValue && intValue <= _maxValue)
+            {
+                return true;
+            }
+        }
+        ErrorMessage = $"{_validatedPropertyName} must be between {_minValue} and {_maxValue}";
+        return false;
+    }
 }
