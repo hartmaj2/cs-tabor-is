@@ -537,8 +537,19 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 18.9.2024
 
 ### TODO:
-- [ ] Unit tests
-  - [ ] Create custom validation attribute for name and phone number checking
-  - [ ] Allow also names with diacritic
+- [x] Validation
+  - [x] Create custom validation attribute for name and phone number checking
+- [x] Unit tests
+  - [x] Birth number unit tests
+  - [x] Allow also names with diacritic
+  - [x] First/last name unit tests
+  - [ ] Phone number
+- [ ] Make birth number an optional field
+  - [ ] If user enters birth number -> age gets calculated manually, otherwise -> you can enter age yourself
   
 ### DONE:
+- Implemented class for validating names
+- Validation of the date in birth number
+- Unit tests for birth number
+- Unit tests for names
+- Phone number validation
