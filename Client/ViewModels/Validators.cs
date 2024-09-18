@@ -16,7 +16,7 @@ public class ValidBirthNumberAttribute : ValidationAttribute
     {
         if (value is string stringValue)
         {
-            if (stringValue == "") return true;
+            if (stringValue == "") return true; // allow also when user doesn't enter any birth number
             if (stringValue.Length != CorrectDigitsCount)
             {
                 ErrorMessage = $"The birth number must consist of exactly {CorrectDigitsCount} digits";

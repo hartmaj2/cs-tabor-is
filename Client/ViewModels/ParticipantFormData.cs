@@ -54,7 +54,7 @@ public class ParticipantFormData
     public const int HighestAge = 80; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
     [IntegerRangeValidator(LowestAge,HighestAge,nameof(Age))]
-    public int? Age { get; set; }
+    public int? Age { get; set; } // the age is set automatically if the entered birth number is valid
 
     // 
     // PHONE NUMBER
