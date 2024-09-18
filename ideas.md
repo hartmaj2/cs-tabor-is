@@ -12,6 +12,3 @@
 - Create allergen manager - will load possible allergens and will provide them to classes that need them
 - Add possibility to work with file instead of database (generalize controllers)
 
-## Useful commands to calculate file sizes
-- find . -name "*.cs" -print0 | xargs -0 du -shcA
-- find . -name "*.razor" -print0 | xargs -0 du -shcA

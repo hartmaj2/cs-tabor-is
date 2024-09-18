@@ -19,3 +19,12 @@
 
 ## Markdown
 - Extension Markdown All In One allows to automatically create Table Of Contents, I can also set what levels of headings I can include or not using either a special comment `<!-- omit from toc -->` or by setting the Toc: Levels 
+
+## Useful commands to calculate file sizes
+- find . -name "*.cs" -print0 | xargs -0 du -shcA
+- find . -name "*.razor" -print0 | xargs -0 du -shcA
+
+- for file in ./**/Migrations/**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc
+- for file in ./**/obj/**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc
+- for file in ./**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc
+- for file in ./**/*.razor ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc
