@@ -74,7 +74,7 @@ public class ParticipantFormData
             {
                 _phoneNumber = _phoneNumber.Replace(meaningless,""); // remove characters that add no meaning from the phone number string
             }
-            foreach (var prefix in ValidPrefixes)
+            foreach (var prefix in ValidPrefixes) // if the number contains a valid prefix, remove the prefix and leave just the rest
             {
                 if (_phoneNumber[..prefix.Length].Equals(prefix))
                 {
