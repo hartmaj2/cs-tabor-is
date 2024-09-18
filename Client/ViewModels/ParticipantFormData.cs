@@ -5,7 +5,16 @@ using Microsoft.Extensions.Primitives;
 // The difference is, that this participant doesn't have Id property because that is not filled in the form by the user
 public class ParticipantFormData
 {
+
+    // 
+    // ID
+    // 
+
     public int Id { get; set; }
+
+    // 
+    // FIRST NAME
+    // 
 
     private string _firstName = string.Empty;
 
@@ -20,6 +29,10 @@ public class ParticipantFormData
         }
     }
 
+    // 
+    // LAST NAME
+    // 
+
     private string _lastName = string.Empty;
 
     [Required(ErrorMessage = "Last name is required.")]
@@ -33,12 +46,42 @@ public class ParticipantFormData
         }
     }
 
+    // 
+    // AGE
+    // 
+
     public const int LowestAge = 0;
     public const int HighestAge = 80; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
+    // 
+    // PHONE NUMBER
+    // 
+
+    private static readonly string[] ValidPrefixes = ["+420","00420"]; // czech prefixes that are considered valid phone number inputs
+
+    private string _phoneNumber = string.Empty;
+
     [Required(ErrorMessage = "Phone number is required.")]
     [RegularExpression(@"^((\+420)?\d{9})|(\+(?!420)\d{8,12})$", ErrorMessage = "The phone number is not valid.")]
-    public string? PhoneNumber { get; set; }
+    public string? PhoneNumber
+    { 
+        get => _phoneNumber;
+        set
+        {
+            _phoneNumber = value!.Trim().Replace(" ",""); // remove whitespaces from the phone number string
+            foreach (var prefix in ValidPrefixes)
+            {
+                if (_phoneNumber[..prefix.Length].Equals(prefix))
+                {
+                    _phoneNumber = _phoneNumber[prefix.Length..];
+                }
+            }
+        } 
+    }
+
+    // 
+    // BIRTH NUMBER
+    // 
 
     private string _birthNumber = string.Empty;
 
