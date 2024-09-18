@@ -30,4 +30,12 @@ public class BirthNumberValidatorTests
     {
         Assert.False(birthNumberValidator.IsValid(birthNumber));
     }
+
+    [Theory]
+    [InlineData("1151566438")]
+    [InlineData("2088130319")]
+    public void CorrectLengthAndDivisibleButIncorrectDate(string birthNumber)
+    {
+        Assert.False(birthNumberValidator.IsValid(birthNumber));
+    }
 }

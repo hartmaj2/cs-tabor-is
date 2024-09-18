@@ -19,28 +19,66 @@ public class ValidBirthNumberAttribute : ValidationAttribute
                 ErrorMessage = $"The birth number must consist of exactly {CorrectDigitsCount} digits";
                 return false;
             }
-            int checkSum = 0;
-            int signChoice = 1; // this variable will flip between -1 and 1
-            for (int i = 0; i < stringValue.Length; i++)
+            if (!ContainsOnlyDigits(stringValue))
             {
-                var currentChar = stringValue[i];
-                if (!char.IsDigit(currentChar))
-                {
-                    ErrorMessage = $"The birth number must contain only digits";
-                    return false;
-                }
-                checkSum += signChoice * (currentChar - '0');
-                signChoice *= -1; // flip the sign
+                ErrorMessage = "The birth number must contain digits only.";
             }
-            if (checkSum % 11 == 0)
+            if (!IsDivisibleByEleven(stringValue))
             {
-                return true;
+                ErrorMessage = "The birth number must be divisible by 11.";
+                return false;
             }
-            
+            if (!RepresentsValidDate(stringValue))
+            {
+                ErrorMessage = "The birth date is incorrect.";
+                return false;        
+            }
+            return true;
         }
-        ErrorMessage = $"Birth number must be divisible by 11";
+        ErrorMessage = "For some reason the birth number is incorrect.";
         return false;
     }
+
+    private static bool ContainsOnlyDigits(string birthNumber)
+    {
+        foreach (var chr in birthNumber)
+        {
+            if (!char.IsAsciiDigit(chr)) return false;
+        }
+        return true;
+    }
+
+    private static bool IsDivisibleByEleven(string birthNumber)
+    {
+        int checkSum = 0;
+        int signChoice = 1; // this variable will flip between -1 and 1
+        foreach (var chr in birthNumber)
+        {
+            checkSum += signChoice * (chr - '0');
+            signChoice *= -1; // flip the sign
+        }
+        return checkSum % 11 == 0;
+    }
+
+    private static bool RepresentsValidDate(string birthNumber)
+    {
+        var month = ParseMonth(birthNumber[2..4]).ToString("D2"); // D2 tells the parser to make the number at least 2 digits long
+        string dateString = "20" + birthNumber[0..2] + month.ToString() + birthNumber[4..6];
+        Console.WriteLine($"Date string {dateString}");
+        return DateOnly.TryParseExact(dateString,"yyyyMMdd",out _);
+    }
+
+    // Parse the month string according to rules of czech birth numbers
+    // for girls they can be 51-62 or 71-82
+    // for boys they can be 01-12 or 21-32
+    private static int ParseMonth(string monthString)
+    {
+        var month = int.Parse(monthString);
+        if (month >= 51) month -= 50;
+        if (month >= 21) month -= 20;
+        return month;     
+    }
+
 }
 
 // This class implements validation with more accurate error messages
