@@ -7,13 +7,31 @@ public class ParticipantFormData
 {
     public int Id { get; set; }
 
+    private string _firstName = string.Empty;
+
     [Required(ErrorMessage = "First name is required.")]
     [ValidName("first name")]
-    public string? FirstName {get; set;}
+    public string? FirstName
+    {
+        get => _firstName;
+        set
+        {
+            _firstName = value!.Trim(); // This removes leading or trailing white spaces when user enters them to the form
+        }
+    }
+
+    private string _lastName = string.Empty;
 
     [Required(ErrorMessage = "Last name is required.")]
     [ValidName("last name")]
-    public string? LastName {get; set;}
+    public string? LastName 
+    {
+        get => _lastName;
+        set
+        {
+            _lastName = value!.Trim(); // This removes leading or trailing white spaces when user enters them to the form
+        }
+    }
 
     public const int LowestAge = 0;
     public const int HighestAge = 80; // I want to support only birth numbers later than 1954 that have the 10 digit format
@@ -28,18 +46,10 @@ public class ParticipantFormData
     [ValidBirthNumber]
     public string? BirthNumber 
     { 
-        get
-        {
-            return _birthNumber;
-        }
+        get => _birthNumber;
         set // the validation logic caused by data annotation is processed AFTER the setter
         {
-            if (value is null)
-            {
-                _birthNumber = string.Empty;
-                return;
-            }
-            var stringValue = value.Trim();
+            var stringValue = value!.Trim();
             if (stringValue!.Length == 11 && stringValue[6] == '/') // if user entered the birth number with / character
             {
     
