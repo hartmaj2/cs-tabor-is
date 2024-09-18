@@ -63,7 +63,7 @@ public class ParticipantFormData
     private string _phoneNumber = string.Empty;
 
     [Required(ErrorMessage = "Phone number is required.")]
-    [RegularExpression(@"^((\+420)?\d{9})|(\+(?!420)\d{8,12})$", ErrorMessage = "The phone number is not valid.")]
+    [ValidPhoneNumber]
     public string? PhoneNumber
     { 
         get => _phoneNumber;

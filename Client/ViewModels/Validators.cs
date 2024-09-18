@@ -96,13 +96,7 @@ public class ValidNameAttribute : ValidationAttribute
 
     public override bool IsValid(object? value)
     {
-        if (value is not string)
-        {
-            ErrorMessage = $"The {_validatedPropertyName} you entered is not a string";
-            return false;
-        }
-
-        var stringValue = (string) value;
+        var stringValue = (string) value!;
         var words = stringValue.Split(Separators,StringSplitOptions.None);
         foreach (var word in words)
         {
@@ -147,4 +141,55 @@ public class ValidNameAttribute : ValidationAttribute
         
 
     }
+}
+
+public class ValidPhoneNumberAttribute : ValidationAttribute
+{
+    public override bool IsValid(object? value)
+    {
+        var stringValue = (string) value!;
+        bool isForeign = false;
+        if (stringValue[0] == '+') 
+        {
+            stringValue = stringValue[1..];
+            isForeign = true;
+        }
+        if (!ContainsOnlyDigits(stringValue))
+        {
+            ErrorMessage = "The only non-digit character the number can contain is +.";
+            return false;
+        }
+        if (isForeign) // is foreign phone number
+        {
+            if (stringValue.Length < 7 || stringValue.Length > 15)
+            {
+                ErrorMessage = "This international phone number has incorrect length.";
+                return false;
+            }
+        }
+        else // is czech phone number
+        {
+            if (stringValue.Length != 9)
+            {
+                ErrorMessage = "Czech phone numbers must consist of exactly 9 digits.";
+                return false;
+            }
+        }
+        return true;
+
+
+    }
+
+    private static bool ContainsOnlyDigits(string phoneNumber)
+    {
+        foreach (var chr in phoneNumber)
+        {
+            if (!char.IsAsciiDigit(chr))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
