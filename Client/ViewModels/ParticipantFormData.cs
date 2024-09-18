@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Primitives;
 
 // This represents the participant data needed for the client side
 // The difference is, that this participant doesn't have Id property because that is not filled in the form by the user
@@ -31,17 +32,24 @@ public class ParticipantFormData
         {
             return _birthNumber;
         }
-        set // the validation logic cause by data annotation is processed AFTER the setter
+        set // the validation logic caused by data annotation is processed AFTER the setter
         {
-            if (value!.Length == 11 && value[6] == '/') // if user entered the birth number with / character
+            if (value is null)
             {
-     
-                _birthNumber = value[..6] + value[7..];
+                _birthNumber = string.Empty;
+                return;
+            }
+            var stringValue = value.Trim();
+            if (stringValue!.Length == 11 && stringValue[6] == '/') // if user entered the birth number with / character
+            {
+    
+                _birthNumber = stringValue[..6] + stringValue[7..];
             }
             else
             {
-                _birthNumber = value;
+                _birthNumber = stringValue;
             }
+            
         } 
     
     }

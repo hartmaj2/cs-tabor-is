@@ -102,7 +102,7 @@ public class ValidNameAttribute : ValidationAttribute
             return false;
         }
 
-        var stringValue = ((string) value).Trim();
+        var stringValue = (string) value;
         var words = stringValue.Split(Separators,StringSplitOptions.None);
         foreach (var word in words)
         {
