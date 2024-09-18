@@ -20,6 +20,7 @@ public class NameValidatorTests
     [InlineData("Karel IV.")]
     [InlineData("Jane-Anne")]
     [InlineData("O'Brian")]
+    [InlineData("prof. RNDr. Aleš Pultr, DrSc.")]
     public void CorrectNamesWithPunctuation(string name)
     {
         Assert.True(nameValidator.IsValid(name));
@@ -37,6 +38,7 @@ public class NameValidatorTests
     [Theory]
     [InlineData("karel@mail")]
     [InlineData("nekdo,dulezity")]
+    [InlineData("fan.pan")]
     [InlineData("(jelito)")]
     public void IncorrectContainsPunctuation(string name)
     {

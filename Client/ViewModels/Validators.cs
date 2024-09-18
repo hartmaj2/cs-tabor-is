@@ -128,9 +128,9 @@ public class ValidNameAttribute : ValidationAttribute
                     {
                         ErrorMessage = $"{_validatedPropertyName} can only contain punctuation at the end of a word.";
                     }
-                    if (word[i] != '.')
+                    if (word[i] != '.' && word[i] != ',')
                     {
-                        ErrorMessage = $"The only punctuation {_validatedPropertyName} can contain is . or ' ";
+                        ErrorMessage = $"The only punctuation {_validatedPropertyName} can contain is . , or ' ";
                     }
                 }
                 else if (!char.IsLetter(word[i]))
