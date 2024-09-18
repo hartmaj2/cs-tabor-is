@@ -58,6 +58,7 @@ public class ParticipantFormData
     // 
 
     private static readonly string[] ValidPrefixes = ["+420","00420"]; // czech prefixes that are considered valid phone number inputs
+    private static readonly string[] CharactersToRemove = [" ",".","-","(",")","[","]"]; // these characters add no meaning to the phone number so we can just remove them 
 
     private string _phoneNumber = string.Empty;
 
@@ -68,7 +69,11 @@ public class ParticipantFormData
         get => _phoneNumber;
         set
         {
-            _phoneNumber = value!.Trim().Replace(" ",""); // remove whitespaces from the phone number string
+            _phoneNumber = value!.Trim();
+            foreach (var meaningless in CharactersToRemove)
+            {
+                _phoneNumber = _phoneNumber.Replace(meaningless,""); // remove characters that add no meaning from the phone number string
+            }
             foreach (var prefix in ValidPrefixes)
             {
                 if (_phoneNumber[..prefix.Length].Equals(prefix))
