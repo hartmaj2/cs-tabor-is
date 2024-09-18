@@ -7,11 +7,11 @@ public class ParticipantFormData
     public int Id { get; set; }
 
     [Required(ErrorMessage = "First name is required.")]
-    [RegularExpression(@"^([A-Z][A-Za-z]*(\. |[\.\- ])?)+$", ErrorMessage = "First name must start with capital letter and contain no digits.")]
+    [ValidName("first name")]
     public string? FirstName {get; set;}
 
     [Required(ErrorMessage = "Last name is required.")]
-    [RegularExpression(@"^([A-Z][A-Za-z]*(\. |[\.\- ])?)+$", ErrorMessage = "First name must start with capital letter and contain no digits.")]
+    [ValidName("last name")]
     public string? LastName {get; set;}
 
     public const int LowestAge = 0;
