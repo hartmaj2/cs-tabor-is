@@ -31,7 +31,7 @@
         <label> Allergens: </label> <br/>
         @if (MealFormData.AllergenSelections != null)
         {
-            @foreach (var allergenSelection in MealFormData.AllergenSelections!)
+            @foreach (var allergenSelection in MealFormData.AllergenSelections)
             {
                 <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected"/> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
             }
