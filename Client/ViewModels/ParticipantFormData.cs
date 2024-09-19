@@ -173,6 +173,7 @@ public static class ParticipantDtoExtensions
     }
 }
 
+// Parses czech birth numbers in 10-digit format used after 1.1.1954 to the corresponding age
 public static class BirthNumberToAgeParser
 {
     public static int Parse(string validBirthNumber)
@@ -185,7 +186,7 @@ public static class BirthNumberToAgeParser
         return age;
     }
 
-    // get the date only from the birth number
+    // get the DateOnly object that corresponds to the given birth number string
     private static DateOnly GetBirthNumberDateOnly(string validBirthNumber)
     {
         int year = ParseYear(validBirthNumber[0..2]);
@@ -205,7 +206,9 @@ public static class BirthNumberToAgeParser
         return year += 2000;
     }
 
-    // convert month from birth number according to czech rules
+    // convert month from birth number according to czech birth number format rules
+    // for girls 50 or 70 is added to the birth number
+    // for boys 0 or 20 is added to the birth number
     private static int ParseMonth(string monthString)
     {
         var month = int.Parse(monthString);
