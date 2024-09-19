@@ -1,4 +1,5 @@
 @namespace Client.Components
+@inject AllergenService AllergenService
 
 @* Modal for editing properties of a meal like name, type, and allergens that the meal contains *@
 @* The meal time and meal date are determined by the context given by the current day selected by the selector and the meal time container *@
@@ -28,9 +29,12 @@
 
     <div>
         <label> Allergens: </label> <br/>
-        @foreach (var allergenSelection in MealFormData.AllergenSelections!)
+        @if (MealFormData.AllergenSelections != null)
         {
-            <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected"/> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
+            @foreach (var allergenSelection in MealFormData.AllergenSelections!)
+            {
+                <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected"/> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
+            }
         }
         <br/>
     </div>
@@ -50,40 +54,39 @@
     public required MealFormData MealFormData { get; set; } = new() {Name = string.Empty, MealType = string.Empty};
 
     [Parameter]
-    public required IEnumerable<AllergenDto> AllAllergens { get; set; }
-
-    [Parameter]
     public required IEnumerable<string> MealTypes { get; set; }
 
     // When meal is submitted we trigger a function that will get the resulting meal passed to it
     [Parameter]
     public EventCallback<MealFormData> OnMealSubmit { get; set; }
     
+
     // Invoke the function to request creation of new meal from our api
-    private void OnFormSubmit()
+    private async Task OnFormSubmit()
     {
-        OnMealSubmit.InvokeAsync(MealFormData);
-        ResetMealFormData();
+        await OnMealSubmit.InvokeAsync(MealFormData);
+        await ResetMealFormData(); // this is async so because I don't want to let the main thread wait before the form is reset
     }
 
     // Initialize the AllergenSelections of our mealFormData, we need to set the names of each AllergenSelection object to the correct allergen name
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {   
         // I only need to create List of allergen selecitons if there is none already (when editing I have it prefilled)
         if (MealFormData.AllergenSelections == null)
         {
-            LoadAllergensToMealFormData();
+            await LoadAllergensToMealFormData();
         }
     }
     
-    private void ResetMealFormData()
+    private async Task ResetMealFormData()
     {
         MealFormData = new() {Name = string.Empty, MealType = string.Empty};
-        LoadAllergensToMealFormData();
+        await LoadAllergensToMealFormData();
     }
 
-    private void LoadAllergensToMealFormData()
+    private async Task LoadAllergensToMealFormData()
     {
-        MealFormData.AllergenSelections = AllAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        MealFormData.AllergenSelections = allAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
     }
 }
