@@ -18,6 +18,12 @@ a, .btn-link {
     margin-bottom: 10px;
 }
 
+.date-selector {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
 /* Used for date selector */
 .btn-companion
 {

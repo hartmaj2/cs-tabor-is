@@ -3,7 +3,7 @@
 @* This component represents the selector of the day, for which we want to see the menu  *@
 @* It consists of two buttons that can control what date we want to view and also the displayed date in between the buttons *@
 
-<div style="display: flex; justify-content: center; align-items: center;">
+<div class="date-selector">
     <button class="btn btn-primary" @onclick="() => ChangeDate(-1)" > &lt; </button>
     <span class="btn-companion"> @CurrentDate </span>
     <button class="btn btn-primary" @onclick="() => ChangeDate(1)" > &gt; </button>
