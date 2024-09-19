@@ -10,7 +10,6 @@ public class AllergenService
     // HttpClient is passed to this constructor automatically
     public AllergenService(HttpClient httpClient)
     {
-        Console.WriteLine("allergen service created");
         _httpClient = httpClient;
     }
 
@@ -19,10 +18,8 @@ public class AllergenService
     {
         if (_allergens == null)
         {
-            Console.WriteLine("using the allergen service for the first time");
             _allergens = await _httpClient.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
         }
-        Console.WriteLine("using the allergen service again");
         return _allergens!;
     }
 }
