@@ -145,7 +145,7 @@ else
     // Connects to my api and posts the participant that was submitted to the form
     private async Task RequestCreateParticipant(ParticipantFormData participant)
     {
-        await Http.PostAsJsonAsync<ParticipantDto>("/api/participants/add",participant.ConvertToParticipantDto(),CancellationToken.None);
+        await Http.PostAsJsonAsync<ParticipantDto>("/api/participants/add",participant.ToParticipantDto(),CancellationToken.None);
         await LoadParticipants();
         await addParticipantModal.HideAsync();
     }
@@ -158,7 +158,7 @@ else
     private async Task ShowEditParticipantModal(ParticipantDto participant)
     {
         var parameters = new Dictionary<string,object>();
-        parameters.Add("Participant",participant.ConvertToParticipantFormData(allAllergens!));
+        parameters.Add("Participant",participant.ToParticipantFormData(allAllergens!));
         parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
         await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Edit {participant.FirstName}",parameters: parameters);
     }
@@ -167,7 +167,7 @@ else
     // Need to convert from ParticipantFormData to ParticipantDto 
     private async Task RequestParticipantEdit(ParticipantFormData participant)
     {
-        var participantDto = participant.ConvertToParticipantDto();
+        var participantDto = participant.ToParticipantDto();
         await Http.PostAsJsonAsync<ParticipantDto>($"/api/participants/edit/{participantDto.Id}",participantDto,CancellationToken.None);
         await LoadParticipants();
         await editParticipantModal.HideAsync();

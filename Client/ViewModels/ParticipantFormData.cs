@@ -124,7 +124,8 @@ public class ParticipantFormData
 
     public IList<AllergenSelection>? DietSelections;
 
-    public ParticipantDto ConvertToParticipantDto()
+    // Used after participant submit to pass the new details to api
+    public ParticipantDto ToParticipantDto()
     {
         return new ParticipantDto
         {
@@ -139,13 +140,6 @@ public class ParticipantFormData
         };
     }
 
-    public ParticipantDto ConvertToParticipantDto(int id)
-    {
-        var participant = ConvertToParticipantDto();
-        participant.Id = id;
-        return participant;
-    }
-
     // Factory method to create default participant
     public static ParticipantFormData CreateDefault()
     {
@@ -154,10 +148,11 @@ public class ParticipantFormData
 
 }
 
-// Used by EditParticipant razor component after it receives the api participant from the database
 public static class ParticipantDtoExtensions
-{
-    public static ParticipantFormData ConvertToParticipantFormData(this ParticipantDto participant, IEnumerable<AllergenDto> allAllergens)
+{   
+
+    // Used to pass data to edit participant modal to convert from ParticipantDto received from api
+    public static ParticipantFormData ToParticipantFormData(this ParticipantDto participant, IEnumerable<AllergenDto> allAllergens)
     {
         return new ParticipantFormData
         {
