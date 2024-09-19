@@ -558,7 +558,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### 19.9.2024
 
 ### TODO:
-- [ ] Calculate how much kB my project takes
+- [x] Calculate how much kB my project takes
 - [ ] Add detailed comments everywhere
   - [ ] Client
     - [ ] Components
@@ -576,4 +576,4 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [ ] Finish user documentation
 
 ### DONE:
-- 
+- As of now, .cs files take 48kB and .razor take 49kB
