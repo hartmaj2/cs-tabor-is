@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using BlazorBootstrap;
 using Microsoft.Extensions.Primitives;
 
 // This represents the participant data needed for the client side
@@ -20,12 +21,12 @@ public class ParticipantFormData
 
     [Required(ErrorMessage = "First name is required.")]
     [ValidName("first name")]
-    public string? FirstName
+    public required string FirstName
     {
         get => _firstName;
         set
         {
-            _firstName = value!.Trim(); // This removes leading or trailing white spaces when user enters them to the form
+            _firstName = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form
         }
     }
 
@@ -37,12 +38,12 @@ public class ParticipantFormData
 
     [Required(ErrorMessage = "Last name is required.")]
     [ValidName("last name")]
-    public string? LastName 
+    public required string LastName 
     {
         get => _lastName;
         set
         {
-            _lastName = value!.Trim(); // This removes leading or trailing white spaces when user enters them to the form
+            _lastName = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form
         }
     }
 
@@ -54,7 +55,7 @@ public class ParticipantFormData
     public const int HighestAge = 80; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
     [IntegerRangeValidator(LowestAge,HighestAge,nameof(Age))]
-    public int? Age { get; set; } // the age is set automatically if the entered birth number is valid
+    public int Age { get; set; } // the age is set automatically if the entered birth number is valid
 
     // 
     // PHONE NUMBER
@@ -67,12 +68,13 @@ public class ParticipantFormData
 
     [Required(ErrorMessage = "Phone number is required.")]
     [ValidPhoneNumber]
-    public string? PhoneNumber
+    public required string PhoneNumber
     { 
         get => _phoneNumber;
         set
         {
-            _phoneNumber = value!.Trim();
+            if (value == string.Empty) return; // if nothing was entered, don't continue setting the phone number based on custom rules
+            _phoneNumber = value.Trim();
             foreach (var meaningless in CharactersToRemove)
             {
                 _phoneNumber = _phoneNumber.Replace(meaningless,""); // remove characters that add no meaning from the phone number string
@@ -94,13 +96,14 @@ public class ParticipantFormData
     private string _birthNumber = string.Empty;
 
     [ValidBirthNumber]
-    public string? BirthNumber 
+    public required string BirthNumber 
     { 
         get => _birthNumber;
         set // the validation logic caused by data annotation is processed AFTER the setter
         {
-            var stringValue = value!.Trim();
-            if (stringValue!.Length == 11 && stringValue[6] == '/') // if user entered the birth number with / character
+            if (value == string.Empty) return;
+            var stringValue = value.Trim();
+            if (stringValue.Length == 11 && stringValue[6] == '/') // if user entered the birth number with / character
             {
     
                 _birthNumber = stringValue[..6] + stringValue[7..];
@@ -111,6 +114,7 @@ public class ParticipantFormData
             }
             if (ValidBirthNumberAttribute.Instance.IsValid(_birthNumber)) // if the birth number is valid, set the age automatically
             {
+                Console.WriteLine("setting age");
                 Age = BirthNumberToAgeParser.Parse(_birthNumber);
             }            
         } 
@@ -125,10 +129,10 @@ public class ParticipantFormData
         return new ParticipantDto
         {
             Id = Id,
-            FirstName = FirstName!,
-            LastName = LastName!,
+            FirstName = FirstName,
+            LastName = LastName,
             PhoneNumber = PhoneNumber,
-            BirthNumber = BirthNumber!,
+            BirthNumber = BirthNumber,
             Age = Age,
             // Add a corresponding AllergenDto only when the selection IsSelected
             Diets = DietSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()

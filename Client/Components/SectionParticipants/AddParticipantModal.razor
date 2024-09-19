@@ -28,7 +28,7 @@
 @code
 {
     
-    public ParticipantFormData Participant { get; set; } = new();
+    public ParticipantFormData Participant { get; set; } = new() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
 
     [Parameter]
     public EventCallback<ParticipantFormData> CreateParticipant { get; set; }
@@ -49,7 +49,7 @@
 
     private void ResetParticipantFormData()
     {
-        Participant = new();
+        Participant = new() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
         InitializeParticipantDietSelections();
     }
 

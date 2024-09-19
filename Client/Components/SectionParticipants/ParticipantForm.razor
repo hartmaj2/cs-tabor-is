@@ -52,7 +52,7 @@
     
     // Used in two way binding as the value I am bound to
     [Parameter]
-    public ParticipantFormData ThisParticipant { get; set; } = new();
+    public ParticipantFormData ThisParticipant { get; set; } = new() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
 
     // When ThisParticipant property is modified, this event is fired (Blazor knows it must be this event because of the naming)
     [Parameter]

@@ -11,9 +11,9 @@ public class Participant
     [Required]
     public required string LastName { get; set; }
     [Required]
-    public int? Age { get; set; }
+    public int Age { get; set; }
     [Required]
-    public string? PhoneNumber {get; set; }
+    public required string PhoneNumber {get; set; }
     [Required]
     public required string BirthNumber {get; set; }
 
