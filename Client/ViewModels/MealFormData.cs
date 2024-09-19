@@ -1,28 +1,30 @@
 using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
+
+// Class used by the EditForm to validate, if required properties were set
 
 public class MealFormData
 {
-    public int Id { get ; set; } 
+    public int Id { get ; set; } // not set by user but having the fields allows for better conversion to MealDto
 
     [Required(ErrorMessage = "Meal name is required.")]
-    public string? Name { get; set;}
-
+    public required string Name { get; set;}
     
     [Required(ErrorMessage = "Meal type is required.")]
-    public string? MealType { get; set; }
+    public required string MealType { get; set; }
 
+    // In contract to MealDto, this class contains list of allergen selections 
+    // Allergen selections are a combination of the name of the allergen and indicator whether it was selected
     public IList<AllergenSelection>? AllergenSelections;
 
-
-    public MealDto ConvertToMealDto(MealTime mealTime, DateOnly date)
+    // Conversion method used after form submit when sending request to api 
+    public MealDto ToMealDto(MealTime mealTime, DateOnly date)
     {
         return new MealDto() 
             {
                 Id = Id,
-                Name = Name!,
+                Name = Name,
                 MealTime = mealTime,
-                Type = Enum.Parse<MealType>(MealType!),
+                Type = Enum.Parse<MealType>(MealType),
                 Date = date,
                 // Add a corresponding AllergenDto only when the selection IsSelected
                 Allergens = AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
@@ -41,7 +43,8 @@ public class AllergenSelection
 
 public static class MealDtoExtensions
 {
-    public static MealFormData ConvertToMealFormData(this MealDto mealDto, IEnumerable<AllergenDto> AllAllergens)
+    // Conversion method from MealDto to MealFormData, used when passing data to editMealModal in Menu
+    public static MealFormData ToMealFormData(this MealDto mealDto, IEnumerable<AllergenDto> AllAllergens)
     {
         var mealFormData = new MealFormData()
             {
@@ -50,6 +53,7 @@ public static class MealDtoExtensions
                 MealType = mealDto.Type.ToString(),
                 AllergenSelections = AllAllergens.Select(allergen => new AllergenSelection {Name = allergen.Name, IsSelected = false}).ToList()
             };
+            
         // Mark all allergens of mealDto as true in AllergenSelections of the mealFormData
         foreach (var selection in mealFormData.AllergenSelections)
         {

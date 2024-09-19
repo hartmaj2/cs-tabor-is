@@ -82,7 +82,7 @@ else
     // Sends api post request for the MealsController to create new meal with given values
     private async Task RequestMealCreation(MealFormData submittedMeal)
     {
-        var mealDto = submittedMeal.ConvertToMealDto(currentModalMealTime,currentDate);
+        var mealDto = submittedMeal.ToMealDto(currentModalMealTime,currentDate);
         await editMealModal.HideAsync();
         await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
         await LoadMeals();
@@ -116,7 +116,7 @@ else
     {
         currentModalMealTime = meal.MealTime;
         var parameters = new Dictionary<string,object>();
-        parameters.Add("MealFormData",meal.ConvertToMealFormData(allAllergens!));
+        parameters.Add("MealFormData",meal.ToMealFormData(allAllergens!));
         parameters.Add("AllAllergens",allAllergens!);
         parameters.Add("MealTypes",mealTypes!);
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
@@ -125,7 +125,7 @@ else
 
     private async Task RequestMealEdit(MealFormData meal)
     {
-        var mealDto = meal.ConvertToMealDto(currentModalMealTime,currentDate);
+        var mealDto = meal.ToMealDto(currentModalMealTime,currentDate);
         await Http.PostAsJsonAsync<MealDto>($"api/meals/edit/{meal.Id}",mealDto,CancellationToken.None);
         await editMealModal.HideAsync();
         await LoadMeals();
