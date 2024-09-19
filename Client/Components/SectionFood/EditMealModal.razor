@@ -17,7 +17,7 @@
     <div>
         <label> Meal type: </label> <br/>
         <InputRadioGroup @bind-Value="MealFormData.MealType">
-            @foreach (var mealType in MealTypes!)
+            @foreach (var mealType in MealTypes)
             {
                 <InputRadio id="@mealType" Value="@mealType"/> <label for="@mealType"> @mealType </label> <br/>
             }
@@ -47,13 +47,13 @@
     public string SubmitButtonText { get; set; } = "Confirm";
 
     [Parameter]
-    public MealFormData MealFormData { get; set; } = new();
+    public required MealFormData MealFormData { get; set; } = new();
 
     [Parameter]
-    public IEnumerable<AllergenDto>? AllAllergens { get; set; }
+    public required IEnumerable<AllergenDto> AllAllergens { get; set; }
 
     [Parameter]
-    public IEnumerable<string>? MealTypes { get; set; }
+    public required IEnumerable<string> MealTypes { get; set; }
 
     // When meal is submitted we trigger a function that will get the resulting meal passed to it
     [Parameter]
@@ -84,6 +84,6 @@
 
     private void LoadAllergensToMealFormData()
     {
-        MealFormData.AllergenSelections = AllAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
+        MealFormData.AllergenSelections = AllAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
     }
 }
