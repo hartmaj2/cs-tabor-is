@@ -83,6 +83,32 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ParticipantId = table.Column<int>(type: "int", nullable: false),
+                    MealId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Meals_MealId",
+                        column: x => x.MealId,
+                        principalTable: "Meals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Participants_ParticipantId",
+                        column: x => x.ParticipantId,
+                        principalTable: "Participants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ParticipantAllergens",
                 columns: table => new
                 {
@@ -114,6 +140,16 @@ namespace Server.Migrations
                 column: "AllergenId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_MealId",
+                table: "Orders",
+                column: "MealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ParticipantId",
+                table: "Orders",
+                column: "ParticipantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ParticipantAllergens_AllergenId",
                 table: "ParticipantAllergens",
                 column: "AllergenId");
@@ -129,6 +165,9 @@ namespace Server.Migrations
         {
             migrationBuilder.DropTable(
                 name: "MealAllergens");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "ParticipantAllergens");

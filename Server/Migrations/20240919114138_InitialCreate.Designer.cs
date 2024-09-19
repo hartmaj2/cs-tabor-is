@@ -12,7 +12,7 @@ using Server.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(TaborIsDbContext))]
-    [Migration("20240907185343_InitialCreate")]
+    [Migration("20240919114138_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -88,7 +88,7 @@ namespace Server.Migrations
                     b.ToTable("MealAllergens");
                 });
 
-            modelBuilder.Entity("ParticipantAllergen", b =>
+            modelBuilder.Entity("Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AllergenId")
+                    b.Property<int>("MealId")
                         .HasColumnType("int");
 
                     b.Property<int>("ParticipantId")
@@ -104,14 +104,14 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AllergenId");
+                    b.HasIndex("MealId");
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("ParticipantAllergens");
+                    b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Shared.Participant", b =>
+            modelBuilder.Entity("Participant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,8 +119,7 @@ namespace Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Age")
-                        .IsRequired()
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("BirthNumber")
@@ -144,6 +143,29 @@ namespace Server.Migrations
                     b.ToTable("Participants");
                 });
 
+            modelBuilder.Entity("ParticipantAllergen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllergenId");
+
+                    b.HasIndex("ParticipantId");
+
+                    b.ToTable("ParticipantAllergens");
+                });
+
             modelBuilder.Entity("MealAllergen", b =>
                 {
                     b.HasOne("Allergen", "Allergen")
@@ -163,6 +185,25 @@ namespace Server.Migrations
                     b.Navigation("Meal");
                 });
 
+            modelBuilder.Entity("Order", b =>
+                {
+                    b.HasOne("Meal", "Meal")
+                        .WithMany("Orders")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Participant", "Participant")
+                        .WithMany("Orders")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meal");
+
+                    b.Navigation("Participant");
+                });
+
             modelBuilder.Entity("ParticipantAllergen", b =>
                 {
                     b.HasOne("Allergen", "Allergen")
@@ -171,7 +212,7 @@ namespace Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shared.Participant", "Participant")
+                    b.HasOne("Participant", "Participant")
                         .WithMany("ParticipantAllergens")
                         .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -190,10 +231,14 @@ namespace Server.Migrations
             modelBuilder.Entity("Meal", b =>
                 {
                     b.Navigation("MealAllergens");
+
+                    b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Shared.Participant", b =>
+            modelBuilder.Entity("Participant", b =>
                 {
+                    b.Navigation("Orders");
+
                     b.Navigation("ParticipantAllergens");
                 });
 #pragma warning restore 612, 618
