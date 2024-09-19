@@ -1,6 +1,6 @@
 @namespace Client.Components
 
-@* Modal for editing the meals properties like name, meal type, meal time and allergens *@
+@* Modal for editing the diets of a given participant *@
 
 @if (DietSelections != null)
 {
@@ -8,29 +8,38 @@
         <label> Diets: </label> <br/>
         @foreach (var dietSelection in DietSelections!)
         {
-            <input id="@dietSelection.Name" type="checkbox" @bind="dietSelection.IsSelected" /> <label for="@dietSelection.Name"> @dietSelection.Name </label> <br/>
+            <input id="@dietSelection.Name" type="checkbox" @bind="dietSelection.IsSelected"/> <label for="@dietSelection.Name"> @dietSelection.Name </label> <br/>
         }
         <br/>
     </div>
 
-    <button type="submit" class="btn btn-primary" @onclick="OnClick"> Confirm </button>  
+    <button type="submit" class="btn btn-primary" @onclick="OnClick"> @SubmitButtonText </button>  
 }
     
 @code
 {
+
+    // Text shown on the submit button
+    [Parameter]
+    public string SubmitButtonText { get; set; } = "Confirm";
+
+    // The participant currently being edited by the modal
     [Parameter]
     public required ParticipantDto CurrentParticipant { get; set; }
 
+    // Gets triggered when we confirm the edit selections
+    // Passes the participant data to the parent component
     [Parameter]
     public EventCallback<ParticipantDto> OnSubmit { get; set; }
     
-    // The diet selections have to be passed for some reason, otherwise the last selections are remembered
+    // The diet selections have to be passed for some reason, otherwise the selections from the previous participant are displayed
     [Parameter]
     public List<AllergenSelection>? DietSelections {get ;set; }
 
     // We have to invoke the listening parent function and pass the participant with new diets to it
     private void OnClick()
     {
+        // Set the diets of participant passed to parent based on the selections
         CurrentParticipant.Diets = DietSelections!.Where(ds => ds.IsSelected).Select(ds => new AllergenDto() {Name = ds.Name}).ToList();
         OnSubmit.InvokeAsync(CurrentParticipant);
     }

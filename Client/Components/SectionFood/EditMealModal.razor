@@ -1,13 +1,16 @@
 @namespace Client.Components
 
+@* Modal for editing properties of a meal like name, type, and allergens that the meal contains *@
+@* The meal time and meal date are determined by the context given by the current day selected by the selector and the meal time container *@
+@* in which the current meal sits *@
+
 <EditForm Model="@MealFormData" OnValidSubmit="OnFormSubmit">
     <DataAnnotationsValidator/>
-    <ValidationSummary/>
 
     <div>
-        <label for="meal-name" > Meal name: </label> <br/>
+        <label for="meal-name"> Meal name: </label> <br/>
         <InputText id="meal-name" @bind-Value="MealFormData.Name"/> <br/>
-        <ValidationMessage For="() => MealFormData.Name" />
+        <ValidationMessage For="() => MealFormData.Name"/>
         <br/> 
     </div>
 
@@ -16,10 +19,10 @@
         <InputRadioGroup @bind-Value="MealFormData.MealType">
             @foreach (var mealType in MealTypes!)
             {
-                <InputRadio id="@mealType" Value="@mealType" /> <label for="@mealType"> @mealType </label> <br/>
+                <InputRadio id="@mealType" Value="@mealType"/> <label for="@mealType"> @mealType </label> <br/>
             }
         </InputRadioGroup>
-        <ValidationMessage For="() => MealFormData.MealType" />
+        <ValidationMessage For="() => MealFormData.MealType"/>
         <br/>
     </div>
 
@@ -27,7 +30,7 @@
         <label> Allergens: </label> <br/>
         @foreach (var allergenSelection in MealFormData.AllergenSelections!)
         {
-            <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected" /> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
+            <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected"/> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
         }
         <br/>
     </div>
@@ -38,6 +41,8 @@
 
 @code
 {
+
+    // Text shown on the submit button
     [Parameter]
     public string SubmitButtonText { get; set; } = "Confirm";
 
