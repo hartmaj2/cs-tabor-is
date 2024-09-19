@@ -2,6 +2,7 @@
 @layout SubLayoutFood
 @inject HttpClient Http
 @inject MealService MealService
+@inject AllergenService AllergenService
 
 <Modal @ref="editMealModal" />
 <Modal @ref="deleteMealModal" />
@@ -28,11 +29,8 @@ else
     {
         currentDate = new DateOnly(2024,09,03);
         await LoadMeals();
-        await LoadAllergens();
         await LoadMealTypes();
     }
-
-    private IEnumerable<AllergenDto>? allAllergens;
 
     private IEnumerable<string>? mealTypes;
 
@@ -46,12 +44,6 @@ else
         var mealsList = await Http.GetFromJsonAsync<List<MealDto>>($"api/meals/{dateString}");
         foreach (var meal in mealsList!) meal.Allergens = meal.Allergens.OrderBy(meal => meal.Name).ToList(); // order the allergens alphabetically
         meals = mealsList!.AsQueryable();
-    }
-
-    // Gets list of all allergens
-    private async Task LoadAllergens()
-    {
-        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
     }
 
     // Gets list of all meal types {"Soup","Main"}
@@ -113,7 +105,7 @@ else
     {
         currentModalMealTime = meal.MealTime;
         var parameters = new Dictionary<string,object>();
-        parameters.Add("MealFormData",meal.ToMealFormData(allAllergens!));
+        parameters.Add("MealFormData",meal.ToMealFormData(AllergenService.GetAllergenDtosAsync().Result));
         parameters.Add("MealTypes",mealTypes!);
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
         await editMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
