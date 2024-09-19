@@ -1,6 +1,7 @@
 @page "/food"
 @layout SubLayoutFood
 @inject HttpClient Http
+@inject MealService MealService
 
 <Modal @ref="editMealModal" />
 <Modal @ref="deleteMealModal" />
@@ -56,7 +57,7 @@ else
     // Gets list of all meal types {"Soup","Main"}
     private async Task LoadMealTypes()
     {
-        mealTypes = await Http.GetFromJsonAsync<List<string>>("api/meals/meal-types");
+        mealTypes = await MealService.GetMealTypesAsync();
     }
 
     private Modal editMealModal = default!;
