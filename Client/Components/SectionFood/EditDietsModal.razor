@@ -6,7 +6,7 @@
 {
     <div>
         <label> Diets: </label> <br/>
-        @foreach (var dietSelection in DietSelections!)
+        @foreach (var dietSelection in DietSelections)
         {
             <input id="@dietSelection.Name" type="checkbox" @bind="dietSelection.IsSelected"/> <label for="@dietSelection.Name"> @dietSelection.Name </label> <br/>
         }
@@ -34,13 +34,13 @@
     
     // The diet selections have to be passed for some reason, otherwise the selections from the previous participant are displayed
     [Parameter]
-    public List<AllergenSelection>? DietSelections {get ;set; }
+    public required List<AllergenSelection> DietSelections { get; set; }
 
     // We have to invoke the listening parent function and pass the participant with new diets to it
     private void OnClick()
     {
         // Set the diets of participant passed to parent based on the selections
-        CurrentParticipant.Diets = DietSelections!.Where(ds => ds.IsSelected).Select(ds => new AllergenDto() {Name = ds.Name}).ToList();
+        CurrentParticipant.Diets = DietSelections.Where(ds => ds.IsSelected).Select(ds => new AllergenDto() {Name = ds.Name}).ToList();
         OnSubmit.InvokeAsync(CurrentParticipant);
     }
 } 
