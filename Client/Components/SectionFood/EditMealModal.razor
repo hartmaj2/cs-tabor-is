@@ -51,7 +51,7 @@
     public string SubmitButtonText { get; set; } = "Confirm";
 
     [Parameter]
-    public required MealFormData MealFormData { get; set; } = new() {Name = string.Empty, MealType = string.Empty};
+    public required MealFormData MealFormData { get; set; } = MealFormData.CreateDefault();
 
     [Parameter]
     public required IEnumerable<string> MealTypes { get; set; }
@@ -78,12 +78,14 @@
         }
     }
     
+    // After a submit, the MealFormData needs to be reset so we don't see selections of our previous meal
     private async Task ResetMealFormData()
     {
-        MealFormData = new() {Name = string.Empty, MealType = string.Empty};
+        MealFormData = MealFormData.CreateDefault();
         await LoadAllergensToMealFormData();
     }
 
+    // Sets AllergenSelections of the MealFormData based on the allergens available using the allergen service
     private async Task LoadAllergensToMealFormData()
     {
         var allAllergens = await AllergenService.GetAllergenDtosAsync();

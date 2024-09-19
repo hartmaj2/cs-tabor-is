@@ -30,6 +30,11 @@ public class MealFormData
                 Allergens = AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
             };
     }
+
+    public static MealFormData CreateDefault()
+    {
+        return new MealFormData(){Name = string.Empty, MealType = string.Empty};
+    }
     
 }
 
