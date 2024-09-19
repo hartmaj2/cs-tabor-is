@@ -544,8 +544,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - [x] Allow also names with diacritic
   - [x] First/last name unit tests
   - [ ] Phone number
-- [ ] Make birth number an optional field
-  - [ ] If user enters birth number -> age gets calculated manually, otherwise -> you can enter age yourself
+- [x] Make birth number an optional field
+  - [x] If user enters birth number -> age gets calculated manually, otherwise -> you can enter age yourself
   
 ### DONE:
 - Implemented class for validating names
@@ -553,3 +553,27 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Unit tests for birth number
 - Unit tests for names
 - Phone number validation
+- The birth number is still required in my Participant and ParticipantDto because it is set automatically to empty string when nothing is input to it
+
+### 19.9.2024
+
+### TODO:
+- [ ] Calculate how much kB my project takes
+- [ ] Add detailed comments everywhere
+  - [ ] Client
+    - [ ] Components
+    - [ ] Layout
+    - [ ] Pages
+    - [ ] ViewModels
+    - [ ] Program.cs
+  - [ ] Server
+    - [ ] Controllers
+    - [ ] Data
+    - [ ] Program.cs
+  - [ ] Shared
+    - [ ] DBModels
+    - [ ] DTOs
+- [ ] Finish user documentation
+
+### DONE:
+- 
