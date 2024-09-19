@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 // Class used for custom validation of divisivility
 public class ValidBirthNumberAttribute : ValidationAttribute

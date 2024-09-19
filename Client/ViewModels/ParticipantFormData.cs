@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using BlazorBootstrap;
-using Microsoft.Extensions.Primitives;
 
 // This represents the participant data needed for the client side
 // The difference is, that this participant doesn't have Id property because that is not filled in the form by the user

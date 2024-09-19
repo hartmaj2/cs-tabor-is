@@ -3,8 +3,6 @@
 @layout SubLayoutParticipants
 @inject HttpClient Http
 @inject NavigationManager Navigation
-@using Microsoft.AspNetCore.Components.QuickGrid
-@using System.Text.Json
 
 <PageTitle> Participants </PageTitle>
 
@@ -180,7 +178,6 @@ else
     // The parameters are passed to the modal using dictionary with entries in format -> parameter_name : passed_value
     private void ShowDeleteParticipantModal(ParticipantDto participant)
     {
-        Console.WriteLine(JsonSerializer.Serialize(participant));
         var parameters = new Dictionary<string,object>();
         parameters.Add("CurrentParticipant",participant);
         parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,RequestParticipantDelete));
