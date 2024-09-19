@@ -1,5 +1,7 @@
 @namespace Client.Components
-@* This component represents two buttons that can control what date we want to view and also the displayed date in between the buttons *@
+
+@* This component represents the selector of the day, for which we want to see the menu  *@
+@* It consists of two buttons that can control what date we want to view and also the displayed date in between the buttons *@
 
 <div style="display: flex; justify-content: center; align-items: center;">
     <button class="btn btn-primary" @onclick="() => ChangeDate(-1)" > &lt; </button>
@@ -9,16 +11,17 @@
 
 @code
 {
-    // If the date was changed, we want to notify the parent component and pass it the new value of the current date
+    // If the date was changed, we want to notify the parent component and pass to it the new value of the current date
     private void ChangeDate(int amount)
     {
         CurrentDateChanged.InvokeAsync(CurrentDate.AddDays(amount));
     }
 
-    // Following properties are used when binding to them
+    // Following two properties are used for two way binding to the CurrentDate property using @bind-CurrentDate
     [Parameter]
     public DateOnly CurrentDate { get; set; }
 
+    // This event represents a change in CurrentDate value to which the parent component will bind
     [Parameter]
     public EventCallback<DateOnly> CurrentDateChanged { get ; set; }
 
