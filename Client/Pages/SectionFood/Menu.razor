@@ -29,10 +29,7 @@ else
     {
         currentDate = new DateOnly(2024,09,03);
         await LoadMeals();
-        await LoadMealTypes();
     }
-
-    private IEnumerable<string>? mealTypes;
 
     private IQueryable<MealDto>? meals;
 
@@ -46,12 +43,6 @@ else
         meals = mealsList!.AsQueryable();
     }
 
-    // Gets list of all meal types {"Soup","Main"}
-    private async Task LoadMealTypes()
-    {
-        mealTypes = await MealService.GetMealTypesAsync();
-    }
-
     private Modal editMealModal = default!;
 
     // All possible allergens to choose from get passed to the modal
@@ -63,7 +54,8 @@ else
         currentModalMealTime = mealTime;
         var parameters = new Dictionary<string,object>();
         parameters.Add("SubmitButtonText","Add meal");
-        parameters.Add("MealTypes",mealTypes!);
+        var mealTypes = await MealService.GetMealTypesAsync();
+        parameters.Add("MealTypes",mealTypes);
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealCreation));
         await editMealModal.ShowAsync<EditMealModal>(title: "Add meal", parameters:parameters);
     }
@@ -105,8 +97,10 @@ else
     {
         currentModalMealTime = meal.MealTime;
         var parameters = new Dictionary<string,object>();
-        parameters.Add("MealFormData",meal.ToMealFormData(AllergenService.GetAllergenDtosAsync().Result));
-        parameters.Add("MealTypes",mealTypes!);
+        var mealTypes = await MealService.GetMealTypesAsync();
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        parameters.Add("MealTypes",mealTypes);
+        parameters.Add("MealFormData",meal.ToMealFormData(allAllergens));
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
         await editMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
     }
