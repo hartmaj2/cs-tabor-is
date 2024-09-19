@@ -122,7 +122,6 @@ public class ParticipantFormData
     
     }
 
-
     public IList<AllergenSelection>? DietSelections;
 
     public ParticipantDto ConvertToParticipantDto()
@@ -147,7 +146,11 @@ public class ParticipantFormData
         return participant;
     }
 
-
+    // Factory method to create default participant
+    public static ParticipantFormData CreateDefault()
+    {
+        return new ParticipantFormData() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
+    }
 
 }
 

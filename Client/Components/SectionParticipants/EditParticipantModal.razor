@@ -5,7 +5,7 @@
 @code
 {
     [Parameter]
-    public ParticipantFormData Participant { get; set; } = new() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
+    public ParticipantFormData Participant { get; set; } = ParticipantFormData.CreateDefault();
 
     [Parameter]
     public EventCallback<ParticipantFormData> UpdateParticipant { get; set; }
@@ -18,6 +18,6 @@
 
     private void ResetParticipantFormData()
     {
-        Participant = new() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
+        Participant = ParticipantFormData.CreateDefault();
     }
 }
