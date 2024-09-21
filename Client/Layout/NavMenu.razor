@@ -23,10 +23,14 @@
 </div>
 
 @code {
+
+    // Backing field which the NavMenuCssClass uses for returning its string
     private bool collapseNavMenu = true;
 
+    // String that puts the correct class to the div containing the nav links
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    // Function to update the backing field
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
