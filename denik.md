@@ -555,7 +555,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Phone number validation
 - The birth number is still required in my Participant and ParticipantDto because it is set automatically to empty string when nothing is input to it
 
-### 19.9.2024
+## 19.9.2024
 
 ### TODO:
 - [x] Calculate how much kB my project takes
@@ -577,3 +577,15 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### DONE:
 - As of now, .cs files take 48kB and .razor take 49kB
+- Implemented AllergenService class that requests allAllergens from database once and then can return the list to components that injected this service on request (this is better because it lowers the amount of request I have to send from Client to Server)
+
+## 21.9.2024
+
+### TODO:
+- [ ] Use Allergen Service in Diets section also
+- [ ] Finish commenting my code
+- [ ] Fix naming of async functions
+
+### DONE:
+- Implemented AllergenService in diets section - important to type await before the returned value of async function!
+  - (await GetSomethingAsync() vs. GetSomethingAsync())
