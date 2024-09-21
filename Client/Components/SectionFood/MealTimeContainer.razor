@@ -1,10 +1,10 @@
 @namespace Client.Components
 
-@* This component will hold meals of given type for given date *@
+@* Component that holds meals for the date of the parent component and meal time that gets passed to this component from the parent component *@
 
 <div class="div-table-container">
     <div class="div-table-container-header">
-        <span> @MealTime </span>
+        <span> @ContainerMealTime </span>
         <button class="btn btn-primary" @onclick="OnAddMealButtonClicked"> + </button>
     </div>
     <div class="div-table">
@@ -15,7 +15,7 @@
             <div class="justify-center-col" > Orders count </div>
         </div>
         <div class="div-table-body">
-            @foreach (var meal in Meals!.Where(m => m.MealTime == MealTime).OrderBy(m => m, MealComparer.Instance))
+            @foreach (var meal in Meals.Where(m => m.MealTime == ContainerMealTime).OrderBy(m => m, MealComparer.Instance))
             {
                 <div class="div-table-row" >
                     <div> @meal.Name </div>
@@ -37,21 +37,24 @@
 
 @code
 {
-    [Parameter]
-    public DateOnly Date { get; set; }
 
+    // The meal time (lunch,dinner) of the foods that this container displays
     [Parameter]
-    public MealTime MealTime { get; set; }
+    public required MealTime ContainerMealTime { get; set; }
 
+    // Reference to all meals for this date
     [Parameter]
-    public IQueryable<MealDto>? Meals { get; set; }
+    public required IEnumerable<MealDto> Meals { get; set; }
 
+    // Callback for the event triggered by the add meal button in the top right corner of the container
     [Parameter]
-    public EventCallback OnAddMealButtonClicked { get; set; }
+    public required EventCallback OnAddMealButtonClicked { get; set; }
 
+    // Callback for the event triggered by the add meal button for given meal. The meal is passed to the parent function in the function parameter
     [Parameter]
-    public EventCallback<MealDto> OnDeleteButtonClicked { get; set; }
+    public required EventCallback<MealDto> OnDeleteButtonClicked { get; set; }
 
+    // Callback for the event triggered by the edit meal button for given meal. (On the right side of the container row for this meal)
     [Parameter]
-    public EventCallback<MealDto> OnEditButtonClicked { get; set; }
+    public required EventCallback<MealDto> OnEditButtonClicked { get; set; }
 }
