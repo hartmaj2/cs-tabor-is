@@ -30,7 +30,7 @@ else
                 <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(3)" > Age @headerArrows[3] </button> </div>
                 <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(4)" > Phone number @headerArrows[4] </button> </div>
                 <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(5)" > Birth number @headerArrows[5] </button> </div>
-                <div class="button-right-container" style="flex:150"> </div>
+                <div style="flex:@colWidths[6]" class="button-right-container"> </div>
             </div>
             <div class="div-table-header">
                 <div style="flex:@colWidths[0]" class="div-table-h-col">  <input class="id-search-box" @bind="idFilter.FilterText" @bind:event="oninput" placeholder="..." type="text"/> </div>
@@ -56,7 +56,7 @@ else
                 </div>
                 <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div class="button-right-container" style="flex:150"> <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> </div>
+                <div style="flex:@colWidths[6]" class="button-right-container"> <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> </div>
                  
             </div>
             <div class="div-table-body">
@@ -64,13 +64,13 @@ else
                 @foreach(var participant in sortedParticipants!)
                 {
                     <div class="div-table-row">
-                        <div style="flex:@colWidths[0]" > @participant.Id </div>
+                        <div style="flex:@colWidths[0]"> @participant.Id </div>
                         <div style="flex:@colWidths[1]"> @participant.FirstName </div>
                         <div style="flex:@colWidths[2]"> @participant.LastName </div>
-                        <div class="justify-center-col" style="flex:@colWidths[3]"> @participant.Age </div>
-                        <div class="justify-center-col" style="flex:@colWidths[4]"> @participant.PhoneNumber </div>
-                        <div class="justify-center-col" style="flex:@colWidths[5]"> @participant.BirthNumber </div>
-                        <div class="button-right-container" style="flex:150"> 
+                        <div style="flex:@colWidths[3]" class="justify-center-col"> @participant.Age </div>
+                        <div style="flex:@colWidths[4]" class="justify-center-col"> @participant.PhoneNumber </div>
+                        <div style="flex:@colWidths[5]" class="justify-center-col"> @participant.BirthNumber </div>
+                        <div style="flex:@colWidths[6]" class="button-right-container"> 
                             <button class="btn btn-primary" @onclick="() => ShowEditParticipantModal(participant)" > Edit </button>
                             <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
                         </div>
@@ -87,7 +87,7 @@ else
 @code
 {
 
-    private int[] colWidths = {70,150,150,100,160,150};
+    private int[] colWidths = {70,150,150,100,160,150,150};
     private IEnumerable<ParticipantDto>? participantDtos;
  
     // Used to filter by age using lower and upper bound
