@@ -221,7 +221,6 @@ code {
 
 .button-right-container {
     display: flex;
-    background-color: aqua;
     justify-content: right;
     padding: 0px 5px 0px 5px;
     gap: 10px;
