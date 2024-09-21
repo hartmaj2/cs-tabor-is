@@ -1,29 +1,39 @@
 @namespace Client.Components
 
-<div style="display:flex">
-    <div>
-        <h2 style="width:120px"> General information </h2>
-        @* Use my custom component with 2-way-binding to its value *@
-        <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmit"> Confirm </ParticipantForm> 
+<div class="modal-div">
+
+    <div class="modal-section-headers"> 
+        <div class="modal-section-header"> <div> General information </div> </div>
+        <div class="modal-section-header"> <div> Diets </div> </div>
     </div>
 
-    @if (Participant.DietSelections != null)
-    {
-        <div style="margin-left:90px">
-            <h2> Diets </h2>
-            @foreach (var selection in Participant.DietSelections)
-            {
-                <div>
-                    <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
-                    
-                </div>
-            }
+    <div class="modal-sections">
+        <div class="modal-section">
+            @* Use my custom component with 2-way-binding to its value *@
+            <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmit"> Confirm </ParticipantForm> 
         </div>
-    }
-    else
-    {
-        <p> Loading diets.. </p>
-    }
+
+        @if (Participant.DietSelections != null)
+        {
+            <div class="modal-section">
+                <div class="modal-allergen-selections">       
+                    @foreach (var selection in Participant.DietSelections)
+                    {
+                        <div class="modal-allergen-selection">
+                            <div style="flex:2"></div>
+                            <label style="flex: 3"> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
+                            <div style="flex:1"></div>
+                        </div>
+                        
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <p> Loading diets.. </p>
+        }
+    </div>
 </div>
 @code
 {

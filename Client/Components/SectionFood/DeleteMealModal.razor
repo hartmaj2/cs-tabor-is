@@ -3,7 +3,7 @@
 @* Modal that asks the user if he/she really wants to delete the meal from the menu *@
 
 <div class="modal-div">
-    <p> Are you sure you want to delete @CurrentMeal.Name ? </p>
+    <div class="modal-text"> Are you sure you want to delete @CurrentMeal.Name ? </div>
     <div class="modal-buttons">
         <button class="btn btn-primary" @onclick="OnDeleteButton"> Yes </button>
         <button class="btn btn-primary" @onclick="OnRejectButton"> No </button>

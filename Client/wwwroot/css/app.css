@@ -134,19 +134,56 @@ code {
 .modal-div {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 15px;
+    padding: 5px 0px 5px 0px;
 }
 
 .modal-buttons {
+    column-gap: 10px;
+    justify-content: center;
+}
+
+.modal-text {
+    text-align: center;
+}
+
+.modal-buttons, .modal-sections, .modal-section-headers {
     display: flex;
     flex-direction: row;
-    column-gap: 10px;
+}
+
+.modal-section-headers, .modal-sections {
+    align-content: stretch;
+}
+
+.modal-section-header {
+    display: flex;
+    flex: 1;
+    font-size: xx-large;
+    font-weight: 500;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.modal-section {
+    flex: 1;
+    padding: 0px 10px 0px 10px;
+}
+
+.modal-allergen-selections
+{
+    display: flex;
+    flex-direction: column; 
+}
+
+.modal-allergen-selection {
+    display: flex;  
 }
 
 /* Used by column showing selector */
 .checkbox-label {
     border-radius: 10px;
-    border: 1px solid black;
     padding: 5px 10px 5px 10px;
     margin: 5px 10px 5px 10px;
 }
