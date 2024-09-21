@@ -13,6 +13,7 @@
             <div> Type </div>
             <div> Allergens </div>
             <div class="justify-center-col" > Orders count </div>
+            <div class="button-right-container"></div>
         </div>
         <div class="div-table-body">
             @foreach (var meal in Meals.Where(m => m.MealTime == ContainerMealTime).OrderBy(m => m, MealComparer.Instance))
@@ -27,8 +28,10 @@
                         }
                     </div>
                     <div class="justify-center-col" > @meal.Orders!.Count </div>
-                    <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Edit </button>
-                    <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Delete </button>
+                    <div class="button-right-container">
+                        <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Edit </button>
+                        <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Delete </button>
+                    </div>
                 </div>
             }
         </div>

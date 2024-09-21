@@ -15,13 +15,14 @@
                 <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name @headerArrows![0] </button> </div>
                 <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name @headerArrows[1] </button> </div>
                 <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)"> Diets @headerArrows[2] </button> </div>
+                <div class="button-right-container">  </div>
             </div>
             <div class="div-table-header">
                 <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div class="div-table-h-col">
-                    <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
-                        <DropdownToggleButton Class="filter-button"> Filter diets </DropdownToggleButton>
+                    <Dropdown Color="DropdownColor.Secondary" Style="width:50%" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
+                        <DropdownToggleButton Class="filter-button" > Filter diets </DropdownToggleButton>
                         <DropdownMenu Class="px-3" Style="width:150px;">
                             @foreach (var dietSelection in filterDietSelections)
                             {
@@ -30,7 +31,8 @@
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button>
+                <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> </div>
+                
             </div>
             <div class="div-table-body">
                 @if (participantDtos == null)
@@ -44,15 +46,16 @@
                     @foreach(var participant in sortedParticipants!)
                     {
                         <div class="div-table-row">
-                            <div> @participant.FirstName </div>
-                            <div> @participant.LastName </div>
-                            <div>
+                            <div style="flex:1"> @participant.FirstName </div>
+                            <div style="flex:1" > @participant.LastName </div>
+                            <div style="flex:1" >
                                 @foreach(var diet in participant.Diets)
                                 {
                                     <span> @diet.Name,  </span>
                                 }
                             </div>
-                            <button class="btn btn-primary" @onclick="() => ShowEditDietsModalAsync(participant)"> Edit diets </button>
+                            <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => ShowEditDietsModalAsync(participant)"> Edit diets </button> </div>
+                            
                         </div>
                     }
                 }

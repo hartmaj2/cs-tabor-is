@@ -24,18 +24,19 @@ else
         </div>
         <div class="div-table">
             <div class="div-table-header">
-                <div style="width:@colWidths[0]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)" > Id @headerArrows![0] </button> </div>
-                <div style="width:@colWidths[1]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)" > First name @headerArrows[1] </button> </div>
-                <div style="width:@colWidths[2]px" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)" > Last name @headerArrows[2] </button> </div>
-                <div style="width:@colWidths[3]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(3)" > Age @headerArrows[3] </button> </div>
-                <div style="width:@colWidths[4]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(4)" > Phone number @headerArrows[4] </button> </div>
-                <div style="width:@colWidths[5]px" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(5)" > Birth number @headerArrows[5] </button> </div>
+                <div style="flex:@colWidths[0]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)" > Id @headerArrows![0] </button> </div>
+                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)" > First name @headerArrows[1] </button> </div>
+                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)" > Last name @headerArrows[2] </button> </div>
+                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(3)" > Age @headerArrows[3] </button> </div>
+                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(4)" > Phone number @headerArrows[4] </button> </div>
+                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(5)" > Birth number @headerArrows[5] </button> </div>
+                <div class="button-right-container" style="flex:150"> </div>
             </div>
             <div class="div-table-header">
-                <div style="width:@colWidths[0]px" class="div-table-h-col">  <input style="width:@(colWidths[0]-20)px" class="name-search-box" @bind="idFilter.FilterText" @bind:event="oninput" placeholder="..." type="text"/> </div>
-                <div style="width:@colWidths[1]px" class="div-table-h-col"> <input style="width:@(colWidths[1]-30)px" class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="width:@colWidths[2]px" class="div-table-h-col"> <input style="width:@(colWidths[2]-30)px" class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="width:@colWidths[3]px" class="div-table-h-col">
+                <div style="flex:@colWidths[0]" class="div-table-h-col">  <input class="id-search-box" @bind="idFilter.FilterText" @bind:event="oninput" placeholder="..." type="text"/> </div>
+                <div style="flex:@colWidths[1]" class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="flex:@colWidths[2]" class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="flex:@colWidths[3]" class="div-table-h-col">
                     <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
                         <DropdownToggleButton Class="filter-button"> Filter </DropdownToggleButton>
                         <DropdownMenu Class="px-3" Style="width:150px;">
@@ -53,23 +54,26 @@ else
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div style="width:@colWidths[4]px" class="div-table-h-col justify-center-col"> <input style="width:@(colWidths[4]-50)px" class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="width:@colWidths[5]px" class="div-table-h-col justify-center-col"> <input style="width:@(colWidths[5]-40)px" class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> 
+                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div class="button-right-container" style="flex:150"> <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> </div>
+                 
             </div>
             <div class="div-table-body">
 
                 @foreach(var participant in sortedParticipants!)
                 {
                     <div class="div-table-row">
-                        <div style="width:@colWidths[0]px" > @participant.Id </div>
-                        <div style="width:@colWidths[1]px"> @participant.FirstName </div>
-                        <div style="width:@colWidths[2]px"> @participant.LastName </div>
-                        <div class="justify-center-col" style="width:@colWidths[3]px"> @participant.Age </div>
-                        <div class="justify-center-col" style="width:@colWidths[4]px"> @participant.PhoneNumber </div>
-                        <div class="justify-center-col" style="width:@colWidths[5]px"> @participant.BirthNumber </div>
-                        <button class="btn btn-primary" @onclick="() => ShowEditParticipantModal(participant)" > Edit </button>
-                        <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
+                        <div style="flex:@colWidths[0]" > @participant.Id </div>
+                        <div style="flex:@colWidths[1]"> @participant.FirstName </div>
+                        <div style="flex:@colWidths[2]"> @participant.LastName </div>
+                        <div class="justify-center-col" style="flex:@colWidths[3]"> @participant.Age </div>
+                        <div class="justify-center-col" style="flex:@colWidths[4]"> @participant.PhoneNumber </div>
+                        <div class="justify-center-col" style="flex:@colWidths[5]"> @participant.BirthNumber </div>
+                        <div class="button-right-container" style="flex:150"> 
+                            <button class="btn btn-primary" @onclick="() => ShowEditParticipantModal(participant)" > Edit </button>
+                            <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
+                        </div>
                     </div>
                 }
                 
