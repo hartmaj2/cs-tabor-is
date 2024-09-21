@@ -129,7 +129,7 @@ code {
     color: #c02d76;
 }
 
-/* MODAL */
+/* MODALS */
 
 .modal-div {
     display: flex;
@@ -180,6 +180,8 @@ code {
 .modal-allergen-selection {
     display: flex;  
 }
+
+/* COLUMN SHOWING SELECTOR */
 
 /* Used by column showing selector */
 .checkbox-label {
