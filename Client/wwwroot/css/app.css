@@ -165,8 +165,7 @@ code {
     background-color:rgb(185, 185, 185);
 }
 
-.div-table-container-header > span {
-    margin-left: 10px;
+.div-table-container-header > div {
     font-size: x-large;
 }
 
@@ -175,28 +174,17 @@ code {
     font-weight: 500;
 }
 
-.div-table-header > *:first-child, .div-table-row > *:first-child {
-    margin-left: 10px;
-}
-
-.div-table-header > div, .div-table-header > button, .div-table-row > div {
+.div-table-header > div, .div-table-header > button, .div-table-row > div, .div-table-container-header > div {
     flex: 1;
+    padding: 0px 5px 0px 5px;
 }
 
-.div-table-container-header > button, .div-table-row > button, .div-table-header > button {
-    margin-right: 10px;
-}
-
-/* The first button is always pushed right as much as it can using margin-left: auto */
-.div-table-container-header > button:first-of-type, .div-table-row > button:first-of-type, .div-table-header > button:first-of-type {
-    margin-left : auto;
-}
-
-.div-table-row, .div-table-header{
+.div-table-row, .div-table-header, .div-table-container-header {
     display: flex; 
     flex-wrap: wrap;
     align-items: center; 
     border-bottom: 1px solid grey;
+    padding: 0px 5px 0px 5px;
 }
 
 .div-table-header {
@@ -235,7 +223,7 @@ code {
     display: flex;
     background-color: aqua;
     justify-content: right;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 5px 0px 5px;
     gap: 10px;
 }
 
