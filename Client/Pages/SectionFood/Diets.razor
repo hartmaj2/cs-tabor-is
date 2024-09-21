@@ -1,6 +1,7 @@
 @page "/food/diets"
 @layout SubLayoutFood
 @inject HttpClient Http
+@inject AllergenService AllergenService
 
 <Modal @ref="editDietsModal" />
 
@@ -164,23 +165,14 @@
         }
     }
 
-    private List<AllergenDto>? allAllergens;
-
-    // Gets list of all allergens
-    private async Task LoadAllergens()
-    {
-        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
-    }
-
     // Initialize filters must be called after the filter diet selections are initialized (the diet filter uses the selections)
     // The filter diet selections can only be initialized after the allergens are loaded (diet selection are dependent on the list of all possible allergens)
     // So it is necessary to call 1. LoadAllergens(); 2. InitializeFilterDietSelections(); 3. InitializeFilters();
     protected override async Task OnInitializedAsync()
     {
-        await LoadAllergens();
-        InitializeFilterDietSelections();
-        InitializeFilters();
         headerArrows = new string[participantSorters.Length];
+        await InitializeFilterDietSelections();
+        InitializeFilters();
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
         foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
     }
@@ -194,15 +186,16 @@
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("CurrentParticipant",selectedParticipant);
-        parameters.Add("DietSelections",GetParticipantDietSelections(selectedParticipant));
+        parameters.Add("DietSelections",await GetParticipantDietSelections(selectedParticipant));
         parameters.Add("OnSubmit",EventCallback.Factory.Create<ParticipantDto>(this,RequestParticipantEdit));
         await editDietsModal.ShowAsync<EditDietsModal>(title: $"Edit {selectedParticipant.FirstName}'s diets", parameters:parameters);
     }
 
     // Helper method to get diet selection list for the given participant
-    private List<AllergenSelection> GetParticipantDietSelections(ParticipantDto participant)
+    private async Task<List<AllergenSelection>> GetParticipantDietSelections(ParticipantDto participant)
     {
-        var dietSelections = allAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name, IsSelected = false}).ToList();
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        var dietSelections = allAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name, IsSelected = false}).ToList();
         foreach (var selection in dietSelections)
         {
             // Check if the name of this selection is contained in diet names of current participant
@@ -220,10 +213,11 @@
 
     private List<AllergenSelection>? filterDietSelections;
 
-    private void InitializeFilterDietSelections()
+    private async Task InitializeFilterDietSelections()
     {
         filterDietSelections = new();
-        foreach (var allergen in allAllergens!)
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        foreach (var allergen in allAllergens)
         {
             filterDietSelections.Add(new AllergenSelection() {Name = allergen.Name} );
         }
