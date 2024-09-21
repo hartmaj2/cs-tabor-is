@@ -608,3 +608,11 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Improved styling by making it more general
   - Instead of relying on `first-child` in the selector to create margin on first elements in a row I added a padding to each row and padding to each div inside a row
 - Switched the min-width inside the `@media` query so the adjustment of the nav bar to the top happens sooner
+- Fixed style issue with add participant modal when long validation error messages pushed diets selection out to the side
+  - Added more divs and classes to app.css
+
+### 22.9.2024
+
+### TODO:
+- [ ] Comments of participant section components
+- [ ] Add a div-table-r-col class to app.css and add flex:1 to it by default
