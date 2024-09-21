@@ -582,10 +582,29 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 21.9.2024
 
 ### TODO:
-- [ ] Use Allergen Service in Diets section also
+- [x] Use Allergen Service in Diets section also
 - [ ] Finish commenting my code
+  - [ ] Client
+      - [x] Components
+      - [ ] Layout
+      - [ ] Pages
+      - [ ] ViewModels
+      - [ ] Program.cs
+    - [ ] Server
+      - [ ] Controllers
+      - [ ] Data
+      - [ ] Program.cs
+    - [ ] Shared
+      - [ ] DBModels
+      - [ ] DTOs
 - [ ] Fix naming of async functions
 
 ### DONE:
 - Implemented AllergenService in diets section - important to type await before the returned value of async function!
   - (await GetSomethingAsync() vs. GetSomethingAsync())
+- Fixed issue with div table buttons going out of the flexbox and the size not adjusting to window size
+  - Made use of `flex` attribute instead of `width`, `flex` works like a ratio and not like a hard coded value which is better when resizing window
+  - Also added a container that holds all the buttons on the right side of the table for better alignment (now each row has the same number of columns no metter how much buttons it has)
+- Improved styling by making it more general
+  - Instead of relying on `first-child` in the selector to create margin on first elements in a row I added a padding to each row and padding to each div inside a row
+- Switched the min-width inside the `@media` query so the adjustment of the nav bar to the top happens sooner
