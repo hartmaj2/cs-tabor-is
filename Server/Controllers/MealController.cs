@@ -5,18 +5,20 @@ using Server.Data;
 [ApiController]
 [Route("api/meals")]
 
+// Used to handle all request for creating, deleting or editing meals
+// Also provides way to bulk add meals from single json request or getting the meals for a given date only
 public class MealsController : ControllerBase
 {
 
     private readonly TaborIsDbContext _context;
 
-    // The context gets injected using dependency injection
+    // The context gets injected automatically using dependency injection
     public MealsController(TaborIsDbContext context)
     {
         _context = context;
     }
 
-    // Adds a meal to the meals table
+    // Adds a meal to the Meals table
     [HttpPost("add")]
     public IActionResult AddMeal([FromBody] MealDto received)
     {
@@ -25,7 +27,7 @@ public class MealsController : ControllerBase
         return CreatedAtAction(nameof(GetAllMeals),received);
     }
 
-    // Adds a list of meals to the meals table
+    // Adds a list of meals to the Meals table
     [HttpPost("add-many")]
     public IActionResult AddMeals([FromBody] ICollection<MealDto> receiveds)
     {
@@ -38,8 +40,8 @@ public class MealsController : ControllerBase
     }
 
     // Gets the list of all meals from the meals table
-    // I have to map all Meal objects to MealCreateDtos because I want to be getting a list of all allergens for every meal
-    // (also uses eager loading with Include and then Include)
+    // I have to map all Meal objects to MealDtos because I want to be getting a list of AllergenDtos for every meal (I don't want to be getting the db representation directly)
+    // (also uses eager loading with Include and ThenInclude)
     [HttpGet("all")]
     public IEnumerable<MealDto> GetAllMeals()
     {
@@ -66,6 +68,7 @@ public class MealsController : ControllerBase
     }
 
     // Gets the list of names of possible enum values for meal type
+    // Used by the MealService of Client
     [HttpGet("meal-types")]
     public IEnumerable<string> GetMealTypes()
     {
