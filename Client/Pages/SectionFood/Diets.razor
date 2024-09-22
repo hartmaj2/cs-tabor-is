@@ -35,7 +35,7 @@
                 
             </div>
             <div class="div-table-body">
-                @if (participantDtos == null)
+                @if (sortedParticipants == null)
                 {
                     <div class="div-table-row">
                         <span> Loading participants... </span>
@@ -43,7 +43,7 @@
                 }
                 else
                 {
-                    @foreach(var participant in sortedParticipants!)
+                    @foreach(var participant in sortedParticipants)
                     {
                         <div class="div-table-row">
                             <div style="flex:1"> @participant.FirstName </div>
@@ -69,15 +69,16 @@
 @code
 {
 
-    // Initialize the concrete filters (I want to have them named)
+    // Initialize the concrete filters (I need to have them named because I have to bind to their specific values)
+    // Couldn't just bind to any IParticipantFilter, because that inteface only provides the GetFiltered method and nothing to bind to
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
     private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
-
     private DietsFilter? dietsFilter;
 
+    // Holds the list of filters and provides way to reset all the filters
+    // Has to be initialized by calling InitializeFilteringManagerAsync method
     private ColumnFilteringManager? filteringManager;
     
-
     // Add all filters to the filters list so I can apply them all sequentially
     private async Task InitializeFilteringManagerAsync()
     {
@@ -103,8 +104,14 @@
         get 
         {
 
+            // if necessary fields aren't loaded, just return null
+            if (filteringManager == null || participantDtos == null)
+            {
+                return null;
+            }
+
             // first filter participants
-            var filteredParticipants = filteringManager!.GetFilteredParticipants(participantDtos!);
+            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
 
             // then sort them
             return sortingManager.GetSortedParticipants(filteredParticipants);
