@@ -83,3 +83,29 @@ public class DietsFilter : IParticipantFilter
         foreach (var selection in DietSelections) selection.IsSelected = false;
     }
 }
+
+public class ColumnFilteringManager
+{
+    // Stores all the filters to be applied to participants
+    public IList<IParticipantFilter> Filters { get; private set; }
+
+    public ColumnFilteringManager(IList<IParticipantFilter> participantFilters)
+    {
+        Filters = participantFilters;
+    }
+
+    // Resets all filters so we can see all participants
+    public void ResetFilters()
+    {
+        foreach (var filter in Filters)
+        {
+            filter.Reset();
+        }
+    }
+
+    // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
+    public IEnumerable<ParticipantDto> GetFilteredParticipants(IEnumerable<ParticipantDto> unfilteredParticipants)
+    {
+        return Filters.Aggregate(unfilteredParticipants, (accumulatedParticipants,currentFilter) => currentFilter.GetFiltered(accumulatedParticipants));
+    }
+}

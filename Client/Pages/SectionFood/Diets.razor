@@ -6,7 +6,7 @@
 <Modal @ref="editDietsModal" />
 
 @* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
-@if (dietsFilter != null && dietsFilter.DietSelections != null)
+@if (filteringManager != null && dietsFilter != null && dietsFilter.DietSelections != null)
 {
     <div class="div-table-container">
         <div class="div-table-container-header"> <div> Diets </div> </div>
@@ -31,7 +31,7 @@
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> </div>
+                <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> </div>
                 
             </div>
             <div class="div-table-body">
@@ -75,26 +75,26 @@
 
     private DietsFilter? dietsFilter;
 
-    // Stores all the filters to be applied to participants
-    private IList<IParticipantFilter> participantFilters = new List<IParticipantFilter>();
+    private ColumnFilteringManager? filteringManager;
+    
 
     // Add all filters to the filters list so I can apply them all sequentially
-    private async Task InitializeFiltersAsync()
+    private async Task InitializeFilteringManagerAsync()
     {
-        participantFilters.Add(firstNameFilter);
-        participantFilters.Add(lastNameFilter);
+
         dietsFilter = new DietsFilter() {DietSelections = await GetFilterDietSelectionsAsync()};
-        participantFilters.Add(dietsFilter);
+        filteringManager = 
+            new ColumnFilteringManager
+                (
+                    new List<IParticipantFilter>()
+                        {
+                            firstNameFilter,
+                            lastNameFilter,
+                            dietsFilter
+                        }
+                );
     }
 
-    // Resets all filters so we can see all participants
-    private void ResetFilters()
-    {
-        foreach (var filter in participantFilters)
-        {
-            filter.Reset();
-        }
-    }
     private IEnumerable<ParticipantDto>? participantDtos;
 
     // Provides a getter that first filters and then sorts the participants
@@ -103,12 +103,7 @@
         get 
         {
 
-            // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
-            var filteredParticipants = 
-                participantFilters.Aggregate(
-                    participantDtos!,
-                    (participantsSoFar,currentFilter) => currentFilter.GetFiltered(participantsSoFar)
-                    );
+            var filteredParticipants = filteringManager!.GetFilteredParticipants(participantDtos!);
 
             // then sort them
             return filteredParticipants.OrderBy(sortingManager.GetActiveSorterKeySelector(),sortingManager.GetActiveSorterKeyComparer());
@@ -133,7 +128,7 @@
     // So it is necessary to call 1. LoadAllergens(); 2. InitializeFilterDietSelectionsAsync(); 3. InitializeFilters();
     protected override async Task OnInitializedAsync()
     {
-        await InitializeFiltersAsync();
+        await InitializeFilteringManagerAsync();
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
         foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
     }
