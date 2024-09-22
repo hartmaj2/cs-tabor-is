@@ -619,22 +619,24 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - [x] Use ColumnSortingManager inside Participants section
 - [x] Make arrays in ColumnSortingManager readonly for the outside
 - [ ] Finish commenting my code
-  - [ ] Client
+  - [x] Client
       - [x] Components
       - [x] Layout
-      - [ ] Pages
-      - [ ] ViewModels
-      - [ ] Program.cs
-    - [ ] Server
-      - [ ] Controllers
-      - [ ] Data
-      - [ ] Program.cs
-    - [ ] Shared
-      - [ ] DBModels
-      - [ ] DTOs
+      - [x] Pages
+      - [x] Services
+      - [x] ViewModels
+      - [x] Program.cs
+    - [x] Server
+      - [x] Controllers
+      - [x] Data
+      - [x] Program.cs
+    - [x] Shared
+      - [x] DBModels
+      - [x] DTOs
 - [ ] Add a div-table-r-col class to app.css and add flex:1 to it by default
 
 ### DONE:
 - Used allergen service in Participant section modals
 - Removed unnecessary method that set focus on first label of participant form
-- Implemented ColumnSortingManager which will allow me to not repeat myself
+- Implemented ColumnSortingManager to hide sorting logic from the components that need column sorting
+- Implemented ColumnFilteringManager for the same reason as above (problem is, we have to bind to filter values so the filters have to be named explicitly)
