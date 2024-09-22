@@ -614,5 +614,24 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ### 22.9.2024
 
 ### TODO:
-- [ ] Comments of participant section components
+- [x] Comments of participant section components
+- [ ] Finish commenting my code
+  - [ ] Client
+      - [x] Components
+      - [x] Layout
+      - [ ] Pages
+      - [ ] ViewModels
+      - [ ] Program.cs
+    - [ ] Server
+      - [ ] Controllers
+      - [ ] Data
+      - [ ] Program.cs
+    - [ ] Shared
+      - [ ] DBModels
+      - [ ] DTOs
 - [ ] Add a div-table-r-col class to app.css and add flex:1 to it by default
+
+### DONE:
+- Used allergen service in Participant section modals
+- Removed unnecessary method that set focus on first label of participant form
+- Implemented ColumnSortingManager which will allow me to not repeat myself
