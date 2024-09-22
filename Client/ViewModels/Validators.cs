@@ -1,12 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 
-// Class used for custom validation of divisivility
+// Used for custom validation of a birth number (correct lentgth, digits only, divisibility by 11, digits represent valid date)
 public class ValidBirthNumberAttribute : ValidationAttribute
 {
 
-    public static ValidBirthNumberAttribute Instance = new();
-
+    // Only support 10 digit Czech birth numbers (these are the ones issued after 1.1.1954)
     private const int CorrectDigitsCount = 10;
+
+    // Used by ParticipantFormData BirthNumber setter to make sure that the birth number is valid before computing the age automatically
+    public static ValidBirthNumberAttribute Instance = new();
 
     // Here for some reason the form was not validating properly when using ValidationResult overload of the IsValid method
     // If I returned new ValidationResult with an error message, the form still showed the box as green even though the error message was displayed
@@ -50,6 +52,10 @@ public class ValidBirthNumberAttribute : ValidationAttribute
         return true;
     }
 
+    // Check divisibility by the following rule:
+    //  1. take the sum of digits on even numbered places (indexing from 0)
+    //  2. subtract the sum of digits at odd numbered places
+    //  3. check if the result is divisible by 11
     private static bool IsDivisibleByEleven(string birthNumber)
     {
         int checkSum = 0;
@@ -62,6 +68,7 @@ public class ValidBirthNumberAttribute : ValidationAttribute
         return checkSum % 11 == 0;
     }
 
+    // Check if date is valid by using the built-in DateOnly.TryParseExact function    
     private static bool RepresentsValidDate(string birthNumber)
     {
         var month = ParseMonth(birthNumber[2..4]).ToString("D2"); // D2 tells the parser to make the number at least 2 digits long
@@ -83,12 +90,14 @@ public class ValidBirthNumberAttribute : ValidationAttribute
 
 }
 
-// This class implements validation with more accurate error messages
+// Implements name validation with more accurate error messages than if I used a single regex pattern match
 public class ValidNameAttribute : ValidationAttribute
 {
 
+    // The separators we allow in a name are space, hyphen-minus or single quote (Johan Sebastian, Jane-Anne, O'Brian)
     private static readonly char[] Separators = [' ','-','\''];
 
+    // Backing field used to print custom error messages based on which property is being validated
     private string _validatedPropertyName;
 
     public ValidNameAttribute(string validatedPropertyName)
@@ -124,16 +133,16 @@ public class ValidNameAttribute : ValidationAttribute
                     {
                         ErrorMessage = $"{_validatedPropertyName} can only contain punctuation at the end of a word.";
                     }
-                    if (word[i] != '.' && word[i] != ',')
+                    if (word[i] != '.') // . can be in names that contain Jr. or Bc. or similar
                     {
-                        ErrorMessage = $"The only punctuation {_validatedPropertyName} can contain is . , or ' ";
+                        ErrorMessage = $"The only punctuation {_validatedPropertyName} can contain is . or ' ";
                     }
                 }
                 else if (!char.IsLetter(word[i]))
                 {
                     ErrorMessage = $"{_validatedPropertyName} can't contain special special characters.";
                 }
-                if (ErrorMessage is not null)
+                if (ErrorMessage is not null) // there was some error becuase we set the ErrorMessage to something
                 {
                     return false;
                 }
@@ -145,16 +154,19 @@ public class ValidNameAttribute : ValidationAttribute
     }
 }
 
+
+// Validates phone number based on if there is + at the start or not
+// + at start is automatically removed by the ParticipantForm PhoneNumber setter if the number starts with +420 so we know that Czech numbers don't have + at start
 public class ValidPhoneNumberAttribute : ValidationAttribute
 {
     public override bool IsValid(object? value)
     {
         var stringValue = (string) value!;
         bool isForeign = false;
-        if (stringValue[0] == '+') 
+        if (stringValue[0] == '+')
         {
-            stringValue = stringValue[1..];
-            isForeign = true;
+            stringValue = stringValue[1..]; // remove + if it was at start
+            isForeign = true; // only foreign numbers are allowed to start with +
         }
         if (!ContainsOnlyDigits(stringValue))
         {
@@ -196,11 +208,14 @@ public class ValidPhoneNumberAttribute : ValidationAttribute
 
 }
 
+// Custom IntegerRangeValidator 
+// (it is better than the built-in because it allows me to show custom error messages based on the range I provided without having to hard code the number range inside the message)
 public class IntegerRangeValidator : ValidationAttribute
 {
     private int _minValue;
     private int _maxValue;
 
+    // Backing field used to print custom error messages based on which property is being validated
     private string _validatedPropertyName;
 
     public IntegerRangeValidator(int min, int max, string propertyName)
