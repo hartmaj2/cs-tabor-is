@@ -76,18 +76,22 @@ public class ParticipantSorter<T>
 
 }
 
+// Used by div tables to sort the columns and track the corresponding arrows that should be displayed next to the active sorting column
 public class ColumnSortingManager
 {
     private ParticipantSorter<object>[] _participantSorters;
 
     private string[] _headerArrows;
 
-    // Property that makes it impossible to assign to the backing field from the outside of this class
+    // Getter only property that makes it impossible to assign to the backing field from the outside of this class
     public IReadOnlyList<string> HeaderArrows => Array.AsReadOnly(_headerArrows);
 
     // Current index by which we are sorting
     private int activeColumnIndex;
 
+    // Constructor takes: 
+    //  1. the array of all sorters (combinations of key selectors and key comparers that can reverse direction) 
+    //  2. index of column which I want to have sorted on page initialization
     public ColumnSortingManager(ParticipantSorter<object>[] participantSorters, int initialActiveColumnIndex)
     {
         _participantSorters = participantSorters;
