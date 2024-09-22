@@ -4,22 +4,22 @@ namespace Server.Data
 {
     public class TaborIsDbContext : DbContext
     {
-        public TaborIsDbContext(DbContextOptions<TaborIsDbContext> options)
-            : base(options)
-        {
-        }
+    public TaborIsDbContext(DbContextOptions<TaborIsDbContext> options)
+        : base(options)
+    {
+    }
 
-        // DbSet is a substitute for my Participants SQL Table, which contains entries of type Participant (attributes = fields of Participant.cs model)
-        public DbSet<Participant> Participants { get; set; }
-        public DbSet<Meal> Meals { get; set; }
-        public DbSet<Allergen> Allergens { get; set; }
-        public DbSet<MealAllergen> MealAllergens { get; set; }
+    // DbSet of a type Type is a substitute for an Table in my TaborIS database, which contains entries of type Type
+    public DbSet<Participant> Participants { get; set; }
+    public DbSet<Meal> Meals { get; set; }
+    public DbSet<Allergen> Allergens { get; set; }
+    public DbSet<MealAllergen> MealAllergens { get; set; }
 
-        public DbSet<ParticipantAllergen> ParticipantAllergens { get; set; }
+    public DbSet<ParticipantAllergen> ParticipantAllergens { get; set; }
 
-        public DbSet<Order> Orders { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
