@@ -1,33 +1,39 @@
-// This interface serves as a base for filters that I would like to apply to my participants table
+// This file includes classes that are related to filtering participants in tables
+
+// Serves as a base for all filters applied to my table, I want all of them to be able to be reset
 public interface IParticipantFilter : IResetable
 {
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered);
 }
 
+// Objects, whose state can be reset
 public interface IResetable
 {
     public void Reset();
 }
 
-// The filtering is done by binding the filtering input field to the FilterText field of this filter
+// Used to filter participants based on textual values like name, phone number (as string) or birth number (also as string)
 public class TextFilter : IParticipantFilter
 {
 
-    // This is the input text we use to filter the participants
-    public string? FilterText { get ; set; }
+    // Property to be bound to the input text field for the respective column
+    public string FilterText { get ; set; } = string.Empty;
 
-    // The selector function that selects the key of participant by which we want to filter
-    public required Func<ParticipantDto,string?> FilterKeySelector { get; set;}
+    // The selector function that selects the key of participant by which we want to filter (eg. p => p.FirstName)
+    public required Func<ParticipantDto,string> FilterKeySelector { get; set;}
 
+    // Returns either the input enumerable of participants if nothing was entered or if there is something, we apply the filter
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
+        FilterText = FilterText.TrimStart(); // we don't want the user to have just white spaces there but we want them to be able to enter a white space after a word
         if (string.IsNullOrWhiteSpace(FilterText)) return unfiltered;
-        return unfiltered.Where(p => FilterKeySelector(p) != null && FilterKeySelector(p)!.Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
+        return unfiltered.Where(p => FilterKeySelector(p).Contains(FilterText,StringComparison.CurrentCultureIgnoreCase));
     }
 
+    // Reset the filter by setting the filter text to empty string
     public void Reset()
     {
-        FilterText = null;
+        FilterText = string.Empty;
     }
 }
 
