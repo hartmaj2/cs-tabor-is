@@ -10,7 +10,7 @@
 <Modal @ref="deleteParticipantModal"/>
 <Modal @ref="addParticipantModal"/>
 
-@if (participantDtos == null)
+@if (participantDtos == null || filteringManager == null)
 {
     <p> Loading... </p>
 }
@@ -57,7 +57,7 @@ else
                 </div>
                 <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="flex:@colWidths[6]" class="button-right-container"> <button style="width:auto" class="btn btn-primary" @onclick="ResetFilters"> Reset filters </button> </div>
+                <div style="flex:@colWidths[6]" class="button-right-container"> <button style="width:auto" class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> </div>
                  
             </div>
             <div class="div-table-body">
@@ -103,28 +103,24 @@ else
     private TextFilter phoneNumberFilter = new() {FilterKeySelector = p => p.PhoneNumber};
     private TextFilter birthNumberFilter = new() {FilterKeySelector = p => p.BirthNumber};
 
+    private ColumnFilteringManager? filteringManager;
 
-    // We need to add all filters to the list manually (because we need to bind to the filters in the QuickGrid using their name)
-    private List<IParticipantFilter> participantFilters = new();
-
-    // Is called OnInitializeAsync to initialize the list of filters
-    private void InitializeFilters()
+    // Add all filters to the filters list so I can apply them all sequentially
+    private void InitializeFilteringManager()
     {
-        participantFilters.Add(idFilter);
-        participantFilters.Add(ageBoundFilter); 
-        participantFilters.Add(lastNameFilter);
-        participantFilters.Add(firstNameFilter);
-        participantFilters.Add(phoneNumberFilter);
-        participantFilters.Add(birthNumberFilter);
-    }
-
-    // Reset all filters so we can see all participants
-    private void ResetFilters()
-    {
-        foreach (var filter in participantFilters)
-        {
-            filter.Reset();
-        }
+        filteringManager = 
+            new ColumnFilteringManager
+                (
+                    new List<IParticipantFilter>()
+                        {
+                            idFilter,
+                            firstNameFilter,
+                            lastNameFilter,
+                            ageBoundFilter,
+                            phoneNumberFilter,
+                            birthNumberFilter
+                        }
+                );
     }
 
     private Modal addParticipantModal = default!;
@@ -199,7 +195,7 @@ else
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
-        InitializeFilters();
+        InitializeFilteringManager();
         await LoadParticipants();
     }
 
@@ -237,13 +233,8 @@ else
     {
         get 
         {
-
-            // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
-            var filteredParticipants = 
-                participantFilters.Aggregate(
-                    participantDtos!,
-                    (participantsSoFar,currentFilter) => currentFilter.GetFiltered(participantsSoFar)
-                    );
+            // first filter all participants
+            var filteredParticipants = filteringManager!.GetFilteredParticipants(participantDtos!);
 
             // then sort them
             return sortingManager.GetSortedParticipants(filteredParticipants);
