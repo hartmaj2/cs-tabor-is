@@ -110,12 +110,17 @@ public class ColumnSortingManager
         activeColumnIndex = clickedColumn;
     }
 
-    public Func<ParticipantDto,object> GetActiveSorterKeySelector()
+    public IEnumerable<ParticipantDto> GetSortedParticipants(IEnumerable<ParticipantDto> unsortedParticipants)
+    {
+        return unsortedParticipants.OrderBy(GetActiveSorterKeySelector(),GetActiveSorterKeyComparer());
+    }
+
+    private Func<ParticipantDto,object> GetActiveSorterKeySelector()
     {
         return _participantSorters[activeColumnIndex].KeySelector;
     }
 
-    public ISwitchableComparer<object> GetActiveSorterKeyComparer()
+    private ISwitchableComparer<object> GetActiveSorterKeyComparer()
     {
         return _participantSorters[activeColumnIndex].KeyComparer;
     }

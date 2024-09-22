@@ -246,7 +246,7 @@ else
                     );
 
             // then sort them
-            return filteredParticipants.OrderBy(sortingManager.GetActiveSorterKeySelector(),sortingManager.GetActiveSorterKeyComparer());
+            return sortingManager.GetSortedParticipants(filteredParticipants);
         }
     }
 

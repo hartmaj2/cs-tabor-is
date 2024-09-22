@@ -103,10 +103,11 @@
         get 
         {
 
+            // first filter participants
             var filteredParticipants = filteringManager!.GetFilteredParticipants(participantDtos!);
 
             // then sort them
-            return filteredParticipants.OrderBy(sortingManager.GetActiveSorterKeySelector(),sortingManager.GetActiveSorterKeyComparer());
+            return sortingManager.GetSortedParticipants(filteredParticipants);
         }
     }
 
