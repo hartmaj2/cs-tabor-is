@@ -1,5 +1,6 @@
 @namespace Client.Components
-@* This component represents a simple modal for confirming actions on participants *@
+
+@* This component represents a simple modal for confirming deletion of a participant *@
 
 <div class="modal-div">
     <div class="modal-text"> Are you sure you want to delete @CurrentParticipant.FirstName @CurrentParticipant.LastName? </div>
@@ -11,12 +12,15 @@
 
 @code {
 
+    // The participant to be deleted or not
     [Parameter]
     public required ParticipantDto CurrentParticipant { get; set; }
 
+    // Callback to which connects the method that requests deletion from participants api (the api needs to be given the id of the participant to delete)
     [Parameter]
     public EventCallback<int> OnDeleteParticipant { get; set; }
 
+    // Used to hide the modal in parent component
     [Parameter]
     public EventCallback OnRejectButton { get; set; }
 
