@@ -23,7 +23,7 @@ public class TextFilter : IParticipantFilter
     public string FilterText { get ; set; } = string.Empty;
 
     // The selector function that selects the key of participant by which we want to filter (eg. p => p.FirstName)
-    public required Func<ParticipantDto,string> FilterKeySelector { get; set;}
+    public required Func<ParticipantDto,string> FilterKeySelector { private get; init;}
 
     // Returns either the input enumerable of participants if nothing was entered or if there is something, we apply the filter
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
@@ -60,7 +60,7 @@ public class NumericBoundFilter<T> : IParticipantFilter where T : INumber<T>
     }
 
     // The selector function that selects the key of participant by which we want to filter
-    public required Func<ParticipantDto,T> FilterKeySelector { get; set;}
+    public required Func<ParticipantDto,T> FilterKeySelector { private get; init;}
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
