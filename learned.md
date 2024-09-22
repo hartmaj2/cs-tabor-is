@@ -24,7 +24,7 @@
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
 - find . -name "*.razor" -print0 | xargs -0 du -shcA
 
+- `for file in ./**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc`
 - `for file in ./**/Migrations/**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc`
 - `for file in ./**/obj/**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc`
-- `for file in ./**/*.cs ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc`
 - `for file in ./**/*.razor ; do stat -f "%z" "$file" ; done | paste -s -d + - | bc`
