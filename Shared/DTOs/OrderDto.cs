@@ -1,4 +1,6 @@
-// OrderDto is used because 1. I want to be consistent and 2. I don't want to be sending null fields for Meal and Participant (just send ids instead)
+// OrderDto is used because:
+//  1. I want to be consistent and 
+//  2. I don't want to be sending null fields for Meal and Participant navigation properties (just send the ids instead)
 
 public class OrderDto
 {

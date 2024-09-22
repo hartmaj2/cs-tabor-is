@@ -9,7 +9,7 @@ public class MealDto
 
     public required string Name { get; set; }
 
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))] // Attribute telling the controllers to send this as strings in json requests
     public MealTime MealTime { get; set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
