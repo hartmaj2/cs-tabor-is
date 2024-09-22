@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Server.Data
 {
+
+    // DB Context used by Entity Framework to allow me mapping the DbSets to my Tables
     public class TaborIsDbContext : DbContext
     {
     public TaborIsDbContext(DbContextOptions<TaborIsDbContext> options)
