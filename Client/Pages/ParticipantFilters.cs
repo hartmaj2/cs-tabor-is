@@ -41,17 +41,17 @@ public class TextFilter : IParticipantFilter
 }
 
 // Used to filter numeric values like age etc.
-public class NumericBoundFilter<T> : IParticipantFilter where T : INumber<T>
+public class NumericBoundFilter<TNumber> : IParticipantFilter where TNumber : INumber<TNumber>
 {
 
     // We need to remember the limits so we can properly reset the filter
-    public T MinLimit { get; init; }
-    public T MaxLimit { get; init; }
+    public TNumber MinLimit { get; init; }
+    public TNumber MaxLimit { get; init; }
 
-    public T CurrentMin { get; set; }
-    public T CurrentMax { get; set; }
+    public TNumber CurrentMin { get; set; }
+    public TNumber CurrentMax { get; set; }
 
-    public NumericBoundFilter(T minLimit, T maxLimit)
+    public NumericBoundFilter(TNumber minLimit, TNumber maxLimit)
     {   
         MinLimit = minLimit;
         CurrentMin = minLimit;
@@ -60,7 +60,7 @@ public class NumericBoundFilter<T> : IParticipantFilter where T : INumber<T>
     }
 
     // The selector function that selects the numeric key of participant by which we want to filter
-    public required Func<ParticipantDto,T> FilterKeySelector { private get; init;}
+    public required Func<ParticipantDto,TNumber> FilterKeySelector { private get; init;}
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
