@@ -1,4 +1,9 @@
 @namespace Client.Components
+@inject AllergenService AllergenService
+
+@* A modal to add participants, consists of: *@
+@*  1. the form to enter general information that can be seen in the participants table *@ 
+@*  2. checkboxes to set diets *@
 
 <div class="modal-div">
 
@@ -10,7 +15,7 @@
     <div class="modal-sections">
         <div class="modal-section">
             @* Use my custom component with 2-way-binding to its value *@
-            <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmit"> Confirm </ParticipantForm> 
+            <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmitAsync"> Confirm </ParticipantForm> 
         </div>
 
         @if (Participant.DietSelections != null)
@@ -38,32 +43,38 @@
 @code
 {
     
+    // The participant data that will be edited by setting the general information
     public ParticipantFormData Participant { get; set; } = ParticipantFormData.CreateDefault();
+    
+    // Event triggered, when the ocnfirm button of the edit participant form is pressed
     [Parameter]
     public EventCallback<ParticipantFormData> CreateParticipant { get; set; }
 
-    [Parameter]
-    public IEnumerable<AllergenDto>? AllAllergens { get; set; }
-
-    private void OnFormSubmit()
+    // when we submit the form we trigger the function connected to CreateParticipant callback with the participant form data
+    // then reset the modal so next time it is opened, we don't have data from the previous participant there
+    private async Task OnFormSubmitAsync()
     {
-        CreateParticipant.InvokeAsync(Participant);
-        ResetParticipantFormData();
+        await CreateParticipant.InvokeAsync(Participant);
+        await ResetParticipantFormDataAsync();
     }
 
-    protected override void OnInitialized()
+    // on start, we need to load the diet selections for all possible allergens
+    protected override async Task OnInitializedAsync()
     {
-        InitializeParticipantDietSelections();
+        await InitializeParticipantDietSelectionsAsync();
     }
 
-    private void ResetParticipantFormData()
+    // create participant with all values empty and initialize their diet selections
+    private async Task ResetParticipantFormDataAsync()
     {
         Participant = ParticipantFormData.CreateDefault();
-        InitializeParticipantDietSelections();
+        await InitializeParticipantDietSelectionsAsync();
     }
 
-    private void InitializeParticipantDietSelections()
+    // load diet selections of this participant using AllergenService service injected to this component
+    private async Task InitializeParticipantDietSelectionsAsync()
     {
-        Participant.DietSelections = AllAllergens!.Select(allergen => new AllergenSelection() {Name = allergen.Name }).ToList();
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        Participant.DietSelections = allAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name }).ToList();
     }
 }

@@ -3,6 +3,7 @@
 @layout SubLayoutParticipants
 @inject HttpClient Http
 @inject NavigationManager Navigation
+@inject AllergenService AllergenService
 
 <PageTitle> Participants </PageTitle>
 
@@ -127,20 +128,11 @@ else
         }
     }
 
-    // These following two properties/methods should be somehow generalized and reused
-    private IEnumerable<AllergenDto>? allAllergens { get; set; }
-
-    private async Task LoadAllergens()
-    {
-        allAllergens = await Http.GetFromJsonAsync<List<AllergenDto>>("api/allergens/all");
-    }
-
     private Modal addParticipantModal = default!;
 
     private async Task ShowAddParticipantModal()
     {
         var parameters = new Dictionary<string,object>();
-        parameters.Add("AllAllergens",allAllergens!);
         parameters.Add("CreateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestCreateParticipant));
         await addParticipantModal.ShowAsync<AddParticipantModal>(title:$"Add participant",parameters: parameters);
     }
@@ -161,7 +153,8 @@ else
     private async Task ShowEditParticipantModal(ParticipantDto participant)
     {
         var parameters = new Dictionary<string,object>();
-        parameters.Add("Participant",participant.ToParticipantFormData(allAllergens!));
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        parameters.Add("Participant",participant.ToParticipantFormData(allAllergens));
         parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
         await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Edit {participant.FirstName}",parameters: parameters);
     }
@@ -210,7 +203,6 @@ else
         InitializeFilters();
         headerArrows = new string[participantSorters.Length];
         await LoadParticipants();
-        await LoadAllergens();
     }
 
     // Is used OnInitializedAsync and after deleting a participant
