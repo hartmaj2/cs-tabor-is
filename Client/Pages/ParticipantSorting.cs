@@ -78,17 +78,21 @@ public class ParticipantSorter<T>
 
 public class ColumnSortingManager
 {
-    public ParticipantSorter<object>[] ParticipantSorters { get; private set; }
+    private ParticipantSorter<object>[] _participantSorters;
 
-    public string[] HeaderArrows { get; private set; }
+    private string[] _headerArrows;
 
+    // Property that makes it impossible to assign to the backing field from the outside of this class
+    public IReadOnlyList<string> HeaderArrows => Array.AsReadOnly(_headerArrows);
+
+    // Current index by which we are sorting
     private int activeColumnIndex;
 
     public ColumnSortingManager(ParticipantSorter<object>[] participantSorters, int initialActiveColumnIndex)
     {
-        ParticipantSorters = participantSorters;
+        _participantSorters = participantSorters;
         activeColumnIndex = initialActiveColumnIndex;
-        HeaderArrows = new string[ParticipantSorters.Length];
+        _headerArrows = new string[_participantSorters.Length];
     }
 
     // The sort click is handled depending if the clicked column was already active or not
@@ -104,12 +108,12 @@ public class ColumnSortingManager
 
     public Func<ParticipantDto,object> GetActiveSorterKeySelector()
     {
-        return ParticipantSorters[activeColumnIndex].KeySelector;
+        return _participantSorters[activeColumnIndex].KeySelector;
     }
 
     public ISwitchableComparer<object> GetActiveSorterKeyComparer()
     {
-        return ParticipantSorters[activeColumnIndex].KeyComparer;
+        return _participantSorters[activeColumnIndex].KeyComparer;
     }
 
     // Adjust the sorter reversed flags based on if we clicked on a new column or not
@@ -117,11 +121,11 @@ public class ColumnSortingManager
     {
         if (clickedColumn == activeColumnIndex) // clicked on column that was already active
         {
-            ParticipantSorters[clickedColumn].KeyComparer.ReverseSort = !ParticipantSorters[clickedColumn].KeyComparer.ReverseSort;
+            _participantSorters[clickedColumn].KeyComparer.ReverseSort = !_participantSorters[clickedColumn].KeyComparer.ReverseSort;
         }
         else // clicked on new column
         {
-            ParticipantSorters[clickedColumn].KeyComparer.ReverseSort = false;
+            _participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
         }
     }
 
@@ -130,8 +134,8 @@ public class ColumnSortingManager
     {
         if (clickedColumn != activeColumnIndex) // clicked on a new column, remove the marker from the old one
         {
-            HeaderArrows[activeColumnIndex] = "";
+            _headerArrows[activeColumnIndex] = "";
         }
-        HeaderArrows[clickedColumn] = ParticipantSorters[clickedColumn].KeyComparer.ReverseSort ? "▼" : "▲"; // set current marker depending on if the sorter is reversed
+        _headerArrows[clickedColumn] = _participantSorters[clickedColumn].KeyComparer.ReverseSort ? "▼" : "▲"; // set current marker depending on if the sorter is reversed
     }
 }
