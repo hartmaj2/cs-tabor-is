@@ -74,6 +74,37 @@
 @code
 {
 
+    // Holds all participants, has to be loaded from api on initialization
+    private IEnumerable<ParticipantDto>? participantDtos;
+
+    // Initializes the filtering manager, then all loads all participants from api, then orders their diets so the diets column looks nicer
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeFilteringManagerAsync();
+        participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
+        foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
+    }
+
+    // Provides a getter that first filters and then sorts the participants
+    private IEnumerable<ParticipantDto>? sortedParticipants
+    {
+        get 
+        {
+
+            // if necessary fields aren't loaded, just return null
+            if (filteringManager == null || participantDtos == null)
+            {
+                return null;
+            }
+
+            // first filter participants
+            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
+
+            // then sort them
+            return sortingManager.GetSortedParticipants(filteredParticipants);
+        }
+    }
+
     // Initialize the concrete filters (I need to have them named because I have to bind to their specific values)
     // Couldn't just bind to any IParticipantFilter, because that inteface only provides the GetFiltered method and nothing to bind to
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
@@ -101,28 +132,7 @@
                 );
     }
 
-    private IEnumerable<ParticipantDto>? participantDtos;
-
-    // Provides a getter that first filters and then sorts the participants
-    private IEnumerable<ParticipantDto>? sortedParticipants
-    {
-        get 
-        {
-
-            // if necessary fields aren't loaded, just return null
-            if (filteringManager == null || participantDtos == null)
-            {
-                return null;
-            }
-
-            // first filter participants
-            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
-
-            // then sort them
-            return sortingManager.GetSortedParticipants(filteredParticipants);
-        }
-    }
-
+    // Takes care of sorting the columns according to list of given sorters with key selectors and key comparers
     private ColumnSortingManager sortingManager = 
         new ColumnSortingManager
         (
@@ -135,22 +145,10 @@
             0
         );
 
-
-    // Initialize filters must be called after the filter diet selections are initialized (the diet filter uses the selections)
-    // The filter diet selections can only be initialized after the allergens are loaded (diet selection are dependent on the list of all possible allergens)
-    // So it is necessary to call 1. LoadAllergens(); 2. InitializeFilterDietSelectionsAsync(); 3. InitializeFilters();
-    protected override async Task OnInitializedAsync()
-    {
-        await InitializeFilteringManagerAsync();
-        participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
-        foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
-    }
-
+    // Reference used when showing or hiding the EditDietsModal component
     private Modal editDietsModal = default!;
 
-
-    // shows the edit meals modal
-    // have to pass who was the participant at which it was clicked, all possible allergens to display on the modal, and the function that we will trigger on click on modal button
+    // Have to pass who was the participant at which it was clicked, their current diets as a list of allergen selections, and the function that we will trigger on click on modal button
     private async Task ShowEditDietsModalAsync(ParticipantDto selectedParticipant)
     {
         var parameters = new Dictionary<string,object>();
@@ -173,13 +171,14 @@
         return dietSelections;
     }
 
-    // Send request to edit the participant to api, also have to hide the modal
+    // Send request to edit the participant to api, and also hide the modal
     private async Task RequestParticipantEditAsync(ParticipantDto updatedParticipant)
     {
         await Http.PostAsJsonAsync<ParticipantDto>($"api/participants/edit/{updatedParticipant.Id}",updatedParticipant,CancellationToken.None);
         await editDietsModal.HideAsync();
     }
 
+    // Used to create diet selections for the dietsFilter
     private async Task<List<AllergenSelection>> GetFilterDietSelectionsAsync()
     {
         var filterDietSelections = new List<AllergenSelection>();
