@@ -615,6 +615,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ### TODO:
 - [x] Comments of participant section components
+- [ ] Get rid of warnings with ColumnSortingManager in Diets section (initialize it better)
+- [ ] Use ColumnSortingManager inside Participants section
 - [ ] Finish commenting my code
   - [ ] Client
       - [x] Components
