@@ -112,28 +112,26 @@ public class ColumnSortingManager
         return ParticipantSorters[activeColumnIndex].KeyComparer;
     }
 
+    // Adjust the sorter reversed flags based on if we clicked on a new column or not
     private void AdjustSorters(int clickedColumn)
     {
-        if (clickedColumn == activeColumnIndex)
+        if (clickedColumn == activeColumnIndex) // clicked on column that was already active
         {
             ParticipantSorters[clickedColumn].KeyComparer.ReverseSort = !ParticipantSorters[clickedColumn].KeyComparer.ReverseSort;
         }
-        else
+        else // clicked on new column
         {
             ParticipantSorters[clickedColumn].KeyComparer.ReverseSort = false;
         }
     }
 
+    // Adjust the markers showing if sorting ascending or descending
     private void AdjustHeaderArrows(int clickedColumn)
     {
-        if (clickedColumn == activeColumnIndex)
-        {
-            HeaderArrows[activeColumnIndex] = (HeaderArrows[activeColumnIndex] == "▲") ? "▼" : "▲";
-        }
-        else
+        if (clickedColumn != activeColumnIndex) // clicked on a new column, remove the marker from the old one
         {
             HeaderArrows[activeColumnIndex] = "";
-            HeaderArrows[clickedColumn] = "▲";
         }
+        HeaderArrows[clickedColumn] = ParticipantSorters[clickedColumn].KeyComparer.ReverseSort ? "▼" : "▲"; // set current marker depending on if the sorter is reversed
     }
 }
