@@ -6,9 +6,18 @@ public class MealComparer : IComparer<MealDto>
     // I can do this because the MealComparer instances don't have any internal state
     public static MealComparer Instance { get; } = new MealComparer();
 
+    // Compare meals based on type first and then on name
+    // A null value is considered smaller then if there is some reference stored to a MealDto
     public int Compare(MealDto? x, MealDto? y)
     {
-        if (x!.Type != y!.Type) return x.Type.CompareTo(y.Type);
-        return x.Name.CompareTo(y.Name);
+        if (x != null && y != null)
+        {
+            if (x.Type != y.Type) return x.Type.CompareTo(y.Type);
+            return x.Name.CompareTo(y.Name);
+        }
+        var result = 0;
+        if (x == null) result--;
+        if (y == null) result++;
+        return result;
     }
 }
