@@ -1,34 +1,65 @@
 using System.Text;
 
-// Abstract class det defines common behavior of all switchable comparers that can compare general objects
-public abstract class ObjectSwitchableComparer : ISwitchableComparer<object>
+// Defines common behavior of all switchable comparers that can compare on given type
+public interface ISwitchableComparer<T> : IComparer<T>
 {
     public bool ReverseSort { get; set; }
+}
 
+// Comparers that can compare on any objects, also provides useful methods for classes that decide to inherit
+public abstract class ObjectSwitchableComparer : ISwitchableComparer<object>
+{
+
+    // Tracks whether we want the comparer to compare in reversed direction
+    public bool ReverseSort { get; set; }
+
+    // Return value by which I can just multiply the sort result
     protected int GetDirectionInt()
     {
         return ReverseSort ? -1 : 1;
     }
 
+    // Null value considered lower than some value
+    protected int CompareNull(object? x, object? y)
+    {
+        var result = 0;
+        if (x is null) result--;
+        if (y is null) result++;
+        return result * GetDirectionInt();
+    }
+
     public abstract int Compare(object? x, object? y);
 }
 
-public class StringSwitchableComparer : ObjectSwitchableComparer, ISwitchableComparer<string>
+public class StringSwitchableComparer : ObjectSwitchableComparer
 {   
     
     public int Compare(string? x, string? y)
     {
-        return x!.CompareTo(y) * GetDirectionInt();
+        if (x != null && y != null)
+        {
+            return x.CompareTo(y) * GetDirectionInt();
+        }
+        return CompareNull(x,y);
     }
 
     // This is kind of workaround because I couldn't have one collection of participant sorters witch comparers for different types 
     public override int Compare(object? x, object? y)
     {
-        return Compare((string)x!,(string)y!);
+        if (x is string stringX && y is string stringY)
+        {
+            return Compare(stringX,stringY);
+        }
+
+        // not string considered lower than string
+        var result = 0;
+        if (x is not string) result--;
+        if (y is not string) result++;
+        return result;
     }
 }
 
-public class IntegerSwitchableComparer : ObjectSwitchableComparer, ISwitchableComparer<int>
+public class IntegerSwitchableComparer : ObjectSwitchableComparer
 {   
     
     public int Compare(int x, int y)
@@ -39,11 +70,20 @@ public class IntegerSwitchableComparer : ObjectSwitchableComparer, ISwitchableCo
     // This is kind of workaround because I couldn't have one collection of participant sorters witch comparers for different types 
     public override int Compare(object? x, object? y)
     {
-        return Compare((int)x!,(int)y!);
+        if (x is int intX && y is int intY)
+        {
+            return Compare(intX,intY);
+        }
+
+        // not int considered lower than int
+        var result = 0;
+        if (x is not int) result--;
+        if (y is not int) result++;
+        return result;
     }
 }
 
-public class DietsSwitchableComparer : ObjectSwitchableComparer, ISwitchableComparer<IEnumerable<AllergenDto>>
+public class DietsSwitchableComparer : ObjectSwitchableComparer
 {
 
     // converts the list of diets into a string and compares those strings
@@ -63,12 +103,10 @@ public class DietsSwitchableComparer : ObjectSwitchableComparer, ISwitchableComp
     }
 }
 
-public interface ISwitchableComparer<T> : IComparer<T>
-{
-    public bool ReverseSort { get; set; }
-}
 
-// General Participant Sorter that can return a KeySelector and a KeyComparer
+
+// General Participant Sorter, can return a KeySelector (what property of participant we want to use for sorting) and a KeyComparer (how do we decide on the comparison result)
+// Cannot be an interface because we want the properties to be required on initialization
 public class ParticipantSorter<T>
 {
     public required Func<ParticipantDto,T> KeySelector { get; set;}
