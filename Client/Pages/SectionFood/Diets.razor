@@ -12,9 +12,9 @@
         <div class="div-table-container-header"> <div> Diets </div> </div>
         <div class="div-table">
             <div class="div-table-header">
-                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)"> First name @headerArrows![0] </button> </div>
-                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)"> Last name @headerArrows[1] </button> </div>
-                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)"> Diets @headerArrows[2] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(0)"> First name @sortingManager.HeaderArrows[0] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(1)"> Last name @sortingManager.HeaderArrows[1] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(2)"> Diets @sortingManager.HeaderArrows[2] </button> </div>
                 <div class="button-right-container">  </div>
             </div>
             <div class="div-table-header">
@@ -95,14 +95,6 @@
             filter.Reset();
         }
     }
-
-    // Indicates index of the column by which we currently sort the participants
-    private int activeSortingColumn = 0;
-
-    // Stores the string that should be appended to every column if it is a sortable column
-    // The active column has the arrow up/down symbol in the corresponding field
-    private string[]? headerArrows;
-
     private IEnumerable<ParticipantDto>? participantDtos;
 
     // Provides a getter that first filters and then sorts the participants
@@ -119,7 +111,7 @@
                     );
 
             // then sort them
-            return filteredParticipants.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
+            return filteredParticipants.OrderBy(sortingManager.GetActiveSorterKeySelector(),sortingManager.GetActiveSorterKeyComparer());
         }
     }
 
@@ -132,40 +124,11 @@
             new ParticipantSorter<object>() { KeySelector = participant => participant.Diets, KeyComparer = new DietsSwitchableComparer() }
     };
 
-    // The sort click is handled depending if the clicked column was already active or not
-    // we flip the sort direction if the column was already active and was clicked
-    // otherwise we sort in unreversed direction
-    // lastly we have to update our active column
-    private void HandleSortClick(int clickedColumn)
-    {
-        AdjustSorters(clickedColumn);
-        AdjustHeaderArrows(clickedColumn);
-        activeSortingColumn = clickedColumn;
-    }
+    private ColumnSortingManager? sortingManager;
 
-    private void AdjustSorters(int clickedColumn)
+    private void InitializeSortingManager()
     {
-        if (clickedColumn == activeSortingColumn)
-        {
-            participantSorters[clickedColumn].KeyComparer.ReverseSort = !participantSorters[clickedColumn].KeyComparer.ReverseSort;
-        }
-        else
-        {
-            participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
-        }
-    }
-
-    private void AdjustHeaderArrows(int clickedColumn)
-    {
-        if (clickedColumn == activeSortingColumn)
-        {
-            headerArrows![activeSortingColumn] = (headerArrows[activeSortingColumn] == "▲") ? "▼" : "▲";
-        }
-        else
-        {
-            headerArrows![activeSortingColumn] = "";
-            headerArrows[clickedColumn] = "▲";
-        }
+        sortingManager = new ColumnSortingManager(participantSorters,0);
     }
 
     // Initialize filters must be called after the filter diet selections are initialized (the diet filter uses the selections)
@@ -173,7 +136,7 @@
     // So it is necessary to call 1. LoadAllergens(); 2. InitializeFilterDietSelectionsAsync(); 3. InitializeFilters();
     protected override async Task OnInitializedAsync()
     {
-        headerArrows = new string[participantSorters.Length];
+        InitializeSortingManager();
         await InitializeFilterDietSelectionsAsync();
         InitializeFilters();
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");

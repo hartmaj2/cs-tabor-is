@@ -75,3 +75,65 @@ public class ParticipantSorter<T>
     public required ISwitchableComparer<T> KeyComparer { get; set;}
 
 }
+
+public class ColumnSortingManager
+{
+    public ParticipantSorter<object>[] ParticipantSorters { get; private set; }
+
+    public string[] HeaderArrows { get; private set; }
+
+    private int activeColumnIndex;
+
+    public ColumnSortingManager(ParticipantSorter<object>[] participantSorters, int initialActiveColumnIndex)
+    {
+        ParticipantSorters = participantSorters;
+        activeColumnIndex = initialActiveColumnIndex;
+        HeaderArrows = new string[ParticipantSorters.Length];
+    }
+
+    // The sort click is handled depending if the clicked column was already active or not
+    // we flip the sort direction if the column was already active and was clicked
+    // otherwise we sort in unreversed direction
+    // lastly we have to update our active column
+    public void HandleSortClick(int clickedColumn)
+    {
+        AdjustSorters(clickedColumn);
+        AdjustHeaderArrows(clickedColumn);
+        activeColumnIndex = clickedColumn;
+    }
+
+    public Func<ParticipantDto,object> GetActiveSorterKeySelector()
+    {
+        return ParticipantSorters[activeColumnIndex].KeySelector;
+    }
+
+    public ISwitchableComparer<object> GetActiveSorterKeyComparer()
+    {
+        return ParticipantSorters[activeColumnIndex].KeyComparer;
+    }
+
+    private void AdjustSorters(int clickedColumn)
+    {
+        if (clickedColumn == activeColumnIndex)
+        {
+            ParticipantSorters[clickedColumn].KeyComparer.ReverseSort = !ParticipantSorters[clickedColumn].KeyComparer.ReverseSort;
+        }
+        else
+        {
+            ParticipantSorters[clickedColumn].KeyComparer.ReverseSort = false;
+        }
+    }
+
+    private void AdjustHeaderArrows(int clickedColumn)
+    {
+        if (clickedColumn == activeColumnIndex)
+        {
+            HeaderArrows[activeColumnIndex] = (HeaderArrows[activeColumnIndex] == "▲") ? "▼" : "▲";
+        }
+        else
+        {
+            HeaderArrows[activeColumnIndex] = "";
+            HeaderArrows[clickedColumn] = "▲";
+        }
+    }
+}
