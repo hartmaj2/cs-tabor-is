@@ -28,8 +28,11 @@ POST http://localhost:5142/api/allergens/add
 Content-Type: application/json
 
 {
-    "Name" : "Gluten"
+    "Name" : "Meat"
 }
+
+### test if cascading enabled on foreign keys
+DELETE http://localhost:5142/api/allergens/delete/6
 
 ###
 GET http://localhost:5142/api/allergens/all
