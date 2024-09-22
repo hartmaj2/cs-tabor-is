@@ -6,7 +6,7 @@
 <Modal @ref="editDietsModal" />
 
 @* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
-@if (filterDietSelections != null)
+@if (dietsFilter != null && dietsFilter.DietSelections != null)
 {
     <div class="div-table-container">
         <div class="div-table-container-header"> <div> Diets </div> </div>
@@ -24,7 +24,7 @@
                     <Dropdown Color="DropdownColor.Secondary" Style="width:50%" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
                         <DropdownToggleButton Class="filter-button" > Filter diets </DropdownToggleButton>
                         <DropdownMenu Class="px-3" Style="width:150px;">
-                            @foreach (var dietSelection in filterDietSelections)
+                            @foreach (var dietSelection in dietsFilter.DietSelections)
                             {
                                 <label> <input type="checkbox" @bind="dietSelection.IsSelected" @bind:event="oninput"> @dietSelection.Name </label> <br/>
                             }
@@ -79,11 +79,11 @@
     private IList<IParticipantFilter> participantFilters = new List<IParticipantFilter>();
 
     // Add all filters to the filters list so I can apply them all sequentially
-    private void InitializeFilters()
+    private async Task InitializeFiltersAsync()
     {
         participantFilters.Add(firstNameFilter);
         participantFilters.Add(lastNameFilter);
-        dietsFilter = new DietsFilter() {DietSelections = filterDietSelections!};
+        dietsFilter = new DietsFilter() {DietSelections = await GetFilterDietSelectionsAsync()};
         participantFilters.Add(dietsFilter);
     }
 
@@ -133,8 +133,7 @@
     // So it is necessary to call 1. LoadAllergens(); 2. InitializeFilterDietSelectionsAsync(); 3. InitializeFilters();
     protected override async Task OnInitializedAsync()
     {
-        await InitializeFilterDietSelectionsAsync();
-        InitializeFilters();
+        await InitializeFiltersAsync();
         participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
         foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
     }
@@ -173,16 +172,15 @@
         await editDietsModal.HideAsync();
     }
 
-    private List<AllergenSelection>? filterDietSelections;
-
-    private async Task InitializeFilterDietSelectionsAsync()
+    private async Task<List<AllergenSelection>> GetFilterDietSelectionsAsync()
     {
-        filterDietSelections = new();
+        var filterDietSelections = new List<AllergenSelection>();
         var allAllergens = await AllergenService.GetAllergenDtosAsync();
         foreach (var allergen in allAllergens)
         {
             filterDietSelections.Add(new AllergenSelection() {Name = allergen.Name} );
         }
+        return filterDietSelections;
     }
 
 }
