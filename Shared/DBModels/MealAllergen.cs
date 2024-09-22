@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+// Represents entry in associative table that tracks the relation between what meals contain which allergens
+
 public class MealAllergen
 {
     [Key]

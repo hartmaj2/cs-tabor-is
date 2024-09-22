@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-// Meal model for the database
+// Meal database model
 
 public class Meal
 {
@@ -13,11 +13,9 @@ public class Meal
     public required string Name { get; set; } // Name of the meal
 
     [Required]
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public required MealTime MealTime { get; set; } // This is either Lunch or Dinner
 
     [Required]
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public required MealType Type { get; set; } // Either Soup or Main
 
     [Required]
