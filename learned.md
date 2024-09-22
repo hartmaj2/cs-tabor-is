@@ -6,6 +6,7 @@
 
 ## Blazor
 - To mark parameters for components as required when creating a component using the html tag use `[Parameter, EditorRequired]` and set it as required
+- [Service lifetimes](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#service-lifetimes:~:text=Singleton-,Service%20lifetimes,-Services%20can%20be)
 
 ## Zsh
 - Used a command to prepend a text to all components (needed to add a using directive)
