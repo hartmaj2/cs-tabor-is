@@ -6,7 +6,7 @@
 <Modal @ref="editDietsModal" />
 
 @* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
-@if (filteringManager != null && dietsFilter != null && dietsFilter.DietSelections != null)
+@if (dietsFilter != null && dietsFilter.DietSelections != null)
 {
     <div class="div-table-container">
         <div class="div-table-container-header"> <div> Diets </div> </div>
@@ -31,7 +31,12 @@
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> </div>
+                <div class="button-right-container" style="flex:1"> 
+                    @if(filteringManager != null)
+                    {
+                        <button class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> 
+                    }
+                </div>
                 
             </div>
             <div class="div-table-body">
