@@ -135,7 +135,7 @@ else
     }
  
     // Used to filter by age using lower and upper bound
-    private IntegerBoundFilter ageBoundFilter = new(ParticipantFormData.LowestAge,ParticipantFormData.HighestAge) {FilterKeySelector = p => p.Age};
+    private NumericBoundFilter<int> ageBoundFilter = new(ParticipantFormData.LowestAge,ParticipantFormData.HighestAge) {FilterKeySelector = p => p.Age};
     private TextFilter idFilter = new() {FilterKeySelector = p => p.Id.ToString()};
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
     private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};

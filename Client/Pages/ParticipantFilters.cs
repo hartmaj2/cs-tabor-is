@@ -1,6 +1,9 @@
+using System.Numerics;
+
 // This file includes classes that are related to filtering participants in tables
 
 // Serves as a base for all filters applied to my table, I want all of them to be able to be reset
+
 public interface IParticipantFilter : IResetable
 {
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered);
@@ -37,16 +40,18 @@ public class TextFilter : IParticipantFilter
     }
 }
 
-public class IntegerBoundFilter : IParticipantFilter
+// Used to filter numeric values like age etc.
+public class NumericBoundFilter<T> : IParticipantFilter where T : INumber<T>
 {
 
-    public int MinLimit { get; init; }
-    public int MaxLimit { get; init; }
+    // We need to remember the limits so we can properly reset the filter
+    public T MinLimit { get; init; }
+    public T MaxLimit { get; init; }
 
-    public int CurrentMin { get; set; }
-    public int CurrentMax { get; set; }
+    public T CurrentMin { get; set; }
+    public T CurrentMax { get; set; }
 
-    public IntegerBoundFilter(int minLimit, int maxLimit)
+    public NumericBoundFilter(T minLimit, T maxLimit)
     {   
         MinLimit = minLimit;
         CurrentMin = minLimit;
@@ -55,7 +60,7 @@ public class IntegerBoundFilter : IParticipantFilter
     }
 
     // The selector function that selects the key of participant by which we want to filter
-    public required Func<ParticipantDto,int> FilterKeySelector { get; set;}
+    public required Func<ParticipantDto,T> FilterKeySelector { get; set;}
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
