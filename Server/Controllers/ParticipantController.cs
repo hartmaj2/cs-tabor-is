@@ -3,7 +3,7 @@ using Server.Data;
 using Microsoft.EntityFrameworkCore;
 
 
-[ApiController]
+[ApiController] // marks this class so it can be added to server controllers using builder.Services.AddControllers();
 [Route("api/participants")]
 
 public class ParticipantController : ControllerBase
@@ -11,7 +11,7 @@ public class ParticipantController : ControllerBase
 
     private readonly TaborIsDbContext _context;
 
-    // The context gets injected using dependency injection
+    // The context gets injected automatically using dependency injection
     public ParticipantController(TaborIsDbContext context)
     {
         _context = context;
