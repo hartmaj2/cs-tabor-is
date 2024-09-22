@@ -96,15 +96,46 @@ else
 @code
 {
 
-    private int[] colWidths = {70,150,150,100,160,150,200};
+    // Stores relative sizes of the table columns (the numbers are used as arguments to the flex css attribute)
+    private int[] colWidths = {7,15,15,10,16,15,20};
+
+    // Holds all participants, has to be loaded from api on initialization
     private IEnumerable<ParticipantDto>? participantDtos;
+
+    // Add all filters to the list
+    // Get a list of all participants
+    protected override async Task OnInitializedAsync()
+    {
+        InitializeFilteringManager();
+        await LoadParticipants();
+    }
+
+    // Is used OnInitializedAsync and also after deleting a participant so we can see the change immediately
+    private async Task LoadParticipants()
+    {
+        participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("api/participants/all");
+    }
+
+    // Provides a getter that first filters and then sorts the participants
+    private IEnumerable<ParticipantDto>? sortedParticipants
+    {
+        get 
+        {
+            if (filteringManager == null || participantDtos == null)
+            {
+                return null;
+            }
+
+            // first filter all participants
+            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
+
+            // then sort them
+            return sortingManager.GetSortedParticipants(filteredParticipants);
+        }
+    }
  
     // Used to filter by age using lower and upper bound
-    private IntegerBoundFilter ageBoundFilter = new(ParticipantFormData.LowestAge,ParticipantFormData.HighestAge) 
-        {
-            FilterKeySelector = p => (int) p.Age! 
-        };
-
+    private IntegerBoundFilter ageBoundFilter = new(ParticipantFormData.LowestAge,ParticipantFormData.HighestAge) {FilterKeySelector = p => p.Age};
     private TextFilter idFilter = new() {FilterKeySelector = p => p.Id.ToString()};
     private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
     private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
@@ -131,6 +162,24 @@ else
                 );
     }
 
+    // Takes care of sorting the columns according to list of given sorters with key selectors and key comparers
+    private ColumnSortingManager sortingManager = 
+        new ColumnSortingManager
+        (
+            new ParticipantSorter<object>[]
+            {
+                new ParticipantSorter<object>() { KeySelector = participant => participant.Id, KeyComparer = new IntegerSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.Age, KeyComparer = new IntegerSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.BirthNumber, KeyComparer = new StringSwitchableComparer() }
+            },
+            0
+        );
+
+
+    // Reference used when showing or hiding the AddParticipantModal component
     private Modal addParticipantModal = default!;
 
     private async Task ShowAddParticipantModal()
@@ -198,75 +247,5 @@ else
         await LoadParticipants();
         await deleteParticipantModal.HideAsync();
     }
-
-    // Add all filters to the list
-    // Get a list of all participants
-    protected override async Task OnInitializedAsync()
-    {
-        InitializeFilteringManager();
-        await LoadParticipants();
-    }
-
-    // Is used OnInitializedAsync and after deleting a participant
-    private async Task LoadParticipants()
-    {
-        var participantsList = await Http.GetFromJsonAsync<List<ParticipantDto>>("api/participants/all");
-        participantDtos = participantsList!.AsQueryable();
-    }
-
-    // Manages the header content of the columns
-    // Also manages if a certain column should be shown or not in the quick grid
-    private class TableColumnInfo
-    {
-
-        // Name of the property
-        public required string PropName { get; set; }
-
-        // Mark whether the property is checked in the show
-        public bool IsChecked { get; set; } = true;
-    }
-
-    private TableColumnInfo[] columnInfos = 
-    {
-        new TableColumnInfo() {PropName = "Id"},
-        new TableColumnInfo() {PropName = "First Name"},
-        new TableColumnInfo() {PropName = "Last Name"},
-        new TableColumnInfo() {PropName = "Age"},
-        new TableColumnInfo() {PropName = "Phone Number"},
-        new TableColumnInfo() {PropName = "Birth Number"},
-    };
-
-    // Provides a getter that first filters and then sorts the participants
-    private IEnumerable<ParticipantDto>? sortedParticipants
-    {
-        get 
-        {
-            if (filteringManager == null || participantDtos == null)
-            {
-                return null;
-            }
-
-            // first filter all participants
-            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
-
-            // then sort them
-            return sortingManager.GetSortedParticipants(filteredParticipants);
-        }
-    }
-
-    private ColumnSortingManager sortingManager = 
-        new ColumnSortingManager
-        (
-            new ParticipantSorter<object>[]
-            {
-                new ParticipantSorter<object>() { KeySelector = participant => participant.Id, KeyComparer = new IntegerSwitchableComparer() },
-                new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
-                new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
-                new ParticipantSorter<object>() { KeySelector = participant => participant.Age, KeyComparer = new IntegerSwitchableComparer() },
-                new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber, KeyComparer = new StringSwitchableComparer() },
-                new ParticipantSorter<object>() { KeySelector = participant => participant.BirthNumber, KeyComparer = new StringSwitchableComparer() }
-            },
-            0
-        );
 
 }
