@@ -10,7 +10,7 @@
 <Modal @ref="deleteParticipantModal"/>
 <Modal @ref="addParticipantModal"/>
 
-@if (participantDtos == null || filteringManager == null)
+@if (sortedParticipants == null)
 {
     <p> Loading... </p>
 }
@@ -57,12 +57,20 @@ else
                 </div>
                 <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
                 <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="flex:@colWidths[6]" class="button-right-container"> <button style="width:auto" class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> </div>
+                
+                <div style="flex:@colWidths[6]" class="button-right-container"> 
+                    @if (filteringManager != null)
+                    {
+                        <button style="width:auto" class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> 
+                    }
+                </div>
+                    
+                
                  
             </div>
             <div class="div-table-body">
 
-                @foreach(var participant in sortedParticipants!)
+                @foreach(var participant in sortedParticipants)
                 {
                     <div class="div-table-row">
                         <div style="flex:@colWidths[0]"> @participant.Id </div>
@@ -233,8 +241,13 @@ else
     {
         get 
         {
+            if (filteringManager == null || participantDtos == null)
+            {
+                return null;
+            }
+
             // first filter all participants
-            var filteredParticipants = filteringManager!.GetFilteredParticipants(participantDtos!);
+            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
 
             // then sort them
             return sortingManager.GetSortedParticipants(filteredParticipants);
