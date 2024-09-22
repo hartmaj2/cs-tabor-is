@@ -1,12 +1,12 @@
 @namespace Client.Components
 
-@* TODO: Find why submit button not working on first click  *@
+@* Form to edit general information of the participant, makes use of EditForm input validation *@
 
 <EditForm Model="@ThisParticipant" OnValidSubmit="OnValidSubmitEvent" OnInvalidSubmit="OnInvalidSubmitEvent">
     <DataAnnotationsValidator/>
 
     <div>
-        <label @ref="firstLabel" for="firstname"> First Name: </label> <br/>
+        <label for="firstname"> First Name: </label> <br/>
         <InputText id="firstname" @bind-Value="ThisParticipant.FirstName"/>
         <ValidationMessage For="() => ThisParticipant.FirstName" />
     </div>
@@ -60,17 +60,5 @@
 
     [Parameter]
     public required RenderFragment ChildContent { get; set; }
-
-    private ElementReference firstLabel;
-    
-    // Sets focus on the first element of the form so user can start entering data right away
-    // Need to use OnAfterRender because to set focus on an element I need to be sure, that the element was already rendered
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            firstLabel.FocusAsync();
-        }
-    }
 
 }

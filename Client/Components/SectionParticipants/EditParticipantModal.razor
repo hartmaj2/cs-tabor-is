@@ -1,21 +1,27 @@
 @namespace Client.Components
 
+@* Modal to edits just the general info of the participants (the diets are edited in the diets section) *@
+
 <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmit"> Confirm </ParticipantForm>
 
 @code
 {
+    // Participant to be edited
     [Parameter]
     public ParticipantFormData Participant { get; set; } = ParticipantFormData.CreateDefault();
 
+    // Connects to the api request for update from the parent component
     [Parameter]
     public EventCallback<ParticipantFormData> UpdateParticipant { get; set; }
-
+    
+    // When form submitted, trigger the parent update participant function and reset the data of the current participant so we don't see this on next open
     private void OnFormSubmit()
     {
         UpdateParticipant.InvokeAsync(Participant);
         ResetParticipantFormData();
     }
 
+    // Just set participant to all empty values
     private void ResetParticipantFormData()
     {
         Participant = ParticipantFormData.CreateDefault();
