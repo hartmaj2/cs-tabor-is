@@ -18,9 +18,7 @@ app.UseStaticFiles(); // This is also necessary so Client Blazor can use the www
 
 app.MapControllers(); // This adds the controller services to our routes
 
-/* 
-*   The following line of code is necessary to be able to give control to the Blazor Web Assembly so I can address Client side pages
-*/
+// This is necessary to be able to give control to the Blazor Web Assembly (when no controller route is hit) so I can address Client side pages
 app.MapFallbackToFile("index.html");
 
 app.Run();
