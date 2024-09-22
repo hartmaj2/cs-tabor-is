@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Data;
 using Microsoft.EntityFrameworkCore;
 
-
 [ApiController]
 [Route("api/orders")]
 
+// Handles all orders request, Client in this app only uses the GET requests because this is the camp leader part of the program
+// The kids will use the POST requests from another client to order meals
 public class OrdersController : ControllerBase
 {
 
