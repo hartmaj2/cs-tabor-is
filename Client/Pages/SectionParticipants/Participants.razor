@@ -11,7 +11,7 @@
 <Modal @ref="deleteParticipantModal"/>
 <Modal @ref="addParticipantModal"/>
 
-@if (participantDtos == null || headerArrows == null)
+@if (participantDtos == null)
 {
     <p> Loading... </p>
 }
@@ -26,12 +26,12 @@ else
         </div>
         <div class="div-table">
             <div class="div-table-header">
-                <div style="flex:@colWidths[0]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(0)" > Id @headerArrows![0] </button> </div>
-                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(1)" > First name @headerArrows[1] </button> </div>
-                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => HandleSortClick(2)" > Last name @headerArrows[2] </button> </div>
-                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(3)" > Age @headerArrows[3] </button> </div>
-                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(4)" > Phone number @headerArrows[4] </button> </div>
-                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => HandleSortClick(5)" > Birth number @headerArrows[5] </button> </div>
+                <div style="flex:@colWidths[0]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(0)" > Id @sortingManager.HeaderArrows[0] </button> </div>
+                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(1)" > First name @sortingManager.HeaderArrows[1] </button> </div>
+                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(2)" > Last name @sortingManager.HeaderArrows[2] </button> </div>
+                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(3)" > Age @sortingManager.HeaderArrows[3] </button> </div>
+                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(4)" > Phone number @sortingManager.HeaderArrows[4] </button> </div>
+                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(5)" > Birth number @sortingManager.HeaderArrows[5] </button> </div>
                 <div style="flex:@colWidths[6]" class="button-right-container"> </div>
             </div>
             <div class="div-table-header">
@@ -201,7 +201,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         InitializeFilters();
-        headerArrows = new string[participantSorters.Length];
         await LoadParticipants();
     }
 
@@ -247,13 +246,6 @@ else
         new TableColumnInfo() {PropName = "Birth Number"},
     };
 
-        // Indicates index of the column by which we currently sort the participants
-    private int activeSortingColumn = 0;
-
-    // Stores the string that should be appended to every column if it is a sortable column
-    // The active column has the arrow up/down symbol in the corresponding field
-    private string[]? headerArrows;
-
     // Provides a getter that first filters and then sorts the participants
     private IEnumerable<ParticipantDto>? sortedParticipants
     {
@@ -268,56 +260,23 @@ else
                     );
 
             // then sort them
-            return filteredParticipants.OrderBy(participantSorters[activeSortingColumn].KeySelector,participantSorters[activeSortingColumn].KeyComparer);
+            return filteredParticipants.OrderBy(sortingManager.GetActiveSorterKeySelector(),sortingManager.GetActiveSorterKeyComparer());
         }
     }
 
-        // array of sorters which consist of a key selector and a switchable comparer
-    // this array allows me to select current keyselector and comparer based on the active sorting column
-    private ParticipantSorter<object>[] participantSorters = 
-        {
-            new ParticipantSorter<object>() { KeySelector = participant => participant.Id, KeyComparer = new IntegerSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.Age!, KeyComparer = new IntegerSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber!, KeyComparer = new StringSwitchableComparer() },
-            new ParticipantSorter<object>() { KeySelector = participant => participant.BirthNumber, KeyComparer = new StringSwitchableComparer() },
-        };
-
-    // The sort click is handled depending if the clicked column was already active or not
-    // we flip the sort direction if the column was already active and was clicked
-    // otherwise we sort in unreversed direction
-    // lastly we have to update our active column
-    private void HandleSortClick(int clickedColumn)
-    {
-        AdjustSorters(clickedColumn);
-        AdjustHeaderArrows(clickedColumn);
-        activeSortingColumn = clickedColumn;
-    }
-
-    private void AdjustSorters(int clickedColumn)
-    {
-        if (clickedColumn == activeSortingColumn)
-        {
-            participantSorters[clickedColumn].KeyComparer.ReverseSort = !participantSorters[clickedColumn].KeyComparer.ReverseSort;
-        }
-        else
-        {
-            participantSorters[clickedColumn].KeyComparer.ReverseSort = false;
-        }
-    }
-
-    private void AdjustHeaderArrows(int clickedColumn)
-    {
-        if (clickedColumn == activeSortingColumn)
-        {
-            headerArrows![activeSortingColumn] = (headerArrows[activeSortingColumn] == "▲") ? "▼" : "▲";
-        }
-        else
-        {
-            headerArrows![activeSortingColumn] = "";
-            headerArrows[clickedColumn] = "▲";
-        }
-    }
+    private ColumnSortingManager sortingManager = 
+        new ColumnSortingManager
+        (
+            new ParticipantSorter<object>[]
+            {
+                new ParticipantSorter<object>() { KeySelector = participant => participant.Id, KeyComparer = new IntegerSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.Age, KeyComparer = new IntegerSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.BirthNumber, KeyComparer = new StringSwitchableComparer() }
+            },
+            0
+        );
 
 }
