@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
 // This represents the participant data needed for the client side
-// The difference is, that this participant doesn't have Id property because that is not filled in the form by the user
+// Most of the properties also have backing fields and custom setters
+// The important thing here is that the validation logic caused by data annotation is processed AFTER the setters are processed
 public class ParticipantFormData
 {
 
@@ -9,7 +10,7 @@ public class ParticipantFormData
     // ID
     // 
 
-    public int Id { get; set; }
+    public int Id { get; set; } // Id is included even though we cannot set it through the form because we don't want to lose id when converting to ParticipantDto and back
 
     // 
     // FIRST NAME
@@ -24,7 +25,7 @@ public class ParticipantFormData
         get => _firstName;
         set
         {
-            _firstName = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form
+            _firstName = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form (after the user presses enter)
         }
     }
 
@@ -41,7 +42,7 @@ public class ParticipantFormData
         get => _lastName;
         set
         {
-            _lastName = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form
+            _lastName = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form (after user presses enter)
         }
     }
 
@@ -98,7 +99,7 @@ public class ParticipantFormData
     public required string BirthNumber 
     { 
         get => _birthNumber;
-        set // the validation logic caused by data annotation is processed AFTER the setter
+        set 
         {
             if (value == string.Empty) return;
             var stringValue = value.Trim();
@@ -122,7 +123,7 @@ public class ParticipantFormData
 
     public IList<AllergenSelection>? DietSelections;
 
-    // Used after participant submit to pass the new details to api
+    // Used after submit to pass the new details to api (api needs the participant as ParticipantDto)
     public ParticipantDto ToParticipantDto()
     {
         return new ParticipantDto
@@ -133,15 +134,16 @@ public class ParticipantFormData
             PhoneNumber = PhoneNumber,
             BirthNumber = BirthNumber,
             Age = (int) Age!, // here I know the form will not allow me to submit without having the age set to something
+
             // Add a corresponding AllergenDto only when the selection IsSelected
             Diets = DietSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
         };
     }
 
-    // Factory method to create default participant
+    // Factory method to create ParticipantFormData with all values empty
     public static ParticipantFormData CreateDefault()
     {
-        return new ParticipantFormData() {FirstName = string.Empty,BirthNumber = string.Empty,PhoneNumber = string.Empty,LastName =string.Empty};
+        return new ParticipantFormData() {FirstName = string.Empty, BirthNumber = string.Empty, PhoneNumber = string.Empty ,LastName = string.Empty};
     }
 
 }
@@ -174,9 +176,11 @@ public static class ParticipantDtoExtensions
     }
 }
 
-// Parses czech birth numbers in 10-digit format used after 1.1.1954 to the corresponding age
+// Parses Czech birth numbers in 10-digit format used after 1.1.1954 to the corresponding age
 public static class BirthNumberToAgeParser
 {
+
+    // Needs to be called with validBirthNumber!
     public static int Parse(string validBirthNumber)
     {
         var today = DateOnly.FromDateTime(DateTime.Now);
@@ -187,7 +191,7 @@ public static class BirthNumberToAgeParser
         return age;
     }
 
-    // get the DateOnly object that corresponds to the given birth number string
+    // Get the DateOnly object that corresponds to the given birth number string
     private static DateOnly GetBirthNumberDateOnly(string validBirthNumber)
     {
         int year = ParseYear(validBirthNumber[0..2]);
@@ -196,7 +200,7 @@ public static class BirthNumberToAgeParser
         return new DateOnly(year,month,day);
     }
 
-    // convert two last digits from year, this assumes that the person was not born before year 54
+    // Convert two last digits from year, this assumes that the person was not born before year 54
     private static int ParseYear(string twoLastDigits)
     {
         var year = int.Parse(twoLastDigits);
@@ -207,9 +211,9 @@ public static class BirthNumberToAgeParser
         return year += 2000;
     }
 
-    // convert month from birth number according to czech birth number format rules
-    // for girls 50 or 70 is added to the birth number
-    // for boys 0 or 20 is added to the birth number
+    // Convert month from birth number according to czech birth number format rules
+    // For girls 50 or 70 is added to the birth number
+    // For boys 0 or 20 is added to the birth number
     private static int ParseMonth(string monthString)
     {
         var month = int.Parse(monthString);

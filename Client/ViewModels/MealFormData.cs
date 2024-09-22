@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-// Class used by the EditForm to validate, if required properties were set
+// Class used by the EditForm to validate, if required properties were set and if they have a proper format
+// I am using System.ComponentModel.DataAnnotation with custom ValidationAttributes to validate the properties
 
 public class MealFormData
 {
@@ -12,7 +13,7 @@ public class MealFormData
     [Required(ErrorMessage = "Meal type is required.")]
     public required string MealType { get; set; }
 
-    // In contract to MealDto, this class contains list of allergen selections 
+    // In contrast to MealDto, this class contains list of allergen selections 
     // Allergen selections are a combination of the name of the allergen and indicator whether it was selected
     public IList<AllergenSelection>? AllergenSelections;
 
