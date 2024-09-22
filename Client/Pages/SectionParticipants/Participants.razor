@@ -2,7 +2,6 @@
 @page "/"
 @layout SubLayoutParticipants
 @inject HttpClient Http
-@inject NavigationManager Navigation
 @inject AllergenService AllergenService
 
 <PageTitle> Participants </PageTitle>
@@ -209,19 +208,6 @@ else
     {
         var participantsList = await Http.GetFromJsonAsync<List<ParticipantDto>>("api/participants/all");
         participantDtos = participantsList!.AsQueryable();
-    }
-
-    // Used to navigate to edit page after pressing the edit button
-    // The id argument is received from the TemplateColumn context which is a reference to the participant in the current row
-    private void NavigateToEditPage(int id)
-    {
-        Navigation.NavigateTo($"/participants/edit/{id}");
-    }
-
-    // Used because using a href didn't allow me to auto adjust the button nicely to the right side of header
-    private void NavigateToAddPage()
-    {
-        Navigation.NavigateTo("/participants/add");
     }
 
     // Manages the header content of the columns
