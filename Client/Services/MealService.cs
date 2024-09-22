@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 
-// Used by components that need information about all possible allergens
+// Used by components that need information about all possible meal types
 
 public class MealService
 {
@@ -13,7 +13,7 @@ public class MealService
         _httpClient = httpClient;
     }
 
-    // Gets the allergens from api only if not loaded already
+    // Gets the meal types from api only if not loaded already
     public async Task<List<string>> GetMealTypesAsync()
     {
         if (_mealTypes == null)
