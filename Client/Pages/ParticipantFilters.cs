@@ -59,7 +59,7 @@ public class NumericBoundFilter<T> : IParticipantFilter where T : INumber<T>
         CurrentMax = maxLimit;
     }
 
-    // The selector function that selects the key of participant by which we want to filter
+    // The selector function that selects the numeric key of participant by which we want to filter
     public required Func<ParticipantDto,T> FilterKeySelector { private get; init;}
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
@@ -74,9 +74,11 @@ public class NumericBoundFilter<T> : IParticipantFilter where T : INumber<T>
     }
 }
 
+// Used to filter participants based on chosen diets (in Diets subsection)
+// Only participants that have all of the selected diets pass through the filter
 public class DietsFilter : IParticipantFilter
 {
-    public required IList<AllergenSelection> DietSelections { get; set; }
+    public required IList<AllergenSelection> DietSelections { get; init; }
 
     public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered)
     {
@@ -85,7 +87,7 @@ public class DietsFilter : IParticipantFilter
             .Where(selection => selection.IsSelected) // start with only the selected checkboxes
             .Aggregate(
                 unfiltered,
-                (accFiltered,currentSelection) => accFiltered.Where(participant => participant.Diets.Select(diet => diet.Name).Contains(currentSelection.Name))
+                (accumulatedParticipants,currentSelection) => accumulatedParticipants.Where(participant => participant.Diets.Select(diet => diet.Name).Contains(currentSelection.Name))
             );
     }
 
@@ -95,6 +97,7 @@ public class DietsFilter : IParticipantFilter
     }
 }
 
+// Manages filtering of a table of participants
 public class ColumnFilteringManager
 {
     // Stores all the filters to be applied to participants
