@@ -5,7 +5,6 @@
 @if (DietSelections != null)
 {
     <div>
-        <label> Diets: </label> <br/>
         @foreach (var dietSelection in DietSelections)
         {
             <input id="@dietSelection.Name" type="checkbox" @bind="dietSelection.IsSelected"/> <label for="@dietSelection.Name"> @dietSelection.Name </label> <br/>
