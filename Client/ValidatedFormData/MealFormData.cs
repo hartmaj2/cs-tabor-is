@@ -7,8 +7,17 @@ public class MealFormData
 {
     public int Id { get ; set; } // not set by user but having the fields allows for better conversion to MealDto
 
+    private string _name = string.Empty;
+
     [Required(ErrorMessage = "Meal name is required.")]
-    public required string Name { get; set;}
+    public required string Name 
+    { 
+        get => _name;
+        set
+        {
+            _name = value.Trim(); // This removes leading or trailing white spaces when user enters them to the form (after user presses enter)
+        }
+    }
     
     [Required(ErrorMessage = "Meal type is required.")]
     public required string MealType { get; set; }
