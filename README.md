@@ -135,8 +135,8 @@ POST http://localhost:xxxx/api/orders/add
 Content-Type: application/json
 
 {
-    "participantId" : IdUcastnika,
-    "mealId" : IdPokrmu
+    "participantId" : "IdUcastnika",
+    "mealId" : "IdPokrmu"
 }
 ```
 kde `xxxx` je port, na kterém server běží, `IdUcastnika` je ID účastníka, který si daný pokrm objednává a `IdPokrmu` je ID pokrmu, který si účastník přeje objednat. 
