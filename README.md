@@ -62,8 +62,25 @@ Diety účastníků je možné pomocí tlačítka *Edit diets* u daného účast
 ### Kritéria pro jednotlivé atributy účastníků
   
 #### ID
+
+ID je účastníkům přidělováno automaticky databází, uživatel tedy nemá, jak ho změnit.
+
 #### First name
+
+Křestní jméno musí být neprázdný řetězec, který neobsahuje speciální symboly jako $,+ atd. Také nesmí obsahovat čísla. Křestní jméno se můze skládat z více slov. Poté musí být odděleno právě jendím oddělovačem. Oddělovačem může být mezera, pomlčka nebo apostrof. Tečka je povolena pouze na konci slova. Veškeré bíle znaky na začátku či na konci jména jsou automaticky odstraněny po jeho zadání.
+
 #### Last name 
+
+Pro příjmení platí totožná kritéria, jako pro křestní jméno.
+
 #### Age
+
+Věk je omezený od 0 do 70 let, jelikož se jedná o tábor, na kterém budou účastníky především děti a teoreticky mládež. Kdybych chtěl podporovat i vyšší věk, tak by to znamenalo, že mohu zadávat i osoby narozené před rokem 1954, pro které by nefungovalo automatické dopočítávání věku z rodného čísla. Rodná čísla měla totiž před rokem 1954 devítimístný formát.
+
 #### Phone number
+
+Telefonní číslo je nutné zadat a může být chápáno buď jako číslo na účastníka samotného nebo na jeho rodiče. Pokud se jedná o české telefonní číslo, tak může být zadáno buď bez předpony nebo s předponou 00420 či +420 a zbylá část musí obsahovat přávě devět cifer. Pokud je nutné zadat zahraniční telefonní číslo, tak je nutné, aby začínalo symbolem + a dále musí obsahovat 7 až 15 cifer. Číslo je možné zadat i s pomocnými symboly jako je pomlčka nebo závorky. Ty jsou však ignorovány a po zadání automaticky odstraněny.
+
 #### Birth number
+
+Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. Pak musí jít o platné české rodné číslo ve formátu odpovídajícímu rodným číslům vydaným po 1.1.1954. Číslo lze zadat bez lomítka nebo i s ním. Lomítko se však musí nacházet mezi 6. a 7. cifrou počínaje zleva a čílsováno od 1. Po zadání je automaticky odstraněno.
