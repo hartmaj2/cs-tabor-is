@@ -6,6 +6,7 @@
 - [Uživatelská dokumentace](#uživatelská-dokumentace)
   - [Spuštění programu](#spuštění-programu)
   - [Navigace v programu](#navigace-v-programu)
+  - [Kritéria pro jednotlivé atributy účastníků](#kritéria-pro-jednotlivé-atributy-účastníků)
 
 
 ## Anotace
@@ -57,3 +58,12 @@ Přidat nový pokrm do dané tabulky kliknutím na tlačítko *+* v pravém horn
 Podsekce *Diets* obsahuje tabulku s účastníky, která zobrazuje jejich diety. Diety každého účastníka jsou setříděny lexikograficky. Sloupce podobně jako v podsekci *All participants* umožňují řazení a filtrování. Řazení sloupce s dietami funguje také lexikograficky a porovnávají se textové řetězce vzniklé zřetězení všech diet za sebou tak, jak jsou zapsány. V sloupci s dietami lze také filtrovat kliknutím na tlačítko *Filter diets* a zvolením diet, které chceme filtrovat pomocí zaškrtávacích políček. V tabulce se pak zobrazí pouze ti účastníci, kteří mají všechny ze zvolených diet (můžou jich však mít i více). Všechny filtrovací kritéria můžeme zrušit pomocí tlačítka *Reset filters* stejně tak, jako tomu bylo v podsekci *All participants*.
 
 Diety účastníků je možné pomocí tlačítka *Edit diets* u daného účastníka.
+
+### Kritéria pro jednotlivé atributy účastníků
+  
+#### ID
+#### First name
+#### Last name 
+#### Age
+#### Phone number
+#### Birth number
