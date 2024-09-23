@@ -1,4 +1,4 @@
-# Stručná dokumentace
+# Dokumentace
 
 ## Obsah <!-- omit from toc -->
 
