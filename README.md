@@ -6,6 +6,8 @@
 - [Uživatelská dokumentace](#uživatelská-dokumentace)
   - [Spuštění programu](#spuštění-programu)
   - [Navigace v programu](#navigace-v-programu)
+  - [Sekce Participants](#sekce-participants)
+  - [Sekce Food](#sekce-food)
   - [Kritéria pro jednotlivé atributy účastníků](#kritéria-pro-jednotlivé-atributy-účastníků)
   - [Možnost přidání dalších alergenů](#možnost-přidání-dalších-alergenů)
   - [Možnost přidání dalších typů jídel](#možnost-přidání-dalších-typů-jídel)
@@ -37,11 +39,11 @@ Program se spouští příkazem `dotnet run --project Server`, který kromě ser
 
 Web se dělí na sekce, které se dále dělí na podsekce. Po spuštění ve webovém prohlížeči se objevíte automaticky v sekci **Participants**. Vybírat mezi jednotlivými sekcemi můžete v levém panelu, kde se nachází kromě sekce **Participants**, také sekce **Food**. Právě aktivní sekci je vždy možné poznat pomocí bílého zbarvení pozadí tlačítka na levém panelu odpovídající dané sekci. Nacházíte-li se právě v nějaké sekci, tak přepínat mezi podsekcemi můžete pomocí horního panelu, který obsahuje klikatelný seznam podsekcí. Stejně jako u panelu se sekcemi poznáte aktivní podsekci bílým zbarvením pozadí tlačítka dané podsekce.
 
-#### Sekce Participants
+### Sekce Participants
 
 Sekce **Participants** obsahuje pouze jednu podsekci jménem **All participants**.
 
-##### Podsekce All participants
+#### Podsekce All participants
 
 Podsekce **All participants** sestává z tabulky, která poskytuje seznam účastníků a jejich základních informací jako id, jméno, příjmení a další. 
 
@@ -59,11 +61,11 @@ Přidávat nové účastníky do tabulky lze kliknutím na tlačítko **Add a pa
 > [!WARNING]
 > Operace vymazání účastníka je nevratná!
 
-#### Sekce Food
+### Sekce Food
 
 Sekce **Food** obsahuje dvě podsekce: **Menu** a **Diets**. Tato sekce obsahuje vše, co se tématicky týká pokrmů na táboře.
 
-##### Podsekce Menu
+#### Podsekce Menu
 
 Podsekce **Menu** obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat datum, pro které chceme zobrazit jídelníček. Směrem do historie se přepínáme pomocí tlačítka označeného symbolem **<** nacházejícího se vlevo od nadpisu se zvoleným datem. Naopak pomocí tlačítka **>** lze posouvat datum směrem do budoucnosti.
 
@@ -74,7 +76,7 @@ Samotné denní menu je rozdělené na dvě tabulky nazývající se **Lunch** a
 
 Přidat nový pokrm do dané tabulky kliknutím na tlačítko **+** v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno s popiskem odpovídajícím danému datu a času. Na jméno jídla nejsou kladeny žádné restrikce kromě toho, že nesmí být prázdné, což ocení především kreativní tvůrci jídelníčků. Typ jídla (polévka, hlavní chod) je však nutné zadat. Dále je pak možné libovolně navolit alergeny pomocí zaškrtávacích políček. Pokrmy lze mazat a upravovat stejně, jako to lze v podsekci **All participants** v tabulce s účastníky.
 
-##### Podsekce Diets
+#### Podsekce Diets
 
 Podsekce **Diets** obsahuje tabulku s účastníky, která zobrazuje jejich diety. Diety každého účastníka jsou setříděny lexikograficky. Sloupce podobně jako v podsekci **All participants** umožňují řazení a filtrování. Řazení sloupce s dietami funguje také lexikograficky a porovnávají se textové řetězce vzniklé zřetězení všech diet za sebou tak, jak jsou zapsány. V sloupci s dietami lze také filtrovat kliknutím na tlačítko **Filter diets** a zvolením diet, které chceme filtrovat pomocí zaškrtávacích políček. V tabulce se pak zobrazí pouze ti účastníci, kteří mají všechny ze zvolených diet (můžou jich však mít i více). Všechny filtrovací kritéria můžeme zrušit pomocí tlačítka **Reset filters** stejně tak, jako tomu bylo v podsekci **All participants**.
 
