@@ -11,7 +11,7 @@
   - [Možnost přidání dalších typů jídel](#možnost-přidání-dalších-typů-jídel)
   - [Zadávání objednávek](#zadávání-objednávek)
 - [Programátorská dokumentace](#programátorská-dokumentace)
-  - [Struktura aplikace](#struktura-aplikace)
+  - [Struktura solution](#struktura-solution)
 
 
 ## Anotace
@@ -22,47 +22,53 @@ Program je informační systém, který slouží vedoucím tábora ke správě i
 
 ### Spuštění programu
 
-Jelikož Serverová část programu využívá ke správě dat, databázi, tak je nutné, mít v souboru *appsettings.json* (nachází se ve složce *Server*) v sekci `ConnectionStrings` správně nakonfigurovanou `DefaultConnection`. V `DefaultConnection` je potřeba zapsat všechny potřebné konfigurační údaje pro připojení k databázi, kterou chcete používat.
+Jelikož Serverová část programu využívá ke správě dat, databázi, tak je nutné, mít v souboru **appsettings.json** (nachází se ve složce **Server**) v sekci `ConnectionStrings` správně nakonfigurovanou `DefaultConnection`. V `DefaultConnection` je potřeba zapsat všechny potřebné konfigurační údaje pro připojení k databázi, kterou chcete používat.
 
-Program se spouští příkazem `dotnet run` nebo `dotnet watch` z adresáře *Server*, kde se nachází serverový projekt, který automaticky po spuštění spustí i klienta. Po spuštění aplikace se v terminálu ukáže zpráva obsahující řádek `Now listening on: http://localhost:xxxx`, kde `xxxx` je číslo portu, na kterém server poslouchá (port lze nastavit v souboru */Properties/launchSettings.json*). Danou adresu stačí zkopírovat do webového prohlížeče, skrz který nyní můžete s aplikací interagovat.
+Program se spouští příkazem `dotnet run --project Server`, který kromě serveru automaticky po spuštění spustí i klienta. Po spuštění aplikace se v terminálu ukáže zpráva obsahující řádek `Now listening on: http://localhost:xxxx`, kde `xxxx` je číslo portu, na kterém server poslouchá. Danou adresu stačí zkopírovat do webového prohlížeče, skrz který nyní můžete s aplikací interagovat.
+
+> [!NOTE]
+> Port, na kterém server bude poslouchat lze nastavit v souboru **/Properties/launchSettings.json**.
 
 ### Navigace v programu
 
-Web se dělí na sekce, které se dále dělí na podsekce. Po spuštění ve webovém prohlížeči se objevíte automaticky v sekci *Participants*. Vybírat mezi jednotlivými sekcemi můžete v levém panelu, kde se nachází kromě sekce *Participants*, také sekce *Food*. Právě aktivní sekci je vždy možné poznat pomocí bílého zbarvení pozadí tlačítka na levém panelu odpovídající dané sekci. Nacházíte-li se právě v nějaké sekci, tak přepínat mezi podsekcemi můžete pomocí horního panelu, který obsahuje klikatelný seznam podsekcí. Stejně jako u panelu se sekcemi poznáte aktivní podsekci bílým zbarvením pozadí tlačítka dané podsekce.
+Web se dělí na sekce, které se dále dělí na podsekce. Po spuštění ve webovém prohlížeči se objevíte automaticky v sekci **Participants**. Vybírat mezi jednotlivými sekcemi můžete v levém panelu, kde se nachází kromě sekce **Participants**, také sekce **Food**. Právě aktivní sekci je vždy možné poznat pomocí bílého zbarvení pozadí tlačítka na levém panelu odpovídající dané sekci. Nacházíte-li se právě v nějaké sekci, tak přepínat mezi podsekcemi můžete pomocí horního panelu, který obsahuje klikatelný seznam podsekcí. Stejně jako u panelu se sekcemi poznáte aktivní podsekci bílým zbarvením pozadí tlačítka dané podsekce.
 
 #### Sekce Participants
 
-Sekce *Participants* obsahuje pouze jednu podsekci jménem *All participants*.
+Sekce **Participants** obsahuje pouze jednu podsekci jménem **All participants**.
 
 ##### Podsekce All participants
 
-Podsekce *All participants* sestává z tabulky, která poskytuje seznam účastníků a jejich základních informací jako id, jméno, příjmení a další. 
+Podsekce **All participants** sestává z tabulky, která poskytuje seznam účastníků a jejich základních informací jako id, jméno, příjmení a další. 
 
 Každý sloupec podporuje třídění záznamů v tabulce podle hodnoty atributu tohoto sloupce. Stačí kliknout na název daného sloupce. Na pravé straně se pak objeví šipečka, která značí, zda jsou záznamy setříděné vzestupně či sestupně. Vzestupně se značí šipečkou nahoru, kde jako první záznam bereme ten první od shora. 
 
-Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem *search...*. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole. Navolené filtrovací hodnoty se dá všechny zrušit kliknutím na tlačítko *Reset filters*. 
+Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem **search...**. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole. Navolené filtrovací hodnoty se dá všechny zrušit kliknutím na tlačítko **Reset filters**. 
 
-Přidávat nové účastníky do tabulky lze kliknutím na tlačítko *Add a participant*. Po kliknutí na něj se zobrazí dialogové okno, které na levé straně obsahuje textová pole na zadání základních údajů o účastníkovi. Program automaticky kontroluje, zda hodnoty zadávané do těchto polí dávají smysl. Pokud navíc uživatel do políčka *Birth Number* zadá platné české rodné číslo, tak se mu jeho věk spočítá automaticky. Rodné číslo je také možné úplně vynechat a zadat věk manuálně (např. pro cizince). Na pravé straně je pak možné pomocí zaškrtávacích políček navolit diety, které daný účastník má. Potvrdit volbu lze stisknutím klávesy Enter, nebo kliknutím na tlačítko *Confirm*. Pokud jsou nějaké ze zadaných hodnot neplatné, program daná políčka zvýrazní červeně a vypíše, co konkrétně je na nich špatně.
+Přidávat nové účastníky do tabulky lze kliknutím na tlačítko **Add a participant**. Po kliknutí na něj se zobrazí dialogové okno, které na levé straně obsahuje textová pole na zadání základních údajů o účastníkovi. Program automaticky kontroluje, zda hodnoty zadávané do těchto polí dávají smysl. Pokud navíc uživatel do políčka **Birth Number** zadá platné české rodné číslo, tak se mu jeho věk spočítá automaticky. Rodné číslo je také možné úplně vynechat a zadat věk manuálně (např. pro cizince). Na pravé straně je pak možné pomocí zaškrtávacích políček navolit diety, které daný účastník má. Potvrdit volbu lze stisknutím klávesy Enter, nebo kliknutím na tlačítko **Confirm**. Pokud jsou nějaké ze zadaných hodnot neplatné, program daná políčka zvýrazní červeně a vypíše, co konkrétně je na nich špatně.
 
-Účastníky v tabulce je možné editovat pomocí tlačítka *Edit*. Pomocí tohoto tlačítka je možné upravit hodnoty pouze těch atributů, které jsou vidět v tabulce. Pokud si přejete upravit diety účastníka, tak je nutné toto provést v podsekci *Diets*, která se nachází v sekci *Food*. Pomocí tlačítka *Delete* je pak možné účastníka úplně vymazat z databáze.
+Účastníky v tabulce je možné editovat pomocí tlačítka **Edit**. Pomocí tohoto tlačítka je možné upravit hodnoty pouze těch atributů, které jsou vidět v tabulce. Pokud si přejete upravit diety účastníka, tak je nutné toto provést v podsekci **Diets**, která se nachází v sekci **Food**. Pomocí tlačítka **Delete** je pak možné účastníka úplně vymazat z databáze.
+
+> [!WARNING]
+> Operace vymazání účastníka je nevratná!
 
 #### Sekce Food
 
-Sekce *Food* obsahuje dvě podsekce: *Menu* a *Diets*. Tato sekce obsahuje vše, co se tématicky týká pokrmů na táboře.
+Sekce **Food** obsahuje dvě podsekce: **Menu** a **Diets**. Tato sekce obsahuje vše, co se tématicky týká pokrmů na táboře.
 
 ##### Podsekce Menu
 
-Podsekce *Menu* obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat datum, pro které chceme zobrazit jídelníček. Směrem do historie se přepínáme pomocí tlačítka označeného symbolem < nacházejícího se vlevo od nadpisu se zvoleným datem. Naopak pomocí tlačítka > lze posouvat datum směrem do budoucnosti.
+Podsekce **Menu** obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat datum, pro které chceme zobrazit jídelníček. Směrem do historie se přepínáme pomocí tlačítka označeného symbolem **<** nacházejícího se vlevo od nadpisu se zvoleným datem. Naopak pomocí tlačítka **>** lze posouvat datum směrem do budoucnosti.
 
-Samotné denní menu je rozdělené na dvě tabulky nazývající se *Lunch* a *Dinner* a odpovídají obědu a večeři. Záznamy v tabulkách pak odpovídají jednotlivým pokrmům pro daný den a daný čas, kde časem je myšlen oběd či večeře. Každé jídlo má název, typ (vyjadřuje, zda se jedná o polévku či hlavní chod), alergeny v něm obsažené a počet objednávek, které učinili účastníci tábora. Allergeny v pokrmech přímo odpovídají možným dietám, které můžou účastníci mít, a jsou setříděné lexikograficky. Pokrmy v tabulkách jsou nejprve řazeny dle pořadí chodu vzestupně (nejprve polévka, pak hlavní chod) a následně lexikograficky dle jména.
+Samotné denní menu je rozdělené na dvě tabulky nazývající se **Lunch** a **Dinner** a odpovídají obědu a večeři. Záznamy v tabulkách pak odpovídají jednotlivým pokrmům pro daný den a daný čas, kde časem je myšlen oběd či večeře. Každé jídlo má název, typ (vyjadřuje, zda se jedná o polévku či hlavní chod), alergeny v něm obsažené a počet objednávek, které učinili účastníci tábora. Allergeny v pokrmech přímo odpovídají možným dietám, které můžou účastníci mít, a jsou setříděné lexikograficky. Pokrmy v tabulkách jsou nejprve řazeny dle pořadí chodu vzestupně (nejprve polévka, pak hlavní chod) a následně lexikograficky dle jména.
 
-Přidat nový pokrm do dané tabulky kliknutím na tlačítko *+* v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno s popiskem odpovídajícím danému datu a času. Na jméno jídla nejsou kladeny žádné restrikce kromě toho, že nesmí být prázdné, což ocení především kreativní tvůrci jídelníčků. Typ jídla (polévka, hlavní chod) je však nutné zadat. Dále je pak možné libovolně navolit alergeny pomocí zaškrtávacích políček. Pokrmy lze mazat a upravovat stejně, jako to lze v podsekci *All participants* v tabulce s účastníky.
+Přidat nový pokrm do dané tabulky kliknutím na tlačítko **+** v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno s popiskem odpovídajícím danému datu a času. Na jméno jídla nejsou kladeny žádné restrikce kromě toho, že nesmí být prázdné, což ocení především kreativní tvůrci jídelníčků. Typ jídla (polévka, hlavní chod) je však nutné zadat. Dále je pak možné libovolně navolit alergeny pomocí zaškrtávacích políček. Pokrmy lze mazat a upravovat stejně, jako to lze v podsekci **All participants** v tabulce s účastníky.
 
 ##### Podsekce Diets
 
-Podsekce *Diets* obsahuje tabulku s účastníky, která zobrazuje jejich diety. Diety každého účastníka jsou setříděny lexikograficky. Sloupce podobně jako v podsekci *All participants* umožňují řazení a filtrování. Řazení sloupce s dietami funguje také lexikograficky a porovnávají se textové řetězce vzniklé zřetězení všech diet za sebou tak, jak jsou zapsány. V sloupci s dietami lze také filtrovat kliknutím na tlačítko *Filter diets* a zvolením diet, které chceme filtrovat pomocí zaškrtávacích políček. V tabulce se pak zobrazí pouze ti účastníci, kteří mají všechny ze zvolených diet (můžou jich však mít i více). Všechny filtrovací kritéria můžeme zrušit pomocí tlačítka *Reset filters* stejně tak, jako tomu bylo v podsekci *All participants*.
+Podsekce **Diets** obsahuje tabulku s účastníky, která zobrazuje jejich diety. Diety každého účastníka jsou setříděny lexikograficky. Sloupce podobně jako v podsekci **All participants** umožňují řazení a filtrování. Řazení sloupce s dietami funguje také lexikograficky a porovnávají se textové řetězce vzniklé zřetězení všech diet za sebou tak, jak jsou zapsány. V sloupci s dietami lze také filtrovat kliknutím na tlačítko **Filter diets** a zvolením diet, které chceme filtrovat pomocí zaškrtávacích políček. V tabulce se pak zobrazí pouze ti účastníci, kteří mají všechny ze zvolených diet (můžou jich však mít i více). Všechny filtrovací kritéria můžeme zrušit pomocí tlačítka **Reset filters** stejně tak, jako tomu bylo v podsekci **All participants**.
 
-Diety účastníků je možné pomocí tlačítka *Edit diets* u daného účastníka.
+Diety účastníků je možné pomocí tlačítka **Edit diets** u daného účastníka.
 
 ### Kritéria pro jednotlivé atributy účastníků
   
@@ -119,15 +125,27 @@ Content-Type: application/json
     "mealId" : IdPokrmu
 }
 ```
-kde `xxxx` je port, na kterém server běží, `IdUcastnika` je ID účastníka, který si daný pokrm objednává a `IdPokrmu` je ID pokrmu, který si účastník přeje objednat. Id pokrmů se sice v uživatelském rozhraní aplikace nezobrazuje, ale je možné si nechat vypsat všechny pokrmy včetně jejich Id pomocí http requestu: `GET http://localhost:xxxx/api/meals/all`.
+kde `xxxx` je port, na kterém server běží, `IdUcastnika` je ID účastníka, který si daný pokrm objednává a `IdPokrmu` je ID pokrmu, který si účastník přeje objednat. 
 
-Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském rozhraní klientské aplikace v podsekci *Menu* v tabulce s denním menu, kde se nachází daný pokrm možno spatřit, že se počet objednávek daného pokrmu navýšil o jedna.
+> [!NOTE]
+> Id pokrmů se sice v uživatelském rozhraní aplikace nezobrazuje, ale je možné si nechat vypsat všechny pokrmy včetně jejich Id pomocí http requestu: `GET http://localhost:xxxx/api/meals/all`. 
+
+
+Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském rozhraní klientské aplikace v podsekci **Menu** v tabulce s denním menu, kde se nachází daný pokrm možno spatřit, že se počet objednávek daného pokrmu navýšil o jedna.
+
+> [!TIP]
+> Velmi uživatelsky přívětivé posílání requestů umožňuje ve VS Code rozšíření (Extension) jménem **REST Client**.
 
 ## Programátorská dokumentace
 
-### Struktura aplikace
+### Struktura solution
 
-Aplikace se skládá ze tří klíčových částí:
-- Server - backendová část aplikace, která se stará o komunikaci s databází skrze REST API
-- Client - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
-- Shared - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
+Solution se skládá ze tří klíčových projektů:
+- `Server` - backendová část aplikace, která se stará o komunikaci s databází skrze REST API
+- `Client` - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
+- `Shared` - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
+
+Dále solution obsahuje projekt `UnitTests`, ve kterém se nachází sada unit testů.
+
+> [!NOTE]
+> V repozitáři se nachází také soubor `denik.md`, který obsahuje chronologicky řazené záznamy popisující postupný vývoj programu. Dále se zde nachází také soubor `ideas.md` obsahující nápady na možná rozšíření programu do budoucna.
