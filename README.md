@@ -113,7 +113,7 @@ Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. P
 ### Možnost přidání dalších alergenů
 
 Aplikace umožňuje také přidat další alergeny, pokud by aktuální volba alergenů nebyla dostačující. Toto však nejde provést interaktivně pomocí uživatelského rozhraní a je nutné poslat http request serveru. Tento json request musí být formátu:
-```
+```http
 POST http://localhost:xxxx/api/allergens/add
 Content-Type: application/json
 
@@ -130,7 +130,7 @@ Přidání dalších typů jídel (např. dezert) nějakým uživatelsky aspoň 
 ### Zadávání objednávek
 
 Server také dokáže přijímat objednávky účastníků na jednotlivé pokrmy. Toto bude v budoucnu možné provádět pomocí uživatelského rozhraní v jiné klientské aplikaci. Otestovat tuto funkcionalitu však lze již nyní pomocí http reqestu následujícího formátu:
-```
+```http
 POST http://localhost:xxxx/api/orders/add
 Content-Type: application/json
 
