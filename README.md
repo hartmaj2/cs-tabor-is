@@ -211,7 +211,7 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 
 - **Services** - obsahuje služby, které je možné použít pomocí **dependency injection** v jakékoliv komponentě
   - **AllergenService.cs** - na vyžádání poskytne seznam všech alergenů; výhodou je, že tímto způsobem se po api požaduje seznam všech alergenů pouze jednou za jedno uživatelské sezení (třída si totiž seznam uchová na později poté, co ho získá http requestem od api)
-- **MealService.cs** - podobný jako allergen service, ale poskytuje všechny možné typy jídel
+  - **MealService.cs** - podobný jako allergen service, ale poskytuje všechny možné typy jídel
 
 > [!NOTE]
 > Oba dva výše zmíněné services by se momentálně daly spojit do jednoho, ale jsou rozdělené z důvodu rozšiřování programu do budoucna v duchu **separation of concerns**.
