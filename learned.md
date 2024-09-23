@@ -20,6 +20,7 @@
 
 ## Markdown
 - Extension Markdown All In One allows to automatically create Table Of Contents, I can also set what levels of headings I can include or not using either a special comment `<!-- omit from toc -->` or by setting the Toc: Levels 
+- Pomocí admonitions lze v .md souborech hezky vypisovat tipy, poznámky a warningy `> [!NOTE]` nebo `> [!WARNING]` atd.
 
 ## Useful commands to calculate file sizes
 - find . -name "*.cs" -print0 | xargs -0 du -shcA
