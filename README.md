@@ -14,6 +14,8 @@
   - [Struktura solution](#struktura-solution)
   - [Server](#server)
   - [Client](#client)
+  - [Shared](#shared)
+  - [UnitTests](#unittests)
 
 
 ## Anotace
@@ -157,9 +159,9 @@ Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském r
 Solution se skládá ze tří klíčových projektů:
 - [Server](#server) - backendová část aplikace, která se stará o komunikaci s databází skrze REST API
 - [Client](#client) - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
-- [Shared]() - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
+- [Shared](#shared) - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
 
-Dále solution obsahuje projekt [UnitTests](), ve kterém se nachází sada unit testů.
+Dále solution obsahuje projekt [UnitTests](#unittests), ve kterém se nachází sada unit testů.
 
 > [!NOTE]
 > V repozitáři se nachází také soubor **denik.md**, který obsahuje chronologicky řazené záznamy popisující postupný vývoj programu. Dále se zde nachází také soubor **ideas.md** obsahující nápady na možná rozšíření programu do budoucna.
@@ -230,13 +232,35 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 > Validace způsobená anotacemi jednotlivých properties se provádějí až poté, co je vyhodnocen celý kód setteru dané property!
 
 > [!NOTE]
-> Správnou funkčnost některých validátorů ze souboru **Validators.cs** je testována pomocí unit testů v projektu [UnitTests]().
+> Správnou funkčnost některých validátorů ze souboru **Validators.cs** je testována pomocí unit testů v projektu [UnitTests](#unittests).
 
 - **wwwroot/** - obsahuje soubor **index.html**, stylesheet **app.css** a ikonky
   - **app.css** - selektory v tomto souboru mají následující formát:
     - začínají `.modal` - týkají se stylů dialogových oken
     - začínají `.div-table` - styl pro tabulky s účastníky/pokrmy
     - začínají `.sub-layout` - týkají se SubLayoutů
+
+> [!TIP]
+> Při testování různých stylů úpravou souboru `app.css` se hodí spouštět program pomocí příkazu `dotnet watch --project Server`. Tímto způsobem se změny v `app.css` projeví už za běhu programu. (Je však nutné změny v souboru nejprve uložit.)
+
 - **App.razor** - defaultní soubor vytvořený při založení projektu, ponechán beze změny
 - **_Imports.razor** - obsahuje defaultní importy a navíc import **Blazor Bootstrap** 
 - **Program.cs** - obsahuje mimo jiné kód, kterým zavádíme do klienta služby jako **AllergenService** a **MealService**; zde je také nutné přidat kód pro zavedení **Blazor Bootstrapu**
+
+### Shared 
+
+Obsahuje následující adresáře:
+- **DBModels** - obsahuje anotované modely pro databázi, klíče anotuji pomocí `[Key]`, cizí klíče pomocí `[ForeignKey("PropertyName")]`
+- **DTOs** - (**Data Transfer Objects**) modely sloužící pro přenos skrz http requesty
+
+> [!NOTE] 
+> Oddělit modely pro databázi a DTOs jsem se rozhodl hlavně proto, jelikož pri posílání přímo databázových modelů jsem zbytečně posílal i tzv. **navigation properties**, které bez načtení z databáze (které jsem nechtěl provádět) vždy obsahovaly `null`.
+
+### UnitTests
+
+Obsahuje unit testy dvou vybraných validátorů. 
+- **BirthNumberValidatorTests.cs** testuje správnou funkčnost validátoru rodných čísel
+- **NameValidatorTests.cs** testuje správnou funkčnost validátoru jmen (jak křestních, tak i příjmení)
+
+> [!WARNING]
+> Testy v **BirthNumberValidatorTests.cs** předokládají, že lomítko bylo již odstraněno z rodného čísla před validací.
