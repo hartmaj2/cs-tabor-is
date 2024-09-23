@@ -34,5 +34,21 @@ Podsekce *All participants* sestává z tabulky, která poskytuje seznam účast
 
 Každý sloupec podporuje třídění záznamů v tabulce podle hodnoty atributu tohoto sloupce. Stačí kliknout na název daného sloupce. Na pravé straně se pak objeví šipečka, která značí, zda jsou záznamy setříděné vzestupně či sestupně. Vzestupně se značí šipečkou nahoru, kde jako první záznam bereme ten první od shora. 
 
-Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem *search...*. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole.
+Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem *search...*. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole. Navolené filtrovací hodnoty se dá všechny zrušit kliknutím na tlačítko *Reset filters*. 
+
+Přidávat nové účastníky do tabulky lze kliknutím na tlačítko *Add a participant*. Po kliknutí na něj se zobrazí dialogové okno, které na levé straně obsahuje textová pole na zadání základních údajů o účastníkovi. Program automaticky kontroluje, zda hodnoty zadávané do těchto polí dávají smysl. Pokud navíc uživatel do políčka *Birth Number* zadá platné české rodné číslo, tak se mu jeho věk spočítá automaticky. Rodné číslo je také možné úplně vynechat a zadat věk manuálně (např. pro cizince). Na pravé straně je pak možné pomocí zaškrtávacích políček navolit diety, které daný účastník má. Potvrdit volbu lze stisknutím klávesy Enter, nebo kliknutím na tlačítko *Confirm*. Pokud jsou nějaké ze zadaných hodnot neplatné, program daná políčka zvýrazní červeně a vypíše, co konkrétně je na nich špatně.
+
+Účastníky v tabulce je možné editovat pomocí tlačítka *Edit*. Pomocí tohoto tlačítka je možné upravit hodnoty pouze těch atributů, které jsou vidět v tabulce. Pokud si přejete upravit diety účastníka, tak je nutné toto provést v podsekci *Diets*, která se nachází v sekci *Food*. Pomocí tlačítka *Delete* je pak možné účastníka úplně vymazat z databáze.
+
+#### Sekce Food
+
+Sekce *Food* obsahuje dvě podsekce: *Menu* a *Diets*. Tato sekce obsahuje vše, co se tématicky týká pokrmů na táboře.
+
+##### Podsekce Menu
+
+Podsekce *Menu* obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat mezi datem, pro které chceme vidět denní menu.
+
+Samotné denní menu je rozdělené na dvě tabulky nazývající se *Lunch* a *Dinner* a odpovídají obědu a večeři. Záznamy v tabulkách pak odpovídají jednotlivým pokrmům pro daný den a daný čas, kde časem je myšlen oběd či večeře. Každé jídlo má název, typ (vyjadřuje, zda se jedná o polévku či hlavní chod), alergeny v něm obsažené a počet objednávek, které učinili účastníci tábora. Allergeny v pokrmech přímo odpovídají možným dietám, které můžou účastníci mít, a jsou setříděné lexikograficky. Pokrmy v tabulkách jsou nejprve řazeny dle pořadí chodu vzestupně (nejprve polévka, pak hlavní chod) a následně lexikograficky dle jména.
+
+Přidat nový pokrm do dané tabulky kliknutím na tlačítko *+* v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno, které umožňuje zadat jméno pokrmu.
 
