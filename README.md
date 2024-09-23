@@ -10,6 +10,8 @@
   - [Možnost přidání dalších alergenů](#možnost-přidání-dalších-alergenů)
   - [Možnost přidání dalších typů jídel](#možnost-přidání-dalších-typů-jídel)
   - [Zadávání objednávek](#zadávání-objednávek)
+- [Programátorská dokumentace](#programátorská-dokumentace)
+  - [Struktura aplikace](#struktura-aplikace)
 
 
 ## Anotace
@@ -120,3 +122,12 @@ Content-Type: application/json
 kde `xxxx` je port, na kterém server běží, `IdUcastnika` je ID účastníka, který si daný pokrm objednává a `IdPokrmu` je ID pokrmu, který si účastník přeje objednat. Id pokrmů se sice v uživatelském rozhraní aplikace nezobrazuje, ale je možné si nechat vypsat všechny pokrmy včetně jejich Id pomocí http requestu: `GET http://localhost:xxxx/api/meals/all`.
 
 Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském rozhraní klientské aplikace v podsekci *Menu* v tabulce s denním menu, kde se nachází daný pokrm možno spatřit, že se počet objednávek daného pokrmu navýšil o jedna.
+
+## Programátorská dokumentace
+
+### Struktura aplikace
+
+Aplikace se skládá ze tří klíčových částí:
+- Server - backendová část aplikace, která se stará o komunikaci s databází skrze REST API
+- Client - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
+- Shared - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
