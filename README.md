@@ -7,6 +7,7 @@
   - [Spuštění programu](#spuštění-programu)
   - [Navigace v programu](#navigace-v-programu)
   - [Kritéria pro jednotlivé atributy účastníků](#kritéria-pro-jednotlivé-atributy-účastníků)
+  - [Možnost přidání dalších alergenů](#možnost-přidání-dalších-alergenů)
 
 
 ## Anotace
@@ -84,3 +85,18 @@ Telefonní číslo je nutné zadat a může být chápáno buď jako číslo na 
 #### Birth number
 
 Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. Pak musí jít o platné české rodné číslo ve formátu odpovídajícímu rodným číslům vydaným po 1.1.1954. Číslo lze zadat bez lomítka nebo i s ním. Lomítko se však musí nacházet mezi 6. a 7. cifrou počínaje zleva a čílsováno od 1. Po zadání je automaticky odstraněno.
+
+### Možnost přidání dalších alergenů
+
+Aplikace umožňuje také přidat další alergeny, pokud by aktuální volba alergenů nebyla dostačující. Toto však nejde provést interaktivně pomocí uživatelského rozhraní a je nutné poslat http request serveru. Tento json request musí být formátu:
+```
+POST http://localhost:xxxx/api/allergens/add
+Content-Type: application/json
+
+{
+    "Name" : "JmenoAlergenu"
+}
+```
+kde `xxxx` je port, na kterém server běží a `JmenoAlergenu` je libovolný textový řetězec popisující daný alergen.
+
+Přidání dalších typů jídel (např. dezert) nějakým uživatelsky aspoň trochu přívětivým způsobem program zatím nepodporuje.
