@@ -2,17 +2,44 @@ using System.Numerics;
 
 // This file includes classes that are related to filtering participants in tables
 
-// Serves as a base for all filters applied to my table, I want all of them to be able to be reset
-
-public interface IParticipantFilter : IResetable
+// Manages filtering of a table of participants
+public class ColumnFilteringManager
 {
-    public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered);
+    // Stores all the filters to be applied to participants
+    public IList<IParticipantFilter> Filters { get; private set; }
+
+    public ColumnFilteringManager(IList<IParticipantFilter> participantFilters)
+    {
+        Filters = participantFilters;
+    }
+
+    // Resets all filters so we can see all participants
+    public void ResetFilters()
+    {
+        foreach (var filter in Filters)
+        {
+            filter.Reset();
+        }
+    }
+
+    // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
+    public IEnumerable<ParticipantDto> GetFilteredParticipants(IEnumerable<ParticipantDto> unfilteredParticipants)
+    {
+        return Filters.Aggregate(unfilteredParticipants, (accumulatedParticipants,currentFilter) => currentFilter.GetFiltered(accumulatedParticipants));
+    }
 }
 
 // Objects, whose state can be reset
 public interface IResetable
 {
     public void Reset();
+}
+
+// Serves as a base for all filters applied to my table, I want all of them to be able to be reset
+
+public interface IParticipantFilter : IResetable
+{
+    public IEnumerable<ParticipantDto> GetFiltered(IEnumerable<ParticipantDto> unfiltered);
 }
 
 // Used to filter participants based on textual values like name, phone number (as string) or birth number (also as string)
@@ -97,29 +124,3 @@ public class DietsFilter : IParticipantFilter
     }
 }
 
-// Manages filtering of a table of participants
-public class ColumnFilteringManager
-{
-    // Stores all the filters to be applied to participants
-    public IList<IParticipantFilter> Filters { get; private set; }
-
-    public ColumnFilteringManager(IList<IParticipantFilter> participantFilters)
-    {
-        Filters = participantFilters;
-    }
-
-    // Resets all filters so we can see all participants
-    public void ResetFilters()
-    {
-        foreach (var filter in Filters)
-        {
-            filter.Reset();
-        }
-    }
-
-    // filter all participants by folding the get filtered function over all filters with participantsDtos as starting point
-    public IEnumerable<ParticipantDto> GetFilteredParticipants(IEnumerable<ParticipantDto> unfilteredParticipants)
-    {
-        return Filters.Aggregate(unfilteredParticipants, (accumulatedParticipants,currentFilter) => currentFilter.GetFiltered(accumulatedParticipants));
-    }
-}
