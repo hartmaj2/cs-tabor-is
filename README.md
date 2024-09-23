@@ -12,6 +12,8 @@
   - [Zadávání objednávek](#zadávání-objednávek)
 - [Programátorská dokumentace](#programátorská-dokumentace)
   - [Struktura solution](#struktura-solution)
+  - [Server](#server)
+  - [Client](#client)
 
 
 ## Anotace
@@ -153,11 +155,70 @@ Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském r
 ### Struktura solution
 
 Solution se skládá ze tří klíčových projektů:
-- `Server` - backendová část aplikace, která se stará o komunikaci s databází skrze REST API
-- `Client` - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
-- `Shared` - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
+- [Server](#server) - backendová část aplikace, která se stará o komunikaci s databází skrze REST API
+- [Client](#client) - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
+- [Shared]() - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
 
 Dále solution obsahuje projekt `UnitTests`, ve kterém se nachází sada unit testů.
 
 > [!NOTE]
-> V repozitáři se nachází také soubor `denik.md`, který obsahuje chronologicky řazené záznamy popisující postupný vývoj programu. Dále se zde nachází také soubor `ideas.md` obsahující nápady na možná rozšíření programu do budoucna.
+> V repozitáři se nachází také soubor **denik.md**, který obsahuje chronologicky řazené záznamy popisující postupný vývoj programu. Dále se zde nachází také soubor **ideas.md** obsahující nápady na možná rozšíření programu do budoucna.
+
+### Server
+
+Projekt **Server** obsahuje tři adresáře s C# kódem:
+- **Controllers** - obsahuje api kontrolery, které jsou všechny anotované atributem `[ApiController]` a dědí od třídy `ControllerBase`
+- **Data** - obsahuje třídu, která dědí od `DbContext` a popisuje strukturu databáze pro Entity Framework
+- **Migrations** - obsahuje kód automaticky vygenerovaný Entity Frameworkem
+
+Dále projekt obsahuje soubor **Program.cs**, který je vstupním bodem pro celou aplikaci.
+
+> [!TIP]
+> V adresáři **TestRequest** se nachází http requesty, které se dají využít k otestování správné funkčnosti serverového api, nebo k rychlému zadání vstupních dat do databáze.
+
+### Client
+
+Projekt **Client** sestává z následujících adresářů/souborů:
+- **Components** - obsahuje jednotlivé **razor** komponenty
+  - **SectionFood** - komponenty týkající se sekce **Food** (dialogová okna, komponenta pro vybírání datumu, tabulka na pokrmy pro daný čas)
+  - **SectionParticipants** - komponenty týkající se sekce **Participants** (dialogová okna, formulář na zadávání dat o účastnících)
+- **Layout** - obsahuje **razor** soubory, které se týkají layoutu webu (sdílené více stránkami)
+  - **MainLayout** - kód pro vrchní panel, v jehož prvé části je odkaz na tento github repozitář
+  - **NavMenu** - menu, které umožňuje přepínat mezi jednotlivými sekcemi webu; obsahuje také kód, který umožňuje rozbalení a sbalení tohoto menu, pokud se web nachází v režimu pro malé obrazovky
+  - **SubLayoutFood** a **SubLayoutParticipants** - menu pro přepínání mezi podsekcemi programu, každá sekce má svůj **SubLayout**
+
+> [!NOTE]
+> Od jaké šířky v pixelech se **NavMenu** přepne do režimu pro malou obrazovku lze nastavit v souboru **NavMenu.razor.css** pomocí selektoru `@media (min-width: 1001px)`
+
+- **Pages** - stránky jednotlivých podsekcí a **cs** soubory obsahující pomocné třídy, které tyto sekce využívají
+  - **SectionFood** - kód pro podsekce **Menu** a **Diets**
+  - **SectionParticipants** - kód pro podsekci **All participants**
+  - **MealSorting.cs** - obsahuje třídu implementující `IComparer` a umožňuje v podsekci **Menu**, aby byla jídla setříděná nejprve dle typu a poté dle názvu
+  - **ParticipantFilters.cs** - poskytuje třídu `ColumnFilteringManager` a také konkrétní implementace interfacu `IParticipantFilter`, které umožňují filtrování v jednotlivých sloupců
+  - **ParticipantSorting.cs** - obsahuje následující:
+    - `ColumnSortingManager` - poskytuje funkcionality vhodné pro třídění sloupců tabulky s účastníky u kterých chceme mít možnost zadat, podle kterého atributu účastníka třídíme a jaký chceme používat porovnávač
+    - `ParticipantSorter` - odpovídá jednomu sloupci, ve kterém chceme třídit; využíva ji `ColumnSortingManager`
+      - drží delegáta, který po poskytnutí `ParticipantDto` poskytne klíč, podle kterého třídíme
+      - také drží objekt typu `ISwitchableComparer`, který představuje porovnávač na daných klíčích, jehož výsledek lze obrátit nastavením property `ReverseSort`
+
+> [!NOTE]
+> `ParticipantSorter` je sice generický, ale tuto vlastnost zatím v programu nijak nevyužívám, jelikož `ColumnSortingManager` si drží seznam objektů typu `ParticipantSorter<object>` a všude jinde v programu používám také pouze tento odvozený typ.
+
+- **Services** - obsahuje služby, které je možné použít pomocí **dependency injection** v jakékoliv komponentě
+  - `AllergenService.cs` - na vyžádání poskytne seznam všech alergenů; výhodou je, že tímto způsobem se po api požaduje seznam všech alergenů pouze jednou za jedno uživatelské sezení (třída si totiž seznam uchová na později poté, co ho získá http requestem od api)
+  - `MealService.cs` - podobný jako allergen service, ale poskytuje všechny možné typy jídel
+
+> [!NOTE]
+> Oba dva výše zmíněné services by se momentálně daly spojit do jednoho, ale jsou rozdělené z důvodu rozšiřování programu do budoucna v duchu **separation of concerns**.
+
+- **ValidatedFormData** - obsahuje třídy u kterých využívám **ComponentModel** anotací pro **EditForm** componentu, která mi umožňuje tímto způsobem validovat, zda jsou data zadaná do formuláře ve správném formátu 
+  - `MealFormData.cs` - obsahuje třídy `MealFormData`, `AllergenSelection` a také extension metody pro převod objektů typu `MealFormData` na `MealDto` a zpět
+    - poskytuje zatím pouze `Required` anotace s odpovídajícími `ErrorMessage`, ale v budoucnu by se dalo využít vlastní složitější validace např. pro jméno pokrmu
+    - pomocí setteru property `Name` automaticky odřízné zbytečné bílé znaky na začátku nebo na konci jména pokrmu
+    - `AllergenSelection` - slouží pro propojení logické hodnoty html inputů typu `checkbox` s daným jménem allergenu
+  - `ParticipantFormData.cs` - obsahuje třídy `MealFormData`, `BirthNumberToAgeParser` a extension metody pro převod mezi `ParticipantFormData` a `ParticipantDto`
+    - properties obsahují settery, které umožní zpracovat vstup předtím, než se na něj použije validační kritérium (např. z rodného čísla odstranit lomítko)
+    - setter property `BirthNumber` navíc automaticky spočítá age s využítím třídy `BirthNumberToAgeParser`
+
+> [!WARNING]
+> Validace způsobená anotacemi jednotlivých properties se provádějí až poté, co je vyhodnocen celý kód setteru dané property!
