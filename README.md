@@ -8,6 +8,7 @@
   - [Navigace v programu](#navigace-v-programu)
   - [Kritéria pro jednotlivé atributy účastníků](#kritéria-pro-jednotlivé-atributy-účastníků)
   - [Možnost přidání dalších alergenů](#možnost-přidání-dalších-alergenů)
+  - [Zadávání objednávek](#zadávání-objednávek)
 
 
 ## Anotace
@@ -100,3 +101,19 @@ Content-Type: application/json
 kde `xxxx` je port, na kterém server běží a `JmenoAlergenu` je libovolný textový řetězec popisující daný alergen.
 
 Přidání dalších typů jídel (např. dezert) nějakým uživatelsky aspoň trochu přívětivým způsobem program zatím nepodporuje.
+
+### Zadávání objednávek
+
+Server také dokáže přijímat objednávky účastníků na jednotlivé pokrmy. Toto bude v budoucnu možné provádět pomocí uživatelského rozhraní v jiné klientské aplikaci. Otestovat tuto funkcionalitu však lze již nyní pomocí http reqestu následujícího formátu:
+```
+POST http://localhost:xxxx/api/orders/add
+Content-Type: application/json
+
+{
+    "participantId" : IdUcastnika,
+    "mealId" : IdPokrmu
+}
+```
+kde `xxxx` je port, na kterém server běží, `IdUcastnika` je ID účastníka, který si daný pokrm objednává a `IdPokrmu` je ID pokrmu, který si účastník přeje objednat. Id pokrmů se sice v uživatelském rozhraní aplikace nezobrazuje, ale je možné si nechat vypsat všechny pokrmy včetně jejich Id pomocí http requestu: `GET http://localhost:xxxx/api/meals/all`.
+
+Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském rozhraní klientské aplikace v podsekci *Menu* v tabulce s denním menu, kde se nachází daný pokrm možno spatřit, že se počet objednávek daného pokrmu navýšil o jedna.
