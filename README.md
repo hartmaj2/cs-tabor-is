@@ -13,6 +13,7 @@
   - [Možnost přidání dalších typů jídel](#možnost-přidání-dalších-typů-jídel)
   - [Zadávání objednávek](#zadávání-objednávek)
 - [Programátorská dokumentace](#programátorská-dokumentace)
+  - [Použité frameworky](#použité-frameworky)
   - [Struktura solution](#struktura-solution)
   - [Server](#server)
   - [Client](#client)
@@ -156,6 +157,23 @@ Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském r
 > Velmi uživatelsky přívětivé posílání requestů umožňuje ve VS Code rozšíření (Extension) jménem **REST Client**.
 
 ## Programátorská dokumentace
+
+### Použité frameworky
+
+Využívám zejména framework [Blazor](https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-8.0) s hosting modelem [hosted Blazor WebAssembly app](https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-8.0#:~:text=When%20a%20standalone%20Blazor%20WebAssembly%20app%20uses%20a%20backend%20ASP.NET%20Core%20app%20to%20serve%20its%20files%2C%20the%20app%20is%20called%20a%20hosted%20Blazor%20WebAssembly%20app). Tento hosting model využívám, jelikož jsem chtěl mít backend nezávislý na frontendu, abych mohl v budoucnu komunikovat se serverem pomocí jiných klientů nezávisle na klientovy, kterého používám v této solution.
+
+Zde viz podrobnější senam frameworků, které jednotlivé projekty využívají:
+- [Client](#client)
+  - **ASP.NET CORE** - **WebAssembly** - odpovídá hosting modelu  [standalone Blazor WebAssembly app](https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-8.0#blazor-webassembly:~:text=When%20an%20app%20is%20created%20that%20exclusively%20runs%20on%20the%20Blazor%20WebAssembly%20hosting%20model%20without%20server%2Dside%20rendering%20and%20interactivity%2C%20the%20app%20is%20called%20a%20standalone%20Blazor%20WebAssembly%20app)
+  - [Blazor Bootstrap Component Library](https://www.nuget.org/packages/Blazor.Bootstrap) - konkrétně využívám pro tvorbu dialogových oken (modals) a dropdownů
+- [Server](#server)
+  - **ASP.NET CORE** - **WebAssembly.Server**
+  - **Entity Framework** - slouží pro práci s databází
+- [UnitTest](#unittests)
+  - **xUnit** - pro tvorbu unit testů
+
+> [!NOTE]
+> Původně jsem používal také package s komponentou **QuickGrid**, která poskytuje tabulku, která umožňuje řazení záznamů automaticky a mimo to i mnoho dalších hezkých features, které jsem si nakonec implementoval sám. Chtěl jsem mít totiž větší kontrolu nad vzhledem tabulky a nad tím, jakým způsobem se bude měnit její velikost při resizování obrazovky.
 
 ### Struktura solution
 
