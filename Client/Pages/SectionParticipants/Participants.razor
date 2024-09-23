@@ -44,13 +44,13 @@ else
                             <div>
                                 Min: 
                                 <input type="range" @bind="ageBoundFilter.CurrentMin" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                                <input style="width:130px" type="text" @bind="ageBoundFilter.CurrentMin" @bind:event="oninput" />
+                                <input style="width:130px" type="number" @bind="ageBoundFilter.CurrentMin" @bind:event="oninput" />
                             </div>
                             <br>
                             <div>
                                 Max: 
                                 <input type="range" @bind="ageBoundFilter.CurrentMax" @bind:event="oninput" min="@ParticipantFormData.LowestAge" max="@ParticipantFormData.HighestAge" />
-                                <input style="width:130px" type="text" @bind="ageBoundFilter.CurrentMax" @bind:event="oninput" />
+                                <input style="width:130px" type="number" @bind="ageBoundFilter.CurrentMax" @bind:event="oninput" />
                             </div>
                         </DropdownMenu>
                     </Dropdown>
