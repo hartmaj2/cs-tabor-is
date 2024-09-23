@@ -113,6 +113,7 @@ Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. P
 
 > [!WARNING]
 > Program podporuje pouze desetimístná česká rodná čísla ve formátu odpovídajícímu rodným číslům vydaným po 1.1.1954.
+> Viz [Zákon č. 133/2000 Sb.](https://www.zakonyprolidi.cz/cs/2000-133#:~:text=HLAVA%20III-,RODN%C3%81%20%C4%8C%C3%8DSLA,-%C2%A7%2013) (§ 13 odst. 3) a (§ 13 odst. 5)
 
 ### Možnost přidání dalších alergenů
 
