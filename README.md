@@ -43,7 +43,10 @@ Podsekce **All participants** sestává z tabulky, která poskytuje seznam úča
 
 Každý sloupec podporuje třídění záznamů v tabulce podle hodnoty atributu tohoto sloupce. Stačí kliknout na název daného sloupce. Na pravé straně se pak objeví šipečka, která značí, zda jsou záznamy setříděné vzestupně či sestupně. Vzestupně se značí šipečkou nahoru, kde jako první záznam bereme ten první od shora. 
 
-Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem **search...**. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole. Navolené filtrovací hodnoty se dá všechny zrušit kliknutím na tlačítko **Reset filters**. 
+Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem **search...**. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole. 
+
+> [!TIP]
+> Navolené filtrovací hodnoty se dá jednoduše všechny zrušit kliknutím na tlačítko **Reset filters**. 
 
 Přidávat nové účastníky do tabulky lze kliknutím na tlačítko **Add a participant**. Po kliknutí na něj se zobrazí dialogové okno, které na levé straně obsahuje textová pole na zadání základních údajů o účastníkovi. Program automaticky kontroluje, zda hodnoty zadávané do těchto polí dávají smysl. Pokud navíc uživatel do políčka **Birth Number** zadá platné české rodné číslo, tak se mu jeho věk spočítá automaticky. Rodné číslo je také možné úplně vynechat a zadat věk manuálně (např. pro cizince). Na pravé straně je pak možné pomocí zaškrtávacích políček navolit diety, které daný účastník má. Potvrdit volbu lze stisknutím klávesy Enter, nebo kliknutím na tlačítko **Confirm**. Pokud jsou nějaké ze zadaných hodnot neplatné, program daná políčka zvýrazní červeně a vypíše, co konkrétně je na nich špatně.
 
@@ -60,7 +63,10 @@ Sekce **Food** obsahuje dvě podsekce: **Menu** a **Diets**. Tato sekce obsahuje
 
 Podsekce **Menu** obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat datum, pro které chceme zobrazit jídelníček. Směrem do historie se přepínáme pomocí tlačítka označeného symbolem **<** nacházejícího se vlevo od nadpisu se zvoleným datem. Naopak pomocí tlačítka **>** lze posouvat datum směrem do budoucnosti.
 
-Samotné denní menu je rozdělené na dvě tabulky nazývající se **Lunch** a **Dinner** a odpovídají obědu a večeři. Záznamy v tabulkách pak odpovídají jednotlivým pokrmům pro daný den a daný čas, kde časem je myšlen oběd či večeře. Každé jídlo má název, typ (vyjadřuje, zda se jedná o polévku či hlavní chod), alergeny v něm obsažené a počet objednávek, které učinili účastníci tábora. Allergeny v pokrmech přímo odpovídají možným dietám, které můžou účastníci mít, a jsou setříděné lexikograficky. Pokrmy v tabulkách jsou nejprve řazeny dle pořadí chodu vzestupně (nejprve polévka, pak hlavní chod) a následně lexikograficky dle jména.
+Samotné denní menu je rozdělené na dvě tabulky nazývající se **Lunch** a **Dinner** a odpovídají obědu a večeři. Záznamy v tabulkách pak odpovídají jednotlivým pokrmům pro daný den a daný čas, kde časem je myšlen oběd či večeře. Každé jídlo má název, typ (vyjadřuje, zda se jedná o polévku či hlavní chod), alergeny v něm obsažené a počet objednávek, které učinili účastníci tábora. Allergeny v pokrmech přímo odpovídají možným dietám, které můžou účastníci mít, a jsou setříděné lexikograficky. 
+
+> [!NOTE] 
+> Pokrmy v odpovídajících tabulkách jsou řazeny nejprve dle pořadí chodu vzestupně (nejprve polévka, pak hlavní chod) a následně lexikograficky dle jména (také vzestupně).
 
 Přidat nový pokrm do dané tabulky kliknutím na tlačítko **+** v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno s popiskem odpovídajícím danému datu a času. Na jméno jídla nejsou kladeny žádné restrikce kromě toho, že nesmí být prázdné, což ocení především kreativní tvůrci jídelníčků. Typ jídla (polévka, hlavní chod) je však nutné zadat. Dále je pak možné libovolně navolit alergeny pomocí zaškrtávacích políček. Pokrmy lze mazat a upravovat stejně, jako to lze v podsekci **All participants** v tabulce s účastníky.
 
@@ -94,7 +100,13 @@ Telefonní číslo je nutné zadat a může být chápáno buď jako číslo na 
 
 #### Birth number
 
-Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. Pak musí jít o platné české rodné číslo ve formátu odpovídajícímu rodným číslům vydaným po 1.1.1954. Číslo lze zadat bez lomítka nebo i s ním. Lomítko se však musí nacházet mezi 6. a 7. cifrou počínaje zleva a čílsováno od 1. Po zadání je automaticky odstraněno.
+Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. Pak musí jít o platné české rodné číslo. To lze zadat bez lomítka nebo i s ním. Lomítko se však musí nacházet mezi 6. a 7. cifrou počínaje zleva a čílsováno od 1. Po zadání je automaticky odstraněno.
+
+> [!TIP]
+> Po zadání platného rodného čísla se hodnota atributu Age dopočítá automaticky.
+
+> [!WARNING]
+> Program podporuje pouze desetimístná česká rodná čísla ve formátu odpovídajícímu rodným číslům vydaným po 1.1.1954.
 
 ### Možnost přidání dalších alergenů
 
