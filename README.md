@@ -159,7 +159,7 @@ Solution se skládá ze tří klíčových projektů:
 - [Client](#client) - frontendová část, umožňuje uživateli komunikovat se serverem pomocí uživatelského rozhraní
 - [Shared]() - zde se nachází data, která jsou sdílená mezi serverem a klientem (backendem a frontendem)
 
-Dále solution obsahuje projekt `UnitTests`, ve kterém se nachází sada unit testů.
+Dále solution obsahuje projekt [UnitTests](), ve kterém se nachází sada unit testů.
 
 > [!NOTE]
 > V repozitáři se nachází také soubor **denik.md**, který obsahuje chronologicky řazené záznamy popisující postupný vývoj programu. Dále se zde nachází také soubor **ideas.md** obsahující nápady na možná rozšíření programu do budoucna.
@@ -182,6 +182,11 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 - **Components** - obsahuje jednotlivé **razor** komponenty
   - **SectionFood** - komponenty týkající se sekce **Food** (dialogová okna, komponenta pro vybírání datumu, tabulka na pokrmy pro daný čas)
   - **SectionParticipants** - komponenty týkající se sekce **Participants** (dialogová okna, formulář na zadávání dat o účastnících)
+
+> [!WARNING]
+> Veškeré komponenty, které se nenachází přímo v adresáři **Components**, ale nachází se v nějakém podadresáři musí obsahovat direktiv `@namespace Client.Components`.
+> V opačném případě při kompilaci obdržíme výjimku tvaru: `error CS0246: The type or namespace name 'ComponentName' could not be found (are you missing a using directive or an assembly reference?)`
+
 - **Layout** - obsahuje **razor** soubory, které se týkají layoutu webu (sdílené více stránkami)
   - **MainLayout** - kód pro vrchní panel, v jehož prvé části je odkaz na tento github repozitář
   - **NavMenu** - menu, které umožňuje přepínat mezi jednotlivými sekcemi webu; obsahuje také kód, který umožňuje rozbalení a sbalení tohoto menu, pokud se web nachází v režimu pro malé obrazovky
@@ -205,20 +210,33 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 > `ParticipantSorter` je sice generický, ale tuto vlastnost zatím v programu nijak nevyužívám, jelikož `ColumnSortingManager` si drží seznam objektů typu `ParticipantSorter<object>` a všude jinde v programu používám také pouze tento odvozený typ.
 
 - **Services** - obsahuje služby, které je možné použít pomocí **dependency injection** v jakékoliv komponentě
-  - `AllergenService.cs` - na vyžádání poskytne seznam všech alergenů; výhodou je, že tímto způsobem se po api požaduje seznam všech alergenů pouze jednou za jedno uživatelské sezení (třída si totiž seznam uchová na později poté, co ho získá http requestem od api)
-  - `MealService.cs` - podobný jako allergen service, ale poskytuje všechny možné typy jídel
+  - **AllergenService.cs** - na vyžádání poskytne seznam všech alergenů; výhodou je, že tímto způsobem se po api požaduje seznam všech alergenů pouze jednou za jedno uživatelské sezení (třída si totiž seznam uchová na později poté, co ho získá http requestem od api)
+- **MealService.cs** - podobný jako allergen service, ale poskytuje všechny možné typy jídel
 
 > [!NOTE]
 > Oba dva výše zmíněné services by se momentálně daly spojit do jednoho, ale jsou rozdělené z důvodu rozšiřování programu do budoucna v duchu **separation of concerns**.
 
 - **ValidatedFormData** - obsahuje třídy u kterých využívám **ComponentModel** anotací pro **EditForm** componentu, která mi umožňuje tímto způsobem validovat, zda jsou data zadaná do formuláře ve správném formátu 
-  - `MealFormData.cs` - obsahuje třídy `MealFormData`, `AllergenSelection` a také extension metody pro převod objektů typu `MealFormData` na `MealDto` a zpět
+  - **MealFormData.cs** - obsahuje třídy `MealFormData`, `AllergenSelection` a také extension metody pro převod objektů typu `MealFormData` na `MealDto` a zpět
     - poskytuje zatím pouze `Required` anotace s odpovídajícími `ErrorMessage`, ale v budoucnu by se dalo využít vlastní složitější validace např. pro jméno pokrmu
     - pomocí setteru property `Name` automaticky odřízné zbytečné bílé znaky na začátku nebo na konci jména pokrmu
     - `AllergenSelection` - slouží pro propojení logické hodnoty html inputů typu `checkbox` s daným jménem allergenu
-  - `ParticipantFormData.cs` - obsahuje třídy `MealFormData`, `BirthNumberToAgeParser` a extension metody pro převod mezi `ParticipantFormData` a `ParticipantDto`
+  - **ParticipantFormData.cs** - obsahuje třídy `MealFormData`, `BirthNumberToAgeParser` a extension metody pro převod mezi `ParticipantFormData` a `ParticipantDto`
     - properties obsahují settery, které umožní zpracovat vstup předtím, než se na něj použije validační kritérium (např. z rodného čísla odstranit lomítko)
     - setter property `BirthNumber` navíc automaticky spočítá age s využítím třídy `BirthNumberToAgeParser`
+  - **Validators.cs** - obsahuje třídy, které slouží k validaci input fieldů formuláře; všechny dědí od třídy `ValidationAttribute`
 
 > [!WARNING]
 > Validace způsobená anotacemi jednotlivých properties se provádějí až poté, co je vyhodnocen celý kód setteru dané property!
+
+> [!NOTE]
+> Správnou funkčnost některých validátorů ze souboru **Validators.cs** je testována pomocí unit testů v projektu [UnitTests]().
+
+- **wwwroot/** - obsahuje soubor **index.html**, stylesheet **app.css** a ikonky
+  - **app.css** - selektory v tomto souboru mají následující formát:
+    - začínají `.modal` - týkají se stylů dialogových oken
+    - začínají `.div-table` - styl pro tabulky s účastníky/pokrmy
+    - začínají `.sub-layout` - týkají se SubLayoutů
+- **App.razor** - defaultní soubor vytvořený při založení projektu, ponechán beze změny
+- **_Imports.razor** - obsahuje defaultní importy a navíc import **Blazor Bootstrap** 
+- **Program.cs** - obsahuje mimo jiné kód, kterým zavádíme do klienta služby jako **AllergenService** a **MealService**; zde je také nutné přidat kód pro zavedení **Blazor Bootstrapu**
