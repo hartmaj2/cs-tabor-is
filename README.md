@@ -8,6 +8,7 @@
   - [Navigace v programu](#navigace-v-programu)
   - [Kritéria pro jednotlivé atributy účastníků](#kritéria-pro-jednotlivé-atributy-účastníků)
   - [Možnost přidání dalších alergenů](#možnost-přidání-dalších-alergenů)
+  - [Možnost přidání dalších typů jídel](#možnost-přidání-dalších-typů-jídel)
   - [Zadávání objednávek](#zadávání-objednávek)
 
 
@@ -99,6 +100,8 @@ Content-Type: application/json
 }
 ```
 kde `xxxx` je port, na kterém server běží a `JmenoAlergenu` je libovolný textový řetězec popisující daný alergen.
+
+### Možnost přidání dalších typů jídel
 
 Přidání dalších typů jídel (např. dezert) nějakým uživatelsky aspoň trochu přívětivým způsobem program zatím nepodporuje.
 
