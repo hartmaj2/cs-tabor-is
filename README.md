@@ -46,9 +46,14 @@ Sekce *Food* obsahuje dvě podsekce: *Menu* a *Diets*. Tato sekce obsahuje vše,
 
 ##### Podsekce Menu
 
-Podsekce *Menu* obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat mezi datem, pro které chceme vidět denní menu.
+Podsekce *Menu* obsahuje informace o tom, které dny jsou jaká jídla v nabídce na menu. V horní části ihned pod lištou s podsekcemi je možné přepínat datum, pro které chceme zobrazit jídelníček. Směrem do historie se přepínáme pomocí tlačítka označeného symbolem < nacházejícího se vlevo od nadpisu se zvoleným datem. Naopak pomocí tlačítka > lze posouvat datum směrem do budoucnosti.
 
 Samotné denní menu je rozdělené na dvě tabulky nazývající se *Lunch* a *Dinner* a odpovídají obědu a večeři. Záznamy v tabulkách pak odpovídají jednotlivým pokrmům pro daný den a daný čas, kde časem je myšlen oběd či večeře. Každé jídlo má název, typ (vyjadřuje, zda se jedná o polévku či hlavní chod), alergeny v něm obsažené a počet objednávek, které učinili účastníci tábora. Allergeny v pokrmech přímo odpovídají možným dietám, které můžou účastníci mít, a jsou setříděné lexikograficky. Pokrmy v tabulkách jsou nejprve řazeny dle pořadí chodu vzestupně (nejprve polévka, pak hlavní chod) a následně lexikograficky dle jména.
 
-Přidat nový pokrm do dané tabulky kliknutím na tlačítko *+* v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno, které umožňuje zadat jméno pokrmu.
+Přidat nový pokrm do dané tabulky kliknutím na tlačítko *+* v pravém horním rohu odpovídající tabulky. Po kliknutí se zobrazí dialogové okno s popiskem odpovídajícím danému datu a času. Na jméno jídla nejsou kladeny žádné restrikce kromě toho, že nesmí být prázdné, což ocení především kreativní tvůrci jídelníčků. Typ jídla (polévka, hlavní chod) je však nutné zadat. Dále je pak možné libovolně navolit alergeny pomocí zaškrtávacích políček. Pokrmy lze mazat a upravovat stejně, jako to lze v podsekci *All participants* v tabulce s účastníky.
 
+##### Podsekce Diets
+
+Podsekce *Diets* obsahuje tabulku s účastníky, která zobrazuje jejich diety. Diety každého účastníka jsou setříděny lexikograficky. Sloupce podobně jako v podsekci *All participants* umožňují řazení a filtrování. Řazení sloupce s dietami funguje také lexikograficky a porovnávají se textové řetězce vzniklé zřetězení všech diet za sebou tak, jak jsou zapsány. V sloupci s dietami lze také filtrovat kliknutím na tlačítko *Filter diets* a zvolením diet, které chceme filtrovat pomocí zaškrtávacích políček. V tabulce se pak zobrazí pouze ti účastníci, kteří mají všechny ze zvolených diet (můžou jich však mít i více). Všechny filtrovací kritéria můžeme zrušit pomocí tlačítka *Reset filters* stejně tak, jako tomu bylo v podsekci *All participants*.
+
+Diety účastníků je možné pomocí tlačítka *Edit diets* u daného účastníka.
