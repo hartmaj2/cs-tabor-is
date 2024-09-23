@@ -148,34 +148,6 @@ public class ParticipantFormData
 
 }
 
-public static class ParticipantDtoExtensions
-{   
-
-    // Used to pass data to edit participant modal to convert from ParticipantDto received from api
-    public static ParticipantFormData ToParticipantFormData(this ParticipantDto participant, IEnumerable<AllergenDto> allAllergens)
-    {
-        return new ParticipantFormData
-        {
-            Id = participant.Id,
-            FirstName = participant.FirstName,
-            LastName = participant.LastName,
-            PhoneNumber = participant.PhoneNumber,
-            BirthNumber = participant.BirthNumber,
-            Age = participant.Age,
-
-            // Go through all possible allergens and create a new allergen for each one with corresponding name and marked as selected if the name of the allergen is contained in the participantDto diets
-            DietSelections = 
-                allAllergens
-                    .Select( allergen => new AllergenSelection()
-                        { 
-                            Name = allergen.Name, 
-                            IsSelected = participant.Diets.Select(diet => diet.Name).Contains(allergen.Name)
-                        })
-                    .ToList()
-        };
-    }
-}
-
 // Parses Czech birth numbers in 10-digit format used after 1.1.1954 to the corresponding age
 public static class BirthNumberToAgeParser
 {
@@ -220,5 +192,33 @@ public static class BirthNumberToAgeParser
         if (month >= 50) month -= 50;
         if (month >= 20) month -= 20;
         return month;     
+    }
+}
+
+public static class ParticipantDtoExtensions
+{   
+
+    // Used to pass data to edit participant modal to convert from ParticipantDto received from api
+    public static ParticipantFormData ToParticipantFormData(this ParticipantDto participant, IEnumerable<AllergenDto> allAllergens)
+    {
+        return new ParticipantFormData
+        {
+            Id = participant.Id,
+            FirstName = participant.FirstName,
+            LastName = participant.LastName,
+            PhoneNumber = participant.PhoneNumber,
+            BirthNumber = participant.BirthNumber,
+            Age = participant.Age,
+
+            // Go through all possible allergens and create a new allergen for each one with corresponding name and marked as selected if the name of the allergen is contained in the participantDto diets
+            DietSelections = 
+                allAllergens
+                    .Select( allergen => new AllergenSelection()
+                        { 
+                            Name = allergen.Name, 
+                            IsSelected = participant.Diets.Select(diet => diet.Name).Contains(allergen.Name)
+                        })
+                    .ToList()
+        };
     }
 }
