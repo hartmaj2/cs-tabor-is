@@ -16,9 +16,9 @@ Program je informační systém, který slouží vedoucím tábora ke správě i
 
 ### Spuštění programu
 
-Pro spuštění programu je nutné, mít v souboru *appsettings.json* (nachází se ve složce *Server*) v sekci `ConnectionStrings` správně nakonfigurovanou `DefaultConnection`. V `DefaultConnection` je potřeba zapsat všechny potřebné konfigurační údaje pro připojení k databázi, kterou chcete používat.
+Jelikož Serverová část programu využívá ke správě dat, databázi, tak je nutné, mít v souboru *appsettings.json* (nachází se ve složce *Server*) v sekci `ConnectionStrings` správně nakonfigurovanou `DefaultConnection`. V `DefaultConnection` je potřeba zapsat všechny potřebné konfigurační údaje pro připojení k databázi, kterou chcete používat.
 
-Program se spouští příkazem `dotnet run` nebo `dotnet watch` z adresáře *Server*, kde se nachází serverový projekt, který automaticky po spuštění spustí i klienta. Po spuštění aplikace se v terminálu ukáže zpráva obsahující řádek `Now listening on: http://localhost:xxxx`. Danou adresu stačí zkopírovat do webového prohlížeče, skrz který nyní můžete s aplikací interagovat.
+Program se spouští příkazem `dotnet run` nebo `dotnet watch` z adresáře *Server*, kde se nachází serverový projekt, který automaticky po spuštění spustí i klienta. Po spuštění aplikace se v terminálu ukáže zpráva obsahující řádek `Now listening on: http://localhost:xxxx`, kde `xxxx` je číslo portu, na kterém server poslouchá (port lze nastavit v souboru */Properties/launchSettings.json*). Danou adresu stačí zkopírovat do webového prohlížeče, skrz který nyní můžete s aplikací interagovat.
 
 ### Navigace v programu
 
@@ -31,4 +31,8 @@ Sekce *Participants* obsahuje pouze jednu podsekci jménem *All participants*.
 ##### Podsekce All participants
 
 Podsekce *All participants* sestává z tabulky, která poskytuje seznam účastníků a jejich základních informací jako id, jméno, příjmení a další. 
+
+Každý sloupec podporuje třídění záznamů v tabulce podle hodnoty atributu tohoto sloupce. Stačí kliknout na název daného sloupce. Na pravé straně se pak objeví šipečka, která značí, zda jsou záznamy setříděné vzestupně či sestupně. Vzestupně se značí šipečkou nahoru, kde jako první záznam bereme ten první od shora. 
+
+Všechny sloupce také umožňují filtrovat záznamy v tabulce na základě určitých kritérií, týkajících se hodnoty záznamu v daném sloupci. Sloupce obsahující hodnoty textové povahy je možné filtrovat na základě zadaného textového řetězce. Tento filtrovací řetězec se zadává do textového pole s popiskem *search...*. V tabulce se pak ukáží jen takové záznamy, jejichž hodnota v daném sloupci obsahuje řetězec, který ja zadaný v textovém poli nehledě na velká či malá písmena. Sloupce, které obsahují hodnoty číselné povahy umožňují filtrovat kliknutím na tlačítko filter a následným zadáním dolní a horní meze, kterou si přejeme, aby měla hodnota všech vyfiltrovaných záznamů. Tyto meze se dají zadat buď pomocí posuvníků nebo exaktním zapsáním dané hodnoty do textového pole.
 
