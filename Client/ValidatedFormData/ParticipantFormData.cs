@@ -62,7 +62,7 @@ public class ParticipantFormData
     // 
 
     private static readonly string[] ValidPrefixes = ["+420","00420"]; // czech prefixes that are considered valid phone number inputs
-    private static readonly string[] CharactersToRemove = [" ",".","-","(",")","[","]"]; // these characters add no meaning to the phone number so we can just remove them 
+    private static readonly string[] CharactersToRemove = [" ",".","-","(",")","[","]","‑"]; // these characters add no meaning to the phone number so we can just remove them 
 
     private string _phoneNumber = string.Empty;
 
