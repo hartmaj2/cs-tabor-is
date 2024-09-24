@@ -26,7 +26,7 @@
 
 ## Anotace
 
-Program je informační systém, který slouží vedoucím tábora ke správě informací o účastnících tohoto tábora a také přidávání pokrmů na menu pro jednotlivé dny. Jedná se o webovou aplikaci, která má jak serverovou, tak klientskou část.
+Program je informační systém, který slouží vedoucím tábora ke správě informací o účastnících tohoto tábora, a také přidávání pokrmů na menu pro jednotlivé dny. Jedná se o webovou aplikaci, která má jak serverovou, tak klientskou část.
 
 ## Uživatelská dokumentace
 
@@ -182,7 +182,7 @@ Rodné číslo není nutné zadat. Pokud se však uživatel rozhodne ho zadat. P
 
 ### Možnost přidání dalších alergenů
 
-Aplikace umožňuje také přidat další alergeny, pokud by aktuální volba alergenů nebyla dostačující. Toto však nejde provést interaktivně pomocí uživatelského rozhraní a je nutné poslat http request serveru. Tento json request musí být formátu:
+Aplikace umožňuje také přidat další alergeny, pokud by aktuální volba alergenů nebyla dostačující. Toto však zatím nelze provést interaktivně pomocí uživatelského rozhraní a je nutné poslat http request serveru. Tento json request musí být formátu:
 ```http
 POST http://localhost:xxxx/api/allergens/add
 Content-Type: application/json
@@ -195,7 +195,9 @@ kde `xxxx` je port, na kterém server běží a `JmenoAlergenu` je libovolný te
 
 ### Možnost přidání dalších typů jídel
 
-Přidání dalších typů jídel (např. dezert) nějakým uživatelsky aspoň trochu přívětivým způsobem program zatím nepodporuje.
+> [!WARNING]
+> Přidání dalších typů jídel (např. dezert) nějakým uživatelsky aspoň trochu přívětivým způsobem program zatím nepodporuje. 
+
 
 ### Zadávání objednávek
 
@@ -226,7 +228,7 @@ Pokud je http request na objednávku pokrmu úspěšný, bude v uživatelském r
 
 Využívám zejména framework [Blazor](https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-8.0) s hosting modelem [hosted Blazor WebAssembly app](https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-8.0#:~:text=When%20a%20standalone%20Blazor%20WebAssembly%20app%20uses%20a%20backend%20ASP.NET%20Core%20app%20to%20serve%20its%20files%2C%20the%20app%20is%20called%20a%20hosted%20Blazor%20WebAssembly%20app). Tento hosting model využívám, jelikož jsem chtěl mít backend nezávislý na frontendu, abych mohl v budoucnu komunikovat se serverem pomocí jiných klientů nezávisle na klientovy, kterého používám v této solution.
 
-Zde viz podrobnější senam frameworků, které jednotlivé projekty využívají:
+Zde jest podrobnější seznam frameworků, které jednotlivé projekty využívají:
 - [Client](#client)
   - **ASP.NET CORE** - **WebAssembly** - odpovídá hosting modelu  [standalone Blazor WebAssembly app](https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-8.0#blazor-webassembly:~:text=When%20an%20app%20is%20created%20that%20exclusively%20runs%20on%20the%20Blazor%20WebAssembly%20hosting%20model%20without%20server%2Dside%20rendering%20and%20interactivity%2C%20the%20app%20is%20called%20a%20standalone%20Blazor%20WebAssembly%20app)
   - [Blazor Bootstrap Component Library](https://www.nuget.org/packages/Blazor.Bootstrap) - konkrétně využívám pro tvorbu dialogových oken (modals) a dropdownů
@@ -237,7 +239,7 @@ Zde viz podrobnější senam frameworků, které jednotlivé projekty využívaj
   - **xUnit** - pro tvorbu unit testů
 
 > [!NOTE]
-> Původně jsem používal také package s komponentou **QuickGrid**, která poskytuje tabulku, která umožňuje řazení záznamů automaticky a mimo to i mnoho dalších hezkých features, které jsem si nakonec implementoval sám. Chtěl jsem mít totiž větší kontrolu nad vzhledem tabulky a nad tím, jakým způsobem se bude měnit její velikost při resizování obrazovky.
+> Původně jsem používal také package s komponentou **QuickGrid**, která poskytuje tabulku, která umožňuje řazení záznamů automaticky, bez nutnosti tuto funkcionalitu implementovat manuálně. Mimo to poskytuje i mnoho dalších hezkých funkcionalit, které jsem si nakonec musel naimplementovat sám. Chtěl jsem mít totiž větší kontrolu nad vzhledem tabulky a nad tím, jakým způsobem se bude měnit její velikost při změně velikosti obrazovky.
 >
 > Další nevýhodou **QuickGrid** bylo to, že filtrovací pole fungovala jako dropdowny a při zadávání textu/čísla překrývala obsah tabulky. Já jsem se rozhodl namísto toho ve své tabulce použít dropup.
 
@@ -258,7 +260,7 @@ Dále solution obsahuje projekt [UnitTests](#unittests), ve kterém se nachází
 Projekt **Server** obsahuje tři adresáře s C# kódem:
 - **Controllers** - obsahuje api kontrolery, které jsou všechny anotované atributem `[ApiController]` a dědí od třídy `ControllerBase`
 - **Data** - obsahuje třídu, která dědí od `DbContext` a popisuje strukturu databáze pro Entity Framework
-- **Migrations** - obsahuje kód automaticky vygenerovaný Entity Frameworkem
+- **Migrations** - obsahuje kód automaticky vygenerovaný **Entity Frameworkem**
 
 Dále projekt obsahuje soubor **Program.cs**, který je vstupním bodem pro celou aplikaci.
 
@@ -269,7 +271,7 @@ Dále projekt obsahuje soubor **Program.cs**, který je vstupním bodem pro celo
 
 Projekt **Client** sestává z následujících adresářů/souborů:
 - **Components** - obsahuje jednotlivé **razor** komponenty
-  - **SectionFood** - komponenty týkající se sekce **Food** (dialogová okna, komponenta pro vybírání data, tabulka na pokrmy pro daný čas)
+  - **SectionFood** - komponenty týkající se sekce **Food** (dialogová okna, komponenta pro vybírání data, tabulka obsahující pokrmy pro daný čas)
   - **SectionParticipants** - komponenty týkající se sekce **Participants** (dialogová okna, formulář na zadávání dat o účastnících)
 
 > [!WARNING]
@@ -287,16 +289,16 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 - **Pages** - stránky jednotlivých podsekcí a **cs** soubory obsahující pomocné třídy, které tyto sekce využívají
   - **SectionFood** - kód pro podsekce **Menu** a **Diets**
   - **SectionParticipants** - kód pro podsekci **All participants**
-  - **MealSorting.cs** - obsahuje třídu implementující `IComparer` a umožňuje v podsekci **Menu**, aby byla jídla setříděná nejprve dle typu a poté dle názvu
-  - **ParticipantFilters.cs** - poskytuje třídu `ColumnFilteringManager` a také konkrétní implementace interfacu `IParticipantFilter`, které umožňují filtrování v jednotlivých sloupců
+  - **MealSorting.cs** - obsahuje třídu implementující `IComparer` a umožňuje v podsekci **Menu**, aby byla jídla setříděná nejprve dle typu, a poté dle názvu
+  - **ParticipantFilters.cs** - poskytuje třídu `ColumnFilteringManager`, a také konkrétní implementace interfacu `IParticipantFilter`, které umožňují filtrování jednotlivých sloupců
   - **ParticipantSorting.cs** - obsahuje následující:
-    - `ColumnSortingManager` - poskytuje funkcionality vhodné pro třídění sloupců tabulky s účastníky u kterých chceme mít možnost zadat, podle kterého atributu účastníka třídíme a jaký chceme používat porovnávač
+    - `ColumnSortingManager` - poskytuje funkcionality vhodné pro třídění sloupců tabulky s účastníky, u kterých chceme mít možnost zadat, podle kterého atributu účastníka třídíme a jaký chceme používat porovnávač
     - `ParticipantSorter` - odpovídá jednomu sloupci, ve kterém chceme třídit; využíva ji `ColumnSortingManager`
       - drží delegáta, který po poskytnutí `ParticipantDto` poskytne klíč, podle kterého třídíme
       - také drží objekt typu `ISwitchableComparer`, který představuje porovnávač na daných klíčích, jehož výsledek lze obrátit nastavením property `ReverseSort`
 
 > [!NOTE]
-> `ParticipantSorter` je sice generický, ale tuto vlastnost zatím v programu nijak nevyužívám, jelikož `ColumnSortingManager` si drží seznam objektů typu `ParticipantSorter<object>` a všude jinde v programu používám také pouze tento odvozený typ.
+> `ParticipantSorter` je sice generický, ale tuto vlastnost zatím v programu nijak nevyužívám, jelikož `ColumnSortingManager` si drží seznam objektů typu `ParticipantSorter<object>`. Všude jinde v programu používám také pouze tento odvozený typ.
 
 - **Services** - obsahuje služby, které je možné použít pomocí **dependency injection** v jakékoliv komponentě
   - **AllergenService.cs** - na vyžádání poskytne seznam všech alergenů; výhodou je, že tímto způsobem se po api požaduje seznam všech alergenů pouze jednou za jedno uživatelské sezení (třída si totiž seznam uchová na později poté, co ho získá http requestem od api)
@@ -306,9 +308,9 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 > Oba dva výše zmíněné services by se momentálně daly spojit do jednoho, ale jsou rozdělené z důvodu rozšiřování programu do budoucna v duchu **separation of concerns**.
 
 - **ValidatedFormData** - obsahuje třídy u kterých využívám **ComponentModel** anotací pro **EditForm** componentu, která mi umožňuje tímto způsobem validovat, zda jsou data zadaná do formuláře ve správném formátu 
-  - **MealFormData.cs** - obsahuje třídy `MealFormData`, `AllergenSelection` a také extension metody pro převod objektů typu `MealFormData` na `MealDto` a zpět
+  - **MealFormData.cs** - obsahuje třídy `MealFormData`, `AllergenSelection`, a také extension metody pro převod objektů typu `MealFormData` na `MealDto` a zpět
     - poskytuje zatím pouze `Required` anotace s odpovídajícími `ErrorMessage`, ale v budoucnu by se dalo využít vlastní složitější validace např. pro jméno pokrmu
-    - pomocí setteru property `Name` automaticky odřízné zbytečné bílé znaky na začátku nebo na konci jména pokrmu
+    - pomocí setteru property `Name` automaticky odřízne zbytečné bílé znaky na začátku nebo na konci jména pokrmu
     - `AllergenSelection` - slouží pro propojení logické hodnoty html inputů typu `checkbox` s daným jménem allergenu
   - **ParticipantFormData.cs** - obsahuje třídy `MealFormData`, `BirthNumberToAgeParser` a extension metody pro převod mezi `ParticipantFormData` a `ParticipantDto`
     - properties obsahují settery, které umožní zpracovat vstup předtím, než se na něj použije validační kritérium (např. z rodného čísla odstranit lomítko)
@@ -319,7 +321,7 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 > Validace způsobená anotacemi jednotlivých properties se provádějí až poté, co je vyhodnocen celý kód setteru dané property!
 
 > [!NOTE]
-> Správnou funkčnost některých validátorů ze souboru **Validators.cs** je testována pomocí unit testů v projektu [UnitTests](#unittests).
+> Správnou funkčnost některých validátorů ze souboru **Validators.cs** lze otestovat pomocí unit testů v projektu [UnitTests](#unittests).
 
 - **wwwroot/** - obsahuje soubor **index.html**, stylesheet **app.css** a ikonky
   - **app.css** - selektory v tomto souboru mají následující formát:
@@ -330,18 +332,18 @@ Projekt **Client** sestává z následujících adresářů/souborů:
 > [!TIP]
 > Při testování různých stylů úpravou souboru `app.css` se hodí spouštět program pomocí příkazu `dotnet watch --project Server`. Tímto způsobem se změny v `app.css` projeví už za běhu programu. (Je však nutné změny v souboru nejprve uložit.)
 
-- **App.razor** - defaultní soubor vytvořený při založení projektu, ponechán beze změny
+- **App.razor** - defaultní soubor vytvořený při založení projektu; ponechán beze změny
 - **_Imports.razor** - obsahuje defaultní importy a navíc import **Blazor Bootstrap** 
 - **Program.cs** - obsahuje mimo jiné kód, kterým zavádíme do klienta služby jako **AllergenService** a **MealService**; zde je také nutné přidat kód pro zavedení **Blazor Bootstrapu**
 
 ### Shared 
 
 Obsahuje následující adresáře:
-- **DBModels** - obsahuje anotované modely pro databázi, klíče anotuji pomocí `[Key]`, cizí klíče pomocí `[ForeignKey("PropertyName")]`
-- **DTOs** - (**Data Transfer Objects**) modely sloužící pro přenos skrz http requesty
+- **DBModels** - obsahuje anotované modely pro databázi; klíče anotuji pomocí `[Key]`, cizí klíče pomocí `[ForeignKey("PropertyName")]`
+- **DTOs** - (**Data Transfer Objects**) modely sloužící pro přenos dat pomocí http requestů
 
 > [!NOTE] 
-> Oddělit modely pro databázi a DTOs jsem se rozhodl hlavně proto, jelikož pri posílání přímo databázových modelů jsem zbytečně posílal i tzv. **navigation properties**, které bez načtení z databáze (které jsem nechtěl provádět) vždy obsahovaly `null`.
+> Oddělit modely pro databázi od DTOs jsem se rozhodl hlavně proto, jelikož pri posílání přímo databázových modelů jsem zbytečně posílal i tzv. **navigation properties**, které bez načtení z databáze (které jsem nechtěl provádět) vždy obsahovaly `null`.
 
 ### UnitTests
 
